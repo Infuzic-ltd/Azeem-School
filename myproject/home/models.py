@@ -8,10 +8,44 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from modelcluster.fields import ParentalKey
 
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
+from wagtail.admin.panels import InlinePanel
+from django.db import models
+
 
 # ──────────────────────────────────────────────
 # STREAMFIELD BLOCKS
 # ──────────────────────────────────────────────
+
+class NavbarButton(models.Model):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="navbar_buttons")
+    label = models.CharField(max_length=50)
+    url = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel("label"),
+        FieldPanel("url"),
+    ]
+class NavbarMenu(ClusterableModel):   # ✅ CHANGE HERE
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="navbar_menus")
+    title = models.CharField(max_length=100)
+
+    panels = [
+        FieldPanel("title"),
+        InlinePanel("menu_items", label="Menu Items"),
+    ]
+class NavbarMenuItem(models.Model):
+    menu = ParentalKey("NavbarMenu", on_delete=models.CASCADE, related_name="menu_items")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel("label"),
+        FieldPanel("url"),
+    ]
+
+
 
 class FeatureCardBlock(blocks.StructBlock):
     """Used in the Features section (University Life, Research, Athletics, Academics)"""
@@ -437,6 +471,10 @@ class HomePage(Page):
             FieldPanel("header_phone"),
             FieldPanel("header_email"),
             FieldPanel("header_address"),
+
+            InlinePanel("navbar_menus", label="Navbar Dropdowns"),
+            InlinePanel("navbar_buttons", label="Navbar Buttons"),
+
             InlinePanel("social_links", label="Social Media Links"),
         ], heading="🔗 Header & Branding"),
 
