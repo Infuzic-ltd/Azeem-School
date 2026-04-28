@@ -46,10 +46,11 @@
     <header class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a class="navbar-brand" href="index.html">
-                    {% comment %} <figure class="logo mb-0"><img src="{% static 'images/logo.png' %}" alt="image" class="img-fluid"></figure> {% endcomment %}
-                    <figure class="logo mb-0"><img src={{page.logo.file.url}} alt="image" class="img-fluid"></figure>
-
+                <a class="navbar-brand" href="/">
+                    {% if page.nav_logo %}
+                        {% image page.nav_logo original as nav_logo_img %}
+                        <figure class="logo mb-0"><img src="{{ nav_logo_img.url }}" alt="logo" class="img-fluid"></figure>
+                    {% endif %}
                 </a>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -59,122 +60,45 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
-                                id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> Home </a>
-                            <div class="dropdown-menu drop-down-content">
-                                <ul class="list-unstyled drop-down-pages">
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="index.html">Home 1</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="index1.html">Home 2</a></li>
-                                    <li class="nav-item active"><a class="dropdown-item nav-link" href="index2.html">Home 3</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="course.html">Courses</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
-                                id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> Pages </a>
-                            <div class="dropdown-menu drop-down-content">
-                                <ul class="list-unstyled drop-down-pages">
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="team.html">Team</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="review.html">Review</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="faq.html">Faq's</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="cart.html">Cart</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="checkout.html">Checkout</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="shop.html">Shop</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="product-detail.html">Product Details</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="404.html">404</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="coming-soon.html">Coming Soon</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="login.html">Login</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="join-now.html">Join Now</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
-                                id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> Blog </a>
-                            <div class="dropdown-menu drop-down-content">
-                                <ul class="list-unstyled drop-down-pages">
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="blog.html">Blog</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="single-blog.html">Single Blog</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="load-more.html">Load More</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="one-column.html">One Column</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="two-column.html">Two Column</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="three-column.html">Three Column</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="three-colum-sidbar.html">Three Column Sidebar</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="four-column.html">Four Column</a></li>
-                                    <li class="nav-item"><a class="dropdown-item nav-link" href="six-colum-full-wide.html">Six Column</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link log_in" href="login.html">Log in<i class="fa-solid fa-arrow-right"></i></a>
-                        </li>
-                    </ul>
-
-                    {% comment %} <ul class="navbar-nav ml-auto">
-
                         {% for menu in page.navbar_menus.all %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle dropdown-color navbar-text-color"
-                                href="#"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
+                                    href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     {{ menu.title }}
                                 </a>
-
+                                {% if menu.menu_items.count %}
                                 <div class="dropdown-menu drop-down-content">
                                     <ul class="list-unstyled drop-down-pages">
                                         {% for item in menu.menu_items.all %}
                                             <li class="nav-item">
-                                                <a class="dropdown-item nav-link" href="{{ item.url }}">
-                                                    {{ item.label }}
-                                                </a>
+                                                <a class="dropdown-item nav-link" href="{{ item.url }}">{{ item.label }}</a>
                                             </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
+                                {% endif %}
                             </li>
                         {% endfor %}
-
-                        <!-- Navbar Buttons -->
-                        {% for btn in page.navbar_buttons.all %}
-                            <li class="nav-item">
-                                <a class="nav-link log_in" href="{{ btn.url }}">
-                                    {{ btn.label }}<i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </li>
-                        {% endfor %}
-
-                    </ul> {% endcomment %}
+                        <li class="nav-item">
+                            <a class="nav-link log_in" href="{{ page.nav_btn_url }}">
+                                {{ page.nav_btn_label }}<i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="phone-number">
                     <i class="fa-solid fa-phone"></i>
-                    <a href="tel:+568925896325" class="text-decoration-none">
-                        <span class="number">+5689 2589 6325</span>
-                         {% comment %} <span class="number">{{ page.header_phone }}</span>
-                           {% endcomment %}
-                        <a href="tel:{{ page.header_phone }}" class="text-decoration-none">
+                    <a href="tel:{{ page.nav_phone }}" class="text-decoration-none">
+                        <span class="number">{{ page.nav_phone }}</span>
                     </a>
                 </div>
             </nav>
         </div>
     </header>
     <!-- Banner -->
-    <section class="banner3-con position-relative">
+    {% if page.hero_bg_image %}{% image page.hero_bg_image original as hero_bg %}{% endif %}
+    <section class="banner3-con position-relative"{% if page.hero_bg_image %} style="background-image: url('{{ hero_bg.url }}'); background-size: cover; background-position: center;"{% endif %}>
         <figure class="banner-lefttopcurve image mb-0">
             <img src="{% static 'images/banner3-lefttopcurve.png' %}" alt="image" class="img-fluid">
         </figure>
@@ -185,14 +109,15 @@
             <div class="row align-items-center">
                 <div class="col-lg-10 col-12 mx-auto">
                     <div class="banner_content text-center position-relative" data-aos="fade-up">
-                        <figure class="banner-logoicon">
-                            <img src="{% static 'images/journey-logoicon.png' %}" alt="image" class="img-fluid">
-                        </figure>
-                        {% comment %} <h1 class="text-white">Leading Global Program Premier University</h1> {% endcomment %}
-                        <h1 class="text-white">{{ page.hero_title }}</h1>
-                        
-                        <p class="text-white text-size-18">Reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat a sapiente delectus.</p>
-                        <a href="/about-page/" class="text-decoration-none primary_btn">View Courses<i class="fa-solid fa-arrow-right"></i></a>
+                        {% if page.hero_logo %}
+                            {% image page.hero_logo original as hero_logo_img %}
+                            <figure class="banner-logoicon">
+                                <img src="{{ hero_logo_img.url }}" alt="logo" class="img-fluid">
+                            </figure>
+                        {% endif %}
+                        <h1 class="text-white">{{ page.hero_headline }}</h1>
+                        <p class="text-white text-size-18">{{ page.hero_tagline }}</p>
+                        <a href="{{ page.hero_btn_url }}" class="text-decoration-none primary_btn">{{ page.hero_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -214,7 +139,7 @@
         </figure>
     </section>
 </div>
-<!-- choose -->
+<!-- Trust -->
 <section class="choose3-con position-relative" id="dropdown">
     <figure class="choose-halfcircleimage mb-0">
         <img src="{% static 'images/choose3-halfcircleimage.png' %}" alt="image" class="img-fluid">
@@ -223,13 +148,9 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div class="choose_content position-relative" data-aos="fade-up">
-                    <h6>Our Features</h6>
-                    <h2>Why Choose Educiza University</h2>
-                    <p class="text1 text-size-18">Quisquam est, qui dolorem ipsum quia dolor sit ame adipis velit, sed quia non numquam eius modi temo aut labore aet
-                        dolore magnam voluptatem. 
-                    </p>
-                    <p class="text2 text-size-18">Debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae.</p>
-                    <a href="./course.html" class="text-decoration-none primary_btn">Get Started<i class="fa-solid fa-arrow-right"></i></a>
+                    <h2>{{ page.trust_heading }}</h2>
+                    <p class="text1 text-size-18">{{ page.trust_description }}</p>
+                    <a href="{{ page.trust_btn_url }}" class="text-decoration-none primary_btn">{{ page.trust_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
                     <figure class="choose-circleimage mb-0">
                         <img src="{% static 'images/choose3-circleimage.png' %}" alt="image" class="img-fluid">
                     </figure>
@@ -238,52 +159,30 @@
             <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div class="choose_contentbox" data-aos="fade-up">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
-                            <div class="box-top">
-                                <div class="choose-box box1 box-mb">
-                                    <figure class="icon icon1">
-                                        <img src="{% static 'images/choose3-icon1.png' %}" alt="image" class="img-fluid">
-                                    </figure>
-                                    <h3>Academic Program</h3>
-                                    <p class="text-size-16">Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-                                    <a href="./course.html" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
-                                </div>
-                            </div>  
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
-                            <div class="choose-box box2 box-mb">
-                                <figure class="icon icon2">
-                                    <img src="{% static 'images/choose3-icon2.png' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <h3>Expert Faculty</h3>
-                                <p class="text-size-16">Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-                                <a href="./course.html" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
-                            <div class="box-top">
-                                <div class="choose-box box3">
-                                    <figure class="icon icon3">
-                                        <img src="{% static 'images/choose3-icon3.png' %}" alt="image" class="img-fluid">
-                                    </figure>
-                                    <h3>Career Services</h3>
-                                    <p class="text-size-16">Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-                                    <a href="./course.html" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                        {% for card in page.trust_cards.all %}
+                            {% if page.trust_cards.count > 2 %}
+                                {% if forloop.counter == 1 or forloop.counter == 3 %}
+                                    {% if forloop.counter == 1 %}<div class="row">{% endif %}
+                                {% endif %}
+                            {% endif %}
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
+                                <div class="choose-box box{{ forloop.counter }}{% if forloop.counter <= 2 %} box-mb{% endif %}">
+                                    {% if card.logo %}
+                                        {% image card.logo original as card_logo %}
+                                        <figure class="icon icon{{ forloop.counter }}">
+                                            <img src="{{ card_logo.url }}" alt="{{ card.heading }}" class="img-fluid">
+                                        </figure>
+                                    {% endif %}
+                                    <h3>{{ card.heading }}</h3>
+                                    <p class="text-size-16">{{ card.description }}</p>
+                                    {% if card.url %}
+                                        <a href="{{ card.url }}" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                                    {% endif %}
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
-                            <div class="choose-box box4">
-                                <figure class="icon icon4">
-                                    <img src="{% static 'images/choose3-icon4.png' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <h3>Campus Life</h3>
-                                <p class="text-size-16">Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-                                <a href="./course.html" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
+                            {% if forloop.counter == 2 %}</div><div class="row">{% endif %}
+                            {% if forloop.last %}</div>{% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -299,50 +198,57 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-md-left text-center">
                 <div class="about_wrapper position-relative" data-aos="fade-up">
-                    <figure class="about-image1 mb-0">
-                        <img src="{% static 'images/about3-image1.jpg' %}" alt="image" class="img-fluid">
-                    </figure>
-                    <div class="video-image">
-                        <figure class="about-image2 mb-0">
-                            <img src="{% static 'images/about3-image2.jpg' %}" alt="image" class="img-fluid">
+                    {% if page.about_image_main %}
+                        {% image page.about_image_main original as about_img_main %}
+                        <figure class="about-image1 mb-0">
+                            <img src="{{ about_img_main.url }}" alt="image" class="img-fluid">
                         </figure>
-                        <div class="icon">
-                            <a class="popup-vimeo" href="https://video-previews.elements.envatousercontent.com/h264-video-previews/79b865eb-60f3-41d7-8240-5beebaa70664/11687174.mp4">
-                                <div class="mb-0 video-icon">
-                                    <img class="thumb img-fluid" style="cursor: pointer" src="{% static 'images/about3-playicon.png' %}" alt="image">                                    
-                                </div>
-                            </a>
+                    {% endif %}
+                    {% if page.about_image_video_thumb %}
+                        {% image page.about_image_video_thumb original as about_img_vid %}
+                        <div class="video-image">
+                            <figure class="about-image2 mb-0">
+                                <img src="{{ about_img_vid.url }}" alt="image" class="img-fluid">
+                            </figure>
+                            {% if page.about_video_url %}
+                            <div class="icon">
+                                <a class="popup-vimeo" href="{{ page.about_video_url }}">
+                                    <div class="mb-0 video-icon">
+                                        <img class="thumb img-fluid" style="cursor: pointer" src="{% static 'images/about3-playicon.png' %}" alt="image">
+                                    </div>
+                                </a>
+                            </div>
+                            {% endif %}
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                 <div class="about_content" data-aos="fade-up">
-                    <h6>About Us</h6>
-                    <h2>Cultivate Your Skills and Knowledge</h2>
-                    <p class="text-size-18 text">Quisquam est, qui dolorem ipsum quia dolor sit amet, conse adipisci velit, sed quia non numquam eius modi tempora inca
-                        aut labore et dolore magnam voluptatem.
-                    </p>
+                    <h6>{{ page.about_subtitle }}</h6>
+                    <h2>{{ page.about_title }}</h2>
+                    <p class="text-size-18 text">{{ page.about_description }}</p>
+                    {% if page.about_features.count %}
                     <ul class="list-unstyled">
+                        {% for feature in page.about_features.all %}
                         <li>
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            <p class="mb-0 text-size-16">Quis autem vel eum iure reprehenderit rui inea volutate.</p>
+                            <p class="mb-0 text-size-16">{{ feature.text }}</p>
                         </li>
-                        <li>
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <p class="mb-0 text-size-16">Reprehenderit in voluptate velit esse cillum dolore nulla.</p>
-                        </li>
-                        <li>
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <p class="mb-0 text-size-16">Officia deserunt mollit anim id est laborum ratione voluta.</p>
-                        </li>
+                        {% endfor %}
                     </ul>
+                    {% endif %}
+                    {% if page.about_mission_title %}
                     <div class="box">
-                        <figure class="about-icon mb-0">
-                            <img src="{% static 'images/about3-icon.png' %}" alt="image" class="img-fluid">
-                        </figure>
-                        <h3 class="mb-0">Our Mission is to Drive Knowledge and Innovation</h3>
+                        {% if page.about_mission_icon %}
+                            {% image page.about_mission_icon original as mission_icon %}
+                            <figure class="about-icon mb-0">
+                                <img src="{{ mission_icon.url }}" alt="image" class="img-fluid">
+                            </figure>
+                        {% endif %}
+                        <h3 class="mb-0">{{ page.about_mission_title }}</h3>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -358,8 +264,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="popular_content text-center position-relative" data-aos="fade-up">
-                        <h6>Popular Courses</h6>
-                        <h2 class="text-white">Explore Our Courses</h2>
+                        <h6>{{ page.courses_subtitle }}</h6>
+                        <h2 class="text-white">{{ page.courses_title }}</h2>
                         <figure class="popular-crossimage mb-0">
                             <img src="{% static 'images/contactform-crossimage.png' %}" alt="image" class="img-fluid">
                         </figure>
@@ -386,490 +292,177 @@
                         <div class="tab-content">
                             <div id="all" class="tab-pane fade in active show">
                                 <div class="row all_row" data-aos="fade-up">
+                                    {% for card in page.course_cards.all %}
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
                                         <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image1.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
+                                            {% if card.image %}
+                                                {% image card.image original as course_img %}
+                                                <figure class="image mb-0">
+                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
+                                                </figure>
+                                            {% endif %}
                                             <div class="lower_content all_boxes">
                                                 <div class="content">
                                                     <div class="calendar">
                                                         <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
+                                                        <span class="day">{{ card.lessons_count }}</span>
                                                     </div>
                                                     <div class="people">
                                                         <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
+                                                        <span class="person">{{ card.students_count }}</span>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-1">
-                                                    <h5>Web Development Masterclass & Certifications</h5>
+                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
+                                                    <h5>{{ card.title }}</h5>
                                                 </a>
                                                 <div class="value">
-                                                    <span class="money">$87</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
+                                                    <span class="money">{{ card.price }}</span>
+                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image2.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">6 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">60 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-2">
-                                                    <h5>Advance Typography and Ui/Ux Design</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$93</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image3.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">4 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">40 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-3">
-                                                    <h5>Project Management and Marketing Skills</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$97</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image4.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-4">
-                                                    <h5>Data course to under stand about solution</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$43</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image5.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-5">
-                                                    <h5>Foundation course to under stand about software</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$73</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image6.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-6">
-                                                    <h5>Data science and machine learning with python</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$82</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div id="design" class="tab-pane fade">
                                 <div class="row all_row" data-aos="fade-up">
+                                    {% for card in page.course_cards.all %}{% if card.tab == "design" %}
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
                                         <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image3.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
+                                            {% if card.image %}
+                                                {% image card.image original as course_img %}
+                                                <figure class="image mb-0">
+                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
+                                                </figure>
+                                            {% endif %}
                                             <div class="lower_content all_boxes">
                                                 <div class="content">
                                                     <div class="calendar">
                                                         <i class="fa-solid fa-book"></i>
-                                                        <span class="day">4 Lessons</span>
+                                                        <span class="day">{{ card.lessons_count }}</span>
                                                     </div>
                                                     <div class="people">
                                                         <i class="fa-solid fa-user"></i>
-                                                        <span class="person">40 Students</span>
+                                                        <span class="person">{{ card.students_count }}</span>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-3">
-                                                    <h5>Project Management and Marketing Skills</h5>
+                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
+                                                    <h5>{{ card.title }}</h5>
                                                 </a>
                                                 <div class="value">
-                                                    <span class="money">$97</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
+                                                    <span class="money">{{ card.price }}</span>
+                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image4.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-4">
-                                                    <h5>Data course to under stand about solution</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$43</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image5.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-5">
-                                                    <h5>Foundation course to under stand about software</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$73</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endif %}{% endfor %}
                                 </div>
                             </div>
                             <div id="data-science" class="tab-pane fade">
                                 <div class="row all_row" data-aos="fade-up">
+                                    {% for card in page.course_cards.all %}{% if card.tab == "data-science" %}
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
                                         <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image1.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
+                                            {% if card.image %}
+                                                {% image card.image original as course_img %}
+                                                <figure class="image mb-0">
+                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
+                                                </figure>
+                                            {% endif %}
                                             <div class="lower_content all_boxes">
                                                 <div class="content">
                                                     <div class="calendar">
                                                         <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
+                                                        <span class="day">{{ card.lessons_count }}</span>
                                                     </div>
                                                     <div class="people">
                                                         <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
+                                                        <span class="person">{{ card.students_count }}</span>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-1">
-                                                    <h5>Web Development Masterclass & Certifications</h5>
+                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
+                                                    <h5>{{ card.title }}</h5>
                                                 </a>
                                                 <div class="value">
-                                                    <span class="money">$87</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
+                                                    <span class="money">{{ card.price }}</span>
+                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image2.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">6 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">60 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-2">
-                                                    <h5>Advance Typography and Ui/Ux Design</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$93</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image4.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-4">
-                                                    <h5>Data course to under stand about solution</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$43</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endif %}{% endfor %}
                                 </div>
                             </div>
                             <div id="marketing" class="tab-pane fade">
                                 <div class="row all_row" data-aos="fade-up">
+                                    {% for card in page.course_cards.all %}{% if card.tab == "marketing" %}
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
                                         <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image4.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
+                                            {% if card.image %}
+                                                {% image card.image original as course_img %}
+                                                <figure class="image mb-0">
+                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
+                                                </figure>
+                                            {% endif %}
                                             <div class="lower_content all_boxes">
                                                 <div class="content">
                                                     <div class="calendar">
                                                         <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
+                                                        <span class="day">{{ card.lessons_count }}</span>
                                                     </div>
                                                     <div class="people">
                                                         <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
+                                                        <span class="person">{{ card.students_count }}</span>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-4">
-                                                    <h5>Data course to under stand about solution</h5>
+                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
+                                                    <h5>{{ card.title }}</h5>
                                                 </a>
                                                 <div class="value">
-                                                    <span class="money">$43</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
+                                                    <span class="money">{{ card.price }}</span>
+                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image5.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-5">
-                                                    <h5>Foundation course to under stand about software</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$73</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image6.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-6">
-                                                    <h5>Data science and machine learning with python</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$82</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endif %}{% endfor %}
                                 </div>
                             </div>
                             <div id="development" class="tab-pane fade">
                                 <div class="row all_row" data-aos="fade-up">
+                                    {% for card in page.course_cards.all %}{% if card.tab == "development" %}
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
                                         <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image1.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
+                                            {% if card.image %}
+                                                {% image card.image original as course_img %}
+                                                <figure class="image mb-0">
+                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
+                                                </figure>
+                                            {% endif %}
                                             <div class="lower_content all_boxes">
                                                 <div class="content">
                                                     <div class="calendar">
                                                         <i class="fa-solid fa-book"></i>
-                                                        <span class="day">8 Lessons</span>
+                                                        <span class="day">{{ card.lessons_count }}</span>
                                                     </div>
                                                     <div class="people">
                                                         <i class="fa-solid fa-user"></i>
-                                                        <span class="person">70 Students</span>
+                                                        <span class="person">{{ card.students_count }}</span>
                                                     </div>
                                                 </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-1">
-                                                    <h5>Web Development Masterclass & Certifications</h5>
+                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
+                                                    <h5>{{ card.title }}</h5>
                                                 </a>
                                                 <div class="value">
-                                                    <span class="money">$87</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
+                                                    <span class="money">{{ card.price }}</span>
+                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image2.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">6 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">60 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-2">
-                                                    <h5>Advance Typography and Ui/Ux Design</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$93</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            <figure class="image mb-0">
-                                                <img src="{% static 'images/course-image3.jpg' %}" alt="image" class="img-fluid">
-                                            </figure>
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">4 Lessons</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">40 Students</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#blog-model-3">
-                                                    <h5>Project Management and Marketing Skills</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">$97</span>
-                                                    <a href="./course.html" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endif %}{% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -885,40 +478,21 @@
         <div class="row">
             <div class="col-12">
                 <div class="benefit_content text-center" data-aos="fade-up">
-                    <h6>Our Expertise</h6>
-                    <h2>Benefits of Learning With Us</h2>
+                    <h6>{{ page.benefits_subtitle }}</h6>
+                    <h2>{{ page.benefits_title }}</h2>
                 </div>
             </div>
         </div>
         <div class="row all_row" data-aos="fade-up">
+            {% for card in page.benefit_cards.all %}
             <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
-                <div class="benefit-box box1">
-                    <span class="number counter">95</span>
-                    <sup class="plus">%</sup>
-                    <span class="text">Satisfied Students</span>
+                <div class="benefit-box box{{ forloop.counter }}">
+                    <span class="number counter">{{ card.counter }}</span>
+                    {% if card.suffix %}<sup class="plus">{{ card.suffix }}</sup>{% endif %}
+                    <span class="text">{{ card.label }}</span>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
-                <div class="benefit-box box2">
-                    <span class="number counter">140</span>
-                    <sup class="plus">+</sup>
-                    <span class="text">Skilled Instructors</span>
-                </div> 
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
-                <div class="benefit-box box3">
-                    <span class="number counter">58</span>
-                    <sup class="plus">+</sup>
-                    <span class="text">Awards Win</span>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
-                <div class="benefit-box box4">
-                    <span class="number counter">150</span>
-                    <sup class="plus">+</sup>
-                    <span class="text">Subject Courses</span>
-                </div> 
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -934,12 +508,15 @@
         <div class="row">
             <div class="col-lg-10 col-12 mx-auto">
                 <div class="journey_content text-center" data-aos="fade-up">
-                    <figure class="journey-logoicon">
-                        <img src="{% static 'images/journey-logoicon.png' %}" alt="image" class="img-fluid">
-                    </figure>
-                    <h6>Duis Aute Irure</h6>
-                    <h2 class="text-white">Empower Your Learning Journey with Our Expertise</h2>
-                    <a href="./contact.html" class="text-decoration-none primary_btn">Get Started<i class="fa-solid fa-arrow-right"></i></a>
+                    {% if page.journey_logo %}
+                        {% image page.journey_logo original as journey_logo_img %}
+                        <figure class="journey-logoicon">
+                            <img src="{{ journey_logo_img.url }}" alt="logo" class="img-fluid">
+                        </figure>
+                    {% endif %}
+                    <h6>{{ page.journey_subtitle }}</h6>
+                    <h2 class="text-white">{{ page.journey_title }}</h2>
+                    <a href="{{ page.journey_btn_url }}" class="text-decoration-none primary_btn">{{ page.journey_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -951,26 +528,28 @@
         <div class="row">
             <div class="col-12">
                 <div class="testimonial_content text-center" data-aos="fade-up">
-                    <h6>Reviews</h6>
-                    <h2>Student’s Say About Us</h2>
+                    <h6>{{ page.testimonials_subtitle }}</h6>
+                    <h2>{{ page.testimonials_title }}</h2>
                 </div>
             </div>
         </div>
         <div class="row" data-aos="fade-up">
             <div class="col-12">
                 <div class="owl-carousel owl-theme">
+                    {% for t in page.testimonials.all %}
                     <div class="item">
                         <div class="testimonial-box">
                             <figure class="testimonial-quoteimage">
                                 <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
                             </figure>
-                            <p class="text-size-16">Quisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
+                            <p class="text-size-16">{{ t.quote }}</p>
                             <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage1.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
+                                {% if t.photo %}
+                                    {% image t.photo original as t_photo %}
+                                    <figure class="testimonial-personimage mb-0">
+                                        <img src="{{ t_photo.url }}" alt="{{ t.name }}" class="img-fluid">
+                                    </figure>
+                                {% endif %}
                                 <div class="detail">
                                     <ul class="list-unstyled">
                                         <li><i class="fa-solid fa-star"></i></li>
@@ -979,220 +558,13 @@
                                         <li><i class="fa-solid fa-star"></i></li>
                                         <li><i class="fa-solid fa-star"></i></li>
                                     </ul>
-                                    <span class="name">Kevin Andrew</span>
-                                    <span class="review">Happy Client</span>
+                                    <span class="name">{{ t.name }}</span>
+                                    <span class="review">{{ t.role }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Ruisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage2.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Peri James</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Nuisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage3.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Naurth Reough</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Quisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage1.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Kevin Andrew</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Ruisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage2.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Peri James</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Nuisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage3.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Naurth Reough</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Quisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage1.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Kevin Andrew</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Ruisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage2.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Peri James</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">Nuisuam est rui dolorem ipsum rui do sit amet, consectetur, adipise velit seu non numquam eiusm temora
-                                incidunt aut labore siner...
-                            </p>
-                            <div class="review-content">
-                                <figure class="testimonial-personimage mb-0">
-                                    <img src="{% static 'images/testimonial3-personimage3.jpg' %}" alt="image" class="img-fluid">
-                                </figure>
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">Naurth Reough</span>
-                                    <span class="review">Happy Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -1204,203 +576,38 @@
         <div class="row">
             <div class="col-12">
                 <div class="article_content text-center" data-aos="fade-up">
-                    <h6>News & Articles</h6>
-                    <h2>Latest Blog Posts</h2>
+                    <h6>{{ page.blog_subtitle }}</h6>
+                    <h2>{{ page.blog_title }}</h2>
                 </div>
             </div>
         </div>
         <div class="row" data-aos="fade-up">
             <div class="col-12">
                 <div class="owl-carousel owl-theme">
+                    {% for post in page.blog_posts.all %}
                     <div class="item">
                         <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image1.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
+                            {% if post.image %}
+                                {% image post.image original as post_img %}
+                                <figure class="mb-0">
+                                    <img src="{{ post_img.url }}" alt="{{ post.title }}" class="img-fluid">
+                                </figure>
+                            {% endif %}
                             <div class="box-content">
                                 <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
+                                    <span>{{ post.date|date:"F j, Y" }}</span>
                                 </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Maiores alias consequatur perferendis doloribus</h4>
+                                <a href="{{ post.url }}" class="text-decoration-none">
+                                    <h4>{{ post.title }}</h4>
                                 </a>
-                                <p class="text-size-16">Aute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
+                                <p class="text-size-16">{{ post.excerpt }}</p>
+                                <a href="{{ post.url }}" class="read_more text-decoration-none">Read More
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image2.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Eiusmod tempor incididunt labore aet dolore</h4>
-                                </a>
-                                <p class="text-size-16">Rute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image3.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Dolore aeu fugiat nulla paria sint occaecat</h4>
-                                </a>
-                                <p class="text-size-16">Gute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image1.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Maiores alias consequatur perferendis doloribus</h4>
-                                </a>
-                                <p class="text-size-16">Aute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image2.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Eiusmod tempor incididunt labore aet dolore</h4>
-                                </a>
-                                <p class="text-size-16">Rute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image3.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Dolore aeu fugiat nulla paria sint occaecat</h4>
-                                </a>
-                                <p class="text-size-16">Gute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image1.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Maiores alias consequatur perferendis doloribus</h4>
-                                </a>
-                                <p class="text-size-16">Aute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image2.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Eiusmod tempor incididunt labore aet dolore</h4>
-                                </a>
-                                <p class="text-size-16">Rute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="article-box">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/article-image3.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>March 18, 2019</span>
-                                    <span class="dash">-</span>
-                                    <span>0 Comments</span>
-                                </div>
-                                <a href="single-blog.html" class="text-decoration-none">
-                                    <h4>Dolore aeu fugiat nulla paria sint occaecat</h4>
-                                </a>
-                                <p class="text-size-16">Gute irure dolor in reprehenderit in voluptate velit esse cillum...</p>
-                                <a href="single-blog.html" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -1416,8 +623,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="upper_portion">
-                        <a href="index.html"><figure class="footer-logo mb-0"><img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="image"></figure></a>                    
-                        <h4>Sign up for the newsletter:</h4>
+                        {% if page.footer_logo %}
+                            {% image page.footer_logo original as footer_logo_img %}
+                            <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="{{ footer_logo_img.url }}" alt="logo"></figure></a>
+                        {% endif %}
+                        <h4>{{ page.footer_newsletter_heading }}</h4>
                         <form action="javascript:;">
                             <div class="form-group position-relative mb-0">
                                 <input type="text" class="form_style" placeholder="Enter Email Address" name="email">
@@ -1435,59 +645,66 @@
                 <div class="row">
                     <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
                         <div class="logo-content">
-                            <h4 class="heading">About Us</h4>
-                            <p class="text-size-14 text">Duis aute irure dolor in reprehenderit in volupta velit esse cillum dolore eu fugiat nulla pariatur.
-                                excepteur sint occaecat corporis suscipit laboriosam, nisi aut aliuio...
-                            </p>                        
+                            <h4 class="heading">{{ page.footer_about_title }}</h4>
+                            <p class="text-size-14 text">{{ page.footer_about_text }}</p>
                             <ul class="list-unstyled mb-0 social-icons">
-                                <li><a href="https://www.facebook.com/" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
-                                <li><a href="https://twitter.com/" class="text-decoration-none"><i class="fa-brands fa-x-twitter social-networks"></i></a></li>
-                                <li><a href="https://www.youtube.com/" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
+                                {% for link in page.footer_social_links.all %}
+                                <li>
+                                    <a href="{{ link.url }}" class="text-decoration-none">
+                                        {% if link.platform == "facebook" %}<i class="fa-brands fa-facebook-f social-networks"></i>
+                                        {% elif link.platform == "twitter" %}<i class="fa-brands fa-x-twitter social-networks"></i>
+                                        {% elif link.platform == "youtube" %}<i class="fa-brands fa-youtube social-networks"></i>
+                                        {% elif link.platform == "instagram" %}<i class="fa-brands fa-instagram social-networks"></i>
+                                        {% elif link.platform == "linkedin" %}<i class="fa-brands fa-linkedin social-networks"></i>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
                         <div class="links">
-                            <h4 class="heading">Useful Links</h4>
+                            <h4 class="heading">{{ page.footer_links_title }}</h4>
                             <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="about.html">About</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="course.html">Courses</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="team.html">Team</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="contact.html">Contact</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="blog.html">Blog</a></li>
+                                {% for link in page.footer_useful_links.all %}
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
                         <div class="use-link links">
-                            <h4 class="heading">Explore</h4>
+                            <h4 class="heading">{{ page.footer_explore_title }}</h4>
                             <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="index.html">Business Studies</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="index.html">Programming</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="about.html">Ui/Ux Design</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="single-blog.html">Digital Marketing</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="contact.html">Data Science</a></li>
+                                {% for link in page.footer_explore_links.all %}
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
                         <div class="icon">
-                            <h4 class="heading">Contact Us</h4>
+                            <h4 class="heading">{{ page.footer_contact_title }}</h4>
                             <ul class="list-unstyled mb-0">
+                                {% if page.footer_contact_phone %}
                                 <li class="text">
                                     <i class="fa-solid fa-phone"></i>
-                                    <a href="tel:+61383766284" class="text-decoration-none">+61 3 8376 6284</a>
+                                    <a href="tel:{{ page.footer_contact_phone }}" class="text-decoration-none">{{ page.footer_contact_phone }}</a>
                                 </li>
+                                {% endif %}
+                                {% if page.footer_contact_email %}
                                 <li class="text">
                                     <i class="fa-solid fa-envelope"></i>
-                                    <a href="mailto:info@educiza.om" class="text-decoration-none">Info@educiza.om</a>
+                                    <a href="mailto:{{ page.footer_contact_email }}" class="text-decoration-none">{{ page.footer_contact_email }}</a>
                                 </li>
+                                {% endif %}
+                                {% if page.footer_contact_address %}
                                 <li class="text">
                                     <i class="fa-solid fa-location-dot"></i>
-                                    <a href="https://www.google.com/maps/course/21+King+St,+Melbourne+VIC+3000,+Australia/@-37.8199805,144.9529083,18z/data=!4m6!3m5!1s0x6ad65d52754eaecb:0x22f367daf52cbd47!8m2!3d-37.819936!4d144.9570765!16s%2Fg%2F11c2dj2n2c?entry=ttu" 
-                                        class="text-decoration-none address mb-0">21 King Street Melbourne, 3000, Australia
-                                    </a>
+                                    <a href="{{ page.footer_contact_map_url }}" class="text-decoration-none address mb-0">{{ page.footer_contact_address }}</a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -1495,37 +712,33 @@
             </div>
         </div>
         <div class="copyright">
-            <p class="mb-0">Copyright 2025, educiza.com All Rights Reserved.</p>
+            <p class="mb-0">{{ page.footer_copyright_text }}</p>
         </div>
     </div>
 </section>
 <!-- Project SECTION POPUP -->
+{% for card in page.course_cards.all %}
 <div class="project_modal">
-    <div id="blog-model-1" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div id="course-modal-{{ forloop.counter }}" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
            <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ><i class="fa-solid fa-x"></i></span></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-solid fa-x"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <div class="blog-box-item mb-0">
-                        <div class="blog-img">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/course-image1.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="project_content">
-                            <h4>Web Development Masterclass & Certifications</h4>
-                            <span class="text">Eiusmod enim tempor incididunt aut labore et dolore magna aliua ruis nostrud exercitation ullamco laboris.</span>
-                            <div class="properties">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Excepteur sint occaecat</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Rerum hic tenetur a sapiente</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Duis aute irure dolor</li>
-                                </ul>
+                        {% if card.image %}
+                            {% image card.image original as modal_img %}
+                            <div class="blog-img">
+                                <figure class="mb-0">
+                                    <img src="{{ modal_img.url }}" alt="{{ card.title }}" class="img-fluid">
+                                </figure>
                             </div>
-                            <span class="text">Amet consectetur adipiscing elit adipis eleifend dictum poten mattis viverra eget quam lacus enimcing inti porttitor bibenu relit duiteri nisl areo nuam lacus.</span>
-                            <a href="./contact.html" class="text-decoration-none primary_btn">Read More<i class="fa-solid fa-arrow-right"></i></a>
+                        {% endif %}
+                        <div class="project_content">
+                            <h4>{{ card.title }}</h4>
+                            <span class="text">{{ card.modal_description }}</span>
+                            <a href="{{ card.modal_btn_url }}" class="text-decoration-none primary_btn">{{ card.modal_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1533,171 +746,7 @@
         </div>
     </div>
 </div>
-<div class="project_modal">
-    <div id="blog-model-2" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ><i class="fa-solid fa-x"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="blog-box-item mb-0">
-                        <div class="blog-img">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/course-image2.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="project_content">
-                            <h4>Advance Typography and Ui/Ux Design</h4>
-                            <span class="text">Eiusmod enim tempor incididunt aut labore et dolore magna aliua ruis nostrud exercitation ullamco laboris.</span>
-                            <div class="properties">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Excepteur sint occaecat</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Rerum hic tenetur a sapiente</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Duis aute irure dolor</li>
-                                </ul>
-                            </div>
-                            <span class="text">Amet consectetur adipiscing elit adipis eleifend dictum poten mattis viverra eget quam lacus enimcing inti porttitor bibenu relit duiteri nisl areo nuam lacus.</span>
-                            <a href="./contact.html" class="text-decoration-none primary_btn">Read More<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="project_modal">
-    <div id="blog-model-3" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ><i class="fa-solid fa-x"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="blog-box-item mb-0">
-                        <div class="blog-img">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/course-image3.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="project_content">
-                            <h4>Project Management and Marketing Skills</h4>
-                            <span class="text">Eiusmod enim tempor incididunt aut labore et dolore magna aliua ruis nostrud exercitation ullamco laboris.</span>
-                            <div class="properties">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Excepteur sint occaecat</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Rerum hic tenetur a sapiente</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Duis aute irure dolor</li>
-                                </ul>
-                            </div>
-                            <span class="text">Amet consectetur adipiscing elit adipis eleifend dictum poten mattis viverra eget quam lacus enimcing inti porttitor bibenu relit duiteri nisl areo nuam lacus.</span>
-                            <a href="./contact.html" class="text-decoration-none primary_btn">Read More<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="project_modal">
-    <div id="blog-model-4" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ><i class="fa-solid fa-x"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="blog-box-item mb-0">
-                        <div class="blog-img">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/course-image4.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="project_content">
-                            <h4>Data course to under stand about solution</h4>
-                            <span class="text">Eiusmod enim tempor incididunt aut labore et dolore magna aliua ruis nostrud exercitation ullamco laboris.</span>
-                            <div class="properties">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Excepteur sint occaecat</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Rerum hic tenetur a sapiente</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Duis aute irure dolor</li>
-                                </ul>
-                            </div>
-                            <span class="text">Amet consectetur adipiscing elit adipis eleifend dictum poten mattis viverra eget quam lacus enimcing inti porttitor bibenu relit duiteri nisl areo nuam lacus.</span>
-                            <a href="./contact.html" class="text-decoration-none primary_btn">Read More<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="project_modal">
-    <div id="blog-model-5" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ><i class="fa-solid fa-x"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="blog-box-item mb-0">
-                        <div class="blog-img">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/course-image5.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="project_content">
-                            <h4>Foundation course to under stand about software</h4>
-                            <span class="text">Eiusmod enim tempor incididunt aut labore et dolore magna aliua ruis nostrud exercitation ullamco laboris.</span>
-                            <div class="properties">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Excepteur sint occaecat</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Rerum hic tenetur a sapiente</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Duis aute irure dolor</li>
-                                </ul>
-                            </div>
-                            <span class="text">Amet consectetur adipiscing elit adipis eleifend dictum poten mattis viverra eget quam lacus enimcing inti porttitor bibenu relit duiteri nisl areo nuam lacus.</span>
-                            <a href="./contact.html" class="text-decoration-none primary_btn">Read More<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="project_modal">
-    <div id="blog-model-6" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ><i class="fa-solid fa-x"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="blog-box-item mb-0">
-                        <div class="blog-img">
-                            <figure class="mb-0">
-                                <img src="{% static 'images/course-image6.jpg' %}" alt="image" class="img-fluid">
-                            </figure>
-                        </div>
-                        <div class="project_content">
-                            <h4>Data science and machine learning with python</h4>
-                            <span class="text">Eiusmod enim tempor incididunt aut labore et dolore magna aliua ruis nostrud exercitation ullamco laboris.</span>
-                            <div class="properties">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Excepteur sint occaecat</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Rerum hic tenetur a sapiente</li>
-                                    <li class="text-size-16"><i class="circle fa fa-check" aria-hidden="true"></i>Duis aute irure dolor</li>
-                                </ul>
-                            </div>
-                            <span class="text">Amet consectetur adipiscing elit adipis eleifend dictum poten mattis viverra eget quam lacus enimcing inti porttitor bibenu relit duiteri nisl areo nuam lacus.</span>
-                            <a href="./contact.html" class="text-decoration-none primary_btn">Read More<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% endfor %}
 <!-- PRE LOADER -->
 <div class="loader-mask">
     <div class="loader">
