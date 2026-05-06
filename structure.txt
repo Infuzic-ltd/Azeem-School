@@ -1,0 +1,68 @@
+Main structure of website:
+
+Home
+About us
+Admissions
+Campuses
+Academics
+Student Life at Ass.
+Careers
+Contact us
+Alumni
+Parent’s Testimonials
+News/Announcements
+
+Home:
+
+Establishment year
+Director’s Welcome Msg.
+Founder’s statement
+
+About Us:
+
+School introduction
+Vision statement/mission
+Core values
+Identity (school uniform / sports uniform)
+
+Admissions:
+
+Enrollment Procedure (step-wise)
+Eligibility/Age criteria
+Online Registration form
+Admission formalities
+
+Academics
+
+Cambridge
+Matric
+AKU
+Pre-Primary
+Primary
+Secondary
+
+Campuses
+
+KDA (AKU & Matric)
+Block “L” (Cambridge)
+
+Student Life
+
+Sports Day celebration
+Independence Day celebration etc.
+
+Contact Us
+
+Campus addresses
+Phone/contact #
+Email addresses
+Google map location
+
+Alumni
+Comments & interviews
+
+Parent Testimonials
+Parent interviews
+
+News/Announcement
+Any education related news

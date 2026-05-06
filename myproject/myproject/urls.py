@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
-from home.views import about_view
+from home.views import about_view, contact_view
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -15,6 +15,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
         path("about-page/", about_view),
+    path("contact/", contact_view),
 
 ]
 

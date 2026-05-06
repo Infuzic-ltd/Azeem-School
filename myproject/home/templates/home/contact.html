@@ -1,0 +1,370 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>{{ page.banner_title }} | Educiza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- Back to top button -->
+<a id="button"></a>
+<div class="sub_banner position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        {% if page.nav_logo %}
+                            {% image page.nav_logo original as nav_logo_img %}
+                            <img src="{{ nav_logo_img.url }}" alt="Logo" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid">
+                        {% endif %}
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ page.url }}">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:{{ page.nav_phone }}" class="text-decoration-none">
+                        <span class="number">{{ page.nav_phone }}</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Sub banner -->
+    {% if page.banner_bg_image %}{% image page.banner_bg_image original as banner_bg %}{% endif %}
+    <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ banner_bg.url }}')"{% endif %}>
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-xl-6 col-md-10 col-12 mx-auto">
+                    <div class="sub_banner_content" data-aos="fade-up">
+                        <h1 class="text-white">{{ page.banner_title }}</h1>
+                        <p class="text-white text-size-18">{{ page.banner_description }}</p>
+                        <div class="box">
+                            <a href="/" class="text-decoration-none">
+                                <span class="mb-0">Home</span>
+                            </a>
+                            <i class="arrow fa-solid fa-arrow-right"></i>
+                            <span class="mb-0 box_span">{{ page.banner_title }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Contact Info -->
+<section class="contactinfo-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contactinfo_content text-center" data-aos="fade-up">
+                    <h6>{{ page.contact_info_subtitle }}</h6>
+                    <h2>{{ page.contact_info_title }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row all_row" data-aos="fade-up">
+            <!-- Location -->
+            <div class="col-lg-4 col-md-4 col-sm-12 col-12 all_column">
+                <div class="contact-box box1 all_boxes">
+                    <figure class="icon icon1">
+                        <img src="{% static 'images/contact-icon1.png' %}" alt="Location" class="img-fluid">
+                    </figure>
+                    <h3>Our Location</h3>
+                    <a href="{{ page.location_map_url }}" class="text-decoration-none text-size-16 mb-0">
+                        {{ page.location_address }}
+                    </a>
+                </div>
+            </div>
+            <!-- Phone -->
+            <div class="col-lg-4 col-md-4 col-sm-12 col-12 all_column">
+                <div class="contact-box box2 all_boxes">
+                    <figure class="icon icon2">
+                        <img src="{% static 'images/contact-icon2.png' %}" alt="Phone" class="img-fluid">
+                    </figure>
+                    <h3>Phone Number</h3>
+                    <a href="tel:{{ page.phone_1 }}" class="text-decoration-none text-size-16">{{ page.phone_1 }}</a>
+                    {% if page.phone_2 %}
+                    <div class="clearfix"></div>
+                    <a href="tel:{{ page.phone_2 }}" class="text-decoration-none text-size-16 mb-0">{{ page.phone_2 }}</a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="col-lg-4 col-md-4 col-sm-12 col-12 all_column">
+                <div class="contact-box box3 mb-0 all_boxes">
+                    <figure class="icon icon3">
+                        <img src="{% static 'images/contact-icon3.png' %}" alt="Email" class="img-fluid">
+                    </figure>
+                    <h3>Our Email</h3>
+                    <a href="mailto:{{ page.email_1 }}" class="text-decoration-none text-size-16">{{ page.email_1 }}</a>
+                    {% if page.email_2 %}
+                    <div class="clearfix"></div>
+                    <a href="mailto:{{ page.email_2 }}" class="text-decoration-none text-size-16 mb-0">{{ page.email_2 }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="contactform-con position-relative">
+    <figure class="contact-righttopimage mb-0">
+        <img src="{% static 'images/contactform-righttopimage.png' %}" alt="image" class="img-fluid">
+    </figure>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="contact_wrapper position-relative" data-aos="fade-up">
+                    <figure class="contact-leftbackground mb-0">
+                        {% if page.form_bg_image %}
+                            {% image page.form_bg_image original as form_bg %}
+                            <img src="{{ form_bg.url }}" alt="image" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/contact-leftbackground.jpg' %}" alt="image" class="img-fluid">
+                        {% endif %}
+                    </figure>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="contact_content position-relative" data-aos="fade-up">
+                    <h6>{{ page.form_subtitle }}</h6>
+                    <h2 class="text-white">{{ page.form_title }}</h2>
+                    <form id="contactpage" method="post" action="{{ page.url }}" class="position-relative">
+                        {% csrf_token %}
+                        <div class="form-group input1 float-left">
+                            <input type="text" class="form_style" placeholder="Name" name="fname" id="fname">
+                        </div>
+                        <div class="form-group float-left">
+                            <input type="tel" class="form_style" placeholder="Phone" name="phone" id="phone">
+                        </div>
+                        <div class="form-group input1 float-left">
+                            <input type="email" class="form_style" placeholder="Email" name="email" id="email">
+                        </div>
+                        <div class="form-group float-left">
+                            <input type="text" class="form_style" placeholder="Address" name="address" id="address">
+                        </div>
+                        <div class="form-group message">
+                            <textarea class="form_style" placeholder="Message" rows="3" name="msg"></textarea>
+                        </div>
+                        <button type="submit" id="submit" class="submit_now text-decoration-none">
+                            Sign Up Now<i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    <figure class="contact-crossimage mb-0">
+                        <img src="{% static 'images/contactform-crossimage.png' %}" alt="image" class="img-fluid">
+                    </figure>
+                    <figure class="contact-triangleimage mb-0">
+                        <img src="{% static 'images/contactform-triangleimage.png' %}" alt="image" class="img-fluid">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map -->
+{% if page.map_embed_url %}
+<div class="map-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <iframe src="{{ page.map_embed_url }}" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Footer -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="image">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="upper_portion">
+                        <a href="/">
+                            <figure class="footer-logo mb-0">
+                                {% if page.footer_logo %}
+                                    {% image page.footer_logo original as footer_logo_img %}
+                                    <img class="img-fluid" src="{{ footer_logo_img.url }}" alt="Logo">
+                                {% else %}
+                                    <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Logo">
+                                {% endif %}
+                            </figure>
+                        </a>
+                        <h4>{{ page.footer_newsletter_heading }}</h4>
+                        <form action="javascript:;">
+                            <div class="form-group position-relative mb-0">
+                                <input type="text" class="form_style" placeholder="Enter Email Address" name="email">
+                                <button><i class="send fa-sharp fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">{{ page.footer_about_title }}</h4>
+                            <p class="text-size-14 text">{{ page.footer_about_text }}</p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                {% for link in page.contact_footer_social_links.all %}
+                                <li>
+                                    <a href="{{ link.url }}" class="text-decoration-none">
+                                        {% if link.platform == "facebook" %}
+                                            <i class="fa-brands fa-facebook-f social-networks"></i>
+                                        {% elif link.platform == "twitter" %}
+                                            <i class="fa-brands fa-x-twitter social-networks"></i>
+                                        {% elif link.platform == "youtube" %}
+                                            <i class="fa-brands fa-youtube social-networks"></i>
+                                        {% elif link.platform == "instagram" %}
+                                            <i class="fa-brands fa-instagram social-networks"></i>
+                                        {% elif link.platform == "linkedin" %}
+                                            <i class="fa-brands fa-linkedin-in social-networks"></i>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">{{ page.footer_links_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% for link in page.contact_footer_useful_links.all %}
+                                <li>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <a href="{{ link.url }}">{{ link.label }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">{{ page.footer_explore_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% for link in page.contact_footer_explore_links.all %}
+                                <li>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <a href="{{ link.url }}">{{ link.label }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">{{ page.footer_contact_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% if page.footer_contact_phone %}
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:{{ page.footer_contact_phone }}" class="text-decoration-none">{{ page.footer_contact_phone }}</a>
+                                </li>
+                                {% endif %}
+                                {% if page.footer_contact_email %}
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:{{ page.footer_contact_email }}" class="text-decoration-none">{{ page.footer_contact_email }}</a>
+                                </li>
+                                {% endif %}
+                                {% if page.footer_contact_address %}
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="{{ page.footer_contact_map_url }}" class="text-decoration-none address mb-0">
+                                        {{ page.footer_contact_address }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">{{ page.footer_copyright_text }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask">
+    <div class="loader">
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+<script src="{% static 'js/carousel.js' %}"></script>
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/back-to-top-button.js' %}"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+<script src="{% static 'js/counter.js' %}"></script>
+<script src="{% static 'js/contact-form.js' %}"></script>
+<script src="{% static 'js/contact-validate.js' %}"></script>
+</body>
+</html>

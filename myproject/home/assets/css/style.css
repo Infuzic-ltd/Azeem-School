@@ -1053,8 +1053,7 @@ html{
     left: 0;
     top: 0;
     position: absolute;
-    background-image: url(../images/contact-leftbackground.jpg);
-    background-size: cover;
+    background-image: var(--banner-bg, url(../images/subbanner-contactbackground.jpg));
     background-position: top;
     background-repeat: no-repeat;
 }
@@ -2688,7 +2687,7 @@ html{
     height: 100%;
     opacity: 50%;
     position: absolute;
-    background-image: url(../images/subbanner-contactbackground.jpg);
+    background-image: var(--banner-bg, url(../images/subbanner-contactbackground.jpg));
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

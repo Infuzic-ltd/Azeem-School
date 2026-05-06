@@ -95,6 +95,7 @@ class CourseCard(Orderable):
         "wagtailimages.Image", null=True,
         on_delete=models.SET_NULL, related_name="course_card_image",
     )
+
     tab = models.CharField(max_length=20, choices=TAB_CHOICES, default="all")
     title = models.CharField(max_length=200)
     lessons_count = models.CharField(max_length=20, default="", help_text='e.g. "8 Lessons"')
@@ -231,6 +232,179 @@ class FooterExploreLink(Orderable):
 
     def __str__(self):
         return self.label
+
+
+# ──────────────────────────────────────────────
+# CONTACT PAGE — FOOTER INLINE MODELS
+# ──────────────────────────────────────────────
+
+class ContactFooterSocialLink(Orderable):
+    PLATFORM_CHOICES = [
+        ("facebook", "Facebook"),
+        ("twitter", "Twitter"),
+        ("youtube", "YouTube"),
+        ("instagram", "Instagram"),
+        ("linkedin", "LinkedIn"),
+    ]
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_footer_social_links")
+    platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES)
+    url = models.URLField()
+    panels = [FieldPanel("platform"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.platform
+
+
+class ContactFooterUsefulLink(Orderable):
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_footer_useful_links")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+    panels = [FieldPanel("label"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.label
+
+
+class ContactFooterExploreLink(Orderable):
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_footer_explore_links")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+    panels = [FieldPanel("label"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.label
+
+
+# ──────────────────────────────────────────────
+# CONTACT PAGE
+# ──────────────────────────────────────────────
+
+class ContactPage(Page):
+
+    # ── Navbar ────────────────────────────────
+    nav_logo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="contact_nav_logo",
+        verbose_name="Navbar Logo",
+    )
+    nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
+
+    # ── Sub-banner ────────────────────────────
+    banner_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="contact_banner_bg",
+        verbose_name="Banner Background Image",
+    )
+    banner_title = models.CharField(max_length=200, default="Contact Us")
+    banner_description = models.TextField(default="")
+
+    # ── Contact Info section ──────────────────
+    contact_info_subtitle = models.CharField(max_length=100, default="Contact Info")
+    contact_info_title = models.CharField(max_length=200, default="Our Contact Information")
+
+    # Location box
+    location_address = models.TextField(default="")
+    location_map_url = models.URLField(blank=True, verbose_name="Location Google Maps URL")
+
+    # Phone box
+    phone_1 = models.CharField(max_length=30, default="")
+    phone_2 = models.CharField(max_length=30, default="", blank=True)
+
+    # Email box
+    email_1 = models.EmailField(default="")
+    email_2 = models.EmailField(default="", blank=True)
+
+    # ── Contact Form section ──────────────────
+    form_subtitle = models.CharField(max_length=100, default="Registration")
+    form_title = models.CharField(max_length=200, default="Register Your Free Account")
+    form_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="contact_form_bg",
+        verbose_name="Form Left Background Image",
+    )
+
+    # ── Map ───────────────────────────────────
+    map_embed_url = models.URLField(blank=True, verbose_name="Google Maps Embed URL")
+
+    # ── Footer ────────────────────────────────
+    footer_logo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="contact_footer_logo",
+    )
+    footer_newsletter_heading = models.CharField(max_length=200, default="Sign up for the newsletter:")
+    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_about_text = models.TextField(default="")
+    footer_links_title = models.CharField(max_length=100, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, default="Explore")
+    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_contact_email = models.EmailField(default="")
+    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_map_url = models.URLField(blank=True)
+    footer_copyright_text = models.CharField(max_length=200, default="")
+
+    # ──────────────────────────────────────────
+    # ADMIN PANELS
+    # ──────────────────────────────────────────
+
+    content_panels = Page.content_panels + [
+
+        MultiFieldPanel([
+            FieldPanel("nav_logo"),
+            FieldPanel("nav_phone"),
+        ], heading="Navbar"),
+
+        MultiFieldPanel([
+            FieldPanel("banner_bg_image"),
+            FieldPanel("banner_title"),
+            FieldPanel("banner_description"),
+        ], heading="Sub-Banner"),
+
+        MultiFieldPanel([
+            FieldPanel("contact_info_subtitle"),
+            FieldPanel("contact_info_title"),
+            MultiFieldPanel([
+                FieldPanel("location_address"),
+                FieldPanel("location_map_url"),
+            ], heading="Location Box"),
+            MultiFieldPanel([
+                FieldRowPanel([FieldPanel("phone_1"), FieldPanel("phone_2")]),
+            ], heading="Phone Box"),
+            MultiFieldPanel([
+                FieldRowPanel([FieldPanel("email_1"), FieldPanel("email_2")]),
+            ], heading="Email Box"),
+        ], heading="Contact Info Section"),
+
+        MultiFieldPanel([
+            FieldPanel("form_subtitle"),
+            FieldPanel("form_title"),
+            FieldPanel("form_bg_image"),
+        ], heading="Contact Form Section"),
+
+        MultiFieldPanel([
+            FieldPanel("map_embed_url"),
+        ], heading="Map"),
+
+        MultiFieldPanel([
+            FieldPanel("footer_logo"),
+            FieldPanel("footer_newsletter_heading"),
+            FieldPanel("footer_about_title"),
+            FieldPanel("footer_about_text"),
+            InlinePanel("contact_footer_social_links", label="Social Links"),
+            FieldPanel("footer_links_title"),
+            InlinePanel("contact_footer_useful_links", label="Useful Links"),
+            FieldPanel("footer_explore_title"),
+            InlinePanel("contact_footer_explore_links", label="Explore Links"),
+            FieldPanel("footer_contact_title"),
+            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
+            FieldPanel("footer_contact_address"),
+            FieldPanel("footer_contact_map_url"),
+            FieldPanel("footer_copyright_text"),
+        ], heading="Footer"),
+    ]
+
+    class Meta:
+        verbose_name = "Contact Page"
 
 
 # ──────────────────────────────────────────────

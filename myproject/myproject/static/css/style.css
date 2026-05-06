@@ -51,8 +51,8 @@ Project:  Educiza
 /*------------------------------------------------------------------
 # [Typography]
  
-Body copy: "Archivo", serif;
-Heading: "Urbanist", serif;
+Body copy: "Urbanist", sans-serif;
+Heading: "Urbanist", sans-serif;
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
@@ -68,6 +68,7 @@ body {
     --e-global-color-text: #656565;
 	--e-global-color-white: #ffffff;
     --e-global-color-black: #000000;
+    --e-global-color-nav-text: #000000;
     --e-global-color-soft-blue: #6a52e0;
     --e-global-color-very-light-gray-white: #fafafa;
     --e-global-color-dark-blue: #231b49;
@@ -140,7 +141,7 @@ p{
     word-break: break-word;
 }
 .text-size-18{
-    font-size: 18px;
+    font-size: 19px;
     line-height: 26px;
     font-weight: 300;
     color: var(--e-global-color-text);
@@ -207,19 +208,18 @@ html{
 .header {
     padding: 22px 0px;
     position: relative;
-    z-index: 5;
+    z-index: 999;
 }
 .header .logo img {
     width: 143px;
 }
 .navbar-collapse .navbar-nav{
     text-align: center;
-    align-items: center; 
+    align-items: center;
     display: inherit;
 }
 .navbar-expand-lg{
     position: relative;
-    z-index: 1;
 }
 .navbar-brand {
     margin-left: 0;
@@ -262,6 +262,7 @@ html{
     position: absolute;
     left: 0;
     top: 61px;
+    z-index: 1000;
     min-width: 212px;
     padding: 0;
     border: none;
@@ -1053,8 +1054,7 @@ html{
     left: 0;
     top: 0;
     position: absolute;
-    background-image: url(../images/contact-leftbackground.jpg);
-    background-size: cover;
+    background-image: var(--banner-bg, url(../images/subbanner-contactbackground.jpg));
     background-position: top;
     background-repeat: no-repeat;
 }
@@ -2688,7 +2688,7 @@ html{
     height: 100%;
     opacity: 50%;
     position: absolute;
-    background-image: url(../images/subbanner-contactbackground.jpg);
+    background-image: var(--banner-bg, url(../images/subbanner-contactbackground.jpg));
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
