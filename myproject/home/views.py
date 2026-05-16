@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from .models import ContactPage
+from django.shortcuts import render
+from .models import AboutPage, ContactPage
 
 def about_view(request):
-    return render(request, "about_page.html")
+    page = AboutPage.objects.live().first()
+    return render(request, "home/about.html", {"page": page})
 
 def contact_view(request):
     page = ContactPage.objects.live().first()

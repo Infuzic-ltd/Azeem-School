@@ -1,0 +1,482 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>{{ page.banner_title }} | Educiza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- Back to top button -->
+<a id="button"></a>
+<div class="sub_banner position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        {% if page.nav_logo %}
+                            {% image page.nav_logo original as nav_logo_img %}
+                            <img src="{{ nav_logo_img.url }}" alt="Logo" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid">
+                        {% endif %}
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/about/">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact/">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:{{ page.nav_phone }}" class="text-decoration-none">
+                        <span class="number">{{ page.nav_phone }}</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Sub banner -->
+    <section class="sub_banner_con about_banner_con position-relative">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-xl-6 col-md-8 col-12 mx-auto">
+                    <div class="sub_banner_content" data-aos="fade-up">
+                        <h1 class="text-white">{{ page.banner_title }}</h1>
+                        <p class="text-white text-size-18">{{ page.banner_description }}</p>
+                        <div class="box">
+                            <a href="/" class="text-decoration-none">
+                                <span class="mb-0">Home</span>
+                            </a>
+                            <i class="arrow fa-solid fa-arrow-right"></i>
+                            <span class="mb-0 box_span">{{ page.banner_title }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- About -->
+<section class="about-con aboutpage-con position-relative">
+    <figure class="about-rightimage mb-0">
+        <img src="{% static 'images/about-rightimage.png' %}" alt="image" class="img-fluid">
+    </figure>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-2 text-lg-left text-center">
+                <div class="about_wrapper position-relative">
+                    <figure class="aboutpage-image1 image mb-0">
+                        {% if page.about_image1 %}
+                            {% image page.about_image1 original as about_img1 %}
+                            <img src="{{ about_img1.url }}" alt="image">
+                        {% else %}
+                            <img src="{% static 'images/aboutpage-image1.jpg' %}" alt="image">
+                        {% endif %}
+                    </figure>
+                    <figure class="aboutpage-image2 image mb-0">
+                        {% if page.about_image2 %}
+                            {% image page.about_image2 original as about_img2 %}
+                            <img src="{{ about_img2.url }}" alt="image">
+                        {% else %}
+                            <img src="{% static 'images/aboutpage-image2.jpg' %}" alt="image">
+                        {% endif %}
+                    </figure>
+                    <figure class="aboutpage-crossimage mb-0">
+                        <img src="{% static 'images/aboutpage-crossimage.png' %}" alt="image">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-2 order-1">
+                <div class="about_content" data-aos="fade-up">
+                    <h6>{{ page.about_subtitle }}</h6>
+                    <h2>{{ page.about_heading }}</h2>
+                    <p class="text-size-18 text">{{ page.about_description }}</p>
+                    <ul class="list-unstyled">
+                        {% for feature in page.about_features.all %}
+                        <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <p class="mb-0 text-size-16">{{ feature.text }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ page.about_btn_url }}" class="text-decoration-none primary_btn">
+                        {{ page.about_btn_label }}<i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Choose -->
+<section class="choose-con position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mx-auto">
+                <div class="choose_content text-center" data-aos="fade-up">
+                    <h6>{{ page.choose_subtitle }}</h6>
+                    <h2>{{ page.choose_heading }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row all_row" data-aos="fade-up">
+            {% for feature in page.choose_features.all %}
+            {% with forloop.counter as i %}
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 all_column">
+                <div class="choose-box box{{ i }} all_boxes">
+                    <figure class="icon icon{{ i }}">
+                        {% if feature.icon %}
+                            {% image feature.icon original as feat_icon %}
+                            <img src="{{ feat_icon.url }}" alt="image" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/choose-icon'|add:i|stringformat:'s'|add:'.png' %}" alt="image" class="img-fluid">
+                        {% endif %}
+                    </figure>
+                    <h4>{{ feature.title }}</h4>
+                    <p class="text-size-16">{{ feature.description }}</p>
+                    <a href="{{ feature.link_url }}" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Benefit -->
+<section class="faqbenefit-con position-relative">
+    <figure class="benefit-leftimage mb-0">
+        <img src="{% static 'images/testimonial-leftimage.png' %}" class="img-fluid" alt="image">
+    </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="benefit_content" data-aos="fade-up">
+                    <h6>{{ page.benefit_subtitle }}</h6>
+                    <h2 class="text-white">{{ page.benefit_heading }}</h2>
+                    <p class="text-white text-size-18 text">{{ page.benefit_description }}</p>
+                    <ul class="list-unstyled mb-0">
+                        {% for stat in page.benefit_stats.all %}
+                        <li>
+                            <span class="value">
+                                <span class="counter">{{ stat.counter }}</span>
+                                <sup>{{ stat.suffix }}</sup>
+                            </span>
+                            <p class="text-size-14 mb-0">{{ stat.label }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-lg-left text-center">
+                <div class="benefit_wrapper position-relative" data-aos="fade-up">
+                    <figure class="benefit-rightbackground mb-0">
+                        {% if page.benefit_video_thumb %}
+                            {% image page.benefit_video_thumb original as benefit_thumb %}
+                            <img src="{{ benefit_thumb.url }}" alt="image" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/benefit-rightbackground.jpg' %}" alt="image" class="img-fluid">
+                        {% endif %}
+                    </figure>
+                    {% if page.benefit_video_url %}
+                    <div class="icon">
+                        <a class="popup-vimeo" href="{{ page.benefit_video_url }}">
+                            <div class="mb-0 video-icon">
+                                <img class="thumb img-fluid" style="cursor: pointer" src="{% static 'images/play-icon.png' %}" alt="image">
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team -->
+<section class="team-con position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="team_content text-center" data-aos="fade-up">
+                    <h6>{{ page.team_subtitle }}</h6>
+                    <h2>{{ page.team_heading }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row all_row" data-aos="fade-up">
+            {% for member in page.team_members.all %}
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12 mx-auto all_column">
+                <div class="team-box all_boxes{% if forloop.last %} mb-0{% endif %}">
+                    <figure class="team-image">
+                        {% if member.photo %}
+                            {% image member.photo original as member_photo %}
+                            <img src="{{ member_photo.url }}" alt="image" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/team-image1.jpg' %}" alt="image" class="img-fluid">
+                        {% endif %}
+                    </figure>
+                    <div class="content all_boxes">
+                        <h4>{{ member.name }}</h4>
+                        <span class="text-size-16">{{ member.role }}</span>
+                        <ul class="list-unstyled mb-0">
+                            {% if member.facebook_url %}
+                            <li class="icons"><a href="{{ member.facebook_url }}"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                            {% if member.twitter_url %}
+                            <li class="icons"><a href="{{ member.twitter_url }}"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                            {% if member.youtube_url %}
+                            <li class="icons"><a href="{{ member.youtube_url }}"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial -->
+<section class="testimonial-con position-relative">
+    <figure class="testimonial-leftimage mb-0">
+        <img src="{% static 'images/testimonial-leftimage.png' %}" class="img-fluid" alt="image">
+    </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="testimonial_content text-center" data-aos="fade-up">
+                    <h6>{{ page.testimonials_subtitle }}</h6>
+                    <h2>{{ page.testimonials_heading }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up">
+            <div class="col-12">
+                <div class="owl-carousel owl-theme">
+                    {% for testimonial in page.about_testimonials.all %}
+                    <div class="item">
+                        <div class="testimonial-box float-left w-100">
+                            <ul class="list-unstyled">
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                                <li><i class="fa-solid fa-star"></i></li>
+                            </ul>
+                            <p class="text text-size-16">"{{ testimonial.quote }}"</p>
+                            <div class="info position-relative">
+                                <figure class="user-img mb-0">
+                                    {% if testimonial.photo %}
+                                        {% image testimonial.photo original as t_photo %}
+                                        <img class="img-fluid" src="{{ t_photo.url }}" alt="image">
+                                    {% else %}
+                                        <img class="img-fluid" src="{% static 'images/testimonial-personimage1.jpg' %}" alt="image">
+                                    {% endif %}
+                                </figure>
+                                <div class="designation-outer">
+                                    <span class="name">{{ testimonial.name }}</span>
+                                    <span class="mb-0 position">{{ testimonial.role }}</span>
+                                </div>
+                                <figure class="quote-img position-absolute mb-0">
+                                    <img class="img-fluid" src="{% static 'images/testimonial-quoteimg.png' %}" alt="image">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="image">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="upper_portion">
+                        <a href="/">
+                            <figure class="footer-logo mb-0">
+                                {% if page.footer_logo %}
+                                    {% image page.footer_logo original as footer_logo_img %}
+                                    <img class="img-fluid" src="{{ footer_logo_img.url }}" alt="Logo">
+                                {% else %}
+                                    <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Logo">
+                                {% endif %}
+                            </figure>
+                        </a>
+                        <h4>{{ page.footer_newsletter_heading }}</h4>
+                        <form action="javascript:;">
+                            <div class="form-group position-relative mb-0">
+                                <input type="text" class="form_style" placeholder="Enter Email Address" name="email">
+                                <button><i class="send fa-sharp fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">{{ page.footer_about_title }}</h4>
+                            <p class="text-size-14 text">{{ page.footer_about_text }}</p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                {% for link in page.about_footer_social_links.all %}
+                                <li>
+                                    <a href="{{ link.url }}" class="text-decoration-none">
+                                        {% if link.platform == "facebook" %}
+                                            <i class="fa-brands fa-facebook-f social-networks"></i>
+                                        {% elif link.platform == "twitter" %}
+                                            <i class="fa-brands fa-x-twitter social-networks"></i>
+                                        {% elif link.platform == "youtube" %}
+                                            <i class="fa-brands fa-youtube social-networks"></i>
+                                        {% elif link.platform == "instagram" %}
+                                            <i class="fa-brands fa-instagram social-networks"></i>
+                                        {% elif link.platform == "linkedin" %}
+                                            <i class="fa-brands fa-linkedin-in social-networks"></i>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">{{ page.footer_links_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% for link in page.about_footer_useful_links.all %}
+                                <li>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <a href="{{ link.url }}">{{ link.label }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">{{ page.footer_explore_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% for link in page.about_footer_explore_links.all %}
+                                <li>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <a href="{{ link.url }}">{{ link.label }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">{{ page.footer_contact_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% if page.footer_contact_phone %}
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:{{ page.footer_contact_phone }}" class="text-decoration-none">{{ page.footer_contact_phone }}</a>
+                                </li>
+                                {% endif %}
+                                {% if page.footer_contact_email %}
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:{{ page.footer_contact_email }}" class="text-decoration-none">{{ page.footer_contact_email }}</a>
+                                </li>
+                                {% endif %}
+                                {% if page.footer_contact_address %}
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="{{ page.footer_contact_map_url }}" class="text-decoration-none address mb-0">
+                                        {{ page.footer_contact_address }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">{{ page.footer_copyright_text }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask">
+    <div class="loader">
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+<script src="{% static 'js/carousel.js' %}"></script>
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/back-to-top-button.js' %}"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+<script src="{% static 'js/counter.js' %}"></script>
+<script src="{% static 'js/video.js' %}"></script>
+<script src="{% static 'js/video-popup.js' %}"></script>
+</body>
+</html>

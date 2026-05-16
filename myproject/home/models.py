@@ -235,6 +235,143 @@ class FooterExploreLink(Orderable):
 
 
 # ──────────────────────────────────────────────
+# ABOUT PAGE — INLINE MODELS
+# ──────────────────────────────────────────────
+
+class AboutPageFeature(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="about_features")
+    text = models.CharField(max_length=300)
+
+    panels = [FieldPanel("text")]
+
+    def __str__(self):
+        return self.text
+
+
+class AboutChooseFeature(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="choose_features")
+    icon = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_choose_icon",
+    )
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    link_url = models.CharField(max_length=255, blank=True, default="./about.html")
+
+    panels = [
+        FieldPanel("icon"),
+        FieldPanel("title"),
+        FieldPanel("description"),
+        FieldPanel("link_url"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+class AboutBenefitStat(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="benefit_stats")
+    counter = models.CharField(max_length=20, help_text='e.g. "95"')
+    suffix = models.CharField(max_length=5, blank=True, help_text='e.g. "%", "+"')
+    label = models.CharField(max_length=100)
+
+    panels = [
+        FieldRowPanel([FieldPanel("counter"), FieldPanel("suffix")]),
+        FieldPanel("label"),
+    ]
+
+    def __str__(self):
+        return f"{self.counter}{self.suffix} — {self.label}"
+
+
+class AboutTeamMember(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="team_members")
+    photo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_team_photo",
+    )
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    facebook_url = models.URLField(blank=True)
+    twitter_url = models.URLField(blank=True)
+    youtube_url = models.URLField(blank=True)
+
+    panels = [
+        FieldPanel("photo"),
+        FieldPanel("name"),
+        FieldPanel("role"),
+        FieldPanel("facebook_url"),
+        FieldPanel("twitter_url"),
+        FieldPanel("youtube_url"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+class AboutTestimonial(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="about_testimonials")
+    photo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_testimonial_photo",
+    )
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100, default="Happy Student")
+    quote = models.TextField()
+
+    panels = [
+        FieldPanel("photo"),
+        FieldPanel("name"),
+        FieldPanel("role"),
+        FieldPanel("quote"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+# ──────────────────────────────────────────────
+# ABOUT PAGE — FOOTER INLINE MODELS
+# ──────────────────────────────────────────────
+
+class AboutFooterSocialLink(Orderable):
+    PLATFORM_CHOICES = [
+        ("facebook", "Facebook"),
+        ("twitter", "Twitter"),
+        ("youtube", "YouTube"),
+        ("instagram", "Instagram"),
+        ("linkedin", "LinkedIn"),
+    ]
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="about_footer_social_links")
+    platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES)
+    url = models.URLField()
+    panels = [FieldPanel("platform"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.platform
+
+
+class AboutFooterUsefulLink(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="about_footer_useful_links")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+    panels = [FieldPanel("label"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.label
+
+
+class AboutFooterExploreLink(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="about_footer_explore_links")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+    panels = [FieldPanel("label"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.label
+
+
+# ──────────────────────────────────────────────
 # CONTACT PAGE — FOOTER INLINE MODELS
 # ──────────────────────────────────────────────
 
@@ -408,6 +545,156 @@ class ContactPage(Page):
 
 
 # ──────────────────────────────────────────────
+# ABOUT PAGE
+# ──────────────────────────────────────────────
+
+class AboutPage(Page):
+
+    # ── Navbar ────────────────────────────────
+    nav_logo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_nav_logo",
+        verbose_name="Navbar Logo",
+    )
+    nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
+
+    # ── Sub-banner ────────────────────────────
+    banner_title = models.CharField(max_length=200, default="About Us")
+    banner_description = models.TextField(default="")
+
+    # ── About Section ─────────────────────────
+    about_subtitle = models.CharField(max_length=100, default="About Us")
+    about_heading = models.CharField(max_length=300, default="")
+    about_description = models.TextField(default="")
+    about_image1 = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_page_image1",
+        verbose_name="About Image 1 (main)",
+    )
+    about_image2 = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_page_image2",
+        verbose_name="About Image 2 (overlap)",
+    )
+    about_btn_label = models.CharField(max_length=50, default="Read More")
+    about_btn_url = models.CharField(max_length=255, default="./about.html")
+
+    # ── Choose / Features Section ─────────────
+    choose_subtitle = models.CharField(max_length=100, default="Our Features")
+    choose_heading = models.CharField(max_length=300, default="Why You Should Choose Us")
+
+    # ── Benefit Section ───────────────────────
+    benefit_subtitle = models.CharField(max_length=100, default="Our Expertise")
+    benefit_heading = models.CharField(max_length=300, default="Benefits of Learning With Us")
+    benefit_description = models.TextField(default="")
+    benefit_video_thumb = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_benefit_video_thumb",
+        verbose_name="Benefit Video Background Image",
+    )
+    benefit_video_url = models.URLField(blank=True, verbose_name="Benefit Video URL")
+
+    # ── Team Section ──────────────────────────
+    team_subtitle = models.CharField(max_length=100, default="Instructors")
+    team_heading = models.CharField(max_length=300, default="Our Skilled Instructors")
+
+    # ── Testimonials Section ──────────────────
+    testimonials_subtitle = models.CharField(max_length=100, default="Reviews")
+    testimonials_heading = models.CharField(max_length=300, default="Student's Say About Us")
+
+    # ── Footer ────────────────────────────────
+    footer_logo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_footer_logo",
+    )
+    footer_newsletter_heading = models.CharField(max_length=200, default="Sign up for the newsletter:")
+    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_about_text = models.TextField(default="")
+    footer_links_title = models.CharField(max_length=100, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, default="Explore")
+    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_contact_email = models.EmailField(default="")
+    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_map_url = models.URLField(blank=True)
+    footer_copyright_text = models.CharField(max_length=200, default="")
+
+    # ──────────────────────────────────────────
+    # ADMIN PANELS
+    # ──────────────────────────────────────────
+
+    content_panels = Page.content_panels + [
+
+        MultiFieldPanel([
+            FieldPanel("nav_logo"),
+            FieldPanel("nav_phone"),
+        ], heading="Navbar"),
+
+        MultiFieldPanel([
+            FieldPanel("banner_title"),
+            FieldPanel("banner_description"),
+        ], heading="Sub-Banner"),
+
+        MultiFieldPanel([
+            FieldPanel("about_subtitle"),
+            FieldPanel("about_heading"),
+            FieldPanel("about_description"),
+            FieldPanel("about_image1"),
+            FieldPanel("about_image2"),
+            FieldRowPanel([FieldPanel("about_btn_label"), FieldPanel("about_btn_url")]),
+            InlinePanel("about_features", label="Bullet Points"),
+        ], heading="About Section"),
+
+        MultiFieldPanel([
+            FieldPanel("choose_subtitle"),
+            FieldPanel("choose_heading"),
+            InlinePanel("choose_features", label="Feature Boxes"),
+        ], heading="Choose / Features Section"),
+
+        MultiFieldPanel([
+            FieldPanel("benefit_subtitle"),
+            FieldPanel("benefit_heading"),
+            FieldPanel("benefit_description"),
+            FieldPanel("benefit_video_thumb"),
+            FieldPanel("benefit_video_url"),
+            InlinePanel("benefit_stats", label="Counter Stats"),
+        ], heading="Benefit Section"),
+
+        MultiFieldPanel([
+            FieldPanel("team_subtitle"),
+            FieldPanel("team_heading"),
+            InlinePanel("team_members", label="Team Members"),
+        ], heading="Team Section"),
+
+        MultiFieldPanel([
+            FieldPanel("testimonials_subtitle"),
+            FieldPanel("testimonials_heading"),
+            InlinePanel("about_testimonials", label="Testimonials"),
+        ], heading="Testimonials Section"),
+
+        MultiFieldPanel([
+            FieldPanel("footer_logo"),
+            FieldPanel("footer_newsletter_heading"),
+            FieldPanel("footer_about_title"),
+            FieldPanel("footer_about_text"),
+            InlinePanel("about_footer_social_links", label="Social Links"),
+            FieldPanel("footer_links_title"),
+            InlinePanel("about_footer_useful_links", label="Useful Links"),
+            FieldPanel("footer_explore_title"),
+            InlinePanel("about_footer_explore_links", label="Explore Links"),
+            FieldPanel("footer_contact_title"),
+            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
+            FieldPanel("footer_contact_address"),
+            FieldPanel("footer_contact_map_url"),
+            FieldPanel("footer_copyright_text"),
+        ], heading="Footer"),
+    ]
+
+    class Meta:
+        verbose_name = "About Page"
+
+
+# ──────────────────────────────────────────────
 # MAIN HOME PAGE MODEL
 # ──────────────────────────────────────────────
 
@@ -435,6 +722,7 @@ class HomePage(Page):
         verbose_name="Hero Logo",
     )
     hero_headline = models.CharField(max_length=300, default="", verbose_name="Headline")
+    hero_headline_2 = models.CharField(max_length=300, default="", verbose_name="Headline 2 Optional")
     hero_tagline = models.CharField(max_length=300, default="", verbose_name="Tagline")
     hero_btn_label = models.CharField(max_length=50, default="", verbose_name="Button Title")
     hero_btn_url = models.CharField(max_length=255, default="", verbose_name="Button URL")
@@ -524,6 +812,7 @@ class HomePage(Page):
             FieldPanel("hero_bg_image"),
             FieldPanel("hero_logo"),
             FieldPanel("hero_headline"),
+            FieldPanel("hero_headline_2"),
             FieldPanel("hero_tagline"),
             FieldRowPanel([FieldPanel("hero_btn_label"), FieldPanel("hero_btn_url")]),
         ], heading="Hero"),
