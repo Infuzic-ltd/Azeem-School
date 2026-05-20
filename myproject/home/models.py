@@ -14,10 +14,14 @@ from modelcluster.models import ClusterableModel
 class NavbarMenu(ClusterableModel, Orderable):
     page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="navbar_menus")
     title = models.CharField(max_length=100)
+    url = models.CharField(
+        max_length=255, blank=True, default="",
+        help_text="Direct link URL. Leave blank if this item has dropdown sub-items.",
+    )
 
     panels = [
-        FieldPanel("title"),
-        InlinePanel("menu_items", label="Dropdown Items"),
+        FieldRowPanel([FieldPanel("title"), FieldPanel("url")]),
+        InlinePanel("menu_items", label="Dropdown Items (leave empty if using a direct URL above)"),
     ]
 
     def __str__(self):
@@ -232,6 +236,263 @@ class FooterExploreLink(Orderable):
 
     def __str__(self):
         return self.label
+
+
+# ──────────────────────────────────────────────
+# ADMISSIONS PAGE — INLINE MODELS
+# ──────────────────────────────────────────────
+
+class AdmissionStat(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_stats")
+    number = models.CharField(max_length=20, help_text='e.g. "98", "5K", "120"')
+    suffix = models.CharField(max_length=10, blank=True, help_text='e.g. "%", "+", "K+", "h"')
+    label = models.CharField(max_length=150)
+
+    panels = [
+        FieldRowPanel([FieldPanel("number"), FieldPanel("suffix")]),
+        FieldPanel("label"),
+    ]
+
+    def __str__(self):
+        return f"{self.number}{self.suffix} — {self.label}"
+
+
+class AdmissionRequirement(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_requirements")
+    icon_class = models.CharField(max_length=100, default="fa-solid fa-check",
+                                  help_text='Font Awesome class, e.g. "fa-solid fa-graduation-cap"')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    panels = [FieldPanel("icon_class"), FieldPanel("title"), FieldPanel("description")]
+
+    def __str__(self):
+        return self.title
+
+
+class AdmissionIntakeCard(Orderable):
+    BG_CHOICES = [
+        ("bg1", "Green (bg1)"),
+        ("bg2", "Yellow (bg2)"),
+        ("bg3", "Red (bg3)"),
+    ]
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_intake_cards")
+    bg_choice = models.CharField(max_length=10, choices=BG_CHOICES, default="bg1")
+    icon_class = models.CharField(max_length=100, default="fa-solid fa-calendar-check",
+                                  help_text='Font Awesome class, e.g. "fa-solid fa-calendar-check"')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    panels = [
+        FieldRowPanel([FieldPanel("bg_choice"), FieldPanel("icon_class")]),
+        FieldPanel("title"),
+        FieldPanel("description"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+class AdmissionStep(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_steps")
+    step_number = models.CharField(max_length=5, help_text='e.g. "01", "02"')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    panels = [FieldPanel("step_number"), FieldPanel("title"), FieldPanel("description")]
+
+    def __str__(self):
+        return f"{self.step_number} — {self.title}"
+
+
+class AdmissionFormInfo(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_form_infos")
+    icon_class = models.CharField(max_length=100, default="fa-solid fa-bolt",
+                                  help_text='Font Awesome class, e.g. "fa-solid fa-bolt"')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    panels = [FieldPanel("icon_class"), FieldPanel("title"), FieldPanel("description")]
+
+    def __str__(self):
+        return self.title
+
+
+class AdmissionProgram(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_programs")
+    name = models.CharField(max_length=200, help_text="Program name shown in the dropdown")
+
+    panels = [FieldPanel("name")]
+
+    def __str__(self):
+        return self.name
+
+
+# ── Admissions footer inline models ───────────
+
+class AdmissionsFooterSocialLink(Orderable):
+    PLATFORM_CHOICES = [
+        ("facebook", "Facebook"),
+        ("twitter", "Twitter"),
+        ("youtube", "YouTube"),
+        ("instagram", "Instagram"),
+        ("linkedin", "LinkedIn"),
+    ]
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admissions_footer_social_links")
+    platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES)
+    url = models.URLField()
+    panels = [FieldPanel("platform"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.platform
+
+
+class AdmissionsFooterUsefulLink(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admissions_footer_useful_links")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+    panels = [FieldPanel("label"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.label
+
+
+class AdmissionsFooterExploreLink(Orderable):
+    page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admissions_footer_explore_links")
+    label = models.CharField(max_length=100)
+    url = models.CharField(max_length=255)
+    panels = [FieldPanel("label"), FieldPanel("url")]
+
+    def __str__(self):
+        return self.label
+
+
+# ──────────────────────────────────────────────
+# ADMISSIONS PAGE
+# ──────────────────────────────────────────────
+
+class AdmissionsPage(Page):
+
+    # ── Navbar ────────────────────────────────
+    nav_logo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="admissions_nav_logo",
+        verbose_name="Navbar Logo",
+    )
+    nav_phone = models.CharField(max_length=30, default="")
+    nav_login_label = models.CharField(max_length=50, default="Log In")
+    nav_login_url = models.CharField(max_length=255, default="#")
+
+    # ── Sub-Banner ────────────────────────────
+    banner_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="admissions_banner_bg",
+        verbose_name="Banner Background Image",
+        help_text="Recommended resolution: 1920 × 486 px",
+    )
+    banner_title = models.CharField(max_length=200, default="Start Your Journey With Us")
+    banner_description = models.TextField(default="")
+
+    # ── Requirements Section ──────────────────
+    requirements_subtitle = models.CharField(max_length=100, default="Who Can Apply")
+    requirements_heading = models.CharField(max_length=300, default="Eligibility & Requirements")
+
+    # ── Process Section ───────────────────────
+    process_subtitle = models.CharField(max_length=100, default="Simple & Fast")
+    process_heading = models.CharField(max_length=300, default="How Our Admissions Works")
+
+    # ── Form Section ──────────────────────────
+    form_subtitle = models.CharField(max_length=100, default="Apply Now")
+    form_heading = models.CharField(max_length=300, default="Your Future Starts With One Form")
+    form_intro_text = models.TextField(default="")
+    form_contact_email = models.EmailField(default="admissions@educiza.com")
+    form_submit_label = models.CharField(max_length=100, default="Submit My Application")
+    form_success_message = models.TextField(
+        default="Application submitted! Our admissions team will contact you within 48 hours.")
+
+    # ── Footer ────────────────────────────────
+    footer_logo = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="admissions_footer_logo",
+    )
+    footer_newsletter_heading = models.CharField(max_length=200, default="Sign up for the newsletter:")
+    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_about_text = models.TextField(default="")
+    footer_links_title = models.CharField(max_length=100, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, default="Programs")
+    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_contact_email = models.EmailField(default="")
+    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_map_url = models.URLField(blank=True)
+    footer_copyright_text = models.CharField(max_length=200, default="")
+
+    # ──────────────────────────────────────────
+    # ADMIN PANELS
+    # ──────────────────────────────────────────
+
+    content_panels = Page.content_panels + [
+
+        MultiFieldPanel([
+            FieldPanel("nav_logo"),
+            FieldPanel("nav_phone"),
+            FieldRowPanel([FieldPanel("nav_login_label"), FieldPanel("nav_login_url")]),
+        ], heading="Navbar"),
+
+        MultiFieldPanel([
+            FieldPanel("banner_bg_image"),
+            FieldPanel("banner_title"),
+            FieldPanel("banner_description"),
+        ], heading="Sub-Banner"),
+
+        MultiFieldPanel([
+            InlinePanel("admission_stats", label="Stats"),
+        ], heading="Stats Strip"),
+
+        MultiFieldPanel([
+            FieldPanel("requirements_subtitle"),
+            FieldPanel("requirements_heading"),
+            InlinePanel("admission_requirements", label="Requirements"),
+            InlinePanel("admission_intake_cards", label="Intake / Info Cards"),
+        ], heading="Requirements Section"),
+
+        MultiFieldPanel([
+            FieldPanel("process_subtitle"),
+            FieldPanel("process_heading"),
+            InlinePanel("admission_steps", label="Steps"),
+        ], heading="Admissions Process Steps"),
+
+        MultiFieldPanel([
+            FieldPanel("form_subtitle"),
+            FieldPanel("form_heading"),
+            FieldPanel("form_intro_text"),
+            FieldPanel("form_contact_email"),
+            FieldPanel("form_submit_label"),
+            FieldPanel("form_success_message"),
+            InlinePanel("admission_form_infos", label="Left Panel Info Items"),
+            InlinePanel("admission_programs", label="Program Dropdown Options"),
+        ], heading="Application Form Section"),
+
+        MultiFieldPanel([
+            FieldPanel("footer_logo"),
+            FieldPanel("footer_newsletter_heading"),
+            FieldPanel("footer_about_title"),
+            FieldPanel("footer_about_text"),
+            InlinePanel("admissions_footer_social_links", label="Social Links"),
+            FieldPanel("footer_links_title"),
+            InlinePanel("admissions_footer_useful_links", label="Useful Links"),
+            FieldPanel("footer_explore_title"),
+            InlinePanel("admissions_footer_explore_links", label="Explore / Programs Links"),
+            FieldPanel("footer_contact_title"),
+            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
+            FieldPanel("footer_contact_address"),
+            FieldPanel("footer_contact_map_url"),
+            FieldPanel("footer_copyright_text"),
+        ], heading="Footer"),
+    ]
+
+    class Meta:
+        verbose_name = "Admissions Page"
 
 
 # ──────────────────────────────────────────────

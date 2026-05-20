@@ -2892,7 +2892,7 @@ html{
     right: 0;
     top: 0;
     position: absolute;
-    background-image: url(../images/benefit-rightbackground.jpg);
+    /* background-image: url(../images/benefit-rightbackground.jpg); */
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;

@@ -1,0 +1,886 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admissions | Educiza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+    <style>
+        /* ── Admissions-specific overrides ── */
+        .admissions-steps-con {
+            padding: 100px 0;
+            background-color: var(--e-global-color-very-dark-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        .admissions-steps-con::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(220, 253, 125, 0.05);
+            top: -80px;
+            right: -80px;
+        }
+        .step-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(220,253,125,0.15);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .step-box:hover {
+            background: rgba(220,253,125,0.08);
+            border-color: var(--e-global-color-accent);
+            transform: translateY(-5px);
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--e-global-color-accent);
+            color: var(--e-global-color-very-dark-blue);
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 60px;
+            text-align: center;
+            margin: 0 auto 20px auto;
+            display: block;
+        }
+        .step-box h4 {
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        .step-box p {
+            color: var(--e-global-color-grayish-blue);
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        .step-connector {
+            position: absolute;
+            top: 30px;
+            right: -20px;
+            color: var(--e-global-color-accent);
+            font-size: 22px;
+            z-index: 2;
+        }
+        /* ── Requirements section ── */
+        .requirements-con {
+            padding: 100px 0;
+            background-color: var(--e-global-color-very-pale-blue);
+            position: relative;
+        }
+        .requirement-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 22px;
+        }
+        .requirement-item .req-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: var(--e-global-color-soft-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-right: 18px;
+        }
+        .requirement-item .req-icon i {
+            color: var(--e-global-color-accent);
+            font-size: 18px;
+        }
+        .requirement-item h5 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--e-global-color-very-dark-blue);
+        }
+        .requirement-item p {
+            font-size: 14px;
+            color: var(--e-global-color-text);
+            margin-bottom: 0;
+        }
+        .intake-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 40px rgba(106,82,224,0.1);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .intake-card .intake-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            margin: 0 auto 18px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .intake-card .intake-icon.bg1 { background: var(--e-global-color-very-soft-green); }
+        .intake-card .intake-icon.bg2 { background: var(--e-global-color-very-pale-yellow); }
+        .intake-card .intake-icon.bg3 { background: var(--e-global-color-very-pale-red); }
+        .intake-card .intake-icon i { font-size: 28px; }
+        .intake-card .intake-icon.bg1 i { color: #52b788; }
+        .intake-card .intake-icon.bg2 i { color: var(--e-global-color-bright-yellow); }
+        .intake-card .intake-icon.bg3 i { color: var(--e-global-color-pure-red); }
+        .intake-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--e-global-color-very-dark-blue); }
+        .intake-card p { font-size: 14px; color: var(--e-global-color-text); margin-bottom: 0; }
+        /* ── Form section ── */
+        .admissions-form-con {
+            padding: 100px 0;
+            background-color: var(--e-global-color-soft-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        .admissions-form-con::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+            bottom: -150px;
+            left: -150px;
+        }
+        .admissions-form-con::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(220,253,125,0.07);
+            top: -80px;
+            right: -50px;
+        }
+        .form-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 50px 50px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 60px rgba(31,23,65,0.2);
+        }
+        .form-card h6 {
+            color: var(--e-global-color-soft-blue);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .form-card h2 {
+            color: var(--e-global-color-very-dark-blue);
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .form-card .form-intro {
+            color: var(--e-global-color-text);
+            font-size: 15px;
+            margin-bottom: 35px;
+        }
+        .form-card .form-group {
+            margin-bottom: 20px;
+        }
+        .form-card label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--e-global-color-very-dark-blue);
+            margin-bottom: 7px;
+            display: block;
+            letter-spacing: 0.3px;
+        }
+        .form-card .form_style {
+            width: 100%;
+            height: 52px;
+            border: 1.5px solid #e5e5f0;
+            border-radius: 10px;
+            padding: 0 18px;
+            font-size: 14px;
+            color: var(--e-global-color-very-dark-blue);
+            background: #fafafa;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .form-card select.form_style {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a39eba' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        .form-card textarea.form_style {
+            height: 120px;
+            padding: 14px 18px;
+            resize: none;
+        }
+        .form-card .form_style:focus {
+            border-color: var(--e-global-color-soft-blue);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(106,82,224,0.1);
+        }
+        .form-card .form_style.is-invalid {
+            border-color: var(--e-global-color-pure-red);
+        }
+        .form-card .invalid-feedback {
+            font-size: 12px;
+            color: var(--e-global-color-pure-red);
+            margin-top: 4px;
+        }
+        .admissions-submit-btn {
+            width: 100%;
+            height: 56px;
+            border-radius: 12px;
+            background: var(--e-global-color-accent);
+            color: var(--e-global-color-very-dark-blue);
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+        }
+        .admissions-submit-btn:hover {
+            background: var(--e-global-color-very-dark-blue);
+            color: var(--e-global-color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(31,23,65,0.3);
+        }
+        .form-info-panel {
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+            padding: 20px 0 20px 40px;
+        }
+        .form-info-panel h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: #ffffff;
+        }
+        .form-info-panel p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        .form-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        .form-info-item .fi-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(220,253,125,0.15);
+            border: 1px solid rgba(220,253,125,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-right: 18px;
+        }
+        .form-info-item .fi-icon i {
+            font-size: 20px;
+            color: var(--e-global-color-accent);
+        }
+        .form-info-item h5 {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .form-info-item p {
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        /* ── Alert messages ── */
+        .admission-alert {
+            border-radius: 12px;
+            padding: 16px 22px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .admission-alert.success {
+            background: var(--e-global-color-very-soft-green);
+            color: #2d6a4f;
+            border: 1px solid #b7e4c7;
+        }
+        .admission-alert.error {
+            background: var(--e-global-color-very-pale-red);
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        /* ── Stats strip ── */
+        .admissions-stats-con {
+            background: var(--e-global-color-very-dark-blue);
+            padding: 60px 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 0 20px;
+        }
+        .stat-item .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--e-global-color-accent);
+            line-height: 1;
+            display: block;
+            margin-bottom: 8px;
+            font-family: "Urbanist", serif;
+        }
+        .stat-item p {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        .stat-divider {
+            width: 1px;
+            height: 60px;
+            background: rgba(255,255,255,0.1);
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Back to top button -->
+<a id="button"></a>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER + SUB-BANNER
+═══════════════════════════════════════════════════════ -->
+<div class="sub_banner position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        <img src="{% static 'images/logo.png' %}" alt="Educiza" class="img-fluid">
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarAdmissions" aria-controls="navbarAdmissions"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarAdmissions">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/admissions/">Admissions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact/">Contact Us</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link log_in" href="#">Log In <i class="fa-solid fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+61383766284" class="text-decoration-none">
+                        <span class="number">+61 3 8376 6284</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Sub banner -->
+    <section class="sub_banner_con position-relative" style="background-image: none;">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-xl-8 col-md-10 col-12 mx-auto">
+                    <div class="sub_banner_content" data-aos="fade-up">
+                        <h1 class="text-white">Start Your Journey With Us</h1>
+                        <p class="text-white text-size-18">
+                            Take the first step toward a transformative education. Our admissions
+                            process is simple, transparent, and designed with you in mind.
+                        </p>
+                        <div class="box">
+                            <a href="/" class="text-decoration-none">
+                                <span class="mb-0">Home</span>
+                            </a>
+                            <i class="arrow fa-solid fa-arrow-right"></i>
+                            <span class="mb-0 box_span">Admissions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STATS STRIP
+═══════════════════════════════════════════════════════ -->
+<section class="admissions-stats-con">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="stat-item">
+                    <span class="stat-number">98<sup style="font-size:24px">%</sup></span>
+                    <p>Acceptance Rate for Eligible Applicants</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-item">
+                    <span class="stat-number">5K<sup style="font-size:24px">+</sup></span>
+                    <p>Students Enrolled This Year</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-item">
+                    <span class="stat-number">120<sup style="font-size:24px">+</sup></span>
+                    <p>Courses Across All Disciplines</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-item">
+                    <span class="stat-number">48<sup style="font-size:24px">h</sup></span>
+                    <p>Average Response Time After Applying</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     REQUIREMENTS + INTAKE INFO
+═══════════════════════════════════════════════════════ -->
+<section class="requirements-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-soft-blue);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Who Can Apply</h6>
+                <h2 style="color:var(--e-global-color-very-dark-blue);font-weight:800;">Eligibility &amp; Requirements</h2>
+            </div>
+        </div>
+        <div class="row align-items-start">
+            <!-- Requirements list -->
+            <div class="col-lg-7 col-md-12" data-aos="fade-up">
+                <div class="requirement-item">
+                    <div class="req-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div>
+                        <h5>Minimum Education Level</h5>
+                        <p>Applicants must have completed secondary education (O-levels / Matric or equivalent) or hold a prior diploma/degree for advanced programs.</p>
+                    </div>
+                </div>
+                <div class="requirement-item">
+                    <div class="req-icon"><i class="fa-solid fa-language"></i></div>
+                    <div>
+                        <h5>English Proficiency</h5>
+                        <p>A basic level of English is required. IELTS, TOEFL, or equivalent certificates are accepted. Non-native speakers may take our placement test.</p>
+                    </div>
+                </div>
+                <div class="requirement-item">
+                    <div class="req-icon"><i class="fa-solid fa-id-card"></i></div>
+                    <div>
+                        <h5>Valid Identification</h5>
+                        <p>A government-issued ID (CNIC, passport, or birth certificate for minors) is required for identity verification during enrollment.</p>
+                    </div>
+                </div>
+                <div class="requirement-item">
+                    <div class="req-icon"><i class="fa-solid fa-file-alt"></i></div>
+                    <div>
+                        <h5>Academic Transcripts</h5>
+                        <p>Official transcripts or mark sheets from your last attended institution are required. Certified copies are acceptable at the application stage.</p>
+                    </div>
+                </div>
+                <div class="requirement-item" style="margin-bottom:0;">
+                    <div class="req-icon"><i class="fa-solid fa-infinity"></i></div>
+                    <div>
+                        <h5>No Age Restriction</h5>
+                        <p>We welcome students of all ages. Whether you are a fresh graduate or a working professional, there is a program tailored for you.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Intake cards -->
+            <div class="col-lg-5 col-md-12 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="100">
+                <div class="intake-card">
+                    <div class="intake-icon bg1">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <h4>Spring Intake — February</h4>
+                    <p>Applications open in December. Early applicants receive priority enrollment and scholarship consideration.</p>
+                </div>
+                <div class="intake-card">
+                    <div class="intake-icon bg2">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <h4>Fall Intake — September</h4>
+                    <p>Our largest intake of the year. Applications open in June. Join thousands of new students each autumn.</p>
+                </div>
+                <div class="intake-card" style="margin-bottom:0;">
+                    <div class="intake-icon bg3">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                    </div>
+                    <h4>Scholarships &amp; Financial Aid</h4>
+                    <p>Merit-based scholarships cover up to 50% of tuition. Need-based grants and flexible instalment plans are also available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ADMISSIONS PROCESS — STEPS
+═══════════════════════════════════════════════════════ -->
+<section class="admissions-steps-con">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Simple &amp; Fast</h6>
+                <h2 class="text-white" style="font-weight:800;">How Our Admissions Works</h2>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 position-relative">
+                <div class="step-box">
+                    <span class="step-number">01</span>
+                    <h4>Submit Application</h4>
+                    <p>Fill in the application form below with your personal details, chosen program, and educational background. Takes less than 5 minutes.</p>
+                </div>
+                <div class="step-connector d-none d-lg-block">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 position-relative">
+                <div class="step-box">
+                    <span class="step-number">02</span>
+                    <h4>Document Review</h4>
+                    <p>Our admissions team reviews your application and documents within 48 hours. You will be notified via email of any additional requirements.</p>
+                </div>
+                <div class="step-connector d-none d-lg-block">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 position-relative">
+                <div class="step-box">
+                    <span class="step-number">03</span>
+                    <h4>Offer Letter</h4>
+                    <p>Successful applicants receive a formal offer letter with program details, tuition fees, and scholarship outcome — typically within 5 business days.</p>
+                </div>
+                <div class="step-connector d-none d-lg-block">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="step-box">
+                    <span class="step-number">04</span>
+                    <h4>Enrol &amp; Begin</h4>
+                    <p>Accept your offer, complete registration, and get access to your student portal, course materials, and orientation schedule.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     APPLICATION FORM
+═══════════════════════════════════════════════════════ -->
+<section class="admissions-form-con" id="apply">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Left info panel -->
+            <div class="col-lg-5 col-md-12 mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="form-info-panel">
+                    <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Apply Now</h6>
+                    <h2>Your Future Starts With One Form</h2>
+                    <p>Complete the application below and our admissions team will reach out within 48 hours. No application fee. No complicated process.</p>
+
+                    <div class="form-info-item">
+                        <div class="fi-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <h5>Fast Processing</h5>
+                            <p>Applications are reviewed within 48 hours. You will hear from us quickly.</p>
+                        </div>
+                    </div>
+                    <div class="form-info-item">
+                        <div class="fi-icon"><i class="fa-solid fa-headset"></i></div>
+                        <div>
+                            <h5>Dedicated Advisor</h5>
+                            <p>A personal admissions advisor is assigned to guide you through every step.</p>
+                        </div>
+                    </div>
+                    <div class="form-info-item">
+                        <div class="fi-icon"><i class="fa-solid fa-lock"></i></div>
+                        <div>
+                            <h5>Your Data is Safe</h5>
+                            <p>All information submitted is kept strictly confidential and never shared with third parties.</p>
+                        </div>
+                    </div>
+                    <div class="form-info-item" style="margin-bottom:0;">
+                        <div class="fi-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div>
+                            <h5>Admissions Email</h5>
+                            <p>admissions@educiza.com<br>We respond to every enquiry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right form card -->
+            <div class="col-lg-7 col-md-12" data-aos="fade-left">
+                <div class="form-card">
+                    <h6>Application Form</h6>
+                    <h2>Tell Us About Yourself</h2>
+                    <p class="form-intro">All fields marked <span style="color:var(--e-global-color-pure-red)">*</span> are required. We will never spam you.</p>
+
+                    {% if success %}
+                    <div class="admission-alert success">
+                        <i class="fa-solid fa-circle-check fa-lg"></i>
+                        <span>Application submitted! Our admissions team will contact you within 48 hours.</span>
+                    </div>
+                    {% endif %}
+
+                    {% if error %}
+                    <div class="admission-alert error">
+                        <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+                        <span>{{ error }}</span>
+                    </div>
+                    {% endif %}
+
+                    <form method="post" action="/admissions/#apply" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>First Name <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <input type="text" name="first_name" class="form_style {% if errors.first_name %}is-invalid{% endif %}"
+                                        placeholder="e.g. Azeem" value="{{ form_data.first_name|default:'' }}" required>
+                                    {% if errors.first_name %}<div class="invalid-feedback">{{ errors.first_name }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Last Name <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <input type="text" name="last_name" class="form_style {% if errors.last_name %}is-invalid{% endif %}"
+                                        placeholder="e.g. Khan" value="{{ form_data.last_name|default:'' }}" required>
+                                    {% if errors.last_name %}<div class="invalid-feedback">{{ errors.last_name }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email Address <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <input type="email" name="email" class="form_style {% if errors.email %}is-invalid{% endif %}"
+                                        placeholder="you@example.com" value="{{ form_data.email|default:'' }}" required>
+                                    {% if errors.email %}<div class="invalid-feedback">{{ errors.email }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Phone Number <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <input type="tel" name="phone" class="form_style {% if errors.phone %}is-invalid{% endif %}"
+                                        placeholder="+92 300 0000000" value="{{ form_data.phone|default:'' }}" required>
+                                    {% if errors.phone %}<div class="invalid-feedback">{{ errors.phone }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" name="dob" class="form_style"
+                                        value="{{ form_data.dob|default:'' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nationality / Country</label>
+                                    <input type="text" name="country" class="form_style"
+                                        placeholder="e.g. Pakistan" value="{{ form_data.country|default:'' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Program / Course of Interest <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <select name="program" class="form_style {% if errors.program %}is-invalid{% endif %}" required>
+                                        <option value="" disabled {% if not form_data.program %}selected{% endif %}>Select a program</option>
+                                        <option value="Business Studies" {% if form_data.program == "Business Studies" %}selected{% endif %}>Business Studies</option>
+                                        <option value="Programming & Development" {% if form_data.program == "Programming & Development" %}selected{% endif %}>Programming &amp; Development</option>
+                                        <option value="UI/UX Design" {% if form_data.program == "UI/UX Design" %}selected{% endif %}>UI/UX Design</option>
+                                        <option value="Digital Marketing" {% if form_data.program == "Digital Marketing" %}selected{% endif %}>Digital Marketing</option>
+                                        <option value="Data Science" {% if form_data.program == "Data Science" %}selected{% endif %}>Data Science</option>
+                                        <option value="Other" {% if form_data.program == "Other" %}selected{% endif %}>Other / Not Sure Yet</option>
+                                    </select>
+                                    {% if errors.program %}<div class="invalid-feedback">{{ errors.program }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Highest Education Level <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <select name="education" class="form_style {% if errors.education %}is-invalid{% endif %}" required>
+                                        <option value="" disabled {% if not form_data.education %}selected{% endif %}>Select level</option>
+                                        <option value="Secondary (O-levels / Matric)" {% if form_data.education == "Secondary (O-levels / Matric)" %}selected{% endif %}>Secondary (O-levels / Matric)</option>
+                                        <option value="Higher Secondary (A-levels / FSc)" {% if form_data.education == "Higher Secondary (A-levels / FSc)" %}selected{% endif %}>Higher Secondary (A-levels / FSc)</option>
+                                        <option value="Diploma" {% if form_data.education == "Diploma" %}selected{% endif %}>Diploma</option>
+                                        <option value="Bachelor's Degree" {% if form_data.education == "Bachelor's Degree" %}selected{% endif %}>Bachelor's Degree</option>
+                                        <option value="Master's or Above" {% if form_data.education == "Master's or Above" %}selected{% endif %}>Master's or Above</option>
+                                    </select>
+                                    {% if errors.education %}<div class="invalid-feedback">{{ errors.education }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Tell Us About Your Goals / Message</label>
+                                    <textarea name="message" class="form_style"
+                                        placeholder="Why do you want to join? Any specific goals or questions?">{{ form_data.message|default:'' }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="admissions-submit-btn">
+                                    Submit My Application
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="upper_portion">
+                        <a href="/">
+                            <figure class="footer-logo mb-0">
+                                <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Educiza">
+                            </figure>
+                        </a>
+                        <h4>Sign up for the newsletter:</h4>
+                        <form action="javascript:;">
+                            <div class="form-group position-relative mb-0">
+                                <input type="text" class="form_style" placeholder="Enter Email Address" name="newsletter_email">
+                                <button type="button"><i class="send fa-sharp fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">About Us</h4>
+                            <p class="text-size-14 text">
+                                Educiza is a leading online learning platform empowering students worldwide
+                                with quality education, skilled instructors, and flexible programs.
+                            </p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                <li><a href="https://www.facebook.com/" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
+                                <li><a href="https://twitter.com/" class="text-decoration-none"><i class="fa-brands fa-x-twitter social-networks"></i></a></li>
+                                <li><a href="https://www.youtube.com/" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">Useful Links</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/about/">About</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/admissions/">Admissions</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/contact/">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">Programs</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Business Studies</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Programming</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">UI/UX Design</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Digital Marketing</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Data Science</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">Contact Us</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:+61383766284" class="text-decoration-none">+61 3 8376 6284</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:admissions@educiza.com" class="text-decoration-none">admissions@educiza.com</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="#" class="text-decoration-none address mb-0">21 King Street Melbourne, 3000, Australia</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">Copyright 2025, educiza.com All Rights Reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask">
+    <div class="loader"><div></div><div></div></div>
+</div>
+
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/back-to-top-button.js' %}"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+</body>
+</html>

@@ -187,6 +187,19 @@
     </div>
 </section>
 
+{% if page and page.benefit_video_thumb %}
+{% image page.benefit_video_thumb original as benefit_thumb %}
+{% if benefit_thumb %}
+<style>
+.faqbenefit-con::before {
+    background-image: url('{{ benefit_thumb.url }}');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+</style>
+{% endif %}
+{% endif %}
 <!-- Benefit -->
 <section class="faqbenefit-con position-relative">
     <figure class="benefit-leftimage mb-0">
@@ -214,14 +227,6 @@
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-lg-left text-center">
                 <div class="benefit_wrapper position-relative" data-aos="fade-up">
-                    <figure class="benefit-rightbackground mb-0">
-                        {% if page.benefit_video_thumb %}
-                            {% image page.benefit_video_thumb original as benefit_thumb %}
-                            <img src="{{ benefit_thumb.url }}" alt="image" class="img-fluid">
-                        {% else %}
-                            <img src="{% static 'images/benefit-rightbackground.jpg' %}" alt="image" class="img-fluid">
-                        {% endif %}
-                    </figure>
                     {% if page.benefit_video_url %}
                     <div class="icon">
                         <a class="popup-vimeo" href="{{ page.benefit_video_url }}">

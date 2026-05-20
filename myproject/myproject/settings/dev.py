@@ -10,6 +10,10 @@ SECRET_KEY = "django-insecure-ypfy=78z3j!6fb%%^z80dqr4ke*2w8(8@l%xipgaqh1==sv-0n
 ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "noreply@educiza.com"
+
+# Email address that receives every admissions application
+ADMISSIONS_SALES_EMAIL = "admissions@educiza.com"
 
 
 try:
