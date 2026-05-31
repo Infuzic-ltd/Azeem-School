@@ -33,19 +33,13 @@ if database_url:
         )
     }
 
-# ── Static files (WhiteNoise) ─────────────────────────────────────────────────
-# Insert WhiteNoise right after SecurityMiddleware
-_middleware = list(MIDDLEWARE)
-_sec_idx = _middleware.index("django.middleware.security.SecurityMiddleware")
-_middleware.insert(_sec_idx + 1, "whitenoise.middleware.WhiteNoiseMiddleware")
-MIDDLEWARE = _middleware
-
+# ── Static files (served by Vercel edge — no WhiteNoise needed) ───────────────
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 

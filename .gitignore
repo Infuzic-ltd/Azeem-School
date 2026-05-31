@@ -10,7 +10,8 @@ build/
 
 # Django / Wagtail
 *.sqlite3
-staticfiles/
+# staticfiles is committed to git so Vercel can serve it
+# staticfiles/
 media/
 local_settings.py
 myproject/myproject/settings/local.py
