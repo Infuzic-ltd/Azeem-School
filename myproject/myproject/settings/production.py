@@ -20,6 +20,9 @@ custom_domain = os.environ.get("CUSTOM_DOMAIN")
 if custom_domain:
     CSRF_TRUSTED_ORIGINS.append(f"https://{custom_domain}")
 
+# ── PostgreSQL apps ───────────────────────────────────────────────────────────
+INSTALLED_APPS = list(INSTALLED_APPS) + ["django.contrib.postgres"]
+
 # ── Database ──────────────────────────────────────────────────────────────────
 database_url = os.environ.get("DATABASE_URL")
 if database_url:
