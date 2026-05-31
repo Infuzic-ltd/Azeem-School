@@ -34385,4 +34385,266 @@ h4 {font-size: 16px; line-height: 22px;}
 .sign-up-form .login-card .select-option {padding:  0 25px 0 15px;}
 }
 
+/* ===== STYLE ENHANCEMENTS ===== */
+<style>
+
+/* --- Sticky nav blur on scroll --- */
+.header {
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+.header.nav-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: rgba(255,255,255,0.97);
+    box-shadow: 0 3px 24px rgba(0,0,0,0.10);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* --- Section subtitle (h6) label lines --- */
+.choose_content h6,
+.about_content h6,
+.popular_content h6,
+.benefit_content h6,
+.testimonial_content h6,
+.article_content h6 {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+.choose_content h6::before,
+.about_content h6::before,
+.popular_content h6::before,
+.benefit_content h6::before,
+.testimonial_content h6::before,
+.article_content h6::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 3px;
+    background: var(--theme-color);
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* --- Section h2 tighter tracking --- */
+.choose_content h2,
+.about_content h2,
+.benefit_content h2,
+.popular_content h2,
+.testimonial_content h2,
+.article_content h2 {
+    letter-spacing: -0.3px;
+}
+
+/* --- Choose / trust cards hover --- */
+.choose-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.choose-box:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.11) !important;
+}
+
+/* --- Course cards hover + image zoom --- */
+.course-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.course-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.13) !important;
+}
+.course-box > figure {
+    overflow: hidden;
+}
+.course-box > figure img {
+    transition: transform 0.45s ease;
+    will-change: transform;
+}
+.course-box:hover > figure img {
+    transform: scale(1.07);
+}
+
+/* --- Enroll Now link slide arrow --- */
+.enroll_now {
+    transition: color 0.25s ease, letter-spacing 0.25s ease;
+}
+.enroll_now:hover {
+    letter-spacing: 0.4px;
+}
+.enroll_now i {
+    transition: transform 0.25s ease;
+    display: inline-block;
+}
+.enroll_now:hover i {
+    transform: translateX(4px);
+}
+
+/* --- Benefit counter boxes --- */
+.benefit-box {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.benefit-box::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 3px;
+    background: var(--theme-color);
+    border-radius: 3px 3px 0 0;
+    transition: width 0.35s ease;
+}
+.benefit-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.10) !important;
+}
+.benefit-box:hover::after {
+    width: 72px;
+}
+
+/* --- Testimonial cards hover --- */
+.testimonial-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonial-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10) !important;
+}
+
+/* --- Article/Blog cards hover + image zoom --- */
+.article-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.article-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12) !important;
+}
+.article-box > figure {
+    overflow: hidden;
+}
+.article-box > figure img {
+    transition: transform 0.45s ease;
+    will-change: transform;
+}
+.article-box:hover > figure img {
+    transform: scale(1.07);
+}
+
+/* Read more arrow nudge */
+.read_more i {
+    transition: transform 0.25s ease;
+    display: inline-block;
+}
+.read_more:hover i {
+    transform: translateX(4px);
+}
+
+/* --- Mission box hover --- */
+.about_content .box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about_content .box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.10) !important;
+}
+
+/* --- About feature list checkmark color --- */
+.about_content ul li i.fa-check {
+    color: var(--theme-color);
+}
+
+/* --- Primary button lift --- */
+.primary_btn {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease !important;
+}
+.primary_btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+.primary_btn i {
+    transition: transform 0.25s ease;
+    display: inline-block;
+}
+.primary_btn:hover i {
+    transform: translateX(4px);
+}
+
+/* --- Nav login/enroll button --- */
+.log_in {
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+.log_in:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18) !important;
+}
+
+/* --- Social icons lift --- */
+.social-icons li {
+    transition: transform 0.25s ease;
+}
+.social-icons li:hover {
+    transform: translateY(-4px);
+}
+
+/* --- Footer links hover arrow nudge --- */
+.footer_lowerportion .links li i,
+.footer_lowerportion .use-link li i {
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+.footer_lowerportion .links li:hover i,
+.footer_lowerportion .use-link li:hover i {
+    transform: translateX(4px);
+}
+
+/* --- Scrollbar refinement --- */
+body::-webkit-scrollbar {
+    width: 6px;
+}
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    box-shadow: none;
+}
+body::-webkit-scrollbar-thumb {
+    background: var(--theme-color);
+    border-radius: 6px;
+    background-image: none;
+}
+
+/* --- Smooth image loading --- */
+img {
+    transition: opacity 0.3s ease;
+}
+
+</style>
+
+<script>
+/* Sticky nav on scroll */
+(function() {
+    var header = document.querySelector('.header');
+    if (!header) return;
+    var bannerHeight = 80;
+    function onScroll() {
+        if (window.scrollY > bannerHeight) {
+            header.classList.add('nav-scrolled');
+        } else {
+            header.classList.remove('nav-scrolled');
+        }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
+</script>
+
 </style>

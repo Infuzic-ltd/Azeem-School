@@ -81,17 +81,17 @@ TEMPLATES = [
     },
 ]
 
-DEBUG = True
-
 WSGI_APPLICATION = "myproject.wsgi.application"
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dros5yiiy',   # e.g. 'educiza'
+    'CLOUD_NAME': 'dros5yiiy',
     'API_KEY':    '795944798785142',
     'API_SECRET': '1x3Wq5IEg8rur9b0Lh5lvSefhbA',
 }
+
+WAGTAILDOCS_DOCUMENT_MODEL = 'home.CustomDocument'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 

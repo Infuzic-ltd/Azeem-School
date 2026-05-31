@@ -1,0 +1,965 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Academics | Azeem School</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+    <style>
+        /* ── Stats strip ── */
+        .acad-stats-con { background: var(--e-global-color-very-dark-blue); padding: 60px 0; }
+        .acad-stat-item { text-align: center; padding: 0 20px; }
+        .acad-stat-item .stat-num {
+            font-size: 48px; font-weight: 800; color: var(--e-global-color-accent);
+            line-height: 1; display: block; margin-bottom: 8px; font-family: "Urbanist", serif;
+        }
+        .acad-stat-item p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 0; }
+
+        /* ── Curriculum & Board ── */
+        .curriculum-con { padding: 100px 0; background: var(--e-global-color-very-pale-blue); }
+        .board-card {
+            background: #ffffff; border-radius: 20px; padding: 32px;
+            box-shadow: 0 8px 32px rgba(106,82,224,0.08);
+            border-left: 4px solid var(--e-global-color-soft-blue);
+            transition: all 0.3s ease; margin-bottom: 20px;
+        }
+        .board-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(106,82,224,0.14); }
+        .board-card .board-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            background: var(--e-global-color-soft-blue);
+            display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+        }
+        .board-card .board-icon i { color: #fff; font-size: 22px; }
+        .board-card h4 { font-size: 18px; font-weight: 700; color: var(--e-global-color-very-dark-blue); margin-bottom: 8px; }
+        .board-card p { font-size: 14px; color: var(--e-global-color-text); margin-bottom: 12px; line-height: 1.7; }
+        .grade-tag {
+            display: inline-block; background: var(--e-global-color-very-pale-blue);
+            color: var(--e-global-color-soft-blue); border: 1px solid rgba(106,82,224,0.2);
+            border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 600;
+            margin-right: 6px; margin-bottom: 6px;
+        }
+        .grade-ladder-row {
+            display: flex; align-items: center; gap: 16px;
+            background: rgba(255,255,255,0.05); border-radius: 12px; padding: 14px 18px;
+            margin-bottom: 12px;
+        }
+        .grade-ladder-row:last-child { margin-bottom: 0; }
+        .grade-ladder-icon {
+            width: 42px; height: 42px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .grade-ladder-row .gl-title { color: #fff; font-weight: 700; font-size: 14px; }
+        .grade-ladder-row .gl-sub { color: rgba(255,255,255,0.55); font-size: 12px; }
+
+        /* ── Subjects ── */
+        .subjects-con { padding: 100px 0; background: #ffffff; }
+        .subjects-con .nav-tabs { border: none; margin-bottom: 40px; gap: 8px; flex-wrap: wrap; }
+        .subjects-con .nav-tabs .nav-link {
+            border: 2px solid rgba(106,82,224,0.2); border-radius: 50px;
+            padding: 10px 28px; color: var(--e-global-color-very-dark-blue);
+            font-weight: 600; font-size: 14px; background: transparent; transition: all 0.3s;
+        }
+        .subjects-con .nav-tabs .nav-link:hover { border-color: var(--e-global-color-soft-blue); color: var(--e-global-color-soft-blue); }
+        .subjects-con .nav-tabs .nav-link.active {
+            background: var(--e-global-color-soft-blue);
+            border-color: var(--e-global-color-soft-blue); color: #ffffff;
+        }
+        .subject-card {
+            background: #fafafa; border: 1.5px solid #f0f0f8; border-radius: 16px;
+            padding: 24px 20px; text-align: center; transition: all 0.3s ease;
+            height: 100%; margin-bottom: 20px;
+        }
+        .subject-card:hover {
+            background: #ffffff; border-color: var(--e-global-color-soft-blue);
+            box-shadow: 0 8px 28px rgba(106,82,224,0.1); transform: translateY(-4px);
+        }
+        .subj-icon {
+            width: 56px; height: 56px; border-radius: 15px;
+            margin: 0 auto 14px auto; display: flex; align-items: center; justify-content: center;
+        }
+        .subj-icon i { font-size: 22px; }
+        .subject-card h5 { font-size: 13px; font-weight: 700; color: var(--e-global-color-very-dark-blue); margin-bottom: 0; }
+
+        /* ── Calendar ── */
+        .calendar-con {
+            padding: 100px 0; background: var(--e-global-color-very-dark-blue);
+            position: relative; overflow: hidden;
+        }
+        .calendar-con::before {
+            content: ""; position: absolute; width: 400px; height: 400px; border-radius: 50%;
+            background: rgba(220,253,125,0.04); top: -120px; right: -120px;
+        }
+        .calendar-con::after {
+            content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+            background: rgba(106,82,224,0.08); bottom: -80px; left: -80px;
+        }
+        .cal-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(220,253,125,0.12);
+            border-radius: 20px; padding: 30px 24px; position: relative; z-index: 1;
+            transition: all 0.3s ease; height: 100%;
+        }
+        .cal-card:hover { background: rgba(220,253,125,0.06); border-color: rgba(220,253,125,0.3); transform: translateY(-4px); }
+        .cal-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--e-global-color-accent); color: var(--e-global-color-very-dark-blue);
+            border-radius: 50px; padding: 5px 14px; font-size: 12px; font-weight: 700;
+            margin-bottom: 18px; letter-spacing: 0.3px;
+        }
+        .cal-card h4 { color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+        .cal-dates { color: var(--e-global-color-accent); font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+        .cal-card ul { padding-left: 0; list-style: none; margin-bottom: 0; }
+        .cal-card ul li {
+            color: rgba(255,255,255,0.7); font-size: 13px; padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .cal-card ul li:last-child { border-bottom: none; }
+        .cal-card ul li i { color: var(--e-global-color-accent); font-size: 8px; flex-shrink: 0; }
+
+        /* ── Assessments ── */
+        .assessments-con { padding: 100px 0; background: var(--e-global-color-very-pale-blue); }
+        .assess-card {
+            background: #ffffff; border-radius: 20px; padding: 36px 28px;
+            box-shadow: 0 8px 32px rgba(106,82,224,0.07); text-align: center;
+            transition: all 0.3s ease; height: 100%; position: relative; overflow: hidden;
+        }
+        .assess-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: var(--e-global-color-soft-blue); opacity: 0; transition: opacity 0.3s;
+        }
+        .assess-card:hover::before { opacity: 1; }
+        .assess-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(106,82,224,0.14); }
+        .assess-icon {
+            width: 72px; height: 72px; border-radius: 20px;
+            margin: 0 auto 22px auto; display: flex; align-items: center; justify-content: center;
+        }
+        .assess-icon i { font-size: 28px; }
+        .assess-card h4 { font-size: 18px; font-weight: 700; color: var(--e-global-color-very-dark-blue); margin-bottom: 10px; }
+        .assess-card p { font-size: 14px; color: var(--e-global-color-text); margin-bottom: 16px; line-height: 1.7; }
+        .assess-weight {
+            display: inline-block; background: var(--e-global-color-very-dark-blue);
+            color: var(--e-global-color-accent); border-radius: 50px;
+            padding: 4px 16px; font-size: 12px; font-weight: 700;
+        }
+
+        /* ── Faculty ── */
+        .faculty-con { padding: 100px 0; background: #ffffff; }
+        .faculty-card {
+            background: #fafafa; border: 1.5px solid #f0f0f8; border-radius: 20px;
+            padding: 30px 20px; text-align: center; transition: all 0.3s ease;
+            height: 100%; margin-bottom: 24px;
+        }
+        .faculty-card:hover {
+            background: #ffffff; border-color: var(--e-global-color-soft-blue);
+            box-shadow: 0 12px 40px rgba(106,82,224,0.12); transform: translateY(-5px);
+        }
+        .faculty-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center;
+            font-size: 26px; font-weight: 800; color: #ffffff;
+        }
+        .hod-badge {
+            display: inline-block; background: var(--e-global-color-accent);
+            color: var(--e-global-color-very-dark-blue); border-radius: 50px;
+            padding: 3px 12px; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+        }
+        .faculty-card h5 { font-size: 15px; font-weight: 700; color: var(--e-global-color-very-dark-blue); margin-bottom: 4px; }
+        .faculty-card .subj-label { font-size: 13px; color: var(--e-global-color-soft-blue); font-weight: 600; margin-bottom: 4px; }
+        .faculty-card .exp-label { font-size: 12px; color: var(--e-global-color-text); margin-bottom: 0; }
+
+        /* ── Achievements ── */
+        .achievements-con {
+            padding: 100px 0; background: var(--e-global-color-very-dark-blue);
+            position: relative; overflow: hidden;
+        }
+        .achievements-con::before {
+            content: ""; position: absolute; width: 500px; height: 500px; border-radius: 50%;
+            background: rgba(106,82,224,0.08); top: -150px; left: -150px;
+        }
+        .achiev-numbers {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px; padding: 10px 0; margin-bottom: 50px;
+        }
+        .achiev-stat { text-align: center; padding: 24px 20px; border-right: 1px solid rgba(255,255,255,0.07); }
+        .achiev-stat:last-child { border-right: none; }
+        .achiev-stat .big-num {
+            font-size: 50px; font-weight: 800; color: var(--e-global-color-accent);
+            line-height: 1; display: block; margin-bottom: 8px; font-family: "Urbanist", serif;
+        }
+        .achiev-stat p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 0; }
+        .achiev-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(220,253,125,0.12);
+            border-radius: 20px; padding: 32px 28px; position: relative; z-index: 1;
+            transition: all 0.3s ease; height: 100%;
+        }
+        .achiev-card:hover { background: rgba(220,253,125,0.06); border-color: rgba(220,253,125,0.3); transform: translateY(-4px); }
+        .achiev-card-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            background: rgba(220,253,125,0.12); border: 1px solid rgba(220,253,125,0.2);
+            display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+        }
+        .achiev-card-icon i { font-size: 22px; color: var(--e-global-color-accent); }
+        .achiev-card h4 { color: #ffffff; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+        .achiev-card p { color: rgba(255,255,255,0.65); font-size: 14px; margin-bottom: 0; line-height: 1.7; }
+
+        /* ── Downloads ── */
+        .downloads-con { padding: 100px 0; background: var(--e-global-color-very-pale-blue); }
+        .download-card {
+            background: #ffffff; border-radius: 18px; padding: 26px;
+            display: flex; align-items: center; gap: 20px;
+            box-shadow: 0 4px 20px rgba(106,82,224,0.06);
+            transition: all 0.3s ease; border: 1.5px solid transparent; margin-bottom: 20px;
+        }
+        .download-card:hover { border-color: var(--e-global-color-soft-blue); box-shadow: 0 12px 36px rgba(106,82,224,0.13); transform: translateY(-3px); }
+        .dl-icon { width: 54px; height: 54px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .dl-icon i { font-size: 22px; }
+        .dl-body { flex: 1; }
+        .dl-body h5 { font-size: 15px; font-weight: 700; color: var(--e-global-color-very-dark-blue); margin-bottom: 3px; }
+        .dl-body p { font-size: 13px; color: var(--e-global-color-text); margin-bottom: 0; }
+        .dl-btn {
+            flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+            background: var(--e-global-color-very-dark-blue); color: var(--e-global-color-accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; transition: all 0.3s; text-decoration: none;
+        }
+        .dl-btn:hover { background: var(--e-global-color-soft-blue); color: #ffffff; }
+
+        /* ── CTA ── */
+        .acad-cta-con {
+            padding: 80px 0; background: var(--e-global-color-soft-blue);
+            position: relative; overflow: hidden;
+        }
+        .acad-cta-con::before {
+            content: ""; position: absolute; width: 450px; height: 450px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); top: -160px; right: -100px;
+        }
+        .acad-cta-con h2 { color: #ffffff; font-size: 38px; font-weight: 800; margin-bottom: 14px; }
+        .acad-cta-con p { color: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 0; line-height: 1.7; }
+        .cta-apply-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--e-global-color-accent); color: var(--e-global-color-very-dark-blue);
+            padding: 16px 36px; border-radius: 50px; font-weight: 700; font-size: 16px;
+            text-decoration: none; transition: all 0.3s;
+        }
+        .cta-apply-btn:hover {
+            background: #ffffff; color: var(--e-global-color-very-dark-blue);
+            transform: translateY(-2px); box-shadow: 0 8px 24px rgba(31,23,65,0.2);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<a id="button"></a>
+
+<!-- ═══ HEADER + SUB-BANNER ═══ -->
+<div class="sub_banner position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid">
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarAcademics" aria-controls="navbarAcademics"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarAcademics">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/academics/">Academics</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/admissions/">Admissions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact/">Contact Us</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link log_in" href="#">Student Portal <i class="fa-solid fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+922134567890" class="text-decoration-none">
+                        <span class="number">+92 21 3456 7890</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="sub_banner_con position-relative">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-xl-8 col-md-10 col-12 mx-auto">
+                    <div class="sub_banner_content" data-aos="fade-up">
+                        <h1 class="text-white">Academics</h1>
+                        <p class="text-white text-size-18">Shaping minds with a structured curriculum, dedicated faculty, and a culture of academic excellence.</p>
+                        <div class="box">
+                            <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
+                            <i class="arrow fa-solid fa-arrow-right"></i>
+                            <span class="mb-0 box_span">Academics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ QUICK STATS ═══ -->
+<section class="acad-stats-con">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-lg-3 col-md-6 col-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+                <div class="acad-stat-item">
+                    <span class="stat-num">14<sup style="font-size:24px">+</sup></span>
+                    <p>Subjects Offered</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                <div class="acad-stat-item">
+                    <span class="stat-num">50<sup style="font-size:24px">+</sup></span>
+                    <p>Qualified Faculty</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="acad-stat-item">
+                    <span class="stat-num">98<sup style="font-size:24px">%</sup></span>
+                    <p>Pass Rate</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="acad-stat-item">
+                    <span class="stat-num">25<sup style="font-size:24px">+</sup></span>
+                    <p>Years of Excellence</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CURRICULUM & BOARD AFFILIATIONS ═══ -->
+<section class="curriculum-con" id="curriculum">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-soft-blue);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Curriculum &amp; Board</h6>
+                <h2 style="color:var(--e-global-color-very-dark-blue);font-weight:800;font-size:36px;">A Structured Path to Excellence</h2>
+                <p style="color:var(--e-global-color-text);max-width:580px;margin:14px auto 0;font-size:15px;line-height:1.8;">Our curriculum aligns with Pakistan's leading examination boards, ensuring every student is prepared for national and international standards.</p>
+            </div>
+        </div>
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 col-md-12" data-aos="fade-right">
+                <div class="board-card">
+                    <div class="board-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h4>Sindh Board of Secondary Education (BSEK)</h4>
+                    <p>Our Matric track follows the official BSEK curriculum, delivering a rigorous syllabus in Science and General groups fully aligned with national standards.</p>
+                    <span class="grade-tag">Class 1 – 10</span>
+                    <span class="grade-tag">Science Group</span>
+                    <span class="grade-tag">General Group</span>
+                </div>
+                <div class="board-card" style="border-left-color:var(--e-global-color-accent);margin-bottom:0;">
+                    <div class="board-icon" style="background:var(--e-global-color-very-dark-blue);"><i class="fa-solid fa-star"></i></div>
+                    <h4>Aga Khan University Examination Board (AKU-EB)</h4>
+                    <p>The AKU-EB track emphasises critical thinking and concept-based learning with continuous assessment, preparing students for modern academic challenges.</p>
+                    <span class="grade-tag">Class 6 – 10</span>
+                    <span class="grade-tag">Concept-Based Learning</span>
+                    <span class="grade-tag">Continuous Assessment</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 mt-4 mt-lg-0" data-aos="fade-left">
+                <div style="background:var(--e-global-color-very-dark-blue);border-radius:24px;padding:40px;height:100%;">
+                    <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:13px;">Grade Structure</h6>
+                    <h3 style="color:#ffffff;font-weight:800;font-size:26px;margin-bottom:28px;">From First Steps to Board Exams</h3>
+                    <div class="grade-ladder-row">
+                        <div class="grade-ladder-icon" style="background:rgba(220,253,125,0.15);">
+                            <i class="fa-solid fa-seedling" style="color:var(--e-global-color-accent);"></i>
+                        </div>
+                        <div>
+                            <div class="gl-title">Early Years</div>
+                            <div class="gl-sub">Pre-Montessori · Montessori · KG1 · KG2</div>
+                        </div>
+                    </div>
+                    <div class="grade-ladder-row">
+                        <div class="grade-ladder-icon" style="background:rgba(106,82,224,0.2);">
+                            <i class="fa-solid fa-book-open" style="color:#a89ef0;"></i>
+                        </div>
+                        <div>
+                            <div class="gl-title">Primary</div>
+                            <div class="gl-sub">Class 1 – Class 5</div>
+                        </div>
+                    </div>
+                    <div class="grade-ladder-row">
+                        <div class="grade-ladder-icon" style="background:rgba(82,183,136,0.15);">
+                            <i class="fa-solid fa-microscope" style="color:#52b788;"></i>
+                        </div>
+                        <div>
+                            <div class="gl-title">Middle School</div>
+                            <div class="gl-sub">Class 6 – Class 8</div>
+                        </div>
+                    </div>
+                    <div class="grade-ladder-row">
+                        <div class="grade-ladder-icon" style="background:rgba(244,185,66,0.15);">
+                            <i class="fa-solid fa-medal" style="color:#f4b942;"></i>
+                        </div>
+                        <div>
+                            <div class="gl-title">Secondary (Matric)</div>
+                            <div class="gl-sub">Class 9 – Class 10 · Board Exams</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ SUBJECTS BY GRADE ═══ -->
+<section class="subjects-con" id="subjects">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-soft-blue);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Subjects</h6>
+                <h2 style="color:var(--e-global-color-very-dark-blue);font-weight:800;font-size:36px;">What Your Child Will Learn</h2>
+                <p style="color:var(--e-global-color-text);max-width:540px;margin:14px auto 0;font-size:15px;line-height:1.8;">Select a level to explore the subjects taught at each stage of your child's academic journey.</p>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="50">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="subjectTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="early-tab" data-toggle="tab" href="#early" role="tab" aria-controls="early" aria-selected="true">Early Years</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="primary-tab" data-toggle="tab" href="#primary" role="tab" aria-controls="primary" aria-selected="false">Primary (1–5)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="middle-tab" data-toggle="tab" href="#middle" role="tab" aria-controls="middle" aria-selected="false">Middle (6–8)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="secondary-tab" data-toggle="tab" href="#secondary" role="tab" aria-controls="secondary" aria-selected="false">Secondary (9–10)</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="subjectTabsContent">
+
+                    <!-- Early Years -->
+                    <div class="tab-pane fade show active" id="early" role="tabpanel">
+                        <div class="row mt-2">
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-language" style="color:#52b788;"></i></div><h5>English</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff3e0;"><i class="fa-solid fa-pen-nib" style="color:#f4b942;"></i></div><h5>Urdu</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e3f2fd;"><i class="fa-solid fa-calculator" style="color:#42a5f5;"></i></div><h5>Numeracy</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fce4ec;"><i class="fa-solid fa-earth-asia" style="color:#ec407a;"></i></div><h5>General Knowledge</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#f3e5f5;"><i class="fa-solid fa-moon" style="color:#ab47bc;"></i></div><h5>Islamic Studies</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff8e1;"><i class="fa-solid fa-palette" style="color:#ffca28;"></i></div><h5>Art &amp; Craft</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-person-running" style="color:#66bb6a;"></i></div><h5>Physical Education</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e0f7fa;"><i class="fa-solid fa-heart" style="color:#26c6da;"></i></div><h5>Moral Education</h5></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Primary -->
+                    <div class="tab-pane fade" id="primary" role="tabpanel">
+                        <div class="row mt-2">
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-language" style="color:#52b788;"></i></div><h5>English</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff3e0;"><i class="fa-solid fa-pen-nib" style="color:#f4b942;"></i></div><h5>Urdu</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e3f2fd;"><i class="fa-solid fa-calculator" style="color:#42a5f5;"></i></div><h5>Mathematics</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-flask" style="color:#66bb6a;"></i></div><h5>General Science</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fce4ec;"><i class="fa-solid fa-map" style="color:#ec407a;"></i></div><h5>Social Studies</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#f3e5f5;"><i class="fa-solid fa-moon" style="color:#ab47bc;"></i></div><h5>Islamic Studies</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e0f7fa;"><i class="fa-solid fa-computer" style="color:#26c6da;"></i></div><h5>Computer Studies</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff8e1;"><i class="fa-solid fa-palette" style="color:#ffca28;"></i></div><h5>Art &amp; Craft</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-person-running" style="color:#66bb6a;"></i></div><h5>Physical Education</h5></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Middle -->
+                    <div class="tab-pane fade" id="middle" role="tabpanel">
+                        <div class="row mt-2">
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-language" style="color:#52b788;"></i></div><h5>English</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff3e0;"><i class="fa-solid fa-pen-nib" style="color:#f4b942;"></i></div><h5>Urdu</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e3f2fd;"><i class="fa-solid fa-calculator" style="color:#42a5f5;"></i></div><h5>Mathematics</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-atom" style="color:#66bb6a;"></i></div><h5>Science</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fce4ec;"><i class="fa-solid fa-flag" style="color:#ec407a;"></i></div><h5>Pakistan Studies</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#f3e5f5;"><i class="fa-solid fa-moon" style="color:#ab47bc;"></i></div><h5>Islamiat</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e0f7fa;"><i class="fa-solid fa-computer" style="color:#26c6da;"></i></div><h5>Computer Science</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff8e1;"><i class="fa-solid fa-palette" style="color:#ffca28;"></i></div><h5>Drawing</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-person-running" style="color:#66bb6a;"></i></div><h5>Physical Education</h5></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary -->
+                    <div class="tab-pane fade" id="secondary" role="tabpanel">
+                        <div class="row mt-2">
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-language" style="color:#52b788;"></i></div><h5>English</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fff3e0;"><i class="fa-solid fa-pen-nib" style="color:#f4b942;"></i></div><h5>Urdu</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e3f2fd;"><i class="fa-solid fa-calculator" style="color:#42a5f5;"></i></div><h5>Mathematics</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e3f2fd;"><i class="fa-solid fa-bolt" style="color:#42a5f5;"></i></div><h5>Physics</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e8f5e9;"><i class="fa-solid fa-flask" style="color:#66bb6a;"></i></div><h5>Chemistry</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fce4ec;"><i class="fa-solid fa-dna" style="color:#ec407a;"></i></div><h5>Biology</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#e0f7fa;"><i class="fa-solid fa-computer" style="color:#26c6da;"></i></div><h5>Computer Science</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#fce4ec;"><i class="fa-solid fa-flag" style="color:#ec407a;"></i></div><h5>Pakistan Studies</h5></div></div>
+                            <div class="col-lg-2 col-md-3 col-6"><div class="subject-card"><div class="subj-icon" style="background:#f3e5f5;"><i class="fa-solid fa-moon" style="color:#ab47bc;"></i></div><h5>Islamiat</h5></div></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ACADEMIC CALENDAR ═══ -->
+<section class="calendar-con" id="calendar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Academic Year 2024–25</h6>
+                <h2 class="text-white" style="font-weight:800;font-size:36px;">Academic Calendar</h2>
+                <p style="color:rgba(255,255,255,0.65);max-width:540px;margin:14px auto 0;font-size:15px;line-height:1.8;">Plan ahead with every term, examination period, and holiday mapped out for the full academic year.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+                <div class="cal-card">
+                    <div class="cal-badge"><i class="fa-solid fa-leaf"></i> Term 1</div>
+                    <h4>Autumn Term</h4>
+                    <div class="cal-dates"><i class="fa-regular fa-calendar"></i>&nbsp; Sep 2 – Nov 15</div>
+                    <ul>
+                        <li><i class="fa-solid fa-circle"></i> School reopens — Sep 2</li>
+                        <li><i class="fa-solid fa-circle"></i> Unit Test 1 — Oct 4</li>
+                        <li><i class="fa-solid fa-circle"></i> Parent-Teacher Meeting — Oct 20</li>
+                        <li><i class="fa-solid fa-circle"></i> Mid-Term Exams — Nov 4–15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                <div class="cal-card">
+                    <div class="cal-badge"><i class="fa-solid fa-snowflake"></i> Break</div>
+                    <h4>Semester Break</h4>
+                    <div class="cal-dates"><i class="fa-regular fa-calendar"></i>&nbsp; Nov 18 – Jan 5</div>
+                    <ul>
+                        <li><i class="fa-solid fa-circle"></i> Result cards issued — Nov 22</li>
+                        <li><i class="fa-solid fa-circle"></i> Winter holidays — Dec 20</li>
+                        <li><i class="fa-solid fa-circle"></i> School reopens — Jan 6</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="200">
+                <div class="cal-card">
+                    <div class="cal-badge"><i class="fa-solid fa-sun"></i> Term 2</div>
+                    <h4>Spring Term</h4>
+                    <div class="cal-dates"><i class="fa-regular fa-calendar"></i>&nbsp; Jan 6 – Mar 28</div>
+                    <ul>
+                        <li><i class="fa-solid fa-circle"></i> Unit Test 2 — Feb 3</li>
+                        <li><i class="fa-solid fa-circle"></i> Science Fair — Feb 20</li>
+                        <li><i class="fa-solid fa-circle"></i> Sports Day — Mar 8</li>
+                        <li><i class="fa-solid fa-circle"></i> PT Meeting — Mar 22</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="300">
+                <div class="cal-card">
+                    <div class="cal-badge"><i class="fa-solid fa-pen-to-square"></i> Finals</div>
+                    <h4>Annual Examinations</h4>
+                    <div class="cal-dates"><i class="fa-regular fa-calendar"></i>&nbsp; Apr 7 – May 16</div>
+                    <ul>
+                        <li><i class="fa-solid fa-circle"></i> Annual Exams begin — Apr 7</li>
+                        <li><i class="fa-solid fa-circle"></i> Board Exams (Cl. 10) — Apr 15</li>
+                        <li><i class="fa-solid fa-circle"></i> Results & Prize-giving — May 30</li>
+                        <li><i class="fa-solid fa-circle"></i> Summer break — Jun 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ASSESSMENT SYSTEM ═══ -->
+<section class="assessments-con" id="assessments">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-soft-blue);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Assessments</h6>
+                <h2 style="color:var(--e-global-color-very-dark-blue);font-weight:800;font-size:36px;">How We Evaluate Progress</h2>
+                <p style="color:var(--e-global-color-text);max-width:560px;margin:14px auto 0;font-size:15px;line-height:1.8;">Our multi-layered assessment system ensures every student's growth is measured fairly, comprehensively, and continuously throughout the year.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+                <div class="assess-card">
+                    <div class="assess-icon" style="background:#e3f2fd;"><i class="fa-solid fa-clipboard-check" style="color:#42a5f5;"></i></div>
+                    <h4>Continuous Assessment</h4>
+                    <p>Daily classwork, homework, and class participation keep students engaged and provide teachers with real-time progress insights.</p>
+                    <span class="assess-weight">20% Weightage</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                <div class="assess-card">
+                    <div class="assess-icon" style="background:#e8f5e9;"><i class="fa-solid fa-file-pen" style="color:#52b788;"></i></div>
+                    <h4>Unit Tests</h4>
+                    <p>Conducted after each topic to assess comprehension and enable timely remediation before cumulative examinations.</p>
+                    <span class="assess-weight">20% Weightage</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="200">
+                <div class="assess-card">
+                    <div class="assess-icon" style="background:#fff3e0;"><i class="fa-solid fa-book-open-reader" style="color:#f4b942;"></i></div>
+                    <h4>Mid-Term Exams</h4>
+                    <p>Structured examinations at the midpoint of each academic term, covering all topics taught in the first half.</p>
+                    <span class="assess-weight">25% Weightage</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="300">
+                <div class="assess-card">
+                    <div class="assess-icon" style="background:#fce4ec;"><i class="fa-solid fa-trophy" style="color:#ec407a;"></i></div>
+                    <h4>Annual Examinations</h4>
+                    <p>Comprehensive end-of-year exams covering the full syllabus, determining promotion and board examination eligibility.</p>
+                    <span class="assess-weight">35% Weightage</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FACULTY ═══ -->
+<section class="faculty-con" id="faculty">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-soft-blue);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Our Educators</h6>
+                <h2 style="color:var(--e-global-color-very-dark-blue);font-weight:800;font-size:36px;">Meet the Faculty</h2>
+                <p style="color:var(--e-global-color-text);max-width:540px;margin:14px auto 0;font-size:15px;line-height:1.8;">Our qualified and passionate educators bring decades of combined experience to every classroom.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="faculty-card">
+                    <div class="faculty-avatar" style="background:var(--e-global-color-soft-blue);">A</div>
+                    <span class="hod-badge">HOD</span>
+                    <h5>Mr. Ahmed Ali</h5>
+                    <p class="subj-label">Mathematics</p>
+                    <p class="exp-label">15 yrs experience</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+                <div class="faculty-card">
+                    <div class="faculty-avatar" style="background:#52b788;">S</div>
+                    <span class="hod-badge">HOD</span>
+                    <h5>Ms. Sara Khan</h5>
+                    <p class="subj-label">Sciences</p>
+                    <p class="exp-label">12 yrs experience</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="faculty-card">
+                    <div class="faculty-avatar" style="background:#f4b942;">F</div>
+                    <h5>Mr. Farhan Mirza</h5>
+                    <p class="subj-label">English</p>
+                    <p class="exp-label">10 yrs experience</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
+                <div class="faculty-card">
+                    <div class="faculty-avatar" style="background:#ec407a;">N</div>
+                    <span class="hod-badge">HOD</span>
+                    <h5>Ms. Nadia Shah</h5>
+                    <p class="subj-label">Islamic Studies</p>
+                    <p class="exp-label">18 yrs experience</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="faculty-card">
+                    <div class="faculty-avatar" style="background:#ab47bc;">U</div>
+                    <h5>Mr. Usman Raza</h5>
+                    <p class="subj-label">Computer Science</p>
+                    <p class="exp-label">8 yrs experience</p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6" data-aos="fade-up" data-aos-delay="250">
+                <div class="faculty-card">
+                    <div class="faculty-avatar" style="background:#26c6da;">Z</div>
+                    <h5>Ms. Zara Ahmed</h5>
+                    <p class="subj-label">Urdu &amp; Pak Studies</p>
+                    <p class="exp-label">9 yrs experience</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ RESULTS & ACHIEVEMENTS ═══ -->
+<section class="achievements-con" id="achievements">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Results &amp; Achievements</h6>
+                <h2 class="text-white" style="font-weight:800;font-size:36px;">A Proven Track Record</h2>
+                <p style="color:rgba(255,255,255,0.65);max-width:540px;margin:14px auto 0;font-size:15px;line-height:1.8;">Year after year, our students achieve outstanding results in board examinations and national competitions.</p>
+            </div>
+        </div>
+        <div class="row mb-5" data-aos="fade-up">
+            <div class="col-12">
+                <div class="achiev-numbers">
+                    <div class="row">
+                        <div class="col-md-3 col-6">
+                            <div class="achiev-stat">
+                                <span class="big-num">98<sup style="font-size:24px">%</sup></span>
+                                <p>Overall Pass Rate</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="achiev-stat">
+                                <span class="big-num">120<sup style="font-size:24px">+</sup></span>
+                                <p>A-Grade Students 2024</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="achiev-stat">
+                                <span class="big-num">15<sup style="font-size:24px">+</sup></span>
+                                <p>District Toppers</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="achiev-stat">
+                                <span class="big-num">8<sup style="font-size:24px">×</sup></span>
+                                <p>Board Honours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+                <div class="achiev-card">
+                    <div class="achiev-card-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h4>Board Examination Excellence</h4>
+                    <p>Consistently achieving top positions in Sindh Board and AKU-EB examinations, with multiple students ranking in the district top 10 every year since 2015.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="100">
+                <div class="achiev-card">
+                    <div class="achiev-card-icon"><i class="fa-solid fa-medal"></i></div>
+                    <h4>Science Olympiad Champions</h4>
+                    <p>Our students have won gold at the National Science Olympiad three times, demonstrating the depth of our Science and Mathematics programme.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="200">
+                <div class="achiev-card">
+                    <div class="achiev-card-icon"><i class="fa-solid fa-star"></i></div>
+                    <h4>100% University Placement</h4>
+                    <p>Every Class 10 graduate from the last five consecutive years has gained admission to a leading university or college in Pakistan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ DOWNLOADS ═══ -->
+<section class="downloads-con" id="downloads">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h6 style="color:var(--e-global-color-soft-blue);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Resources</h6>
+                <h2 style="color:var(--e-global-color-very-dark-blue);font-weight:800;font-size:36px;">Downloads &amp; Resources</h2>
+                <p style="color:var(--e-global-color-text);max-width:540px;margin:14px auto 0;font-size:15px;line-height:1.8;">Access official documents, syllabi, forms, and schedules — all in one place.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="0">
+                <div class="download-card">
+                    <div class="dl-icon" style="background:#e3f2fd;"><i class="fa-solid fa-book" style="color:#42a5f5;"></i></div>
+                    <div class="dl-body">
+                        <h5>Annual Syllabus 2024–25</h5>
+                        <p>Complete subject-wise syllabus for all classes · PDF · 1.2 MB</p>
+                    </div>
+                    <a href="#" class="dl-btn"><i class="fa-solid fa-download"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="50">
+                <div class="download-card">
+                    <div class="dl-icon" style="background:#e8f5e9;"><i class="fa-solid fa-list-check" style="color:#52b788;"></i></div>
+                    <div class="dl-body">
+                        <h5>Book List 2024–25</h5>
+                        <p>Required textbooks and workbooks by class · PDF · 480 KB</p>
+                    </div>
+                    <a href="#" class="dl-btn"><i class="fa-solid fa-download"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="download-card">
+                    <div class="dl-icon" style="background:#fff3e0;"><i class="fa-regular fa-calendar" style="color:#f4b942;"></i></div>
+                    <div class="dl-body">
+                        <h5>Academic Calendar 2024–25</h5>
+                        <p>Full-year calendar with terms, exams &amp; holidays · PDF · 320 KB</p>
+                    </div>
+                    <a href="#" class="dl-btn"><i class="fa-solid fa-download"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="150">
+                <div class="download-card">
+                    <div class="dl-icon" style="background:#fce4ec;"><i class="fa-solid fa-file-pen" style="color:#ec407a;"></i></div>
+                    <div class="dl-body">
+                        <h5>Exam Schedule – Annual 2025</h5>
+                        <p>Date sheet for all mid-term and annual examinations · PDF · 240 KB</p>
+                    </div>
+                    <a href="#" class="dl-btn"><i class="fa-solid fa-download"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="200">
+                <div class="download-card">
+                    <div class="dl-icon" style="background:#f3e5f5;"><i class="fa-solid fa-file-invoice" style="color:#ab47bc;"></i></div>
+                    <div class="dl-body">
+                        <h5>Fee Structure 2024–25</h5>
+                        <p>Tuition, registration and miscellaneous fees · PDF · 180 KB</p>
+                    </div>
+                    <a href="#" class="dl-btn"><i class="fa-solid fa-download"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="250">
+                <div class="download-card">
+                    <div class="dl-icon" style="background:#e0f7fa;"><i class="fa-solid fa-file-arrow-down" style="color:#26c6da;"></i></div>
+                    <div class="dl-body">
+                        <h5>Admission Application Form</h5>
+                        <p>Printable form for new student admission · PDF · 150 KB</p>
+                    </div>
+                    <a href="#" class="dl-btn"><i class="fa-solid fa-download"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="acad-cta-con">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 col-md-12 mb-4 mb-lg-0 position-relative" style="z-index:1;" data-aos="fade-right">
+                <h2>Ready to Enrol Your Child?</h2>
+                <p>Join hundreds of families who trust Azeem School for a world-class education. Apply today and secure your child's place for the next academic year.</p>
+            </div>
+            <div class="col-lg-4 col-md-12 text-lg-right position-relative" style="z-index:1;" data-aos="fade-left">
+                <a href="/admissions/" class="cta-apply-btn">Apply for Admission <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="upper_portion">
+                        <a href="/">
+                            <figure class="footer-logo mb-0">
+                                <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Logo">
+                            </figure>
+                        </a>
+                        <h4>Begin Your Journey at Azeem School</h4>
+                        <a href="/admissions/" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-accent);color:var(--e-global-color-very-dark-blue);padding:14px 32px;border-radius:50px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.3s;margin-top:8px;">
+                            Apply for Admission <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">About Azeem School</h4>
+                            <p class="text-size-14 text">Providing quality education with modern teaching methods and a nurturing environment for over 25 years in Karachi.</p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-instagram social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">Quick Links</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/">Home</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/about/">About Us</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Academics</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/admissions/">Admissions</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/contact/">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">Academics</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#curriculum">Curriculum</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#subjects">Subjects</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#calendar">Calendar</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#faculty">Faculty</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#downloads">Downloads</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">Contact Us</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:+922134567890" class="text-decoration-none">+92 21 3456 7890</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:info@azeem.edu.pk" class="text-decoration-none">info@azeem.edu.pk</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="#" class="text-decoration-none address mb-0">KDA Scheme, Karachi, Pakistan</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">© 2025 Azeem School. All Rights Reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask">
+    <div class="loader"><div></div><div></div></div>
+</div>
+
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/back-to-top-button.js' %}"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+</body>
+</html>

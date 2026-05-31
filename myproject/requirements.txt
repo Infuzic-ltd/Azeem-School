@@ -1,2 +1,21 @@
+# Core
 Django>=6,<6.1
 wagtail==7.3rc1
+
+# Database
+psycopg2-binary>=2.9
+dj-database-url>=2.1
+
+# Static files
+whitenoise>=6.6
+
+# Server
+gunicorn>=21.2
+
+# Media / Images
+cloudinary>=1.36
+django-cloudinary-storage>=0.3.0
+Pillow>=10.0
+
+# Filters
+django-filter>=23.0

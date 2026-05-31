@@ -1,0 +1,1040 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>News & Gallery | Azeem School</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+
+    <style>
+        /* ══ TICKER ══ */
+        .ticker-bar {
+            background: var(--e-global-color-very-dark-blue);
+            display: flex; align-items: center; overflow: hidden; height: 44px;
+        }
+        .ticker-label {
+            background: var(--e-global-color-accent); color: var(--e-global-color-very-dark-blue);
+            font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase;
+            padding: 0 22px; height: 100%; display: flex; align-items: center; gap: 8px;
+            flex-shrink: 0; white-space: nowrap; z-index: 2;
+        }
+        .ticker-label i { font-size: 13px; }
+        .ticker-wrap { flex: 1; overflow: hidden; position: relative; }
+        .ticker-move {
+            display: inline-flex; align-items: center; gap: 40px;
+            white-space: nowrap; animation: ticker-scroll 30s linear infinite;
+            color: rgba(255,255,255,0.85); font-size: 13px; padding-left: 40px;
+        }
+        .ticker-move:hover { animation-play-state: paused; }
+        .ticker-dot { color: var(--e-global-color-accent); font-size: 16px; line-height: 1; }
+        @keyframes ticker-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ══ FEATURED STORY ══ */
+        .featured-con { padding: 80px 0 60px; background: #ffffff; }
+        .featured-img-wrap {
+            border-radius: 24px; overflow: hidden; position: relative; height: 440px;
+        }
+        .featured-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .featured-img-wrap::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(31,23,65,0.7) 0%, transparent 60%);
+        }
+        .featured-cat-badge {
+            position: absolute; top: 24px; left: 24px; z-index: 2;
+            background: var(--e-global-color-accent); color: var(--e-global-color-very-dark-blue);
+            font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+            padding: 6px 16px; border-radius: 50px;
+        }
+        .featured-text-side { padding: 0 0 0 40px; display: flex; flex-direction: column; justify-content: center; }
+        .featured-eyebrow {
+            font-size: 12px; font-weight: 700; color: var(--e-global-color-soft-blue);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .featured-eyebrow::before {
+            content: ""; display: inline-block; width: 28px; height: 2px;
+            background: var(--e-global-color-soft-blue);
+        }
+        .featured-text-side h2 {
+            font-size: 32px; font-weight: 800; color: var(--e-global-color-very-dark-blue);
+            line-height: 1.3; margin-bottom: 16px;
+        }
+        .featured-text-side p { font-size: 15px; color: var(--e-global-color-text); line-height: 1.8; margin-bottom: 24px; }
+        .featured-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+        .featured-meta span { font-size: 13px; color: #888; display: flex; align-items: center; gap: 6px; }
+        .featured-meta i { color: var(--e-global-color-soft-blue); font-size: 12px; }
+        .read-more-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--e-global-color-very-dark-blue); color: #ffffff;
+            padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 14px;
+            text-decoration: none; transition: all 0.3s; width: fit-content;
+        }
+        .read-more-btn:hover { background: var(--e-global-color-soft-blue); color: #fff; transform: translateY(-2px); text-decoration: none; }
+
+        /* ══ NEWS GRID ══ */
+        .news-grid-con { padding: 20px 0 80px; background: #ffffff; }
+        .news-card {
+            border-radius: 20px; overflow: hidden; background: #ffffff;
+            box-shadow: 0 4px 24px rgba(106,82,224,0.07); border: 1.5px solid #f0f0f8;
+            transition: all 0.3s ease; height: 100%; margin-bottom: 28px;
+        }
+        .news-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(106,82,224,0.14); border-color: var(--e-global-color-soft-blue); }
+        .news-card-img { position: relative; overflow: hidden; height: 200px; }
+        .news-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .news-card:hover .news-card-img img { transform: scale(1.06); }
+        .news-cat {
+            position: absolute; top: 14px; left: 14px;
+            font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+            padding: 5px 14px; border-radius: 50px; z-index: 1;
+        }
+        .cat-event    { background: rgba(106,82,224,0.9); color: #fff; }
+        .cat-academic { background: rgba(66,165,245,0.9); color: #fff; }
+        .cat-sports   { background: rgba(220,253,125,0.95); color: #1f1741; }
+        .cat-arts     { background: rgba(236,64,122,0.9); color: #fff; }
+        .cat-notice   { background: rgba(255,112,67,0.9); color: #fff; }
+        .cat-science  { background: rgba(38,166,154,0.9); color: #fff; }
+        .news-card-body { padding: 22px 22px 24px; }
+        .news-date { font-size: 12px; color: #aaa; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+        .news-date i { font-size: 11px; color: var(--e-global-color-soft-blue); }
+        .news-card-body h5 {
+            font-size: 16px; font-weight: 700; color: var(--e-global-color-very-dark-blue);
+            margin-bottom: 10px; line-height: 1.45;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .news-card-body p { font-size: 13px; color: var(--e-global-color-text); line-height: 1.7; margin-bottom: 16px;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-link {
+            font-size: 13px; font-weight: 700; color: var(--e-global-color-soft-blue);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+            transition: gap 0.2s;
+        }
+        .news-link:hover { color: var(--e-global-color-very-dark-blue); gap: 10px; text-decoration: none; }
+
+        /* ══ ANNOUNCEMENTS BOARD ══ */
+        .announcements-con {
+            padding: 100px 0; background: var(--e-global-color-very-dark-blue);
+            position: relative; overflow: hidden;
+        }
+        .announcements-con::before {
+            content: ""; position: absolute; width: 500px; height: 500px; border-radius: 50%;
+            background: rgba(106,82,224,0.08); top: -180px; right: -150px;
+        }
+        .announcements-con::after {
+            content: ""; position: absolute; width: 350px; height: 350px; border-radius: 50%;
+            background: rgba(220,253,125,0.04); bottom: -100px; left: -100px;
+        }
+        .ann-list-wrap {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px; overflow: hidden; position: relative; z-index: 1;
+        }
+        .ann-filter-bar {
+            display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .ann-filter-bar::-webkit-scrollbar { display: none; }
+        .ann-filter-btn {
+            padding: 14px 22px; font-size: 12px; font-weight: 700; letter-spacing: 0.3px;
+            text-transform: uppercase; color: rgba(255,255,255,0.45); background: none; border: none;
+            cursor: pointer; white-space: nowrap; transition: all 0.2s;
+            border-bottom: 2px solid transparent; margin-bottom: -1px;
+        }
+        .ann-filter-btn:hover { color: rgba(255,255,255,0.8); }
+        .ann-filter-btn.active { color: var(--e-global-color-accent); border-bottom-color: var(--e-global-color-accent); }
+        .ann-item {
+            display: flex; align-items: flex-start; gap: 18px;
+            padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.2s;
+        }
+        .ann-item:last-child { border-bottom: none; }
+        .ann-item:hover { background: rgba(255,255,255,0.03); }
+        .ann-icon-wrap {
+            width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ann-icon-wrap i { font-size: 17px; }
+        .ai-purple { background: rgba(106,82,224,0.18); } .ai-purple i { color: #9b7ff8; }
+        .ai-lime   { background: rgba(220,253,125,0.12); } .ai-lime   i { color: var(--e-global-color-accent); }
+        .ai-blue   { background: rgba(66,165,245,0.15);  } .ai-blue   i { color: #64b5f6; }
+        .ai-pink   { background: rgba(236,64,122,0.15);  } .ai-pink   i { color: #f48fb1; }
+        .ai-orange { background: rgba(255,112,67,0.15);  } .ai-orange i { color: #ffab91; }
+        .ai-teal   { background: rgba(38,166,154,0.15);  } .ai-teal   i { color: #80cbc4; }
+        .ann-body { flex: 1; min-width: 0; }
+        .ann-body-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+        .ann-badge {
+            font-size: 10px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase;
+            padding: 3px 10px; border-radius: 50px;
+        }
+        .ab-event    { background: rgba(106,82,224,0.25); color: #c3b5ff; }
+        .ab-academic { background: rgba(66,165,245,0.2);  color: #90caf9; }
+        .ab-sports   { background: rgba(220,253,125,0.15);color: var(--e-global-color-accent); }
+        .ab-exam     { background: rgba(255,112,67,0.2);  color: #ffab91; }
+        .ab-notice   { background: rgba(236,64,122,0.2);  color: #f48fb1; }
+        .ann-date { font-size: 11px; color: rgba(255,255,255,0.35); margin-left: auto; white-space: nowrap; }
+        .ann-body h6 { color: #ffffff; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .ann-body p  { color: rgba(255,255,255,0.55); font-size: 13px; margin-bottom: 0; line-height: 1.55; }
+        .ann-pin { color: var(--e-global-color-accent); font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+        /* Events side panel */
+        .events-panel { position: relative; z-index: 1; }
+        .events-panel-heading {
+            font-size: 13px; font-weight: 700; color: var(--e-global-color-accent);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+        }
+        .event-countdown-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px; padding: 22px; margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        .event-countdown-card:hover { background: rgba(220,253,125,0.05); border-color: rgba(220,253,125,0.2); }
+        .event-countdown-card:last-child { margin-bottom: 0; }
+        .ecc-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+        .ecc-date-box {
+            width: 52px; text-align: center; background: var(--e-global-color-accent);
+            border-radius: 12px; padding: 8px 0; flex-shrink: 0;
+        }
+        .ecc-date-box .day { font-size: 22px; font-weight: 800; color: var(--e-global-color-very-dark-blue); line-height: 1; display: block; }
+        .ecc-date-box .mon { font-size: 10px; font-weight: 700; color: var(--e-global-color-very-dark-blue); text-transform: uppercase; letter-spacing: 0.5px; }
+        .ecc-badge {
+            font-size: 10px; font-weight: 800; padding: 4px 12px; border-radius: 50px;
+            text-transform: uppercase; letter-spacing: 0.4px;
+        }
+        .ecc-badge.upcoming { background: rgba(220,253,125,0.15); color: var(--e-global-color-accent); }
+        .ecc-badge.today    { background: rgba(236,64,122,0.2);   color: #f48fb1; }
+        .ecc-title { color: #ffffff; font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+        .ecc-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .ecc-meta span { font-size: 12px; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 5px; }
+        .ecc-meta i { color: rgba(255,255,255,0.3); font-size: 11px; }
+        .view-all-link {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+            color: var(--e-global-color-accent); font-size: 13px; font-weight: 700;
+            text-decoration: none; transition: gap 0.2s;
+        }
+        .view-all-link:hover { color: #fff; gap: 12px; text-decoration: none; }
+
+        /* ══ GALLERY ══ */
+        .gallery-con { padding: 100px 0; background: var(--e-global-color-very-pale-blue); }
+        .gallery-filter-wrap { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 44px; }
+        .gal-filter-btn {
+            padding: 10px 24px; border-radius: 50px; font-size: 13px; font-weight: 700;
+            border: 2px solid rgba(106,82,224,0.2); background: #ffffff; color: var(--e-global-color-text);
+            cursor: pointer; transition: all 0.25s; letter-spacing: 0.2px;
+        }
+        .gal-filter-btn:hover { border-color: var(--e-global-color-soft-blue); color: var(--e-global-color-soft-blue); }
+        .gal-filter-btn.active { background: var(--e-global-color-very-dark-blue); color: #ffffff; border-color: var(--e-global-color-very-dark-blue); }
+        .gallery-grid { columns: 4; column-gap: 16px; }
+        @media (max-width: 1199px) { .gallery-grid { columns: 3; } }
+        @media (max-width: 767px)  { .gallery-grid { columns: 2; } }
+        @media (max-width: 480px)  { .gallery-grid { columns: 1; } }
+        .gal-item {
+            break-inside: avoid; margin-bottom: 16px;
+            border-radius: 16px; overflow: hidden; position: relative;
+            display: block; cursor: pointer;
+            box-shadow: 0 4px 16px rgba(31,23,65,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gal-item:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(31,23,65,0.18); }
+        .gal-item img { width: 100%; display: block; transition: transform 0.4s ease; }
+        .gal-item:hover img { transform: scale(1.05); }
+        .gal-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(31,23,65,0.88) 0%, rgba(31,23,65,0.2) 55%, transparent 100%);
+            opacity: 0; transition: opacity 0.3s; border-radius: 16px;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+        }
+        .gal-item:hover .gal-overlay { opacity: 1; }
+        .gal-overlay-cat {
+            font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--e-global-color-accent); margin-bottom: 4px;
+        }
+        .gal-overlay-title { color: #ffffff; font-size: 14px; font-weight: 700; line-height: 1.3; }
+        .gal-zoom-icon {
+            position: absolute; top: 14px; right: 14px;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 13px;
+            opacity: 0; transform: scale(0.7); transition: all 0.3s;
+        }
+        .gal-item:hover .gal-zoom-icon { opacity: 1; transform: scale(1); }
+        .gal-item[data-hidden="true"] { display: none; }
+
+        /* ══ NEWSLETTER CTA ══ */
+        .news-cta-con {
+            padding: 80px 0; background: var(--e-global-color-soft-blue);
+            position: relative; overflow: hidden;
+        }
+        .news-cta-con::before {
+            content: ""; position: absolute; width: 400px; height: 400px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); top: -140px; right: -80px;
+        }
+        .news-cta-con::after {
+            content: ""; position: absolute; width: 250px; height: 250px; border-radius: 50%;
+            background: rgba(255,255,255,0.04); bottom: -80px; left: -60px;
+        }
+        .news-cta-inner { position: relative; z-index: 1; }
+        .news-cta-con h2 { color: #ffffff; font-size: 36px; font-weight: 800; margin-bottom: 10px; }
+        .news-cta-con p { color: rgba(255,255,255,0.8); font-size: 15px; margin-bottom: 0; line-height: 1.7; }
+        .cta-subscribe-form { display: flex; gap: 12px; max-width: 420px; }
+        .cta-subscribe-form input {
+            flex: 1; padding: 14px 20px; border-radius: 50px; border: none;
+            font-size: 14px; outline: none; color: #1f1741;
+        }
+        .cta-subscribe-form input::placeholder { color: #999; }
+        .cta-subscribe-btn {
+            background: var(--e-global-color-accent); color: var(--e-global-color-very-dark-blue);
+            border: none; padding: 14px 28px; border-radius: 50px; font-weight: 800;
+            font-size: 14px; cursor: pointer; transition: all 0.3s; white-space: nowrap;
+        }
+        .cta-subscribe-btn:hover { background: #ffffff; transform: translateY(-2px); }
+        .cta-trust-note { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 12px; display: flex; align-items: center; gap: 6px; }
+        .cta-trust-note i { color: var(--e-global-color-accent); }
+
+        /* Section heading shared */
+        .section-eyebrow {
+            font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .section-heading { font-weight: 800; font-size: 36px; margin-bottom: 14px; }
+        .section-sub { font-size: 15px; line-height: 1.8; max-width: 560px; }
+
+        /* Responsive tweaks */
+        @media (max-width: 991px) {
+            .featured-text-side { padding: 30px 0 0; }
+            .featured-img-wrap { height: 320px; }
+            .cta-subscribe-form { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+<a id="button"></a>
+
+<!-- ═══ HEADER + SUB-BANNER ═══ -->
+<div class="sub_banner position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid">
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarNews" aria-controls="navbarNews"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNews">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/academics/">Academics</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/facilities/">Facilities</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/admissions/">Admissions</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/news/">News & Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact/">Contact Us</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link log_in" href="#">Student Portal <i class="fa-solid fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+923001234567" class="text-decoration-none">
+                        <span class="number">+92 300 123 4567</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="sub_banner_con position-relative">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-xl-8 col-md-10 col-12 mx-auto">
+                    <div class="sub_banner_content" data-aos="fade-up">
+                        <h1 class="text-white">News & Gallery</h1>
+                        <p class="text-white text-size-18">Stay updated with the latest happenings, achievements, and moments from across Azeem School.</p>
+                        <div class="box">
+                            <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
+                            <i class="arrow fa-solid fa-arrow-right"></i>
+                            <span class="mb-0 box_span">News & Gallery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ ANNOUNCEMENTS TICKER ═══ -->
+<div class="ticker-bar">
+    <div class="ticker-label"><i class="fa-solid fa-bell"></i> Announcements</div>
+    <div class="ticker-wrap">
+        <div class="ticker-move">
+            <span>Admissions Open for 2025–26 Academic Year — Apply Before July 31st!</span>
+            <span class="ticker-dot">•</span>
+            <span>Annual Sports Day — Friday, 6th June 2025 at Main Ground</span>
+            <span class="ticker-dot">•</span>
+            <span>Grade 10 &amp; 12 Board Exams Begin — 12th May 2025. Best of luck to all students!</span>
+            <span class="ticker-dot">•</span>
+            <span>Science Fair 2025 — Project Submissions Close 20th May. Register Now.</span>
+            <span class="ticker-dot">•</span>
+            <span>Parent-Teacher Meeting — Saturday 24th May, 9 AM to 1 PM</span>
+            <span class="ticker-dot">•</span>
+            <span>Admissions Open for 2025–26 Academic Year — Apply Before July 31st!</span>
+            <span class="ticker-dot">•</span>
+            <span>Annual Sports Day — Friday, 6th June 2025 at Main Ground</span>
+            <span class="ticker-dot">•</span>
+            <span>Grade 10 &amp; 12 Board Exams Begin — 12th May 2025. Best of luck to all students!</span>
+            <span class="ticker-dot">•</span>
+            <span>Science Fair 2025 — Project Submissions Close 20th May. Register Now.</span>
+            <span class="ticker-dot">•</span>
+            <span>Parent-Teacher Meeting — Saturday 24th May, 9 AM to 1 PM</span>
+            <span class="ticker-dot">•</span>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ FEATURED STORY ═══ -->
+<section class="featured-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-4" data-aos="fade-up">
+                <div class="d-flex align-items-center justify-content-between flex-wrap" style="gap:12px;">
+                    <div>
+                        <p class="section-eyebrow mb-1" style="color:var(--e-global-color-soft-blue);">Editor's Pick</p>
+                        <h2 class="section-heading mb-0" style="color:var(--e-global-color-very-dark-blue);font-size:28px;">Latest from Azeem School</h2>
+                    </div>
+                    <a href="#" class="read-more-btn" style="background:var(--e-global-color-very-pale-blue);color:var(--e-global-color-very-dark-blue);">
+                        All News <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0" data-aos="fade-right">
+                <div class="featured-img-wrap">
+                    <img src="{% static 'images/blog-image1.jpg' %}" alt="Featured Story">
+                    <span class="featured-cat-badge">Annual Event</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-left">
+                <div class="featured-text-side">
+                    <p class="featured-eyebrow">Flagship Event of the Year</p>
+                    <h2>Azeem School Hosts Inter-School Science Olympiad 2025 — 24 Schools, 400+ Students</h2>
+                    <div class="featured-meta">
+                        <span><i class="fa-solid fa-calendar-days"></i> May 10, 2025</span>
+                        <span><i class="fa-solid fa-user"></i> Admin Office</span>
+                        <span><i class="fa-solid fa-tag"></i> Events</span>
+                    </div>
+                    <p>Azeem School proudly hosted the 3rd Annual Inter-School Science Olympiad, welcoming over 400 students from 24 schools across the city. Students competed in Physics, Chemistry, Biology, and Computer Science challenges, showcasing exceptional talent and scientific thinking under the mentorship of their respective institutions.</p>
+                    <a href="#" class="read-more-btn">Read Full Story <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ NEWS GRID ═══ -->
+<section class="news-grid-con">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="0">
+                <div class="news-card">
+                    <div class="news-card-img">
+                        <img src="{% static 'images/article-image1.jpg' %}" alt="Sports Day">
+                        <span class="news-cat cat-sports">Sports</span>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-date"><i class="fa-solid fa-calendar-days"></i> May 6, 2025</div>
+                        <h5>Annual Sports Day 2025 — Sportsmanship, Speed &amp; Spirit on Full Display</h5>
+                        <p>Students from all grades competed across 14 events including sprints, relays, javelin, cricket, and football. The day was a celebration of athleticism and team spirit.</p>
+                        <a href="#" class="news-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="80">
+                <div class="news-card">
+                    <div class="news-card-img">
+                        <img src="{% static 'images/article-image2.jpg' %}" alt="Admissions">
+                        <span class="news-cat cat-notice">Notice</span>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-date"><i class="fa-solid fa-calendar-days"></i> April 28, 2025</div>
+                        <h5>Admissions Now Open for the 2025–26 Academic Session — Secure Your Seat</h5>
+                        <p>Applications are now being accepted for Nursery through Grade 12. Early applicants receive priority enrolment and benefit from a streamlined admission process.</p>
+                        <a href="/admissions/" class="news-link">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="160">
+                <div class="news-card">
+                    <div class="news-card-img">
+                        <img src="{% static 'images/article-image3.jpg' %}" alt="Academic Achievement">
+                        <span class="news-cat cat-academic">Academics</span>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-date"><i class="fa-solid fa-calendar-days"></i> April 15, 2025</div>
+                        <h5>Grade 12 Board Results: 98% Pass Rate — 12 Students Secure A* in All Subjects</h5>
+                        <p>Azeem School celebrates outstanding A-Level and Matric results with a record 98% pass rate. Twelve students achieved straight A* grades, topping provincial merit lists.</p>
+                        <a href="#" class="news-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="0">
+                <div class="news-card">
+                    <div class="news-card-img">
+                        <img src="{% static 'images/blog-image2.jpg' %}" alt="Science Fair">
+                        <span class="news-cat cat-science">Science</span>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-date"><i class="fa-solid fa-calendar-days"></i> April 5, 2025</div>
+                        <h5>Science Fair 2025: Student Innovations in Robotics, Solar Energy &amp; AI</h5>
+                        <p>Over 60 student projects were showcased at the annual Science Fair. Highlights included a solar water purifier, a gesture-controlled robot arm, and an AI attendance tracker.</p>
+                        <a href="#" class="news-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="80">
+                <div class="news-card">
+                    <div class="news-card-img">
+                        <img src="{% static 'images/blog-image3.jpg' %}" alt="Arts Festival">
+                        <span class="news-cat cat-arts">Arts</span>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-date"><i class="fa-solid fa-calendar-days"></i> March 22, 2025</div>
+                        <h5>Jashn-e-Fun 2025: Drama, Music &amp; Art Come Together in a Spectacular Cultural Fest</h5>
+                        <p>The annual cultural festival brought together over 300 student performers across drama, choir, visual arts, and Urdu poetry. Families filled the auditorium for three evenings.</p>
+                        <a href="#" class="news-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="160">
+                <div class="news-card">
+                    <div class="news-card-img">
+                        <img src="{% static 'images/blog-image4.jpg' %}" alt="Cambridge">
+                        <span class="news-cat cat-academic">Academics</span>
+                    </div>
+                    <div class="news-card-body">
+                        <div class="news-date"><i class="fa-solid fa-calendar-days"></i> March 10, 2025</div>
+                        <h5>Azeem School Recognised as Cambridge Excellence Centre for Third Consecutive Year</h5>
+                        <p>Cambridge Assessment International Education has re-awarded Azeem School its Centre of Excellence designation, recognising sustained high student performance and quality of teaching.</p>
+                        <a href="#" class="news-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ANNOUNCEMENTS BOARD ═══ -->
+<section class="announcements-con" id="announcements">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12" data-aos="fade-up">
+                <p class="section-eyebrow mb-1" style="color:var(--e-global-color-accent);">Notice Board</p>
+                <h2 class="section-heading text-white mb-0">Announcements &amp; Upcoming Events</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- Announcements List -->
+            <div class="col-lg-7 col-md-12 mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="ann-list-wrap">
+                    <div class="ann-filter-bar">
+                        <button class="ann-filter-btn active" data-filter="all">All</button>
+                        <button class="ann-filter-btn" data-filter="academic">Academic</button>
+                        <button class="ann-filter-btn" data-filter="event">Events</button>
+                        <button class="ann-filter-btn" data-filter="sports">Sports</button>
+                        <button class="ann-filter-btn" data-filter="exam">Exams</button>
+                        <button class="ann-filter-btn" data-filter="notice">Notices</button>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="exam">
+                        <i class="ann-pin fa-solid fa-thumbtack"></i>
+                        <div class="ann-icon-wrap ai-orange"><i class="fa-solid fa-file-pen"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-exam">Exam</span>
+                                <span class="ann-date">May 12, 2025</span>
+                            </div>
+                            <h6>Grade 10 &amp; 12 Board Exams Begin — 12th May 2025</h6>
+                            <p>All students must report by 8:00 AM with valid admit cards and school ID. Mobile phones strictly prohibited in exam halls.</p>
+                        </div>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="notice">
+                        <i class="ann-pin fa-solid fa-thumbtack"></i>
+                        <div class="ann-icon-wrap ai-purple"><i class="fa-solid fa-door-open"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-notice">Admission</span>
+                                <span class="ann-date">Open till Jul 31</span>
+                            </div>
+                            <h6>Admissions Open for 2025–26 — Apply Online or Visit the Office</h6>
+                            <p>Applications for all classes from Nursery to Grade 11 are now open. Entrance tests will be scheduled after registration. Seats are limited.</p>
+                        </div>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="event">
+                        <i class="ann-pin fa-solid fa-thumbtack" style="opacity:0;"></i>
+                        <div class="ann-icon-wrap ai-lime"><i class="fa-solid fa-trophy"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-event">Event</span>
+                                <span class="ann-date">Jun 6, 2025</span>
+                            </div>
+                            <h6>Annual Sports Day — 6th June 2025 at the Main Sports Ground</h6>
+                            <p>Parents and families are warmly invited to attend. Gates open at 8:30 AM. Refreshments and seating arrangements will be available.</p>
+                        </div>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="academic">
+                        <i class="ann-pin fa-solid fa-thumbtack" style="opacity:0;"></i>
+                        <div class="ann-icon-wrap ai-blue"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-academic">Academic</span>
+                                <span class="ann-date">May 24, 2025</span>
+                            </div>
+                            <h6>Parent-Teacher Meeting — Saturday 24th May, 9 AM – 1 PM</h6>
+                            <p>All parents are requested to meet their child's class teacher. Please check the schedule sheet sent via school app for allocated time slots.</p>
+                        </div>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="academic">
+                        <i class="ann-pin fa-solid fa-thumbtack" style="opacity:0;"></i>
+                        <div class="ann-icon-wrap ai-teal"><i class="fa-solid fa-flask"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-academic">Science</span>
+                                <span class="ann-date">May 20, 2025</span>
+                            </div>
+                            <h6>Science Fair Project Submissions Close — 20th May at 3 PM</h6>
+                            <p>All participating teams must submit their project synopsis to the lab incharge by 3 PM on 20th May. No late submissions will be accepted.</p>
+                        </div>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="sports">
+                        <i class="ann-pin fa-solid fa-thumbtack" style="opacity:0;"></i>
+                        <div class="ann-icon-wrap ai-lime"><i class="fa-solid fa-futbol"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-sports">Sports</span>
+                                <span class="ann-date">May 15, 2025</span>
+                            </div>
+                            <h6>Inter-House Cricket Tournament — Trials on 15th May, Main Ground</h6>
+                            <p>All students interested in representing their house team must attend trials. Bring your own bat and whites. Final squads announced May 17th.</p>
+                        </div>
+                    </div>
+
+                    <div class="ann-item" data-ann-type="notice">
+                        <i class="ann-pin fa-solid fa-thumbtack" style="opacity:0;"></i>
+                        <div class="ann-icon-wrap ai-pink"><i class="fa-solid fa-bus"></i></div>
+                        <div class="ann-body">
+                            <div class="ann-body-top">
+                                <span class="ann-badge ab-notice">Notice</span>
+                                <span class="ann-date">May 8, 2025</span>
+                            </div>
+                            <h6>Transport Route Update — Route 4 &amp; 7 Timings Revised from May 12</h6>
+                            <p>Due to road construction on Main Boulevard, Routes 4 and 7 will be adjusted from 12th May. New timings available on the school app and notice boards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events Panel -->
+            <div class="col-lg-5 col-md-12" data-aos="fade-left">
+                <div class="events-panel">
+                    <p class="events-panel-heading">Upcoming Events</p>
+
+                    <div class="event-countdown-card">
+                        <div class="ecc-top">
+                            <div class="ecc-date-box">
+                                <span class="day">12</span>
+                                <span class="mon">May</span>
+                            </div>
+                            <span class="ecc-badge today">This Month</span>
+                        </div>
+                        <div class="ecc-title">Grade 10 &amp; 12 Board Examinations Begin</div>
+                        <div class="ecc-meta">
+                            <span><i class="fa-solid fa-clock"></i> 8:00 AM</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Exam Block</span>
+                        </div>
+                    </div>
+
+                    <div class="event-countdown-card">
+                        <div class="ecc-top">
+                            <div class="ecc-date-box">
+                                <span class="day">24</span>
+                                <span class="mon">May</span>
+                            </div>
+                            <span class="ecc-badge upcoming">Upcoming</span>
+                        </div>
+                        <div class="ecc-title">Parent-Teacher Meeting — All Classes</div>
+                        <div class="ecc-meta">
+                            <span><i class="fa-solid fa-clock"></i> 9:00 AM – 1 PM</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Main Hall</span>
+                        </div>
+                    </div>
+
+                    <div class="event-countdown-card">
+                        <div class="ecc-top">
+                            <div class="ecc-date-box">
+                                <span class="day">6</span>
+                                <span class="mon">Jun</span>
+                            </div>
+                            <span class="ecc-badge upcoming">Upcoming</span>
+                        </div>
+                        <div class="ecc-title">Annual Sports Day 2025</div>
+                        <div class="ecc-meta">
+                            <span><i class="fa-solid fa-clock"></i> 8:30 AM</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Sports Ground</span>
+                        </div>
+                    </div>
+
+                    <div class="event-countdown-card">
+                        <div class="ecc-top">
+                            <div class="ecc-date-box">
+                                <span class="day">20</span>
+                                <span class="mon">Jun</span>
+                            </div>
+                            <span class="ecc-badge upcoming">Upcoming</span>
+                        </div>
+                        <div class="ecc-title">End-of-Year Prize Distribution Ceremony</div>
+                        <div class="ecc-meta">
+                            <span><i class="fa-solid fa-clock"></i> 10:00 AM</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Auditorium</span>
+                        </div>
+                    </div>
+
+                    <a href="#" class="view-all-link">View Full Calendar <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="gallery-con" id="gallery">
+    <div class="container-fluid px-4 px-md-5">
+        <div class="row mb-2">
+            <div class="col-12 text-center" data-aos="fade-up">
+                <p class="section-eyebrow mb-1" style="color:var(--e-global-color-soft-blue);">Campus Moments</p>
+                <h2 class="section-heading" style="color:var(--e-global-color-very-dark-blue);">School Gallery</h2>
+                <p class="section-sub mx-auto" style="color:var(--e-global-color-text);">A visual celebration of life at Azeem School — from classrooms to cricket grounds and everything in between.</p>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12" data-aos="fade-up">
+                <div class="gallery-filter-wrap">
+                    <button class="gal-filter-btn active" data-gal-filter="all">All Photos</button>
+                    <button class="gal-filter-btn" data-gal-filter="events">Events</button>
+                    <button class="gal-filter-btn" data-gal-filter="sports">Sports</button>
+                    <button class="gal-filter-btn" data-gal-filter="arts">Arts</button>
+                    <button class="gal-filter-btn" data-gal-filter="campus">Campus</button>
+                    <button class="gal-filter-btn" data-gal-filter="academics">Academics</button>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-grid" id="galleryGrid" data-aos="fade-up">
+
+            <div class="gal-item" data-gal-cat="events">
+                <img src="{% static 'images/blog-image1.jpg' %}" alt="Science Olympiad">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Events</div>
+                    <div class="gal-overlay-title">Science Olympiad 2025</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="sports">
+                <img src="{% static 'images/article-image1.jpg' %}" alt="Sports Day">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Sports</div>
+                    <div class="gal-overlay-title">Annual Sports Day</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="campus">
+                <img src="{% static 'images/aboutpage-image1.jpg' %}" alt="Campus">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Campus</div>
+                    <div class="gal-overlay-title">Main Building</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="arts">
+                <img src="{% static 'images/blog-image3.jpg' %}" alt="Cultural Fest">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Arts</div>
+                    <div class="gal-overlay-title">Jashn-e-Fun Cultural Fest</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="academics">
+                <img src="{% static 'images/article-image3.jpg' %}" alt="Classroom">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Academics</div>
+                    <div class="gal-overlay-title">Chemistry Lab Session</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="campus">
+                <img src="{% static 'images/aboutpage-image2.jpg' %}" alt="Campus Library">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Campus</div>
+                    <div class="gal-overlay-title">Library & Resource Centre</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="sports">
+                <img src="{% static 'images/banner2-image1.jpg' %}" alt="Cricket">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Sports</div>
+                    <div class="gal-overlay-title">Inter-House Cricket Finals</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="arts">
+                <img src="{% static 'images/singleblog-image1.jpg' %}" alt="Drama">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Arts</div>
+                    <div class="gal-overlay-title">Drama Society Production</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="academics">
+                <img src="{% static 'images/article-image2.jpg' %}" alt="Awards">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Academics</div>
+                    <div class="gal-overlay-title">Board Result Celebration</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="events">
+                <img src="{% static 'images/banner2-image2.jpg' %}" alt="Prize Day">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Events</div>
+                    <div class="gal-overlay-title">Prize Distribution 2024</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="campus">
+                <img src="{% static 'images/about2-image1.jpg' %}" alt="Playground">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Campus</div>
+                    <div class="gal-overlay-title">Sports Ground & Track</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+            <div class="gal-item" data-gal-cat="events">
+                <img src="{% static 'images/blog-image4.jpg' %}" alt="Cambridge">
+                <div class="gal-overlay">
+                    <div class="gal-overlay-cat">Events</div>
+                    <div class="gal-overlay-title">Cambridge Recognition Ceremony</div>
+                </div>
+                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+
+        </div>
+        <div class="text-center mt-4" data-aos="fade-up">
+            <button id="loadMoreBtn" class="read-more-btn" style="background:var(--e-global-color-very-dark-blue);color:#fff;border:none;margin:0 auto;">
+                Load More Photos <i class="fa-solid fa-images"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ADMISSIONS CTA ═══ -->
+<section class="news-cta-con">
+    <div class="container">
+        <div class="row align-items-center news-cta-inner">
+            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0" data-aos="fade-right">
+                <h2>Ready to Join Azeem School?</h2>
+                <p>Admissions are open for the 2025–26 academic year. Secure your child's place in one of the city's leading schools — apply online today.</p>
+            </div>
+            <div class="col-lg-5 col-md-12 text-lg-right" data-aos="fade-left">
+                <a href="/admissions/" style="display:inline-flex;align-items:center;gap:12px;background:var(--e-global-color-accent);color:var(--e-global-color-very-dark-blue);padding:16px 36px;border-radius:50px;font-weight:800;font-size:16px;text-decoration:none;transition:all 0.3s;margin-bottom:12px;">
+                    Apply for Admission <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <br>
+                <a href="/contact/" style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:#ffffff;padding:15px 36px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;transition:all 0.3s;border:2px solid rgba(255,255,255,0.45);">
+                    Contact Us <i class="fa-solid fa-phone"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="upper_portion">
+                        <a href="/">
+                            <figure class="footer-logo mb-0">
+                                <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Logo">
+                            </figure>
+                        </a>
+                        <h4>Begin Your Journey at Azeem School</h4>
+                        <a href="/admissions/" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-accent);color:var(--e-global-color-very-dark-blue);padding:14px 32px;border-radius:50px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.3s;margin-top:8px;">
+                            Apply for Admission <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">About Azeem School</h4>
+                            <p class="text-size-14 text">Azeem School is committed to academic excellence, character development, and world-class facilities that prepare students for a bright future.</p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-instagram social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">Quick Links</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/">Home</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/about/">About Us</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Academics</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/facilities/">Facilities</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">Explore</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/admissions/">Admissions</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/contact/">Contact Us</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Student Portal</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/news/">News &amp; Gallery</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">Contact Us</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:+923001234567" class="text-decoration-none">+92 300 123 4567</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:info@azeemschool.edu.pk" class="text-decoration-none">info@azeemschool.edu.pk</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="#" class="text-decoration-none address mb-0">Main Campus, Azeem Road, Karachi</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">&copy; 2025 Azeem School. All rights reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask">
+    <div class="loader"><div></div><div></div></div>
+</div>
+
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/back-to-top-button.js' %}"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+
+<script>
+    /* ── Announcement filter ── */
+    document.querySelectorAll('.ann-filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.ann-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            var filter = this.dataset.filter;
+            document.querySelectorAll('.ann-item').forEach(function(item) {
+                if (filter === 'all' || item.dataset.annType === filter) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    /* ── Gallery filter ── */
+    document.querySelectorAll('.gal-filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.gal-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            var filter = this.dataset.galFilter;
+            document.querySelectorAll('.gal-item').forEach(function(item) {
+                if (filter === 'all' || item.dataset.galCat === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
