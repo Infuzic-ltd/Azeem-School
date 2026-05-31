@@ -80,7 +80,7 @@ TEMPLATES = [
         },
     },
 ]
-
+DEBUG = True
 WSGI_APPLICATION = "myproject.wsgi.application"
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
