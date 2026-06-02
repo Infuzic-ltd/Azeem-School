@@ -43,7 +43,10 @@ STORAGES = {
     },
 }
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_URL = "/static/"
+
+STATIC_ROOT = PROJECT_DIR.parent / "home" / "assets"
 STATIC_URL = "/static/"
 
 # ── Cloudinary (override base.py with env vars if set) ───────────────────────
