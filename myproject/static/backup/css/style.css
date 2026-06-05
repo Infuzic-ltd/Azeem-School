@@ -2194,7 +2194,7 @@ html{
     position: absolute;
     inset: 0;
 
-    background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat;
+    /* background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat; */
 
     opacity: 0.55;
 
@@ -2219,7 +2219,7 @@ html{
     position: absolute;
     inset: 0; /* replaces top/left/width/height */
 
-    background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat;
+    /* background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat; */
 
     opacity: 0.55;
 

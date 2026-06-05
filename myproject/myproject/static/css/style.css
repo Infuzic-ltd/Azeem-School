@@ -59,6 +59,7 @@ Heading: "Urbanist", sans-serif;
 body {
     font-family: "Archivo", serif;
     /* font-family: "Urbanist", serif; */
+    overflow-x: hidden;
 }
 
 :root {
@@ -2189,13 +2190,15 @@ html{
 .banner3-con {
     position: relative;
     overflow: hidden;
+    padding: 186px 0 226px;
+    isolation: isolate;
 }
 
 .banner-bg {
     position: absolute;
     inset: 0;
 
-    background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat;
+    /* background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat; */
 
     opacity: 0.55;
 
@@ -2215,16 +2218,11 @@ html{
 } */
 
 .banner3-con::before {
-    background: red;
     content: "";
     position: absolute;
-    inset: 0; /* replaces top/left/width/height */
-
-    background: url("/static/images/banner3-backgroundimage.jpg") center/cover no-repeat;
-
-    opacity: 0.55;
-
-    z-index: -1; /* pushes it behind content */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
 .banner3-con .banner-lefttopcurve {
