@@ -1,46 +1,238 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
-{% load static %}
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html lang="en">
 <head>
-    <title>Azeem School</title>
-    <!-- /SEO Ultimate -->
+    <title>{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta charset="utf-8">
-    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicon/apple-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicon/apple-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicon/apple-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicon/apple-icon-76x76.png' %}">
+    {% if page.search_description %}<meta name="description" content="{{ page.search_description }}">{% endif %}
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="57x57"   href="{% static 'images/favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60"   href="{% static 'images/favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72"   href="{% static 'images/favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76"   href="{% static 'images/favicon/apple-icon-76x76.png' %}">
     <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
     <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
     <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
     <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32"   href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96"   href="{% static 'images/favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16"   href="{% static 'images/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Latest compiled and minified CSS -->
+    <meta name="theme-color" content="#1f1741">
+
+    <!-- CSS -->
     <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- Font Awesome link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- StyleSheet link CSS -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
+
+    <style>
+    /* ── Design tokens — aligned to original site palette ── */
+    :root {
+        --navy:      #1f1741;
+        --navy-mid:  #231b49;
+        --navy-soft: #2d1f5e;
+        --accent:    #6a52e0;
+        --gold:      #dcb32e;
+        --green:     #99b251;
+        --red-label: #ff0000;
+        --light-bg:  #fafafa;
+        --white:     #ffffff;
+        --text:      #506172;
+        --heading:   #1f1741;
+        --border:    #e6e8f0;
+        --radius:    18px;
+        --shadow-sm: 0 2px 12px rgba(31,23,65,0.07);
+        --shadow-md: 0 8px 32px rgba(31,23,65,0.12);
+        --shadow-lg: 0 20px 56px rgba(31,23,65,0.18);
+    }
+    body { font-family:'Urbanist',sans-serif; overflow-x:hidden; color:var(--text); background:var(--white); }
+    h1,h2,h3,h4,h5 { font-family:'Urbanist',sans-serif; font-weight:800; color:var(--heading); }
+
+    /* Section label (h6) */
+    .sec-sub { display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--red-label); margin-bottom:12px; }
+    .sec-sub::before { content:""; display:inline-block; width:28px; height:3px; background:var(--red-label); border-radius:2px; flex-shrink:0; }
+    .sec-head { font-size:clamp(26px,4vw,42px); font-weight:800; color:var(--heading); line-height:1.18; margin-bottom:18px; }
+    .sec-head-white { color:#fff; }
+    .sec-desc { font-size:17px; color:var(--text); line-height:1.7; max-width:580px; }
+    .sec-desc-white { color:rgba(255,255,255,0.82); }
+
+    /* WhatsApp float */
+    .wa-float { position:fixed; bottom:30px; right:26px; z-index:2000; width:60px; height:60px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.55); text-decoration:none; transition:transform .22s,box-shadow .22s; }
+    .wa-float i { font-size:32px; color:#fff; }
+    .wa-float:hover { transform:scale(1.13); box-shadow:0 8px 32px rgba(37,211,102,0.75); color:#fff; }
+    .wa-float::after { content:""; position:absolute; inset:-7px; border-radius:50%; border:3px solid rgba(37,211,102,0.5); animation:wa-ring 2.2s ease-out infinite; }
+    @keyframes wa-ring { 0%{transform:scale(1);opacity:.9;} 70%{transform:scale(1.6);opacity:0;} 100%{transform:scale(1.6);opacity:0;} }
+
+    /* Sticky nav */
+    .header { transition:box-shadow .3s,background-color .3s; }
+    .header.nav-scrolled { position:fixed; top:0; left:0; width:100%; z-index:999; background-color:rgba(255,255,255,0.97); box-shadow:0 3px 24px rgba(0,0,0,0.10); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+
+    /* Hero */
+    .banner3-con { min-height:600px; padding:186px 0 226px; overflow:hidden; isolation:isolate; background:#081933; }
+    .banner3-con::before { content:""; position:absolute; inset:0; background:rgba(0,0,0,0.5); z-index:-1; }
+    .hero-video-btn { display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.12); color:#fff; border:2px solid rgba(255,255,255,0.4); padding:16px 28px; border-radius:50px; font-weight:700; font-size:15px; font-family:'Urbanist',sans-serif; transition:background .25s,border-color .25s; text-decoration:none; }
+    .hero-video-btn:hover { background:rgba(255,255,255,0.22); border-color:#fff; color:#fff; }
+    .hero-video-btn i { font-size:20px; }
+
+    /* Stats strip */
+    .az-stats-strip { background:var(--navy-mid); padding:0; }
+    .az-stats-strip .stat-item { padding:36px 24px; border-right:1px solid rgba(255,255,255,0.08); text-align:center; }
+    .az-stats-strip .stat-item:last-child { border-right:none; }
+    .az-stats-strip .stat-num { font-size:40px; font-weight:900; color:var(--gold); line-height:1; display:block; }
+    .az-stats-strip .stat-label { font-size:13px; color:rgba(255,255,255,0.6); font-weight:600; text-transform:uppercase; letter-spacing:.8px; margin-top:6px; }
+
+    /* Why / Trust cards */
+    .az-why { padding:100px 0; background:var(--white); }
+    .why-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:36px 28px; transition:transform .3s,box-shadow .3s,border-color .3s; height:100%; }
+    .why-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); border-color:var(--accent); }
+    .why-icon { width:66px; height:66px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:28px; }
+    .why-icon.c1 { background:#eef2ff; color:var(--accent); }
+    .why-icon.c2 { background:#dcfce7; color:var(--green); }
+    .why-icon.c3 { background:#fef9c3; color:#ca8a04; }
+    .why-icon.c4 { background:#fee2e2; color:#dc2626; }
+    .why-card h5 { font-size:18px; font-weight:800; color:var(--heading); margin-bottom:10px; }
+    .why-card p  { font-size:14px; color:var(--text); line-height:1.7; margin:0; }
+    .why-num { font-size:52px; font-weight:900; color:rgba(31,23,65,0.05); line-height:1; position:absolute; right:22px; bottom:14px; user-select:none; pointer-events:none; }
+
+    /* About */
+    .az-about { padding:100px 0; background:var(--light-bg); }
+    .az-about .about-img-stack { position:relative; margin-bottom:40px; }
+    .az-about .img-main { border-radius:20px; overflow:hidden; box-shadow:var(--shadow-md); }
+    .az-about .img-main img { width:100%; height:360px; object-fit:cover; }
+    .az-about .img-thumb { position:absolute; bottom:-30px; right:-24px; width:180px; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg); border:4px solid var(--white); }
+    .az-about .img-thumb img { width:100%; height:120px; object-fit:cover; }
+    .az-about .play-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70px; height:70px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(220,179,46,0.5); transition:transform .25s,box-shadow .25s; z-index:5; text-decoration:none; }
+    .az-about .play-btn:hover { transform:translate(-50%,-50%) scale(1.12); box-shadow:0 12px 36px rgba(220,179,46,0.7); }
+    .az-about .play-btn i { font-size:28px; color:var(--navy); margin-left:4px; }
+    .az-about .mission-box { background:var(--navy); color:#fff; border-radius:16px; padding:22px 24px; margin-top:28px; display:flex; align-items:flex-start; gap:16px; }
+    .az-about .mission-box i { font-size:28px; color:var(--gold); flex-shrink:0; margin-top:2px; }
+    .az-about .mission-box p { margin:0; font-size:15px; color:rgba(255,255,255,0.88); line-height:1.6; font-weight:600; }
+    .feature-check li { display:flex; align-items:flex-start; gap:12px; font-size:15px; color:var(--text); margin-bottom:12px; line-height:1.55; }
+    .feature-check li i { color:var(--green); font-size:16px; margin-top:2px; flex-shrink:0; }
+
+    /* Boards */
+    .az-boards { padding:100px 0; background:var(--white); }
+    .board-card-v2 { background:var(--white); border:1px solid var(--border); border-radius:24px; overflow:hidden; box-shadow:var(--shadow-sm); transition:transform .35s,box-shadow .35s; height:100%; }
+    .board-card-v2:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+    .board-card-header { padding:32px 36px 28px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:20px; }
+    .bsek-header  { background:linear-gradient(135deg,#0d1b3e 0%,#1a3a6e 100%); }
+    .akueb-header { background:linear-gradient(135deg,#064e3b 0%,#065f46 100%); }
+    .board-icon { width:64px; height:64px; border-radius:16px; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .board-icon i { font-size:28px; color:#fff; }
+    .board-info { flex:1; }
+    .board-info .board-name { font-size:21px; font-weight:900; color:#fff; margin:0 0 4px; }
+    .board-info .board-full { font-size:13px; color:rgba(255,255,255,0.65); font-weight:500; }
+    .board-badge { background:rgba(255,255,255,0.15); color:#fff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 14px; border-radius:30px; border:1px solid rgba(255,255,255,0.25); white-space:nowrap; flex-shrink:0; }
+    .board-card-body { padding:32px 36px; }
+    .board-levels { display:flex; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
+    .board-level-col { flex:1; min-width:180px; }
+    .board-level-col .level-title { font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+    .board-level-col .level-title::before { content:""; width:20px; height:2px; background:var(--accent); flex-shrink:0; }
+    .board-subject-list { list-style:none; margin:0; padding:0; }
+    .board-subject-list li { font-size:14px; color:var(--text); padding:6px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+    .board-subject-list li:last-child { border:none; }
+    .board-subject-list li::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+    .board-card-footer { padding:0 36px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+    .board-tags { display:flex; gap:8px; flex-wrap:wrap; }
+    .board-tag { background:var(--light-bg); color:var(--heading); font-size:12px; font-weight:700; padding:5px 13px; border-radius:20px; }
+    .btn-board-link { display:inline-flex; align-items:center; gap:8px; background:var(--navy); color:#fff !important; font-weight:700; font-size:14px; padding:12px 26px; border-radius:50px; text-decoration:none; transition:background .22s,transform .22s; }
+    .btn-board-link:hover { background:var(--navy-soft); transform:translateX(3px); color:#fff !important; }
+    .btn-board-link i { transition:transform .22s; }
+    .btn-board-link:hover i { transform:translateX(4px); }
+
+    /* Facilities */
+    .az-facilities { padding:100px 0; background:var(--navy); }
+    .az-facilities .sec-sub::before { background:var(--gold); }
+    .az-facilities .sec-sub { color:var(--gold); }
+    .fac-v2 { border-radius:20px; overflow:hidden; position:relative; height:280px; transition:transform .35s,box-shadow .35s; }
+    .fac-v2:hover { transform:translateY(-8px); box-shadow:0 24px 56px rgba(0,0,0,0.4); }
+    .fac-v2 img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .fac-v2:hover img { transform:scale(1.07); }
+    .fac-v2-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(13,27,62,0.9) 0%,rgba(13,27,62,0.2) 60%,transparent 100%); }
+    .fac-v2-content { position:absolute; bottom:0; left:0; right:0; padding:24px 22px; }
+    .fac-v2-icon { width:46px; height:46px; border-radius:12px; background:var(--gold); display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+    .fac-v2-icon i { font-size:20px; color:var(--navy); }
+    .fac-v2-content h5 { font-size:18px; font-weight:800; color:#fff; margin-bottom:4px; }
+    .fac-v2-content p  { font-size:13px; color:rgba(255,255,255,0.72); margin:0; line-height:1.45; }
+    .fac-v2-arrow { position:absolute; top:18px; right:18px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; transition:background .2s,transform .2s; }
+    .fac-v2:hover .fac-v2-arrow { background:var(--gold); color:var(--navy); transform:scale(1.1); }
+
+    /* Explore pages */
+    .az-explore { padding:100px 0; background:var(--light-bg); }
+    .exp-card { display:flex; align-items:center; gap:18px; background:var(--white); border-radius:var(--radius); padding:24px 22px; text-decoration:none; color:inherit; border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:transform .3s,box-shadow .3s,border-color .3s; height:100%; }
+    .exp-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:var(--accent); color:inherit; }
+    .exp-icon { width:56px; height:56px; border-radius:14px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+    .exp-icon i { font-size:22px; color:#fff; }
+    .exp-body { flex:1; }
+    .exp-body h5 { font-size:16px; font-weight:800; color:var(--heading); margin-bottom:4px; }
+    .exp-body p  { font-size:13px; color:var(--text); margin:0; line-height:1.55; }
+    .exp-arrow { color:var(--accent); font-size:15px; flex-shrink:0; transition:transform .25s; }
+    .exp-card:hover .exp-arrow { transform:translateX(5px); }
+
+    /* Admissions CTA */
+    .az-cta { padding:100px 0; background:linear-gradient(135deg,var(--navy) 0%,var(--navy-soft) 60%,#4f6ef7 100%); position:relative; overflow:hidden; }
+    .az-cta::before { content:""; position:absolute; top:-120px; right:-120px; width:500px; height:500px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
+    .az-cta::after  { content:""; position:absolute; bottom:-80px; left:-80px; width:360px; height:360px; border-radius:50%; background:rgba(255,255,255,0.03); pointer-events:none; }
+    .az-cta-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(220,179,46,0.15); border:1px solid rgba(220,179,46,0.4); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:7px 18px; border-radius:30px; margin-bottom:22px; }
+    .btn-primary-az { display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--navy) !important; font-weight:800; font-size:15px; padding:16px 32px; border-radius:50px; text-decoration:none; box-shadow:0 6px 24px rgba(220,179,46,0.45); transition:transform .22s,box-shadow .22s; }
+    .btn-primary-az:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(220,179,46,0.6); }
+    .btn-outline-az { display:inline-flex; align-items:center; gap:10px; background:transparent; color:#fff !important; font-weight:700; font-size:15px; padding:15px 30px; border-radius:50px; text-decoration:none; border:2px solid rgba(255,255,255,0.4); transition:background .22s,border-color .22s; }
+    .btn-outline-az:hover { background:rgba(255,255,255,0.1); border-color:#fff; }
+
+    /* Testimonials */
+    .az-testi { padding:100px 0; background:var(--white); }
+    .testi-card { background:var(--white); border:1px solid var(--border); border-radius:20px; padding:36px 32px; position:relative; overflow:hidden; }
+    .testi-card::before { content:"\201C"; position:absolute; top:-12px; right:28px; font-size:120px; color:rgba(106,82,224,0.06); font-family:Georgia,serif; line-height:1; pointer-events:none; }
+    .testi-stars { display:flex; gap:3px; margin-bottom:16px; }
+    .testi-stars i { font-size:14px; color:var(--gold); }
+    .testi-card p { font-size:15px; color:var(--text); line-height:1.8; font-style:italic; margin-bottom:22px; }
+    .testi-person { display:flex; align-items:center; gap:14px; }
+    .testi-person img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
+    .testi-person .tname { font-size:15px; font-weight:800; color:var(--heading); margin:0; }
+    .testi-person .trole { font-size:13px; color:var(--text); margin:0; }
+
+    /* Notices */
+    .az-notices { padding:100px 0; background:var(--light-bg); }
+    .notice-v2 { background:var(--white); border-radius:16px; padding:28px 26px; border-left:4px solid var(--accent); box-shadow:var(--shadow-sm); transition:transform .3s,box-shadow .3s; height:100%; display:flex; flex-direction:column; }
+    .notice-v2:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); }
+    .notice-v2.urgent { border-left-color:#dc2626; }
+    .notice-v2-icon { width:48px; height:48px; border-radius:12px; background:#eef2ff; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+    .notice-v2-icon i { font-size:20px; color:var(--accent); }
+    .notice-v2.urgent .notice-v2-icon { background:#fee2e2; }
+    .notice-v2.urgent .notice-v2-icon i { color:#dc2626; }
+    .notice-v2-date { font-size:12px; color:#94a3b8; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+    .notice-v2 h5 { font-size:16px; font-weight:800; color:var(--heading); margin-bottom:8px; line-height:1.4; }
+    .notice-v2 p  { font-size:13px; color:var(--text); margin:0; line-height:1.6; flex:1; }
+    .notice-v2-link { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:700; color:var(--accent); margin-top:14px; text-decoration:none; transition:gap .2s; }
+    .notice-v2-link:hover { gap:12px; }
+
+    /* Utilities */
+    .section-cta-row { text-align:center; margin-top:48px; }
+    .btn-view-all { display:inline-flex; align-items:center; gap:10px; background:var(--navy); color:#fff !important; font-weight:700; font-size:15px; padding:15px 34px; border-radius:50px; text-decoration:none; transition:transform .22s,box-shadow .22s; }
+    .btn-view-all:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .btn-view-all i { transition:transform .22s; }
+    .btn-view-all:hover i { transform:translateX(4px); }
+    </style>
 </head>
 <body>
-<!-- Back to top button -->
 <a id="button"></a>
+
+<!-- ══ WHATSAPP ══ -->
+<a href="https://wa.me/{{ page.nav_phone|cut:' '|cut:'+'|cut:'-' }}" target="_blank" rel="noopener noreferrer" class="wa-float" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ══ NAVBAR + HERO ══ -->
 <div class="home_banner_outer position-relative">
     <header class="header">
         <div class="container">
@@ -51,20 +243,21 @@
                         <figure class="logo mb-0"><img src="{{ nav_logo_img.url }}" alt="logo" class="img-fluid"></figure>
                     {% endif %}
                 </a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarMain" aria-controls="navbarMain"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav mx-auto">
                         {% for menu in page.navbar_menus.all %}
                             {% with items=menu.menu_items.all %}
                             {% if items %}
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle dropdown-color navbar-text-color"
-                                    href="#" id="navbarDropdown{{ forloop.counter }}" role="button"
+                                <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
+                                    id="navbarDropdown{{ forloop.counter }}" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ menu.title }}
                                 </a>
@@ -93,22 +286,23 @@
                     </ul>
                 </div>
                 <div class="phone-number">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="tel:{{ page.nav_phone }}" class="text-decoration-none">
+                    <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+                    <a href="https://wa.me/{{ page.nav_phone|cut:' '|cut:'+'|cut:'-' }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
                         <span class="number">{{ page.nav_phone }}</span>
                     </a>
                 </div>
             </nav>
         </div>
     </header>
-    <!-- Banner -->
+
+    <!-- ── HERO ── -->
     {% if page.hero_bg_image %}{% image page.hero_bg_image original as hero_bg %}{% endif %}
-    <section class="banner3-con position-relative"{% if page.hero_bg_image %} style="background-image: url('{{ hero_bg.url }}'); background-size: cover; background-position: center;"{% endif %}>
+    <section class="banner3-con position-relative"{% if page.hero_bg_image %} style="background-image:url('{{ hero_bg.url }}');background-size:cover;background-position:center;"{% endif %}>
         <figure class="banner-lefttopcurve image mb-0">
-            <img src="{% static 'images/banner3-lefttopcurve.png' %}" alt="image" class="img-fluid">
+            <img src="{% static 'images/banner3-lefttopcurve.png' %}" alt="" class="img-fluid">
         </figure>
         <figure class="banner-rightbottomcurve image mb-0">
-            <img src="{% static 'images/banner3-rightbottomcurve.png' %}" alt="image" class="img-fluid">
+            <img src="{% static 'images/banner3-rightbottomcurve.png' %}" alt="" class="img-fluid">
         </figure>
         <div class="container position-relative">
             <div class="row align-items-center">
@@ -120,427 +314,380 @@
                                 <img src="{{ hero_logo_img.url }}" alt="logo" class="img-fluid">
                             </figure>
                         {% endif %}
-                        <h1 class="text-white">{{ page.hero_headline }}</h1>
-                        <h1 class="text-white">{{ page.hero_headline_2 }}</h1>
+                        <h1 class="text-white">
+                            {{ page.hero_headline }}
+                        </h1>
+                        <h3 class="text-white">
+                          {% if page.hero_headline_2 %} {{ page.hero_headline_2 }}{% endif %}
+                        </h3>
                         <p class="text-white text-size-18">{{ page.hero_tagline }}</p>
-                        <a href="{{ page.hero_btn_url }}" class="text-decoration-none primary_btn">{{ page.hero_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
+                        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+                            <a href="{{ page.hero_btn_url }}" class="text-decoration-none primary_btn">
+                                {{ page.hero_btn_label }}<i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            {% if page.about_video_url %}
+                            <a href="{{ page.about_video_url }}" target="_blank" rel="noopener noreferrer" class="hero-video-btn">
+                                <i class="fa-solid fa-circle-play"></i> Watch Our Story
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-1 mx-auto">
-                    <a href="#dropdown" class="top-btn text-center">
+                    <a href="#stats" class="top-btn text-center">
                         <figure class="banner-dropdownimage mb-0">
-                            <img src="{% static 'images/banner-dropdownimage.png' %}" class="img-fluid" alt="image">
+                            <img src="{% static 'images/banner-dropdownimage.png' %}" class="img-fluid" alt="">
                         </figure>
                     </a>
                 </div>
             </div>
         </div>
         <figure class="banner-circleimage mb-0">
-            <img src="{% static 'images/banner3-circleimage.png' %}" alt="image" class="img-fluid">
+            <img src="{% static 'images/banner3-circleimage.png' %}" alt="" class="img-fluid">
         </figure>
         <figure class="banner-crossimage mb-0">
-            <img src="{% static 'images/banner3-crossimage.png' %}" alt="image" class="img-fluid">
+            <img src="{% static 'images/banner3-crossimage.png' %}" alt="" class="img-fluid">
         </figure>
     </section>
 </div>
-<!-- Trust -->
-<section class="choose3-con position-relative" id="dropdown">
-    <figure class="choose-halfcircleimage mb-0">
-        <img src="{% static 'images/choose3-halfcircleimage.png' %}" alt="image" class="img-fluid">
-    </figure>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="choose_content position-relative" data-aos="fade-up">
-                    <h6>Our Features</h6>
-                    <h2>{{ page.trust_heading }}</h2>
-                    <p class="text1 text-size-18">{{ page.trust_description }}</p>
-                    <a href="{{ page.trust_btn_url }}" class="text-decoration-none primary_btn">{{ page.trust_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
-                    <figure class="choose-circleimage mb-0">
-                        <img src="{% static 'images/choose3-circleimage.png' %}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="choose_contentbox" data-aos="fade-up">
-                    {% for card in page.trust_cards.all %}
-                        {% if forloop.counter == 1 or forloop.counter == 3 %}
-                        <div class="row">
-                        {% endif %}
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
-                            {% if forloop.counter == 1 or forloop.counter == 3 %}
-                            <div class="box-top">
-                            {% endif %}
-                            <div class="choose-box box{{ forloop.counter }}{% if forloop.counter <= 2 %} box-mb{% endif %}">
-                                {% if card.logo %}
-                                    {% image card.logo original as card_logo %}
-                                    <figure class="icon icon{{ forloop.counter }}">
-                                        <img src="{{ card_logo.url }}" alt="{{ card.heading }}" class="img-fluid">
-                                    </figure>
-                                {% endif %}
-                                <h3>{{ card.heading }}</h3>
-                                <p class="text-size-16">{{ card.description }}</p>
-                                {% if card.url %}
-                                    <a href="{{ card.url }}" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
-                                {% endif %}
-                            </div>
-                            {% if forloop.counter == 1 or forloop.counter == 3 %}
-                            </div>
-                            {% endif %}
-                        </div>
-                        {% if forloop.counter == 2 or forloop.last %}
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- About -->
-<section class="about3-con position-relative">
-    <figure class="about-rightimage mb-0">
-        <img src="{% static 'images/about-rightimage.png' %}" alt="image" class="img-fluid">
-    </figure>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-md-left text-center">
-                <div class="about_wrapper position-relative" data-aos="fade-up">
-                    {% if page.about_image_main %}
-                        {% image page.about_image_main original as about_img_main %}
-                        <figure class="about-image1 mb-0">
-                            <img src="{{ about_img_main.url }}" alt="image" class="img-fluid">
-                        </figure>
-                    {% endif %}
-                    {% if page.about_image_video_thumb %}
-                        {% image page.about_image_video_thumb original as about_img_vid %}
-                        <div class="video-image">
-                            <figure class="about-image2 mb-0">
-                                <img src="{{ about_img_vid.url }}" alt="image" class="img-fluid">
-                            </figure>
-                            {% if page.about_video_url %}
-                            <div class="icon">
-                                <a class="popup-vimeo" href="{{ page.about_video_url }}">
-                                    <div class="mb-0 video-icon">
-                                        <img class="thumb img-fluid" style="cursor: pointer" src="{% static 'images/about3-playicon.png' %}" alt="image">
-                                    </div>
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="about_content" data-aos="fade-up">
-                    <h6>{{ page.about_subtitle }}</h6>
-                    <h2>{{ page.about_title }}</h2>
-                    <p class="text-size-18 text">{{ page.about_description }}</p>
-                    {% if page.about_features.count %}
-                    <ul class="list-unstyled">
-                        {% for feature in page.about_features.all %}
-                        <li>
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <p class="mb-0 text-size-16">{{ feature.text }}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% if page.about_mission_title %}
-                    <div class="box">
-                        {% if page.about_mission_icon %}
-                            {% image page.about_mission_icon original as mission_icon %}
-                            <figure class="about-icon mb-0">
-                                <img src="{{ mission_icon.url }}" alt="image" class="img-fluid">
-                            </figure>
-                        {% endif %}
-                        <h3 class="mb-0">{{ page.about_mission_title }}</h3>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Courses -->
-<section class="course-popular-con">
-    <div class="popular-con position-relative">
-        <figure class="popular-lefttopimage mb-0">
-            <img src="{% static 'images/popular-lefttopimage.png' %}" alt="image" class="img-fluid">
-        </figure>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="popular_content text-center position-relative" data-aos="fade-up">
-                        <h6>{{ page.courses_subtitle }}</h6>
-                        <h2 class="text-white">{{ page.courses_title }}</h2>
-                        <figure class="popular-crossimage mb-0">
-                            <img src="{% static 'images/contactform-crossimage.png' %}" alt="image" class="img-fluid">
-                        </figure>
-                        <figure class="popular-triangleimage mb-0">
-                            <img src="{% static 'images/popular-triangleimage.png' %}" alt="image" class="img-fluid">
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="course-con position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="tabs-box tabs-options">
-                        <ul class="nav nav-tabs" data-aos="fade-up">
-                            <li><a class="active" data-toggle="tab" href="#all">All</a></li>
-                            <li><a data-toggle="tab" href="#design">Design</a></li>
-                            <li><a data-toggle="tab" href="#data-science">Data Science</a></li>
-                            <li><a data-toggle="tab" href="#marketing">Marketing</a></li>
-                            <li><a data-toggle="tab" href="#development">Development</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="all" class="tab-pane fade in active show">
-                                <div class="row all_row" data-aos="fade-up">
-                                    {% for card in page.course_cards.all %}
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            {% if card.image %}
-                                                {% image card.image original as course_img %}
-                                                <figure class="image mb-0">
-                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
-                                                </figure>
-                                            {% endif %}
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">{{ card.lessons_count }}</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">{{ card.students_count }}</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
-                                                    <h5>{{ card.title }}</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">{{ card.price }}</span>
-                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div id="design" class="tab-pane fade">
-                                <div class="row all_row" data-aos="fade-up">
-                                    {% for card in page.course_cards.all %}{% if card.tab == "design" %}
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            {% if card.image %}
-                                                {% image card.image original as course_img %}
-                                                <figure class="image mb-0">
-                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
-                                                </figure>
-                                            {% endif %}
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">{{ card.lessons_count }}</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">{{ card.students_count }}</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
-                                                    <h5>{{ card.title }}</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">{{ card.price }}</span>
-                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}{% endfor %}
-                                </div>
-                            </div>
-                            <div id="data-science" class="tab-pane fade">
-                                <div class="row all_row" data-aos="fade-up">
-                                    {% for card in page.course_cards.all %}{% if card.tab == "data-science" %}
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            {% if card.image %}
-                                                {% image card.image original as course_img %}
-                                                <figure class="image mb-0">
-                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
-                                                </figure>
-                                            {% endif %}
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">{{ card.lessons_count }}</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">{{ card.students_count }}</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
-                                                    <h5>{{ card.title }}</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">{{ card.price }}</span>
-                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}{% endfor %}
-                                </div>
-                            </div>
-                            <div id="marketing" class="tab-pane fade">
-                                <div class="row all_row" data-aos="fade-up">
-                                    {% for card in page.course_cards.all %}{% if card.tab == "marketing" %}
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            {% if card.image %}
-                                                {% image card.image original as course_img %}
-                                                <figure class="image mb-0">
-                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
-                                                </figure>
-                                            {% endif %}
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">{{ card.lessons_count }}</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">{{ card.students_count }}</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
-                                                    <h5>{{ card.title }}</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">{{ card.price }}</span>
-                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}{% endfor %}
-                                </div>
-                            </div>
-                            <div id="development" class="tab-pane fade">
-                                <div class="row all_row" data-aos="fade-up">
-                                    {% for card in page.course_cards.all %}{% if card.tab == "development" %}
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column">
-                                        <div class="course-box all_boxes">
-                                            {% if card.image %}
-                                                {% image card.image original as course_img %}
-                                                <figure class="image mb-0">
-                                                    <img src="{{ course_img.url }}" alt="{{ card.title }}" class="img-fluid">
-                                                </figure>
-                                            {% endif %}
-                                            <div class="lower_content all_boxes">
-                                                <div class="content">
-                                                    <div class="calendar">
-                                                        <i class="fa-solid fa-book"></i>
-                                                        <span class="day">{{ card.lessons_count }}</span>
-                                                    </div>
-                                                    <div class="people">
-                                                        <i class="fa-solid fa-user"></i>
-                                                        <span class="person">{{ card.students_count }}</span>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-decoration-none all_boxes" data-toggle="modal" data-target="#course-modal-{{ forloop.counter }}">
-                                                    <h5>{{ card.title }}</h5>
-                                                </a>
-                                                <div class="value">
-                                                    <span class="money">{{ card.price }}</span>
-                                                    <a href="{{ card.modal_btn_url }}" class="text-decoration-none enroll_now">Enroll Now<i class="fa-solid fa-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}{% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Benefit -->
-<section class="benefit-con benefit3-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="benefit_content text-center" data-aos="fade-up">
-                    <h6>{{ page.benefits_subtitle }}</h6>
-                    <h2>{{ page.benefits_title }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row all_row" data-aos="fade-up">
+
+<!-- ══ STATS STRIP ══ -->
+{% if page.benefit_cards.count %}
+<div class="az-stats-strip" id="stats">
+    <div class="container-fluid px-0">
+        <div class="row no-gutters">
             {% for card in page.benefit_cards.all %}
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
-                <div class="benefit-box box{{ forloop.counter }}">
-                    <span class="number counter">{{ card.counter }}</span>
-                    {% if card.suffix %}<sup class="plus">{{ card.suffix }}</sup>{% endif %}
-                    <span class="text">{{ card.label }}</span>
-                </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num">{{ card.counter }}{% if card.suffix %}{{ card.suffix }}{% endif %}</span>
+                <div class="stat-label">{{ card.label }}</div>
             </div>
             {% endfor %}
         </div>
     </div>
-</section>
-<!-- Journey -->
-<section class="journey-con position-relative">
-    <figure class="journey-lefttopcurve image mb-0">
-        <img src="{% static 'images/journey-lefttopcurve.png' %}" alt="image" class="img-fluid">
-    </figure>
-    <figure class="journey-rightbottomcurve image mb-0">
-        <img src="{% static 'images/journey-rightbottomcurve.png' %}" alt="image" class="img-fluid">
-    </figure>
+</div>
+{% endif %}
+
+<!-- ══ WHY CHOOSE US ══ -->
+{% if page.trust_cards.count %}
+<section class="az-why">
     <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-7 text-center">
+                <div class="sec-sub" data-aos="fade-up">Our Features</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.trust_heading }}</h2>
+                {% if page.trust_description %}
+                <p class="sec-desc mx-auto" data-aos="fade-up" data-aos-delay="100">{{ page.trust_description }}</p>
+                {% endif %}
+            </div>
+        </div>
         <div class="row">
-            <div class="col-lg-10 col-12 mx-auto">
-                <div class="journey_content text-center" data-aos="fade-up">
-                    {% if page.journey_logo %}
-                        {% image page.journey_logo original as journey_logo_img %}
-                        <figure class="journey-logoicon">
-                            <img src="{{ journey_logo_img.url }}" alt="logo" class="img-fluid">
-                        </figure>
+            {% for card in page.trust_cards.all %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0|stringformat:'s' }}">
+                <div class="why-card position-relative">
+                    <div class="why-icon c{{ forloop.counter }}">
+                        {% if card.logo %}
+                            {% image card.logo original as card_logo %}
+                            <img src="{{ card_logo.url }}" alt="{{ card.heading }}" style="width:36px;height:36px;object-fit:contain;">
+                        {% else %}
+                            <i class="{{ card.icon_class }}"></i>
+                        {% endif %}
+                    </div>
+                    <h5>{{ card.heading }}</h5>
+                    <p>{{ card.description }}</p>
+                    <div class="why-num">0{{ forloop.counter }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if page.trust_btn_url %}
+        <div class="section-cta-row" data-aos="fade-up">
+            <a href="{{ page.trust_btn_url }}" class="btn-view-all">{{ page.trust_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<!-- ══ ABOUT ══ -->
+<section class="az-about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="about-img-stack">
+                    {% if page.about_image_main %}
+                        {% image page.about_image_main original as about_img_main %}
+                        <div class="img-main">
+                            <img src="{{ about_img_main.url }}" alt="{{ page.about_title }}">
+                            {% if page.about_video_url %}
+                            <a href="{{ page.about_video_url }}" target="_blank" rel="noopener noreferrer" class="play-btn" title="Watch School Video">
+                                <i class="fa-solid fa-play"></i>
+                            </a>
+                            {% endif %}
+                        </div>
                     {% endif %}
-                    <h6>{{ page.journey_subtitle }}</h6>
-                    <h2 class="text-white">{{ page.journey_title }}</h2>
-                    <a href="{{ page.journey_btn_url }}" class="text-decoration-none primary_btn">{{ page.journey_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
+                    {% if page.about_image_video_thumb %}
+                        {% image page.about_image_video_thumb original as about_img_vid %}
+                        <div class="img-thumb">
+                            <img src="{{ about_img_vid.url }}" alt="">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                <div class="sec-sub">{{ page.about_subtitle }}</div>
+                <h2 class="sec-head">{{ page.about_title }}</h2>
+                <p class="sec-desc mb-4">{{ page.about_description }}</p>
+                {% if page.about_features.count %}
+                <ul class="list-unstyled feature-check mb-4">
+                    {% for feature in page.about_features.all %}
+                    <li><i class="fa-solid fa-circle-check"></i> {{ feature.text }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if page.about_mission_title %}
+                <div class="mission-box">
+                    {% if page.about_mission_icon %}
+                        {% image page.about_mission_icon original as mission_icon %}
+                        <img src="{{ mission_icon.url }}" alt="" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;">
+                    {% else %}
+                        <i class="fa-solid fa-star-and-crescent"></i>
+                    {% endif %}
+                    <p>{{ page.about_mission_title }}</p>
+                </div>
+                {% endif %}
+                <a href="/about/" class="btn-view-all mt-4">Read Our Full Story <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ BOARDS ══ -->
+{% if page.board_cards.count %}
+<section class="az-boards">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-7 text-center">
+                <div class="sec-sub" data-aos="fade-up">{{ page.boards_subtitle }}</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.boards_title }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for card in page.board_cards.all %}
+            <div class="col-lg-6 mb-4" data-aos="{% if forloop.counter|divisibleby:2 %}fade-left{% else %}fade-right{% endif %}">
+                <div class="board-card-v2">
+                    <div class="board-card-header {% if forloop.counter|divisibleby:2 %}akueb-header{% else %}bsek-header{% endif %}">
+                        <div class="board-icon"><i class="{{ card.icon_class }}"></i></div>
+                        <div class="board-info">
+                            <div class="board-name">{{ card.board_name }}</div>
+                            {% if card.level_label %}<div class="board-full">{{ card.level_label }}</div>{% endif %}
+                        </div>
+                        <span class="board-badge">{{ card.get_tab_display }}</span>
+                    </div>
+                    <div class="board-card-body">
+                        <p style="color:var(--text);font-size:15px;line-height:1.7;margin-bottom:{% if card.subjects_as_list %}18px{% else %}0{% endif %};">{{ card.description }}</p>
+                        {% if card.subjects_as_list %}
+                        <div class="board-levels">
+                            <div class="board-level-col">
+                                <div class="level-title">Subjects Offered</div>
+                                <ul class="board-subject-list">
+                                    {% for subj in card.subjects_as_list %}
+                                    <li>{{ subj }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="board-card-footer">
+                        <div class="board-tags">
+                            {% if card.level_label %}<span class="board-tag">{{ card.level_label }}</span>{% endif %}
+                            <span class="board-tag">{{ card.get_tab_display }}</span>
+                        </div>
+                        {% if card.learn_more_url %}
+                        <a href="{{ card.learn_more_url }}" class="btn-board-link">
+                            Explore Program <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="section-cta-row" data-aos="fade-up">
+            <a href="/academics/" class="btn-view-all">Full Academic Overview <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ══ FACILITIES (static teaser — always links to /facilities/) ══ -->
+<section class="az-facilities">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Campus Life</div>
+                <h2 class="sec-head sec-head-white" data-aos="fade-up" data-aos-delay="60">World-Class Facilities</h2>
+                <p class="sec-desc sec-desc-white mx-auto" data-aos="fade-up" data-aos-delay="120">Every resource a student needs — under one roof, in a safe and inspiring environment.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <a href="/facilities/" class="text-decoration-none">
+                    <div class="fac-v2">
+                        <img src="{% static 'images/course-image1.jpg' %}" alt="Computer Lab">
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon"><i class="fa-solid fa-computer"></i></div>
+                            <h5>Computer Labs</h5>
+                            <p>Modern PCs, high-speed internet and coding tools for all grades.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
+                <a href="/facilities/" class="text-decoration-none">
+                    <div class="fac-v2">
+                        <img src="{% static 'images/course-image2.jpg' %}" alt="Science Labs">
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon" style="background:#16a34a;"><i class="fa-solid fa-microscope"></i></div>
+                            <h5>Science Labs</h5>
+                            <p>Fully equipped Physics, Chemistry, and Biology laboratories.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <a href="/facilities/" class="text-decoration-none">
+                    <div class="fac-v2">
+                        <img src="{% static 'images/course-image3.jpg' %}" alt="Library">
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon" style="background:#ca8a04;"><i class="fa-solid fa-book-open"></i></div>
+                            <h5>Digital Library</h5>
+                            <p>Thousands of books, e-resources and quiet study spaces available daily.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
+                <a href="/facilities/" class="text-decoration-none">
+                    <div class="fac-v2">
+                        <img src="{% static 'images/course-image4.jpg' %}" alt="Sports">
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon" style="background:#ec407a;"><i class="fa-solid fa-person-running"></i></div>
+                            <h5>Sports Grounds</h5>
+                            <p>Cricket, football, basketball and indoor games — PE taken seriously.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="section-cta-row" data-aos="fade-up">
+            <a href="/facilities/" class="btn-view-all">View All Facilities <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ══ EXPLORE PAGES (permanent navigation — static) ══ -->
+<section class="az-explore">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Navigate</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">Explore Azeem School</h2>
+                <p class="sec-desc mx-auto" data-aos="fade-up" data-aos-delay="120">One school, many paths — find everything about life at Azeem School.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <a href="/about/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#1f1741,#6a52e0);"><i class="fa-solid fa-school"></i></div>
+                    <div class="exp-body"><h5>About Us</h5><p>Our history, mission, vision, and the values that drive everything we do.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="60">
+                <a href="/academics/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#0a3d62,#1565c0);"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <div class="exp-body"><h5>Academics</h5><p>Curriculum, boards, academic calendar, faculty, and downloadable resources.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="120">
+                <a href="/admissions/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#064e3b,#16a34a);"><i class="fa-solid fa-door-open"></i></div>
+                    <div class="exp-body"><h5>Admissions</h5><p>Eligibility, intake dates, the application process, and our campuses.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="180">
+                <a href="/facilities/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#4a0040,#ab47bc);"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="exp-body"><h5>Facilities</h5><p>Labs, library, sports, arts, prayer room, transport — campus life at a glance.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
+                <a href="/news/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#7c2d12,#ea580c);"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="exp-body"><h5>News &amp; Notices</h5><p>Announcements, exam schedules, results, events, and school updates.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="/contact/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#701a75,#ec4899);"><i class="fa-solid fa-phone-volume"></i></div>
+                    <div class="exp-body"><h5>Contact Us</h5><p>Get in touch, book a campus visit, or find our location and details.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ ADMISSIONS CTA ══ -->
+{% if page.admissions_cta_title %}
+<section class="az-cta">
+    <div class="container position-relative" style="z-index:2;">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <div class="az-cta-badge"><i class="fa-solid fa-door-open"></i> {{ page.admissions_cta_subtitle }}</div>
+                <h2 class="sec-head sec-head-white" style="font-size:clamp(28px,5vw,52px);">{{ page.admissions_cta_title }}</h2>
+                {% if page.admissions_cta_description %}
+                <p class="sec-desc sec-desc-white mx-auto mt-3 mb-5">{{ page.admissions_cta_description }}</p>
+                {% endif %}
+                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+                    <a href="{{ page.admissions_cta_btn_url }}" class="btn-primary-az">
+                        {{ page.admissions_cta_btn_label }} <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    {% if page.admissions_cta_secondary_label %}
+                    <a href="{{ page.admissions_cta_secondary_url }}" class="btn-outline-az">
+                        <i class="fa-solid fa-phone"></i> {{ page.admissions_cta_secondary_label }}
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Testimonial -->
-<section class="testimonial3-con position-relative">
+{% endif %}
+
+<!-- ══ TESTIMONIALS ══ -->
+{% if page.testimonials.count %}
+<section class="az-testi">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="testimonial_content text-center" data-aos="fade-up">
-                    <h6>{{ page.testimonials_subtitle }}</h6>
-                    <h2>{{ page.testimonials_title }}</h2>
-                </div>
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">{{ page.testimonials_subtitle }}</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.testimonials_title }}</h2>
             </div>
         </div>
         <div class="row" data-aos="fade-up">
@@ -548,28 +695,21 @@
                 <div class="owl-carousel owl-theme">
                     {% for t in page.testimonials.all %}
                     <div class="item">
-                        <div class="testimonial-box">
-                            <figure class="testimonial-quoteimage">
-                                <img src="{% static 'images/testimonial3-quoteimage.png' %}" alt="image" class="img-fluid">
-                            </figure>
-                            <p class="text-size-16">{{ t.quote }}</p>
-                            <div class="review-content">
+                        <div class="testi-card">
+                            <div class="testi-stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p>"{{ t.quote }}"</p>
+                            <div class="testi-person">
                                 {% if t.photo %}
                                     {% image t.photo original as t_photo %}
-                                    <figure class="testimonial-personimage mb-0">
-                                        <img src="{{ t_photo.url }}" alt="{{ t.name }}" class="img-fluid">
-                                    </figure>
+                                    <img src="{{ t_photo.url }}" alt="{{ t.name }}">
                                 {% endif %}
-                                <div class="detail">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                        <li><i class="fa-solid fa-star"></i></li>
-                                    </ul>
-                                    <span class="name">{{ t.name }}</span>
-                                    <span class="review">{{ t.role }}</span>
+                                <div>
+                                    <p class="tname">{{ t.name }}</p>
+                                    <p class="trole">{{ t.role }}</p>
                                 </div>
                             </div>
                         </div>
@@ -580,70 +720,66 @@
         </div>
     </div>
 </section>
-<!-- Article -->
-<section class="article-con">
+{% endif %}
+
+<!-- ══ NOTICES ══ -->
+{% if page.home_notices.count %}
+<section class="az-notices">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="article_content text-center" data-aos="fade-up">
-                    <h6>{{ page.blog_subtitle }}</h6>
-                    <h2>{{ page.blog_title }}</h2>
-                </div>
+        <div class="row justify-content-between align-items-end mb-5">
+            <div class="col-lg-6">
+                <div class="sec-sub" data-aos="fade-up">{{ page.notices_subtitle }}</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.notices_title }}</h2>
+            </div>
+            <div class="col-lg-auto d-none d-lg-block" data-aos="fade-left">
+                <a href="/news/" class="btn-view-all">All Notices <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
         <div class="row" data-aos="fade-up">
-            <div class="col-12">
-                <div class="owl-carousel owl-theme">
-                    {% for post in page.blog_posts.all %}
-                    <div class="item">
-                        <div class="article-box">
-                            {% if post.image %}
-                                {% image post.image original as post_img %}
-                                <figure class="mb-0">
-                                    <img src="{{ post_img.url }}" alt="{{ post.title }}" class="img-fluid">
-                                </figure>
-                            {% endif %}
-                            <div class="box-content">
-                                <div class="span_wrapper">
-                                    <span>{{ post.date|date:"F j, Y" }}</span>
-                                </div>
-                                <a href="{{ post.url }}" class="text-decoration-none">
-                                    <h4>{{ post.title }}</h4>
-                                </a>
-                                <p class="text-size-16">{{ post.excerpt }}</p>
-                                <a href="{{ post.url }}" class="read_more text-decoration-none">Read More
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+            {% for notice in page.home_notices.all %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="notice-v2{% if notice.is_urgent %} urgent{% endif %}">
+                    <div class="notice-v2-icon"><i class="{{ notice.icon_class }}"></i></div>
+                    {% if notice.date %}
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> {{ notice.date|date:"M j, Y" }}</div>
+                    {% endif %}
+                    <h5>{{ notice.title }}</h5>
+                    {% if notice.description %}<p>{{ notice.description }}</p>{% endif %}
+                    {% if notice.url %}
+                    <a href="{{ notice.url }}" class="notice-v2-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                    {% endif %}
                 </div>
             </div>
+            {% endfor %}
+        </div>
+        <div class="section-cta-row d-lg-none">
+            <a href="/news/" class="btn-view-all">All Notices &amp; News <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </div>
 </section>
-<!-- Footer -->
+{% endif %}
+
+<!-- ══ FOOTER ══ -->
 <section class="footer-con position-relative">
     <figure class="footer-rightimage mb-0">
-        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="image">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
     </figure>
     <div class="footer_upperportion position-relative">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-12">
-                    <div class="upper_portion">
+                    <div class="upper_portion" style="justify-content:space-between;flex-wrap:wrap;gap:20px;">
                         {% if page.footer_logo %}
                             {% image page.footer_logo original as footer_logo_img %}
                             <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="{{ footer_logo_img.url }}" alt="logo"></figure></a>
                         {% endif %}
-                        <h4>{{ page.footer_newsletter_heading }}</h4>
-                        <form action="javascript:;">
-                            <div class="form-group position-relative mb-0">
-                                <input type="text" class="form_style" placeholder="Enter Email Address" name="email">
-                                <button><i class="send fa-sharp fa-solid fa-paper-plane"></i></button>
-                            </div>
-                        </form>
+                        <div style="text-align:center;flex:1;">
+                            <h4 style="margin-bottom:4px;">{{ page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
+                            <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
+                        </div>
+                        <a href="{{ page.admissions_cta_btn_url|default:'/admissions/' }}" class="text-decoration-none primary_btn" style="white-space:nowrap;">
+                            {{ page.admissions_cta_btn_label|default:"Apply Now" }} <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -726,45 +862,11 @@
         </div>
     </div>
 </section>
-<!-- Project SECTION POPUP -->
-{% for card in page.course_cards.all %}
-<div class="project_modal">
-    <div id="course-modal-{{ forloop.counter }}" class="modal fade blog-model-con" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-           <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-solid fa-x"></i></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="blog-box-item mb-0">
-                        {% if card.image %}
-                            {% image card.image original as modal_img %}
-                            <div class="blog-img">
-                                <figure class="mb-0">
-                                    <img src="{{ modal_img.url }}" alt="{{ card.title }}" class="img-fluid">
-                                </figure>
-                            </div>
-                        {% endif %}
-                        <div class="project_content">
-                            <h4>{{ card.title }}</h4>
-                            <span class="text">{{ card.modal_description }}</span>
-                            <a href="{{ card.modal_btn_url }}" class="text-decoration-none primary_btn">{{ card.modal_btn_label }}<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
+
 <!-- PRE LOADER -->
-<div class="loader-mask">
-    <div class="loader">
-        <div></div>
-        <div></div>
-    </div>
-</div>
-<!-- Latest compiled JavaScript -->
+<div class="loader-mask"><div class="loader"><div></div><div></div></div></div>
+
+<!-- JS -->
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -775,63 +877,25 @@
 <script src="{% static 'js/back-to-top-button.js' %}"></script>
 <script src="{% static 'js/preloader.js' %}"></script>
 <script src="{% static 'js/counter.js' %}"></script>
-<script src="{% static 'js/video.js' %}"></script>
-<script src="{% static 'js/video-popup.js' %}"></script>
-
-<style>
-
-/* --- Banner height --- */
-.banner3-con {
-    min-height: 600px;
-    padding: 186px 0 226px;
-    overflow: hidden;
-    isolation: isolate;
-}
-.banner3-con::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-}
-body {
-    overflow-x: hidden;
-}
-
-/* --- Sticky nav blur on scroll --- */
-.header {
-    transition: box-shadow 0.3s ease, background-color 0.3s ease;
-}
-.header.nav-scrolled {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background-color: rgba(255,255,255,0.97);
-    box-shadow: 0 3px 24px rgba(0,0,0,0.10);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-</style>
 
 <script>
-/* Sticky nav on scroll */
+AOS.init({ duration: 700, once: true, offset: 60 });
+
 (function() {
-    var header = document.querySelector('.header');
-    if (!header) return;
-    var bannerHeight = 80;
-    function onScroll() {
-        if (window.scrollY > bannerHeight) {
-            header.classList.add('nav-scrolled');
-        } else {
-            header.classList.remove('nav-scrolled');
-        }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    var h = document.querySelector('.header');
+    if (!h) return;
+    window.addEventListener('scroll', function() {
+        h.classList.toggle('nav-scrolled', window.scrollY > 80);
+    }, { passive: true });
 })();
+
+$(document).ready(function() {
+    $('.owl-carousel.owl-theme').owlCarousel({
+        loop: true, margin: 28, autoplay: true, autoplayTimeout: 5000,
+        smartSpeed: 700, dots: true, nav: false,
+        responsive: { 0:{items:1}, 768:{items:2}, 1200:{items:3} }
+    });
+});
 </script>
 </body>
 </html>

@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Azeem School — Homepage Preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/responsive.css" rel="stylesheet">
+    <link href="/static/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/static/css/aos.css" rel="stylesheet">
+</head>
+<body>
+<a id="button"></a>
+
+<!-- ══════════════════════════════════════════════
+     WHATSAPP FLOATING BUTTON
+══════════════════════════════════════════════ -->
+<a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" class="whatsapp-float" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ══════════════════════════════════════════════
+     YOUTUBE VIDEO MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background:#000;border:none;">
+            <div class="modal-header" style="border:none;padding:8px 12px;">
+                <button type="button" class="close text-white ml-auto" data-dismiss="modal" style="font-size:28px;opacity:1;">&times;</button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe id="ytIframe" class="embed-responsive-item" src="" allowfullscreen allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════ -->
+<div class="home_banner_outer position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        <span style="font-size:22px;font-weight:800;color:#231b49;letter-spacing:-0.5px;">Azeem School</span>
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/academics/">Academics</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/facilities/">Facilities</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
+                                id="navbarDropdown1" role="button" data-toggle="dropdown">More</a>
+                            <div class="dropdown-menu drop-down-content">
+                                <ul class="list-unstyled drop-down-pages">
+                                    <li class="nav-item"><a class="dropdown-item nav-link" href="/admissions/">Admissions</a></li>
+                                    <li class="nav-item"><a class="dropdown-item nav-link" href="/news/">News & Notices</a></li>
+                                    <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/">Contact</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link log_in" href="/admissions/">Apply Now<i class="fa-solid fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+922134567890" class="text-decoration-none">
+                        <span class="number">+92 21 3456 7890</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="banner3-con position-relative">
+        <figure class="banner-lefttopcurve image mb-0">
+            <img src="/static/images/banner3-lefttopcurve.png" alt="" class="img-fluid">
+        </figure>
+        <figure class="banner-rightbottomcurve image mb-0">
+            <img src="/static/images/banner3-rightbottomcurve.png" alt="" class="img-fluid">
+        </figure>
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-10 col-12 mx-auto">
+                    <div class="banner_content text-center position-relative" data-aos="fade-up">
+                        <figure class="banner-logoicon">
+                            <img src="/static/images/journey-logoicon.png" alt="" class="img-fluid">
+                        </figure>
+                        <h1 class="text-white">AZEEM SCHOOL</h1>
+                        <h1 class="text-white">Leading Global Program</h1>
+                        <p class="text-white text-size-18">Empowering Students with Knowledge, Confidence, and Values for a Successful Future.</p>
+                        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+                            <a href="/admissions/" class="text-decoration-none primary_btn">Apply Now<i class="fa-solid fa-arrow-right"></i></a>
+                            <button class="hero-video-btn"
+                                data-toggle="modal" data-target="#videoModal"
+                                data-video="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1">
+                                <i class="fa-solid fa-circle-play"></i> Watch Our Story
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1 mx-auto">
+                    <a href="#dropdown" class="top-btn text-center">
+                        <figure class="banner-dropdownimage mb-0">
+                            <img src="/static/images/banner-dropdownimage.png" class="img-fluid" alt="">
+                        </figure>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <figure class="banner-circleimage mb-0">
+            <img src="/static/images/banner3-circleimage.png" alt="" class="img-fluid">
+        </figure>
+        <figure class="banner-crossimage mb-0">
+            <img src="/static/images/banner3-crossimage.png" alt="" class="img-fluid">
+        </figure>
+    </section>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TRUST / WHY CHOOSE US
+══════════════════════════════════════════════ -->
+<section class="choose3-con position-relative" id="dropdown">
+    <figure class="choose-halfcircleimage mb-0">
+        <img src="/static/images/choose3-halfcircleimage.png" alt="" class="img-fluid">
+    </figure>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="choose_content position-relative" data-aos="fade-up">
+                    <h6>Our Features</h6>
+                    <h2>Why Choose Azeem School</h2>
+                    <p class="text1 text-size-18">We combine a rigorous academic curriculum with Islamic values, modern facilities, and dedicated faculty to nurture every student's full potential.</p>
+                    <a href="/about/" class="text-decoration-none primary_btn">Learn More<i class="fa-solid fa-arrow-right"></i></a>
+                    <figure class="choose-circleimage mb-0">
+                        <img src="/static/images/choose3-circleimage.png" alt="" class="img-fluid">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="choose_contentbox" data-aos="fade-up">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
+                            <div class="box-top">
+                                <div class="choose-box box1 box-mb">
+                                    <div class="icon icon1 trust-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
+                                    <h3>Academic Excellence</h3>
+                                    <p class="text-size-16">Top board results every year with a 98% pass rate across Matric and Intermediate.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
+                            <div class="choose-box box2 box-mb">
+                                <div class="icon icon2 trust-icon-wrap"><i class="fa-solid fa-chalkboard-user"></i></div>
+                                <h3>Qualified Faculty</h3>
+                                <p class="text-size-16">Experienced subject-specialist teachers committed to every student's growth.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
+                            <div class="box-top">
+                                <div class="choose-box box3">
+                                    <div class="icon icon3 trust-icon-wrap"><i class="fa-solid fa-moon"></i></div>
+                                    <h3>Islamic Values</h3>
+                                    <p class="text-size-16">A nurturing environment rooted in Islamic principles, character, and moral education.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12 column">
+                            <div class="choose-box box4">
+                                <div class="icon icon4 trust-icon-wrap"><i class="fa-solid fa-school"></i></div>
+                                <h3>Modern Facilities</h3>
+                                <p class="text-size-16">State-of-the-art labs, library, sports grounds, and a safe campus environment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ABOUT (with in-screen video modal)
+══════════════════════════════════════════════ -->
+<section class="about3-con position-relative">
+    <figure class="about-rightimage mb-0">
+        <img src="/static/images/about-rightimage.png" alt="" class="img-fluid">
+    </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-md-left text-center">
+                <div class="about_wrapper position-relative" data-aos="fade-up">
+                    <figure class="about-image1 mb-0">
+                        <img src="/static/images/about3-image1.jpg" alt="" class="img-fluid">
+                    </figure>
+                    <div class="video-image">
+                        <figure class="about-image2 mb-0">
+                            <img src="/static/images/about3-image2.jpg" alt="" class="img-fluid">
+                        </figure>
+                        <div class="icon">
+                            <!-- Opens YouTube in Bootstrap modal in-screen -->
+                            <button class="video-modal-btn"
+                                data-toggle="modal" data-target="#videoModal"
+                                data-video="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1">
+                                <div class="mb-0 video-icon">
+                                    <img class="thumb img-fluid" style="cursor:pointer" src="/static/images/about3-playicon.png" alt="">
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="about_content" data-aos="fade-up">
+                    <h6>About Us</h6>
+                    <h2>Cultivating Knowledge, Character &amp; Excellence</h2>
+                    <p class="text-size-18 text">For over 25 years, Azeem School has been a cornerstone of quality education in Karachi — blending rigorous academics with Islamic values and modern teaching methods.</p>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <p class="mb-0 text-size-16">Affiliated with Federal Board (FBISE) and Sindh Board (BSEK).</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <p class="mb-0 text-size-16">Cambridge CAIE O &amp; A Level programmes available.</p>
+                        </li>
+                        <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <p class="mb-0 text-size-16">Over 1,500 students from Pre-Montessori to Grade 12.</p>
+                        </li>
+                    </ul>
+                    <div class="box">
+                        <figure class="about-icon mb-0">
+                            <img src="/static/images/about3-icon.png" alt="" class="img-fluid">
+                        </figure>
+                        <h3 class="mb-0">Our Mission: Excellence in Education, Rooted in Faith</h3>
+                    </div>
+                    <a href="/about/" class="text-decoration-none primary_btn mt-3 d-inline-block">Full Story<i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     BOARDS (replaces Courses)
+══════════════════════════════════════════════ -->
+<section class="course-popular-con">
+    <div class="popular-con position-relative">
+        <figure class="popular-lefttopimage mb-0">
+            <img src="/static/images/popular-lefttopimage.png" alt="" class="img-fluid">
+        </figure>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="popular_content text-center position-relative" data-aos="fade-up">
+                        <h6>Academic Programs</h6>
+                        <h2 class="text-white">Boards We Follow</h2>
+                        <figure class="popular-crossimage mb-0">
+                            <img src="/static/images/contactform-crossimage.png" alt="" class="img-fluid">
+                        </figure>
+                        <figure class="popular-triangleimage mb-0">
+                            <img src="/static/images/popular-triangleimage.png" alt="" class="img-fluid">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="course-con position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tabs-box tabs-options">
+                        <ul class="nav nav-tabs" data-aos="fade-up">
+                            <li><a class="active" data-toggle="tab" href="#board-all">All</a></li>
+                            <li><a data-toggle="tab" href="#board-matric">Matric</a></li>
+                            <li><a data-toggle="tab" href="#board-inter">Intermediate</a></li>
+                            <li><a data-toggle="tab" href="#board-cambridge">Cambridge</a></li>
+                            <li><a data-toggle="tab" href="#board-primary">Primary</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="board-all" class="tab-pane fade in active show">
+                                <div class="row all_row" data-aos="fade-up">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
+                                            <span class="board-level-badge">Class 9 – 10</span>
+                                            <h5>Federal Board (FBISE)</h5>
+                                            <p class="text-size-16">Nationally recognised Matric qualification preparing students for competitive examinations across Pakistan.</p>
+                                            <div class="board-subjects">
+                                                <span class="subject-tag">Physics</span><span class="subject-tag">Chemistry</span><span class="subject-tag">Biology</span><span class="subject-tag">Mathematics</span><span class="subject-tag">Urdu</span>
+                                            </div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-book-open"></i></div>
+                                            <span class="board-level-badge">Class 11 – 12</span>
+                                            <h5>Sindh Board (BSEK)</h5>
+                                            <p class="text-size-16">Intermediate programme offering Science, Commerce, and Humanities streams under the Board of Secondary Education Karachi.</p>
+                                            <div class="board-subjects">
+                                                <span class="subject-tag">Pre-Medical</span><span class="subject-tag">Pre-Engineering</span><span class="subject-tag">Commerce</span>
+                                            </div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-trophy"></i></div>
+                                            <span class="board-level-badge">O &amp; A Level</span>
+                                            <h5>Cambridge CAIE</h5>
+                                            <p class="text-size-16">Internationally accredited qualifications recognised by universities worldwide — a rigorous pathway for global opportunities.</p>
+                                            <div class="board-subjects">
+                                                <span class="subject-tag">IGCSE</span><span class="subject-tag">AS Level</span><span class="subject-tag">A Level</span>
+                                            </div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-school"></i></div>
+                                            <span class="board-level-badge">Class 1 – 5</span>
+                                            <h5>Primary Programme</h5>
+                                            <p class="text-size-16">Strong foundation in core subjects with emphasis on conceptual learning, character development, and a love for reading.</p>
+                                            <div class="board-subjects">
+                                                <span class="subject-tag">English</span><span class="subject-tag">Maths</span><span class="subject-tag">Science</span><span class="subject-tag">Islamiyat</span>
+                                            </div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-flag"></i></div>
+                                            <span class="board-level-badge">Class 9 – 10</span>
+                                            <h5>Sindh Matric Board</h5>
+                                            <p class="text-size-16">Provincial Matric curriculum with a strong emphasis on Pakistan Studies, Islamiyat, and regional languages.</p>
+                                            <div class="board-subjects">
+                                                <span class="subject-tag">Pakistan Studies</span><span class="subject-tag">Islamiyat</span><span class="subject-tag">Biology</span>
+                                            </div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-seedling"></i></div>
+                                            <span class="board-level-badge">Pre-Mon – KG 2</span>
+                                            <h5>Early Years Programme</h5>
+                                            <p class="text-size-16">Play-based learning for our youngest students, building literacy, numeracy, and social skills in a nurturing setting.</p>
+                                            <div class="board-subjects">
+                                                <span class="subject-tag">English</span><span class="subject-tag">Numeracy</span><span class="subject-tag">Quran</span><span class="subject-tag">Art</span>
+                                            </div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="board-matric" class="tab-pane fade">
+                                <div class="row all_row" data-aos="fade-up">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
+                                            <span class="board-level-badge">Class 9 – 10</span>
+                                            <h5>Federal Board (FBISE)</h5>
+                                            <p class="text-size-16">Nationally recognised Matric qualification aligned with the federal curriculum.</p>
+                                            <div class="board-subjects"><span class="subject-tag">Physics</span><span class="subject-tag">Chemistry</span><span class="subject-tag">Biology</span><span class="subject-tag">Mathematics</span></div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-flag"></i></div>
+                                            <span class="board-level-badge">Class 9 – 10</span>
+                                            <h5>Sindh Matric Board</h5>
+                                            <p class="text-size-16">Provincial Matric curriculum with emphasis on Pakistan Studies and Islamiyat.</p>
+                                            <div class="board-subjects"><span class="subject-tag">Pakistan Studies</span><span class="subject-tag">Islamiyat</span><span class="subject-tag">Biology</span></div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="board-inter" class="tab-pane fade">
+                                <div class="row all_row" data-aos="fade-up">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-book-open"></i></div>
+                                            <span class="board-level-badge">Class 11 – 12</span>
+                                            <h5>Sindh Board (BSEK)</h5>
+                                            <p class="text-size-16">Intermediate programme offering Science, Commerce and Humanities streams.</p>
+                                            <div class="board-subjects"><span class="subject-tag">Pre-Medical</span><span class="subject-tag">Pre-Engineering</span><span class="subject-tag">Commerce</span></div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="board-cambridge" class="tab-pane fade">
+                                <div class="row all_row" data-aos="fade-up">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-trophy"></i></div>
+                                            <span class="board-level-badge">O &amp; A Level</span>
+                                            <h5>Cambridge CAIE</h5>
+                                            <p class="text-size-16">Internationally accredited qualifications recognised by universities worldwide.</p>
+                                            <div class="board-subjects"><span class="subject-tag">IGCSE</span><span class="subject-tag">AS Level</span><span class="subject-tag">A Level</span></div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="board-primary" class="tab-pane fade">
+                                <div class="row all_row" data-aos="fade-up">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-school"></i></div>
+                                            <span class="board-level-badge">Class 1 – 5</span>
+                                            <h5>Primary Programme</h5>
+                                            <p class="text-size-16">Strong foundation with emphasis on conceptual learning and character development.</p>
+                                            <div class="board-subjects"><span class="subject-tag">English</span><span class="subject-tag">Maths</span><span class="subject-tag">Science</span><span class="subject-tag">Islamiyat</span></div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mx-auto all_column mb-4">
+                                        <div class="board-card-box">
+                                            <div class="board-card-icon-wrap"><i class="fa-solid fa-seedling"></i></div>
+                                            <span class="board-level-badge">Pre-Mon – KG 2</span>
+                                            <h5>Early Years Programme</h5>
+                                            <p class="text-size-16">Play-based learning building literacy, numeracy, and social skills in a nurturing setting.</p>
+                                            <div class="board-subjects"><span class="subject-tag">English</span><span class="subject-tag">Numeracy</span><span class="subject-tag">Quran</span></div>
+                                            <a href="/academics/" class="text-decoration-none board-learn-more">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FACILITIES TEASER
+══════════════════════════════════════════════ -->
+<section class="facilities-teaser-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="fac-header text-center" data-aos="fade-up">
+                    <h6>Campus Life</h6>
+                    <h2>World-Class Facilities</h2>
+                    <p class="text-size-18" style="max-width:600px;margin:0 auto 50px;">Every resource a student needs — under one roof, in a safe and inspiring environment.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="fac-card">
+                    <div class="fac-img-wrap">
+                        <img src="/static/images/course-image1.jpg" alt="Computer Lab" class="img-fluid">
+                        <div class="fac-overlay"></div>
+                        <div class="fac-icon-badge"><i class="fa-solid fa-computer"></i></div>
+                    </div>
+                    <div class="fac-body">
+                        <h5>Computer Labs</h5>
+                        <p class="text-size-14">Modern PC labs with high-speed internet and programming tools for all grades.</p>
+                        <a href="/facilities/" class="text-decoration-none fac-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="fac-card">
+                    <div class="fac-img-wrap">
+                        <img src="/static/images/course-image2.jpg" alt="Science Lab" class="img-fluid">
+                        <div class="fac-overlay"></div>
+                        <div class="fac-icon-badge" style="background: var(--e-global-color-dark-moderate-green);"><i class="fa-solid fa-microscope"></i></div>
+                    </div>
+                    <div class="fac-body">
+                        <h5>Science Labs</h5>
+                        <p class="text-size-14">Fully equipped Physics, Chemistry, and Biology labs for hands-on experimentation.</p>
+                        <a href="/facilities/" class="text-decoration-none fac-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="fac-card">
+                    <div class="fac-img-wrap">
+                        <img src="/static/images/course-image3.jpg" alt="Library" class="img-fluid">
+                        <div class="fac-overlay"></div>
+                        <div class="fac-icon-badge" style="background: var(--e-global-color-bright-yellow); color:#231b49;"><i class="fa-solid fa-book-open"></i></div>
+                    </div>
+                    <div class="fac-body">
+                        <h5>Digital Library</h5>
+                        <p class="text-size-14">Thousands of books, e-resources, and quiet study spaces available daily.</p>
+                        <a href="/facilities/" class="text-decoration-none fac-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-4">
+                <div class="fac-card">
+                    <div class="fac-img-wrap">
+                        <img src="/static/images/course-image4.jpg" alt="Sports" class="img-fluid">
+                        <div class="fac-overlay"></div>
+                        <div class="fac-icon-badge" style="background: #ec407a;"><i class="fa-solid fa-person-running"></i></div>
+                    </div>
+                    <div class="fac-body">
+                        <h5>Sports Grounds</h5>
+                        <p class="text-size-14">Cricket, football, basketball, and indoor games — physical education taken seriously.</p>
+                        <a href="/facilities/" class="text-decoration-none fac-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mt-2" data-aos="fade-up">
+                <a href="/facilities/" class="text-decoration-none primary_btn">View All Facilities<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     BENEFIT / COUNTER STATS
+══════════════════════════════════════════════ -->
+<section class="benefit-con benefit3-con position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="benefit_content text-center" data-aos="fade-up">
+                    <h6>Our Track Record</h6>
+                    <h2>Azeem School by the Numbers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row all_row" data-aos="fade-up">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
+                <div class="benefit-box box1">
+                    <span class="number counter">98</span><sup class="plus">%</sup>
+                    <span class="text">Board Pass Rate</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
+                <div class="benefit-box box2">
+                    <span class="number counter">500</span><sup class="plus">+</sup>
+                    <span class="text">Board Distinctions</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
+                <div class="benefit-box box3">
+                    <span class="number counter">25</span><sup class="plus">+</sup>
+                    <span class="text">Years of Excellence</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
+                <div class="benefit-box box4">
+                    <span class="number counter">1500</span><sup class="plus">+</sup>
+                    <span class="text">Enrolled Students</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     EXPLORE ALL PAGES — navigation section
+══════════════════════════════════════════════ -->
+<section class="explore-pages-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center" data-aos="fade-up" style="margin-bottom:50px;">
+                    <h6>Everything You Need</h6>
+                    <h2>Explore Azeem School</h2>
+                    <p class="text-size-18" style="max-width:550px;margin:0 auto;">One school, many paths — find everything about life at Azeem School below.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <a href="/about/" class="text-decoration-none explore-card">
+                    <div class="explore-icon" style="background:linear-gradient(135deg,#1f1741,#6a52e0);">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <div class="explore-body">
+                        <h5>About Us</h5>
+                        <p>Our history, mission, vision, and the values that drive everything we do at Azeem School.</p>
+                    </div>
+                    <div class="explore-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <a href="/academics/" class="text-decoration-none explore-card">
+                    <div class="explore-icon" style="background:linear-gradient(135deg,#0a3d62,#1565c0);">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <div class="explore-body">
+                        <h5>Academics</h5>
+                        <p>Curriculum, subjects, boards, academic calendar, faculty, and downloadable resources.</p>
+                    </div>
+                    <div class="explore-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <a href="/admissions/" class="text-decoration-none explore-card">
+                    <div class="explore-icon" style="background:linear-gradient(135deg,#003d1f,#2e7d32);">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
+                    <div class="explore-body">
+                        <h5>Admissions</h5>
+                        <p>How to apply, eligibility criteria, intake dates, the application process, and our campuses.</p>
+                    </div>
+                    <div class="explore-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <a href="/facilities/" class="text-decoration-none explore-card">
+                    <div class="explore-icon" style="background:linear-gradient(135deg,#4a0040,#ab47bc);">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div class="explore-body">
+                        <h5>Facilities</h5>
+                        <p>Labs, library, sports, arts, prayer room, transport, cafeteria — campus life at a glance.</p>
+                    </div>
+                    <div class="explore-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <a href="/news/" class="text-decoration-none explore-card">
+                    <div class="explore-icon" style="background:linear-gradient(135deg,#1a1a2e,#e65100);">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div class="explore-body">
+                        <h5>News &amp; Notices</h5>
+                        <p>Latest announcements, exam schedules, events, results, and school updates.</p>
+                    </div>
+                    <div class="explore-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <a href="/contact/" class="text-decoration-none explore-card">
+                    <div class="explore-icon" style="background:linear-gradient(135deg,#1f1741,#ec407a);">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div class="explore-body">
+                        <h5>Contact Us</h5>
+                        <p>Get in touch, book a campus visit, find our location, or drop us a message.</p>
+                    </div>
+                    <div class="explore-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     JOURNEY CTA
+══════════════════════════════════════════════ -->
+<section class="journey-con position-relative">
+    <figure class="journey-lefttopcurve image mb-0">
+        <img src="/static/images/journey-lefttopcurve.png" alt="" class="img-fluid">
+    </figure>
+    <figure class="journey-rightbottomcurve image mb-0">
+        <img src="/static/images/journey-rightbottomcurve.png" alt="" class="img-fluid">
+    </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-12 mx-auto">
+                <div class="journey_content text-center" data-aos="fade-up">
+                    <figure class="journey-logoicon">
+                        <img src="/static/images/journey-logoicon.png" alt="" class="img-fluid">
+                    </figure>
+                    <h6>Empower Your Child</h6>
+                    <h2 class="text-white">Start Their Academic Journey with Azeem School</h2>
+                    <a href="/academics/" class="text-decoration-none primary_btn">Explore Academics<i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ADMISSIONS CTA
+══════════════════════════════════════════════ -->
+<section class="admissions-cta-con position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-12 mx-auto">
+                <div class="admissions-cta-content text-center" data-aos="fade-up">
+                    <span class="admissions-cta-badge"><i class="fa-solid fa-door-open"></i> Admissions Open 2025–26</span>
+                    <h2 class="text-white">Secure Your Child's Place Before Seats Run Out</h2>
+                    <p class="text-white text-size-18">Join hundreds of families who trust Azeem School to deliver a world-class education rooted in Islamic values. Limited seats — apply early.</p>
+                    <div class="admissions-cta-btns">
+                        <a href="/admissions/" class="text-decoration-none primary_btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="/contact/" class="text-decoration-none admissions-cta-secondary-btn"><i class="fa-solid fa-phone"></i> Book a Campus Visit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════ -->
+<section class="testimonial3-con position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="testimonial_content text-center" data-aos="fade-up">
+                    <h6>Reviews</h6>
+                    <h2>What Parents &amp; Students Say</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up">
+            <div class="col-12">
+                <div class="owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="testimonial-box">
+                            <figure class="testimonial-quoteimage"><img src="/static/images/testimonial3-quoteimage.png" alt="" class="img-fluid"></figure>
+                            <p class="text-size-16">Azeem School has been a transformative experience for my son. The teachers are highly qualified and genuinely care about every student's progress. His board results were exceptional.</p>
+                            <div class="review-content">
+                                <figure class="testimonial-personimage mb-0"><img src="/static/images/testimonial3-personimage1.jpg" alt="" class="img-fluid"></figure>
+                                <div class="detail">
+                                    <ul class="list-unstyled"><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li></ul>
+                                    <span class="name">Ahmed Raza</span>
+                                    <span class="review">Parent, Class 10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimonial-box">
+                            <figure class="testimonial-quoteimage"><img src="/static/images/testimonial3-quoteimage.png" alt="" class="img-fluid"></figure>
+                            <p class="text-size-16">I studied at Azeem from Class 1 all the way to A Levels. The Cambridge programme is outstanding and I am now at a top university in the UK. Forever grateful.</p>
+                            <div class="review-content">
+                                <figure class="testimonial-personimage mb-0"><img src="/static/images/testimonial3-personimage2.jpg" alt="" class="img-fluid"></figure>
+                                <div class="detail">
+                                    <ul class="list-unstyled"><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li></ul>
+                                    <span class="name">Fatima Malik</span>
+                                    <span class="review">Alumni, A Level Graduate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimonial-box">
+                            <figure class="testimonial-quoteimage"><img src="/static/images/testimonial3-quoteimage.png" alt="" class="img-fluid"></figure>
+                            <p class="text-size-16">The Islamic environment combined with a strong academic programme is exactly what we were looking for. Our daughter achieved distinctions in her Matric exams and we couldn't be more proud.</p>
+                            <div class="review-content">
+                                <figure class="testimonial-personimage mb-0"><img src="/static/images/testimonial3-personimage3.jpg" alt="" class="img-fluid"></figure>
+                                <div class="detail">
+                                    <ul class="list-unstyled"><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li></ul>
+                                    <span class="name">Sadia Hussain</span>
+                                    <span class="review">Parent, Class 12</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimonial-box">
+                            <figure class="testimonial-quoteimage"><img src="/static/images/testimonial3-quoteimage.png" alt="" class="img-fluid"></figure>
+                            <p class="text-size-16">Enrolling my children at Azeem was the best decision we ever made. The faculty is dedicated, the curriculum rigorous, and the moral values instilled here last a lifetime.</p>
+                            <div class="review-content">
+                                <figure class="testimonial-personimage mb-0"><img src="/static/images/testimonial3-personimage1.jpg" alt="" class="img-fluid"></figure>
+                                <div class="detail">
+                                    <ul class="list-unstyled"><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li><li><i class="fa-solid fa-star"></i></li></ul>
+                                    <span class="name">Umar Farooq</span>
+                                    <span class="review">Parent, Primary Section</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     NOTICES / ANNOUNCEMENTS
+══════════════════════════════════════════════ -->
+<section class="notices-con">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="notices_content text-center" data-aos="fade-up">
+                    <h6>Latest Updates</h6>
+                    <h2>School Notices &amp; Announcements</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="notice-card-box notice-urgent">
+                    <div class="notice-icon-wrap"><i class="fa-solid fa-door-open"></i></div>
+                    <span class="notice-date"><i class="fa-regular fa-calendar"></i> Jun 1, 2025</span>
+                    <h5>Admissions Open for 2025–26</h5>
+                    <p class="text-size-16">Applications accepted for all classes from Pre-Montessori through Grade 12. Limited seats — apply today.</p>
+                    <a href="/admissions/" class="text-decoration-none notice-link">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="notice-card-box">
+                    <div class="notice-icon-wrap"><i class="fa-solid fa-file-pen"></i></div>
+                    <span class="notice-date"><i class="fa-regular fa-calendar"></i> May 20, 2025</span>
+                    <h5>Annual Examinations Schedule Published</h5>
+                    <p class="text-size-16">The annual exam schedule for all grades has been published. Review the timetable and prepare accordingly.</p>
+                    <a href="/news/" class="text-decoration-none notice-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="notice-card-box">
+                    <div class="notice-icon-wrap"><i class="fa-solid fa-award"></i></div>
+                    <span class="notice-date"><i class="fa-regular fa-calendar"></i> Apr 30, 2025</span>
+                    <h5>Board Results 2025 — 98% Pass Rate</h5>
+                    <p class="text-size-16">Outstanding achievement by our Matric and Intermediate students in board examinations. Congratulations to all!</p>
+                    <a href="/news/" class="text-decoration-none notice-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="notice-card-box">
+                    <div class="notice-icon-wrap"><i class="fa-solid fa-users"></i></div>
+                    <span class="notice-date"><i class="fa-regular fa-calendar"></i> May 24, 2025</span>
+                    <h5>Parent-Teacher Meeting — Saturday 24th May</h5>
+                    <p class="text-size-16">PTM from 9 AM to 1 PM. Parents of all classes encouraged to attend and discuss academic progress.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="notice-card-box">
+                    <div class="notice-icon-wrap"><i class="fa-solid fa-calendar-check"></i></div>
+                    <span class="notice-date"><i class="fa-regular fa-calendar"></i> Jun 6, 2025</span>
+                    <h5>Annual Sports Day — Friday 6th June</h5>
+                    <p class="text-size-16">Annual Sports Day at the Main Ground on Friday 6th June 2025. All students, parents, and staff cordially invited.</p>
+                    <a href="/news/" class="text-decoration-none notice-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="notice-card-box">
+                    <div class="notice-icon-wrap"><i class="fa-solid fa-microscope"></i></div>
+                    <span class="notice-date"><i class="fa-regular fa-calendar"></i> May 20, 2025</span>
+                    <h5>Science Fair 2025 — Submissions Close</h5>
+                    <p class="text-size-16">Project abstracts for the Annual Science Fair due 20th May. Registration forms at the school office.</p>
+                    <a href="/news/" class="text-decoration-none notice-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mt-2" data-aos="fade-up">
+                <a href="/news/" class="text-decoration-none primary_btn">All Notices &amp; News<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="/static/images/footer-rightimage.png" class="img-fluid" alt="">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="upper_portion">
+                        <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="/static/images/footer-logo.png" alt="Azeem School"></figure></a>
+                        <h4>Sign up for the newsletter:</h4>
+                        <form action="javascript:;">
+                            <div class="form-group position-relative mb-0">
+                                <input type="text" class="form_style" placeholder="Enter Email Address" name="email">
+                                <button><i class="send fa-sharp fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">About Us</h4>
+                            <p class="text-size-14 text">Providing quality education with modern teaching methods and a nurturing Islamic environment for over 25 years in Karachi.</p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-x-twitter social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
+                                <li><a href="https://wa.me/923001234567" target="_blank" class="text-decoration-none"><i class="fa-brands fa-whatsapp social-networks"></i></a></li>
+                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-instagram social-networks"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">Quick Links</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/about/">About Us</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Academics</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/admissions/">Admissions</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/facilities/">Facilities</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/contact/">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">Programs</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Matric (FBISE)</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Matric (Sindh)</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Intermediate</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Cambridge O/A Level</a></li>
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Primary</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">Contact Us</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:+922134567890" class="text-decoration-none">+92 21 3456 7890</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:info@azeem.edu.pk" class="text-decoration-none">info@azeem.edu.pk</a>
+                                </li>
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="/contact/" class="text-decoration-none address mb-0">KDA Scheme, Karachi, Pakistan</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">Copyright 2025, Azeem School. All Rights Reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask"><div class="loader"><div></div><div></div></div></div>
+
+<!-- JS -->
+<script src="/static/js/jquery-3.7.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/owl.carousel.js"></script>
+<script src="/static/js/carousel.js"></script>
+<script src="/static/js/animation.js"></script>
+<script src="/static/js/back-to-top-button.js"></script>
+<script src="/static/js/preloader.js"></script>
+<script src="/static/js/counter.js"></script>
+
+<style>
+/* ── Banner ── */
+.banner3-con {
+    min-height: 600px; padding: 186px 0 226px;
+    overflow: hidden; isolation: isolate; background: #081933;
+}
+.banner3-con::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: -1;
+}
+body { overflow-x: hidden; }
+
+/* ── Hero video button ── */
+.hero-video-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.12); color: #fff;
+    border: 2px solid rgba(255,255,255,0.4); padding: 16px 28px;
+    border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+.hero-video-btn:hover { background: rgba(255,255,255,0.22); border-color: #fff; }
+.hero-video-btn i { font-size: 20px; }
+
+/* ── Video modal button (about section) ── */
+.video-modal-btn { background: none; border: none; padding: 0; cursor: pointer; }
+
+/* ── Sticky nav ── */
+.header { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+.header.nav-scrolled {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+    background-color: rgba(255,255,255,0.97);
+    box-shadow: 0 3px 24px rgba(0,0,0,0.10);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+
+/* ── Trust icons ── */
+.trust-icon-wrap {
+    display: flex; align-items: center; justify-content: center;
+    width: 70px; height: 70px; border-radius: 50%;
+    background: var(--e-global-color-very-pale-blue); margin-bottom: 18px;
+}
+.trust-icon-wrap i { font-size: 28px; color: var(--e-global-color-soft-blue); }
+.choose-box.box1 .trust-icon-wrap { background: var(--e-global-color-very-pale-blue); }
+.choose-box.box1 .trust-icon-wrap i { color: var(--e-global-color-soft-blue); }
+.choose-box.box2 .trust-icon-wrap { background: var(--e-global-color-very-pale-yellow); }
+.choose-box.box2 .trust-icon-wrap i { color: var(--e-global-color-bright-yellow); }
+.choose-box.box3 .trust-icon-wrap { background: var(--e-global-color-very-soft-green); }
+.choose-box.box3 .trust-icon-wrap i { color: var(--e-global-color-dark-moderate-green); }
+.choose-box.box4 .trust-icon-wrap { background: var(--e-global-color-very-pale-red); }
+.choose-box.box4 .trust-icon-wrap i { color: var(--e-global-color-soft-red); }
+
+/* ── Board cards ── */
+.board-card-box {
+    background:#fff; border-radius:16px; padding:32px 28px 28px;
+    box-shadow:0 4px 24px rgba(0,0,0,0.07);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    height:100%; border-top:4px solid var(--e-global-color-soft-blue);
+    display:flex; flex-direction:column;
+}
+.board-card-box:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,0.13); }
+.board-card-icon-wrap {
+    width:64px; height:64px; border-radius:14px;
+    background:var(--e-global-color-very-pale-blue);
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+}
+.board-card-icon-wrap i { font-size:26px; color:var(--e-global-color-soft-blue); }
+.board-level-badge {
+    display:inline-block; background:var(--e-global-color-very-soft-green);
+    color:var(--e-global-color-dark-moderate-green);
+    font-size:12px; font-weight:700; padding:3px 12px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px;
+}
+.board-card-box h5 { font-size:18px; font-weight:700; color:var(--e-global-color-dark-blue); margin-bottom:10px; }
+.board-subjects { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
+.subject-tag {
+    background:var(--e-global-color-very-light-gray); color:var(--e-global-color-dark-blue);
+    font-size:12px; font-weight:600; padding:4px 10px; border-radius:20px;
+}
+.board-learn-more {
+    font-weight:700; font-size:14px; color:var(--e-global-color-soft-blue);
+    margin-top:auto; padding-top:14px; display:inline-block;
+}
+.board-learn-more i { transition:transform 0.25s ease; display:inline-block; }
+.board-learn-more:hover i { transform:translateX(4px); }
+
+/* ── Facilities Teaser ── */
+.facilities-teaser-con { padding: 100px 0; background: #f9f9f9; }
+.fac-card {
+    background:#fff; border-radius:16px; overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,0.08);
+    transition:transform 0.35s ease,box-shadow 0.35s ease;
+    height:100%;
+}
+.fac-card:hover { transform:translateY(-8px); box-shadow:0 20px 48px rgba(0,0,0,0.15); }
+.fac-img-wrap { position:relative; overflow:hidden; height:200px; }
+.fac-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease; }
+.fac-card:hover .fac-img-wrap img { transform:scale(1.08); }
+.fac-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom,rgba(31,23,65,0.1),rgba(31,23,65,0.55));
+}
+.fac-icon-badge {
+    position:absolute; bottom:14px; left:16px;
+    width:46px; height:46px; border-radius:12px;
+    background:var(--e-global-color-soft-blue);
+    display:flex; align-items:center; justify-content:center;
+}
+.fac-icon-badge i { font-size:20px; color:#fff; }
+.fac-body { padding:20px 22px 22px; }
+.fac-body h5 { font-size:17px; font-weight:700; color:var(--e-global-color-dark-blue); margin-bottom:8px; }
+.fac-body p { font-size:13px; color:var(--e-global-color-text); margin-bottom:12px; line-height:1.55; }
+.fac-link { font-size:13px; font-weight:700; color:var(--e-global-color-soft-blue); }
+.fac-link i { transition:transform 0.25s ease; display:inline-block; }
+.fac-link:hover i { transform:translateX(4px); }
+
+/* ── Explore Pages ── */
+.explore-pages-con { padding: 100px 0; }
+.explore-card {
+    display:flex; align-items:center; gap:18px;
+    background:#fff; border-radius:16px; padding:24px 22px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.07);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    color:inherit;
+}
+.explore-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,0.12); color:inherit; }
+.explore-icon {
+    width:60px; height:60px; border-radius:14px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+}
+.explore-icon i { font-size:24px; color:#fff; }
+.explore-body { flex:1; }
+.explore-body h5 { font-size:16px; font-weight:700; color:var(--e-global-color-dark-blue); margin-bottom:4px; }
+.explore-body p { font-size:13px; color:var(--e-global-color-text); margin:0; line-height:1.5; }
+.explore-arrow { color:var(--e-global-color-soft-blue); font-size:16px; flex-shrink:0; transition:transform 0.25s ease; }
+.explore-card:hover .explore-arrow { transform:translateX(5px); }
+
+/* ── Admissions CTA ── */
+.admissions-cta-con {
+    padding:90px 0;
+    background:linear-gradient(135deg,var(--e-global-color-very-dark-blue) 0%,var(--e-global-color-soft-blue) 100%);
+    position:relative; overflow:hidden;
+}
+.admissions-cta-con::before {
+    content:""; position:absolute; inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events:none;
+}
+.admissions-cta-badge {
+    display:inline-block; background:rgba(255,255,255,0.15); color:#fff;
+    font-size:13px; font-weight:700; padding:6px 18px; border-radius:30px;
+    letter-spacing:1px; text-transform:uppercase; margin-bottom:22px;
+    border:1px solid rgba(255,255,255,0.25);
+}
+.admissions-cta-content h2 { font-size:42px; font-weight:800; margin-bottom:16px; line-height:1.2; }
+.admissions-cta-content p { opacity:0.88; margin-bottom:36px; }
+.admissions-cta-btns { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; }
+.admissions-cta-secondary-btn {
+    display:inline-flex; align-items:center; gap:8px; color:#fff;
+    font-weight:700; font-size:15px; border:2px solid rgba(255,255,255,0.5);
+    padding:16px 28px; border-radius:50px;
+    transition:background 0.25s ease,border-color 0.25s ease;
+}
+.admissions-cta-secondary-btn:hover { background:rgba(255,255,255,0.12); border-color:#fff; color:#fff; }
+
+/* ── Notices ── */
+.notices-con { padding:100px 0; background:var(--e-global-color-very-light-gray-white); }
+.notices_content { margin-bottom:50px; }
+.notice-card-box {
+    background:#fff; border-radius:16px; padding:30px 26px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.06);
+    border-left:4px solid var(--e-global-color-soft-blue);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    height:100%; display:flex; flex-direction:column;
+}
+.notice-card-box:hover { transform:translateY(-5px); box-shadow:0 14px 36px rgba(0,0,0,0.11); }
+.notice-card-box.notice-urgent { border-left-color:var(--e-global-color-pure-red); }
+.notice-urgent .notice-icon-wrap { background:var(--e-global-color-very-pale-red); }
+.notice-urgent .notice-icon-wrap i { color:var(--e-global-color-pure-red); }
+.notice-icon-wrap {
+    width:52px; height:52px; border-radius:12px;
+    background:var(--e-global-color-very-pale-blue);
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+}
+.notice-icon-wrap i { font-size:22px; color:var(--e-global-color-soft-blue); }
+.notice-date { font-size:13px; color:var(--e-global-color-grayish-blue); margin-bottom:8px; display:block; }
+.notice-card-box h5 { font-size:16px; font-weight:700; color:var(--e-global-color-dark-blue); margin-bottom:10px; line-height:1.4; }
+.notice-link { font-weight:700; font-size:13px; color:var(--e-global-color-soft-blue); margin-top:auto; padding-top:12px; display:inline-block; }
+.notice-link i { transition:transform 0.25s ease; display:inline-block; }
+.notice-link:hover i { transform:translateX(4px); }
+
+/* ── WhatsApp Float ── */
+.whatsapp-float {
+    position: fixed;
+    bottom: 32px;
+    right: 28px;
+    z-index: 1050;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+    text-decoration: none;
+    animation: wa-pulse 2.4s ease-in-out infinite;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.whatsapp-float i { font-size: 30px; color: #fff; }
+.whatsapp-float:hover {
+    transform: scale(1.12);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.7);
+    animation: none;
+}
+.whatsapp-float::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 3px solid rgba(37,211,102,0.45);
+    animation: wa-ring 2.4s ease-in-out infinite;
+}
+@keyframes wa-pulse {
+    0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+    50%       { box-shadow: 0 8px 36px rgba(37,211,102,0.85); }
+}
+@keyframes wa-ring {
+    0%   { transform: scale(1);   opacity: 0.8; }
+    60%  { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ── h6 label lines ── */
+.choose_content h6,.about_content h6,.popular_content h6,
+.benefit_content h6,.testimonial_content h6,.notices_content h6,
+.fac-header h6,.explore-pages-con .text-center h6,
+.admissions-cta-content h6,.journey_content h6 {
+    display:inline-flex; align-items:center; gap:10px;
+    letter-spacing:1.2px; font-weight:700; text-transform:uppercase; font-size:13px;
+}
+.choose_content h6::before,.about_content h6::before,.popular_content h6::before,
+.benefit_content h6::before,.testimonial_content h6::before,.notices_content h6::before,
+.fac-header h6::before,.explore-pages-con .text-center h6::before,
+.admissions-cta-content h6::before,.journey_content h6::before {
+    content:""; display:inline-block; width:26px; height:3px;
+    background:var(--e-global-color-pure-red); border-radius:2px; flex-shrink:0;
+}
+</style>
+
+<script>
+/* Sticky nav */
+(function() {
+    var h = document.querySelector('.header');
+    if (!h) return;
+    window.addEventListener('scroll', function() {
+        h.classList.toggle('nav-scrolled', window.scrollY > 80);
+    }, { passive: true });
+})();
+
+/* YouTube modal — set & clear iframe src to start/stop video */
+(function() {
+    $('#videoModal').on('show.bs.modal', function(e) {
+        var btn = $(e.relatedTarget);
+        var url = btn.data('video');
+        $('#ytIframe').attr('src', url);
+    });
+    $('#videoModal').on('hide.bs.modal', function() {
+        $('#ytIframe').attr('src', '');
+    });
+})();
+</script>
+</body>
+</html>

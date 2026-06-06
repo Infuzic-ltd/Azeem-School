@@ -110,8 +110,10 @@ def facilities_view(request):
     page = FacilitiesPage.objects.live().first()
     return render(request, "home/facilities.html", {"page": page})
 def facilities_view2(request):
-    page = FacilitiesPage.objects.live().first()
-    return render(request, "home/facilitiesv1.html", {"page": page})
+    return render(request, "home/new_home_page.html")
+
+def homepage_preview2(request):
+    return render(request, "home/new_home_page_2.html")
 
 def academics_view2(request):
     page = AcademicsPage.objects.live().first()

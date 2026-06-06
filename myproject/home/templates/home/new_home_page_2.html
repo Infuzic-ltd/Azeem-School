@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Azeem School — Homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/responsive.css" rel="stylesheet">
+    <link href="/static/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/static/css/aos.css" rel="stylesheet">
+
+    <style>
+    /* ═══════════════════════════════════════════════════
+       ROOT TOKENS
+    ═══════════════════════════════════════════════════ */
+    :root {
+        /* Aligned to original site palette (--e-global-color-* vars) */
+        --navy:      #1f1741;   /* e-global-color-very-dark-blue  */
+        --navy-mid:  #231b49;   /* e-global-color-dark-blue       */
+        --navy-soft: #2d1f5e;
+        --accent:    #6a52e0;   /* e-global-color-soft-blue       */
+        --accent2:   #4f3dc8;
+        --gold:      #dcb32e;   /* e-global-color-bright-yellow   */
+        --green:     #99b251;   /* e-global-color-dark-moderate-green */
+        --red-label: #ff0000;   /* e-global-color-pure-red        */
+        --light-bg:  #fafafa;   /* e-global-color-very-light-gray-white */
+        --white:     #ffffff;
+        --text:      #506172;   /* original body colour           */
+        --heading:   #1f1741;
+        --border:    #e6e8f0;
+        --radius:    18px;
+        --shadow-sm: 0 2px 12px rgba(31,23,65,0.07);
+        --shadow-md: 0 8px 32px rgba(31,23,65,0.12);
+        --shadow-lg: 0 20px 56px rgba(31,23,65,0.18);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════════ */
+    body { font-family: 'Urbanist', sans-serif; overflow-x: hidden; color: var(--text); background: var(--white); }
+    h1,h2,h3,h4,h5 { font-family: 'Urbanist', sans-serif; font-weight: 800; color: var(--heading); }
+
+    /* Section subtitle (h6) — red line prefix  */
+    .sec-sub {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--red-label);
+        margin-bottom: 12px;
+    }
+    .sec-sub::before {
+        content: "";
+        display: inline-block;
+        width: 28px;
+        height: 3px;
+        background: var(--red-label);
+        border-radius: 2px;
+        flex-shrink: 0;
+    }
+    .sec-head {
+        font-size: clamp(26px, 4vw, 42px);
+        font-weight: 800;
+        color: var(--heading);
+        line-height: 1.18;
+        margin-bottom: 18px;
+    }
+    .sec-head-white { color: #fff; }
+    .sec-desc {
+        font-size: 17px;
+        color: var(--text);
+        line-height: 1.7;
+        max-width: 580px;
+    }
+    .sec-desc-white { color: rgba(255,255,255,0.82); }
+
+    /* ═══════════════════════════════════════════════════
+       WHATSAPP FLOAT
+    ═══════════════════════════════════════════════════ */
+    .wa-float {
+        position: fixed; bottom: 30px; right: 26px; z-index: 2000;
+        width: 60px; height: 60px; border-radius: 50%;
+        background: #25D366;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 4px 20px rgba(37,211,102,0.55);
+        text-decoration: none;
+        transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .wa-float i { font-size: 32px; color: #fff; }
+    .wa-float:hover { transform: scale(1.13); box-shadow: 0 8px 32px rgba(37,211,102,0.75); color:#fff; }
+    .wa-float::after {
+        content: "";
+        position: absolute; inset: -7px; border-radius: 50%;
+        border: 3px solid rgba(37,211,102,0.5);
+        animation: wa-ring 2.2s ease-out infinite;
+    }
+    @keyframes wa-ring {
+        0%   { transform: scale(1);   opacity: .9; }
+        70%  { transform: scale(1.6); opacity: 0; }
+        100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       NAVBAR (original sticky style)
+    ═══════════════════════════════════════════════════ */
+    .header { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+    .header.nav-scrolled {
+        position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+        background-color: rgba(255,255,255,0.97);
+        box-shadow: 0 3px 24px rgba(0,0,0,0.10);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       HERO (original banner3-con style)
+    ═══════════════════════════════════════════════════ */
+    .banner3-con {
+        min-height: 600px; padding: 186px 0 226px;
+        overflow: hidden; isolation: isolate; background: #081933;
+    }
+    .banner3-con::before {
+        content: ""; position: absolute; inset: 0;
+        background: rgba(0,0,0,0.5); z-index: -1;
+    }
+    .hero-video-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: rgba(255,255,255,0.12); color: #fff;
+        border: 2px solid rgba(255,255,255,0.4); padding: 16px 28px;
+        border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer;
+        font-family: 'Urbanist', sans-serif;
+        transition: background .25s ease, border-color .25s ease;
+    }
+    .hero-video-btn:hover { background: rgba(255,255,255,0.22); border-color: #fff; }
+    .hero-video-btn i { font-size: 20px; }
+    /* keep az-hero-sub for the stats card side panel that we removed */
+    .az-hero-sub {
+        font-size: 18px; color: rgba(255,255,255,0.75);
+        line-height: 1.7; margin: 22px 0 40px;
+        max-width: 520px;
+    }
+    .az-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary-az {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: var(--gold); color: var(--navy) !important;
+        font-weight: 800; font-size: 15px;
+        padding: 16px 32px; border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 6px 24px rgba(240,180,41,0.45);
+        transition: transform .22s ease, box-shadow .22s ease;
+        border: none; cursor: pointer;
+    }
+    .btn-primary-az:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(240,180,41,0.6); }
+    .btn-outline-az {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: transparent; color: #fff !important;
+        font-weight: 700; font-size: 15px;
+        padding: 15px 30px; border-radius: 50px;
+        text-decoration: none;
+        border: 2px solid rgba(255,255,255,0.4);
+        transition: background .22s ease, border-color .22s ease;
+        cursor: pointer;
+    }
+    .btn-outline-az:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+    /* Right side decorative card */
+    .az-hero-card {
+        position: relative; z-index: 2;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(16px);
+        border-radius: 24px; padding: 36px 32px;
+    }
+    .az-hero-stat { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .az-hero-stat:last-child { margin-bottom: 0; padding-bottom: 0; border: none; }
+    .az-hero-stat .num { font-size: 44px; font-weight: 900; color: #fff; line-height: 1; }
+    .az-hero-stat .num span { color: var(--gold); }
+    .az-hero-stat .lbl { font-size: 14px; color: rgba(255,255,255,0.65); font-weight: 600; margin-top: 4px; }
+
+    /* ═══════════════════════════════════════════════════
+       STATS STRIP
+    ═══════════════════════════════════════════════════ */
+    .az-stats-strip {
+        background: var(--navy-mid);
+        padding: 0;
+    }
+    .az-stats-strip .stat-item {
+        padding: 36px 24px;
+        border-right: 1px solid rgba(255,255,255,0.08);
+        text-align: center;
+    }
+    .az-stats-strip .stat-item:last-child { border-right: none; }
+    .az-stats-strip .stat-num {
+        font-size: 40px; font-weight: 900; color: var(--gold);
+        line-height: 1; display: block;
+    }
+    .az-stats-strip .stat-label {
+        font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 600;
+        text-transform: uppercase; letter-spacing: 0.8px; margin-top: 6px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       WHY CHOOSE US
+    ═══════════════════════════════════════════════════ */
+    .az-why { padding: 100px 0; background: var(--white); }
+    .why-card {
+        background: var(--white); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 36px 28px;
+        transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        height: 100%;
+    }
+    .why-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent);
+    }
+    .why-icon {
+        width: 66px; height: 66px; border-radius: 16px;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 20px; font-size: 28px;
+    }
+    .why-icon.blue  { background: #eef2ff; color: var(--accent); }
+    .why-icon.green { background: #dcfce7; color: var(--green); }
+    .why-icon.gold  { background: #fef9c3; color: #ca8a04; }
+    .why-icon.red   { background: #fee2e2; color: #dc2626; }
+    .why-card h5 { font-size: 18px; font-weight: 800; color: var(--heading); margin-bottom: 10px; }
+    .why-card p  { font-size: 14px; color: var(--text); line-height: 1.7; margin: 0; }
+    .why-num {
+        font-size: 52px; font-weight: 900;
+        color: rgba(13,27,62,0.06); line-height: 1;
+        position: absolute; right: 22px; bottom: 14px;
+        font-family: 'Urbanist', sans-serif;
+        user-select: none; pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════════════ */
+    .az-about { padding: 100px 0; background: var(--light-bg); }
+    .az-about .about-img-stack { position: relative; }
+    .az-about .img-main {
+        border-radius: 20px; overflow: hidden;
+        box-shadow: var(--shadow-md);
+    }
+    .az-about .img-main img { width: 100%; height: 360px; object-fit: cover; }
+    .az-about .img-thumb {
+        position: absolute; bottom: -30px; right: -24px;
+        width: 180px; border-radius: 16px; overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        border: 4px solid var(--white);
+    }
+    .az-about .img-thumb img { width: 100%; height: 120px; object-fit: cover; }
+    .az-about .play-btn {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+        width: 70px; height: 70px; border-radius: 50%;
+        background: var(--gold); border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 6px 24px rgba(240,180,41,0.5);
+        transition: transform .25s ease, box-shadow .25s ease;
+        z-index: 5;
+    }
+    .az-about .play-btn:hover { transform: translate(-50%,-50%) scale(1.12); box-shadow: 0 12px 36px rgba(240,180,41,0.7); }
+    .az-about .play-btn i { font-size: 28px; color: var(--navy); margin-left: 4px; }
+    .az-about .mission-box {
+        background: var(--navy); color: #fff;
+        border-radius: 16px; padding: 22px 24px;
+        margin-top: 28px;
+        display: flex; align-items: flex-start; gap: 16px;
+    }
+    .az-about .mission-box i { font-size: 28px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .az-about .mission-box p { margin: 0; font-size: 15px; color: rgba(255,255,255,0.88); line-height: 1.6; font-weight: 600; }
+    .feature-check li {
+        display: flex; align-items: flex-start; gap: 12px;
+        font-size: 15px; color: var(--text); margin-bottom: 12px; line-height: 1.55;
+    }
+    .feature-check li i { color: var(--green); font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════════
+       BOARDS SECTION
+    ═══════════════════════════════════════════════════ */
+    .az-boards { padding: 100px 0; background: var(--white); }
+    .board-card-v2 {
+        background: var(--white); border: 1px solid var(--border);
+        border-radius: 24px; overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .board-card-v2:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .board-card-header {
+        padding: 32px 36px 28px;
+        border-bottom: 1px solid var(--border);
+        display: flex; align-items: center; gap: 20px;
+    }
+    .board-card-header.bsek  { background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 100%); }
+    .board-card-header.akueb { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
+    .board-icon {
+        width: 64px; height: 64px; border-radius: 16px;
+        background: rgba(255,255,255,0.15);
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .board-icon i { font-size: 28px; color: #fff; }
+    .board-card-header .info { flex: 1; }
+    .board-card-header .info .board-name {
+        font-size: 21px; font-weight: 900; color: #fff; margin: 0 0 4px;
+    }
+    .board-card-header .info .board-full {
+        font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 500;
+    }
+    .board-badge {
+        background: rgba(255,255,255,0.15); color: #fff;
+        font-size: 11px; font-weight: 700; letter-spacing: 1px;
+        text-transform: uppercase; padding: 5px 14px; border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.25);
+        white-space: nowrap; flex-shrink: 0;
+    }
+    .board-card-body { padding: 32px 36px; }
+    .board-levels { display: flex; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+    .board-level-col { flex: 1; min-width: 180px; }
+    .board-level-col .level-title {
+        font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+        color: var(--accent); margin-bottom: 14px;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .board-level-col .level-title::before {
+        content: ""; width: 20px; height: 2px; background: var(--accent); flex-shrink: 0;
+    }
+    .akueb .board-level-col .level-title { color: var(--green); }
+    .akueb .board-level-col .level-title::before { background: var(--green); }
+    .board-subject-list { list-style: none; margin: 0; padding: 0; }
+    .board-subject-list li {
+        font-size: 14px; color: var(--text); padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+        display: flex; align-items: center; gap: 10px;
+    }
+    .board-subject-list li:last-child { border: none; }
+    .board-subject-list li::before {
+        content: ""; width: 7px; height: 7px; border-radius: 50%;
+        background: var(--accent); flex-shrink: 0;
+    }
+    .akueb .board-subject-list li::before { background: var(--green); }
+    .board-card-footer {
+        padding: 0 36px 32px;
+        display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+    }
+    .board-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .board-tag {
+        background: var(--light-bg); color: var(--heading);
+        font-size: 12px; font-weight: 700; padding: 5px 13px; border-radius: 20px;
+    }
+    .btn-board-link {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: var(--navy); color: #fff !important;
+        font-weight: 700; font-size: 14px;
+        padding: 12px 26px; border-radius: 50px;
+        text-decoration: none;
+        transition: background .22s ease, transform .22s ease;
+    }
+    .btn-board-link:hover { background: var(--navy-soft); transform: translateX(3px); color: #fff !important; }
+    .btn-board-link i { transition: transform .22s ease; }
+    .btn-board-link:hover i { transform: translateX(4px); }
+
+    /* ═══════════════════════════════════════════════════
+       FACILITIES TEASER
+    ═══════════════════════════════════════════════════ */
+    .az-facilities { padding: 100px 0; background: var(--navy); }
+    .az-facilities .sec-sub::before { background: var(--gold); }
+    .az-facilities .sec-sub { color: var(--gold); }
+    .fac-v2 {
+        border-radius: 20px; overflow: hidden;
+        position: relative; cursor: pointer;
+        height: 280px;
+        transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .fac-v2:hover { transform: translateY(-8px); box-shadow: 0 24px 56px rgba(0,0,0,0.4); }
+    .fac-v2 img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform .5s ease;
+    }
+    .fac-v2:hover img { transform: scale(1.07); }
+    .fac-v2-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(13,27,62,0.9) 0%, rgba(13,27,62,0.2) 60%, transparent 100%);
+    }
+    .fac-v2-content {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 24px 22px;
+    }
+    .fac-v2-icon {
+        width: 46px; height: 46px; border-radius: 12px;
+        background: var(--gold);
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 12px;
+    }
+    .fac-v2-icon i { font-size: 20px; color: var(--navy); }
+    .fac-v2-content h5 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .fac-v2-content p  { font-size: 13px; color: rgba(255,255,255,0.72); margin: 0; line-height: 1.45; }
+    .fac-v2-arrow {
+        position: absolute; top: 18px; right: 18px;
+        width: 36px; height: 36px; border-radius: 50%;
+        background: rgba(255,255,255,0.12);
+        display: flex; align-items: center; justify-content: center;
+        color: #fff; font-size: 14px;
+        transition: background .2s ease, transform .2s ease;
+    }
+    .fac-v2:hover .fac-v2-arrow { background: var(--gold); color: var(--navy); transform: scale(1.1); }
+
+    /* ═══════════════════════════════════════════════════
+       EXPLORE PAGES
+    ═══════════════════════════════════════════════════ */
+    .az-explore { padding: 100px 0; background: var(--light-bg); }
+    .exp-card {
+        display: flex; align-items: center; gap: 18px;
+        background: var(--white); border-radius: var(--radius);
+        padding: 24px 22px; text-decoration: none; color: inherit;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        height: 100%;
+    }
+    .exp-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent); color: inherit; }
+    .exp-icon {
+        width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .exp-icon i { font-size: 22px; color: #fff; }
+    .exp-body { flex: 1; }
+    .exp-body h5 { font-size: 16px; font-weight: 800; color: var(--heading); margin-bottom: 4px; }
+    .exp-body p  { font-size: 13px; color: var(--text); margin: 0; line-height: 1.55; }
+    .exp-arrow { color: var(--accent); font-size: 15px; flex-shrink: 0; transition: transform .25s ease; }
+    .exp-card:hover .exp-arrow { transform: translateX(5px); }
+
+    /* ═══════════════════════════════════════════════════
+       ADMISSIONS CTA
+    ═══════════════════════════════════════════════════ */
+    .az-cta {
+        padding: 100px 0;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 60%, #4f6ef7 100%);
+        position: relative; overflow: hidden;
+    }
+    .az-cta::before {
+        content:""; position:absolute; top:-120px; right:-120px;
+        width:500px; height:500px; border-radius:50%;
+        background:rgba(255,255,255,0.04); pointer-events:none;
+    }
+    .az-cta::after {
+        content:""; position:absolute; bottom:-80px; left:-80px;
+        width:360px; height:360px; border-radius:50%;
+        background:rgba(255,255,255,0.03); pointer-events:none;
+    }
+    .az-cta-badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(240,180,41,0.15);
+        border: 1px solid rgba(240,180,41,0.4);
+        color: var(--gold); font-size: 12px; font-weight: 700;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        padding: 7px 18px; border-radius: 30px; margin-bottom: 22px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════════════════ */
+    .az-testi { padding: 100px 0; background: var(--white); }
+    .testi-card {
+        background: var(--white); border: 1px solid var(--border);
+        border-radius: 20px; padding: 36px 32px;
+        position: relative; overflow: hidden;
+    }
+    .testi-card::before {
+        content: "\201C";
+        position: absolute; top: -12px; right: 28px;
+        font-size: 120px; color: rgba(79,110,247,0.06);
+        font-family: Georgia, serif; line-height: 1; pointer-events: none;
+    }
+    .testi-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .testi-stars i { font-size: 14px; color: var(--gold); }
+    .testi-card p { font-size: 15px; color: var(--text); line-height: 1.8; font-style: italic; margin-bottom: 22px; }
+    .testi-person { display: flex; align-items: center; gap: 14px; }
+    .testi-person img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .testi-person .name { font-size: 15px; font-weight: 800; color: var(--heading); margin: 0; }
+    .testi-person .role { font-size: 13px; color: var(--text); margin: 0; }
+
+    /* ═══════════════════════════════════════════════════
+       NOTICES
+    ═══════════════════════════════════════════════════ */
+    .az-notices { padding: 100px 0; background: var(--light-bg); }
+    .notice-v2 {
+        background: var(--white); border-radius: 16px; padding: 28px 26px;
+        border-left: 4px solid var(--accent);
+        box-shadow: var(--shadow-sm);
+        transition: transform .3s, box-shadow .3s;
+        height: 100%; display: flex; flex-direction: column;
+    }
+    .notice-v2:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .notice-v2.urgent { border-left-color: #dc2626; }
+    .notice-v2-icon {
+        width: 48px; height: 48px; border-radius: 12px;
+        background: #eef2ff; display: flex; align-items: center; justify-content: center;
+        margin-bottom: 14px;
+    }
+    .notice-v2-icon i { font-size: 20px; color: var(--accent); }
+    .notice-v2.urgent .notice-v2-icon { background: #fee2e2; }
+    .notice-v2.urgent .notice-v2-icon i { color: #dc2626; }
+    .notice-v2-date { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .notice-v2 h5 { font-size: 16px; font-weight: 800; color: var(--heading); margin-bottom: 8px; line-height: 1.4; }
+    .notice-v2 p  { font-size: 13px; color: var(--text); margin: 0; line-height: 1.6; flex: 1; }
+    .notice-v2-link {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-size: 13px; font-weight: 700; color: var(--accent);
+        margin-top: 14px; text-decoration: none;
+        transition: gap .2s ease;
+    }
+    .notice-v2-link:hover { gap: 12px; color: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════ */
+    .az-footer-top {
+        background: var(--navy); padding: 20px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .az-footer-top .newsletter-row {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 16px;
+    }
+    .az-footer-top h4 { font-size: 18px; color: #fff; margin: 0; font-weight: 700; }
+    .newsletter-form { display: flex; gap: 0; }
+    .newsletter-form input {
+        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+        color: #fff; padding: 12px 20px; border-radius: 50px 0 0 50px;
+        font-size: 14px; outline: none; min-width: 260px;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .newsletter-form button {
+        background: var(--gold); color: var(--navy); border: none;
+        padding: 12px 24px; border-radius: 0 50px 50px 0;
+        font-weight: 800; font-size: 14px; cursor: pointer;
+        transition: background .2s;
+    }
+    .newsletter-form button:hover { background: #e8a800; }
+
+    /* ═══════════════════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════════════════ */
+    .section-cta-row { text-align: center; margin-top: 48px; }
+    .btn-view-all {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: var(--navy); color: #fff !important;
+        font-weight: 700; font-size: 15px;
+        padding: 15px 34px; border-radius: 50px;
+        text-decoration: none;
+        transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .btn-view-all:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .btn-view-all i { transition: transform .22s ease; }
+    .btn-view-all:hover i { transform: translateX(4px); }
+    </style>
+</head>
+<body>
+
+<!-- ══ WHATSAPP ══════════════════════════════════════════ -->
+<a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" class="wa-float" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- video modal removed — buttons now open YouTube directly in new tab -->
+
+<!-- ══ NAVBAR + HERO (original theme) ════════════════════ -->
+<div class="home_banner_outer position-relative">
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <a class="navbar-brand" href="/">
+                    <figure class="logo mb-0">
+                        <img src="/static/images/logo.png" alt="Azeem School" class="img-fluid">
+                    </figure>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarMain" aria-controls="navbarMain"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about/">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/academics/">Academics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/facilities/">Facilities</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
+                                id="navbarDropdown1" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">More</a>
+                            <div class="dropdown-menu drop-down-content">
+                                <ul class="list-unstyled drop-down-pages">
+                                    <li class="nav-item"><a class="dropdown-item nav-link" href="/admissions/">Admissions</a></li>
+                                    <li class="nav-item"><a class="dropdown-item nav-link" href="/news/">News &amp; Notices</a></li>
+                                    <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/">Contact</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link log_in" href="/admissions/">Apply Now<i class="fa-solid fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="phone-number">
+                    <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+                    <a href="https://wa.me/922134567890" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                        <span class="number">+92 21 3456 7890</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ── HERO (original banner3-con) ── -->
+    <section class="banner3-con position-relative" id="hero">
+        <figure class="banner-lefttopcurve image mb-0">
+            <img src="/static/images/banner3-lefttopcurve.png" alt="" class="img-fluid">
+        </figure>
+        <figure class="banner-rightbottomcurve image mb-0">
+            <img src="/static/images/banner3-rightbottomcurve.png" alt="" class="img-fluid">
+        </figure>
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-10 col-12 mx-auto">
+                    <div class="banner_content text-center position-relative" data-aos="fade-up">
+                        <figure class="banner-logoicon">
+                            <img src="/static/images/journey-logoicon.png" alt="" class="img-fluid">
+                        </figure>
+                        <h1 class="text-white">AZEEM SCHOOL — Building Tomorrow's Leaders</h1>
+                        <p class="text-white text-size-18">A world-class education grounded in Islamic values — from Pre-Montessori through A Level, for every student who aspires to excel.</p>
+                        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+                            <a href="/admissions/" class="text-decoration-none primary_btn">Apply Now<i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="https://www.youtube.com/watch?v=aqz-KE-bpKQ" target="_blank" rel="noopener noreferrer" class="hero-video-btn">
+                                <i class="fa-solid fa-circle-play"></i> Watch Our Story
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1 mx-auto">
+                    <a href="#dropdown" class="top-btn text-center">
+                        <figure class="banner-dropdownimage mb-0">
+                            <img src="/static/images/banner-dropdownimage.png" class="img-fluid" alt="">
+                        </figure>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <figure class="banner-circleimage mb-0">
+            <img src="/static/images/banner3-circleimage.png" alt="" class="img-fluid">
+        </figure>
+        <figure class="banner-crossimage mb-0">
+            <img src="/static/images/banner3-crossimage.png" alt="" class="img-fluid">
+        </figure>
+    </section>
+</div>
+
+<!-- ══ STATS STRIP ════════════════════════════════════════ -->
+<div class="az-stats-strip">
+    <div class="container-fluid px-0">
+        <div class="row no-gutters">
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num">98%</span>
+                <div class="stat-label">Board Pass Rate</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num">500+</span>
+                <div class="stat-label">Distinctions Earned</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num">25+</span>
+                <div class="stat-label">Years of Excellence</div>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <span class="stat-num">1,500+</span>
+                <div class="stat-label">Students Enrolled</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ WHY CHOOSE US ══════════════════════════════════════ -->
+<section class="az-why">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Our Features</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">Why Families Choose Azeem School</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="why-card position-relative">
+                    <div class="why-icon blue"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h5>Academic Excellence</h5>
+                    <p>Consistently outstanding board results — 98% pass rate with hundreds of distinctions every year.</p>
+                    <div class="why-num">01</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
+                <div class="why-card position-relative">
+                    <div class="why-icon green"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <h5>Expert Faculty</h5>
+                    <p>Qualified, subject-specialist teachers who are passionate about every student's individual growth.</p>
+                    <div class="why-num">02</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <div class="why-card position-relative">
+                    <div class="why-icon gold"><i class="fa-solid fa-moon"></i></div>
+                    <h5>Islamic Values</h5>
+                    <p>A caring, disciplined environment grounded in Islamic principles, moral education, and character.</p>
+                    <div class="why-num">03</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
+                <div class="why-card position-relative">
+                    <div class="why-icon red"><i class="fa-solid fa-school"></i></div>
+                    <h5>Modern Campus</h5>
+                    <p>Fully equipped labs, digital library, sports facilities, prayer room, and a secure, welcoming campus.</p>
+                    <div class="why-num">04</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ ABOUT ══════════════════════════════════════════════ -->
+<section class="az-about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="about-img-stack">
+                    <div class="img-main">
+                        <img src="/static/images/about3-image1.jpg" alt="Azeem School Campus">
+                        <a href="https://www.youtube.com/watch?v=aqz-KE-bpKQ" target="_blank" rel="noopener noreferrer" class="play-btn" title="Watch School Video">
+                            <i class="fa-solid fa-play"></i>
+                        </a>
+                    </div>
+                    <div class="img-thumb">
+                        <img src="/static/images/about3-image2.jpg" alt="Students">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                <div class="sec-sub">About Us</div>
+                <h2 class="sec-head">Cultivating Knowledge, Character &amp; Excellence</h2>
+                <p class="sec-desc mb-4">For over 25 years, Azeem School has been a cornerstone of quality education in Karachi — blending rigorous academics with Islamic values and modern teaching methods that prepare students for life.</p>
+                <ul class="list-unstyled feature-check mb-4">
+                    <li><i class="fa-solid fa-circle-check"></i> Affiliated with BSEK and Aga Khan University Examination Board.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Matric, Intermediate, O Level, and A Level programmes.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Over 1,500 students from Pre-Montessori to Grade 12.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Dedicated female and male campuses for a comfortable learning environment.</li>
+                </ul>
+                <div class="mission-box">
+                    <i class="fa-solid fa-star-and-crescent"></i>
+                    <p>Our Mission: Excellence in Education, Rooted in Faith — shaping the next generation of Pakistan's leaders.</p>
+                </div>
+                <a href="/about/" class="btn-view-all mt-4">Read Our Full Story <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ BOARDS ══════════════════════════════════════════════ -->
+<section class="az-boards">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Academic Programs</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">Our Examination Boards</h2>
+                <p class="sec-desc mx-auto" data-aos="fade-up" data-aos-delay="120">We are affiliated with two of Pakistan's most respected and rigorous examination bodies — giving students the credentials that matter.</p>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- BSEK -->
+            <div class="col-lg-6 mb-4" data-aos="fade-right">
+                <div class="board-card-v2">
+                    <div class="board-card-header bsek">
+                        <div class="board-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <div class="info">
+                            <h4 class="board-name">BSEK</h4>
+                            <div class="board-full">Board of Secondary Education, Karachi</div>
+                        </div>
+                        <span class="board-badge">Karachi Board</span>
+                    </div>
+                    <div class="board-card-body">
+                        <div class="board-levels">
+                            <div class="board-level-col">
+                                <div class="level-title">Matric — Class 9 &amp; 10</div>
+                                <ul class="board-subject-list">
+                                    <li>Science Group (Biology / Computer)</li>
+                                    <li>Pakistan Studies &amp; Islamiyat</li>
+                                    <li>Mathematics &amp; English</li>
+                                    <li>Urdu &amp; General Science</li>
+                                </ul>
+                            </div>
+                            <div class="board-level-col">
+                                <div class="level-title">Intermediate — Class 11 &amp; 12</div>
+                                <ul class="board-subject-list">
+                                    <li>Pre-Medical (Biology, Chem, Physics)</li>
+                                    <li>Pre-Engineering (Maths, Chem, Physics)</li>
+                                    <li>Commerce (Accounting, Economics)</li>
+                                    <li>General Science</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="board-card-footer">
+                        <div class="board-tags">
+                            <span class="board-tag">Class 9 – 12</span>
+                            <span class="board-tag">Matric &amp; Inter</span>
+                            <span class="board-tag">All Streams</span>
+                        </div>
+                        <a href="/academics/" class="btn-board-link">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AGA KHAN BOARD -->
+            <div class="col-lg-6 mb-4 akueb" data-aos="fade-left">
+                <div class="board-card-v2">
+                    <div class="board-card-header akueb">
+                        <div class="board-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div class="info">
+                            <h4 class="board-name">Aga Khan Board</h4>
+                            <div class="board-full">Aga Khan University Examination Board (AKUEB)</div>
+                        </div>
+                        <span class="board-badge">International</span>
+                    </div>
+                    <div class="board-card-body">
+                        <div class="board-levels">
+                            <div class="board-level-col akueb">
+                                <div class="level-title">O Level (Secondary)</div>
+                                <ul class="board-subject-list akueb">
+                                    <li>Sciences (Physics, Chemistry, Biology)</li>
+                                    <li>Mathematics &amp; Statistics</li>
+                                    <li>English Language &amp; Literature</li>
+                                    <li>Humanities &amp; Social Studies</li>
+                                </ul>
+                            </div>
+                            <div class="board-level-col akueb">
+                                <div class="level-title">A Level (Advanced)</div>
+                                <ul class="board-subject-list akueb">
+                                    <li>Physics, Chemistry, Biology</li>
+                                    <li>Mathematics &amp; Further Maths</li>
+                                    <li>Business Studies &amp; Economics</li>
+                                    <li>Computer Science &amp; ICT</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="board-card-footer">
+                        <div class="board-tags">
+                            <span class="board-tag">O Level</span>
+                            <span class="board-tag">A Level</span>
+                            <span class="board-tag">University Ready</span>
+                        </div>
+                        <a href="/academics/" class="btn-board-link" style="background:var(--green);">Explore Program <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="section-cta-row" data-aos="fade-up">
+            <a href="/academics/" class="btn-view-all">Full Academic Overview <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ══ FACILITIES TEASER ═══════════════════════════════════ -->
+<section class="az-facilities">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Campus Life</div>
+                <h2 class="sec-head sec-head-white" data-aos="fade-up" data-aos-delay="60">World-Class Facilities</h2>
+                <p class="sec-desc sec-desc-white mx-auto" data-aos="fade-up" data-aos-delay="120">Every resource a student needs — under one roof, in a safe and inspiring environment.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <a href="/facilities/" class="text-decoration-none">
+                <div class="fac-v2">
+                    <img src="/static/images/course-image1.jpg" alt="Computer Lab">
+                    <div class="fac-v2-overlay"></div>
+                    <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fac-v2-content">
+                        <div class="fac-v2-icon"><i class="fa-solid fa-computer"></i></div>
+                        <h5>Computer Labs</h5>
+                        <p>Modern PCs, high-speed internet and coding tools for all grades.</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
+                <a href="/facilities/" class="text-decoration-none">
+                <div class="fac-v2">
+                    <img src="/static/images/course-image2.jpg" alt="Science Labs">
+                    <div class="fac-v2-overlay"></div>
+                    <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fac-v2-content">
+                        <div class="fac-v2-icon" style="background:#16a34a;"><i class="fa-solid fa-microscope"></i></div>
+                        <h5>Science Labs</h5>
+                        <p>Fully equipped Physics, Chemistry, and Biology laboratories.</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <a href="/facilities/" class="text-decoration-none">
+                <div class="fac-v2">
+                    <img src="/static/images/course-image3.jpg" alt="Library">
+                    <div class="fac-v2-overlay"></div>
+                    <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fac-v2-content">
+                        <div class="fac-v2-icon" style="background:#ca8a04;"><i class="fa-solid fa-book-open"></i></div>
+                        <h5>Digital Library</h5>
+                        <p>Thousands of books, e-resources and quiet study spaces available daily.</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
+                <a href="/facilities/" class="text-decoration-none">
+                <div class="fac-v2">
+                    <img src="/static/images/course-image4.jpg" alt="Sports">
+                    <div class="fac-v2-overlay"></div>
+                    <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fac-v2-content">
+                        <div class="fac-v2-icon" style="background:#ec407a;"><i class="fa-solid fa-person-running"></i></div>
+                        <h5>Sports Grounds</h5>
+                        <p>Cricket, football, basketball and indoor games — PE taken seriously.</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="section-cta-row" data-aos="fade-up">
+            <a href="/facilities/" class="btn-view-all">View All Facilities <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ══ EXPLORE PAGES ══════════════════════════════════════ -->
+<section class="az-explore">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Navigate</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">Explore Azeem School</h2>
+                <p class="sec-desc mx-auto" data-aos="fade-up" data-aos-delay="120">One school, many paths — find everything about life at Azeem School.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <a href="/about/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#1f1741,#4f6ef7);"><i class="fa-solid fa-school"></i></div>
+                    <div class="exp-body"><h5>About Us</h5><p>Our history, mission, vision, and the values that drive everything we do.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="60">
+                <a href="/academics/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#0a3d62,#1565c0);"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <div class="exp-body"><h5>Academics</h5><p>Curriculum, boards, academic calendar, faculty, and downloadable resources.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="120">
+                <a href="/admissions/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#064e3b,#16a34a);"><i class="fa-solid fa-door-open"></i></div>
+                    <div class="exp-body"><h5>Admissions</h5><p>Eligibility, intake dates, the application process, and our campuses.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="180">
+                <a href="/facilities/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#4a0040,#ab47bc);"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="exp-body"><h5>Facilities</h5><p>Labs, library, sports, arts, prayer room, transport — campus life at a glance.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
+                <a href="/news/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#7c2d12,#ea580c);"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="exp-body"><h5>News &amp; Notices</h5><p>Announcements, exam schedules, results, events, and school updates.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="/contact/" class="exp-card">
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#701a75,#ec4899);"><i class="fa-solid fa-phone-volume"></i></div>
+                    <div class="exp-body"><h5>Contact Us</h5><p>Get in touch, book a campus visit, or find our location and details.</p></div>
+                    <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ ADMISSIONS CTA ══════════════════════════════════════ -->
+<section class="az-cta">
+    <div class="container position-relative" style="z-index:2;">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <div class="az-cta-badge"><i class="fa-solid fa-door-open"></i> Admissions Open 2025–26</div>
+                <h2 class="sec-head sec-head-white" style="font-size:clamp(28px,5vw,52px);">Secure Your Child's Place<br>Before Seats Run Out</h2>
+                <p class="sec-desc sec-desc-white mx-auto mt-3 mb-5">Join hundreds of families who trust Azeem School to deliver a world-class education rooted in Islamic values. Limited seats available — apply early to avoid disappointment.</p>
+                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+                    <a href="/admissions/" class="btn-primary-az">Apply for Admission <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="/contact/" class="btn-outline-az"><i class="fa-solid fa-phone"></i> Book a Campus Visit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ TESTIMONIALS ════════════════════════════════════════ -->
+<section class="az-testi">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-6 text-center">
+                <div class="sec-sub" data-aos="fade-up">Reviews</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">What Parents &amp; Alumni Say</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="owl-carousel owl-theme" data-aos="fade-up">
+                    <div class="item">
+                        <div class="testi-card">
+                            <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p>"Azeem School has been a transformative experience for my son. The teachers are highly qualified and genuinely care about every student's progress. His BSEK Matric results were exceptional."</p>
+                            <div class="testi-person">
+                                <img src="/static/images/testimonial3-personimage1.jpg" alt="Ahmed Raza">
+                                <div><p class="name">Ahmed Raza</p><p class="role">Parent — Class 10, BSEK</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testi-card">
+                            <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p>"I completed my A Levels through the Aga Khan Board at Azeem School and am now studying Medicine at a top university. The academic rigour and moral foundation here gave me everything I needed."</p>
+                            <div class="testi-person">
+                                <img src="/static/images/testimonial3-personimage2.jpg" alt="Fatima Malik">
+                                <div><p class="name">Fatima Malik</p><p class="role">Alumni — A Level Graduate</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testi-card">
+                            <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p>"The Islamic environment combined with a strong academic programme is exactly what we were looking for. Our daughter achieved distinctions in her Intermediate exams and we couldn't be more proud."</p>
+                            <div class="testi-person">
+                                <img src="/static/images/testimonial3-personimage3.jpg" alt="Sadia Hussain">
+                                <div><p class="name">Sadia Hussain</p><p class="role">Parent — Intermediate, BSEK</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testi-card">
+                            <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p>"Enrolling both my children at Azeem was the best decision we ever made. The faculty is dedicated, the curriculum is rigorous, and the values instilled here will last them a lifetime."</p>
+                            <div class="testi-person">
+                                <img src="/static/images/testimonial3-personimage1.jpg" alt="Umar Farooq">
+                                <div><p class="name">Umar Farooq</p><p class="role">Parent — Primary &amp; Matric Section</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ NOTICES ═════════════════════════════════════════════ -->
+<section class="az-notices">
+    <div class="container">
+        <div class="row justify-content-between align-items-end mb-5">
+            <div class="col-lg-6">
+                <div class="sec-sub" data-aos="fade-up">School Updates</div>
+                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">Notices &amp; Announcements</h2>
+            </div>
+            <div class="col-lg-auto d-none d-lg-block" data-aos="fade-left">
+                <a href="/news/" class="btn-view-all">All Notices <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="notice-v2 urgent">
+                    <div class="notice-v2-icon"><i class="fa-solid fa-door-open"></i></div>
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> Jun 1, 2025</div>
+                    <h5>Admissions Open for 2025–26</h5>
+                    <p>Applications accepted for all classes from Pre-Montessori through A Level. Limited seats — apply today.</p>
+                    <a href="/admissions/" class="notice-v2-link">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
+                <div class="notice-v2">
+                    <div class="notice-v2-icon"><i class="fa-solid fa-award"></i></div>
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> Apr 30, 2025</div>
+                    <h5>Board Results 2025 — 98% Pass Rate</h5>
+                    <p>Outstanding achievement by our BSEK Matric, Intermediate, and Aga Khan O/A Level students. Congratulations to all!</p>
+                    <a href="/news/" class="notice-v2-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <div class="notice-v2">
+                    <div class="notice-v2-icon"><i class="fa-solid fa-file-pen"></i></div>
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> May 20, 2025</div>
+                    <h5>Annual Exam Schedule Published</h5>
+                    <p>The final exam timetable for all grades has been published. Parents and students are advised to review and prepare.</p>
+                    <a href="/news/" class="notice-v2-link">View Schedule <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="notice-v2">
+                    <div class="notice-v2-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> May 24, 2025</div>
+                    <h5>Parent-Teacher Meeting — Saturday 24th May</h5>
+                    <p>PTM from 9 AM to 1 PM. Parents of all classes are encouraged to attend and discuss their child's academic progress.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
+                <div class="notice-v2">
+                    <div class="notice-v2-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> Jun 6, 2025</div>
+                    <h5>Annual Sports Day — Friday 6th June</h5>
+                    <p>Annual Sports Day at the Main Ground on 6th June. All students, parents, and staff are cordially invited.</p>
+                    <a href="/news/" class="notice-v2-link">Details <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <div class="notice-v2">
+                    <div class="notice-v2-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <div class="notice-v2-date"><i class="fa-regular fa-calendar"></i> May 20, 2025</div>
+                    <h5>Science Fair 2025 — Project Submissions Close</h5>
+                    <p>Students participating in the Annual Science Fair must submit project abstracts by 20th May. Forms at school office.</p>
+                    <a href="/news/" class="notice-v2-link">Details <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="section-cta-row d-lg-none" data-aos="fade-up">
+            <a href="/news/" class="btn-view-all">All Notices &amp; News <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="/static/images/footer-rightimage.png" class="img-fluid" alt="">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="upper_portion" style="justify-content:space-between;flex-wrap:wrap;gap:20px;">
+                        <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="/static/images/footer-logo.png" alt="Azeem School"></figure></a>
+                        <div style="text-align:center;flex:1;">
+                            <h4 style="margin-bottom:4px;">Admissions Open — 2025–26</h4>
+                            <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
+                        </div>
+                        <a href="/admissions/" class="text-decoration-none primary_btn" style="white-space:nowrap;">
+                            Apply Now <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative" style="background:var(--navy-mid);padding-top:60px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-4 col-md-12 mb-5">
+                    <a href="/"><span style="font-size:24px;font-weight:900;color:#fff;letter-spacing:-0.5px;">Azeem School</span></a>
+                    <p class="text-size-14 mt-3" style="color:rgba(255,255,255,0.6);line-height:1.75;">Providing quality education with modern teaching methods and a nurturing Islamic environment for over 25 years in Karachi, Pakistan.</p>
+                    <div class="d-flex gap-3 mt-3" style="gap:12px;">
+                        <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#1877f2'" onmouseout="this.style.background='rgba(255,255,255,0.08)'"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#000'" onmouseout="this.style.background='rgba(255,255,255,0.08)'"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#ff0000'" onmouseout="this.style.background='rgba(255,255,255,0.08)'"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#e1306c'" onmouseout="this.style.background='rgba(255,255,255,0.08)'"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/923001234567" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#25D366'" onmouseout="this.style.background='rgba(255,255,255,0.08)'"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-4 col-6 mb-5">
+                    <h6 style="color:#fff;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;">Quick Links</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li style="margin-bottom:10px;"><a href="/about/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About Us</a></li>
+                        <li style="margin-bottom:10px;"><a href="/academics/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Academics</a></li>
+                        <li style="margin-bottom:10px;"><a href="/admissions/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Admissions</a></li>
+                        <li style="margin-bottom:10px;"><a href="/facilities/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Facilities</a></li>
+                        <li><a href="/contact/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-4 col-6 mb-5">
+                    <h6 style="color:#fff;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;">Programs</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li style="margin-bottom:10px;"><a href="/academics/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Matric (BSEK)</a></li>
+                        <li style="margin-bottom:10px;"><a href="/academics/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Intermediate (BSEK)</a></li>
+                        <li style="margin-bottom:10px;"><a href="/academics/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">O Level (Aga Khan)</a></li>
+                        <li style="margin-bottom:10px;"><a href="/academics/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">A Level (Aga Khan)</a></li>
+                        <li><a href="/academics/" style="color:rgba(255,255,255,0.6);font-size:14px;text-decoration:none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Primary &amp; Early Years</a></li>
+                    </ul>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-4 col-12 mb-5">
+                    <h6 style="color:#fff;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;">Contact Us</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">
+                            <i class="fa-solid fa-phone" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>
+                            <a href="tel:+922134567890" style="color:rgba(255,255,255,0.7);font-size:14px;text-decoration:none;">+92 21 3456 7890</a>
+                        </li>
+                        <li style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;">
+                            <i class="fa-solid fa-envelope" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>
+                            <a href="mailto:info@azeem.edu.pk" style="color:rgba(255,255,255,0.7);font-size:14px;text-decoration:none;">info@azeem.edu.pk</a>
+                        </li>
+                        <li style="display:flex;gap:12px;align-items:flex-start;">
+                            <i class="fa-solid fa-location-dot" style="color:var(--gold);margin-top:2px;flex-shrink:0;"></i>
+                            <span style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.55;">KDA Scheme, Karachi, Pakistan</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">Copyright &copy; 2025 Azeem School. All Rights Reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRE LOADER -->
+<div class="loader-mask"><div class="loader"><div></div><div></div></div></div>
+
+<!-- JS -->
+<script src="/static/js/jquery-3.7.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/aos.js"></script>
+<script src="/static/js/owl.carousel.js"></script>
+<script src="/static/js/carousel.js"></script>
+<script src="/static/js/animation.js"></script>
+<script src="/static/js/back-to-top-button.js"></script>
+<script src="/static/js/preloader.js"></script>
+<script src="/static/js/counter.js"></script>
+
+<script>
+/* ── AOS init ── */
+AOS.init({ duration: 700, once: true, offset: 60 });
+
+/* ── Sticky navbar ── */
+(function() {
+    var h = document.querySelector('.header');
+    if (!h) return;
+    window.addEventListener('scroll', function() {
+        h.classList.toggle('nav-scrolled', window.scrollY > 80);
+    }, { passive: true });
+})();
+
+/* ── Owl Carousel config for testimonials ── */
+$(document).ready(function() {
+    $('.owl-carousel.owl-theme').owlCarousel({
+        loop: true, margin: 28, autoplay: true, autoplayTimeout: 5000,
+        smartSpeed: 700, dots: true, nav: false,
+        responsive: { 0:{items:1}, 768:{items:2}, 1200:{items:3} }
+    });
+});
+</script>
+</body>
+</html>

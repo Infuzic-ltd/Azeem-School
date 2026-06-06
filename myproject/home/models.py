@@ -57,29 +57,114 @@ class NavbarMenuItem(Orderable):
         return self.label
 
 
+HOME_ICON_CHOICES = [
+    ("fa-solid fa-graduation-cap", "Graduation Cap"),
+    ("fa-solid fa-book-open",       "Book Open"),
+    ("fa-solid fa-trophy",          "Trophy"),
+    ("fa-solid fa-medal",           "Medal"),
+    ("fa-solid fa-star",            "Star"),
+    ("fa-solid fa-users",           "Group / Students"),
+    ("fa-solid fa-chalkboard-user", "Teacher"),
+    ("fa-solid fa-school",          "School Building"),
+    ("fa-solid fa-microscope",      "Science Lab"),
+    ("fa-solid fa-computer",        "Computer / IT"),
+    ("fa-solid fa-moon",            "Islamic Studies"),
+    ("fa-solid fa-flag",            "Pakistan Studies"),
+    ("fa-solid fa-shield-halved",   "Excellence / Discipline"),
+    ("fa-solid fa-heart",           "Values / Character"),
+    ("fa-solid fa-lightbulb",       "Innovation / Ideas"),
+    ("fa-solid fa-award",           "Award / Recognition"),
+    ("fa-solid fa-check-double",    "Quality Assurance"),
+    ("fa-solid fa-person-running",  "Sports / PE"),
+    ("fa-solid fa-palette",         "Arts & Craft"),
+    ("fa-solid fa-calculator",      "Mathematics"),
+    ("fa-solid fa-flask",           "Chemistry"),
+    ("fa-solid fa-atom",            "Physics"),
+    ("fa-solid fa-dna",             "Biology"),
+    ("fa-solid fa-language",        "Languages"),
+    ("fa-solid fa-pen-nib",         "Urdu / Writing"),
+    ("fa-solid fa-earth-asia",      "General Knowledge"),
+    ("fa-solid fa-bullhorn",        "Announcement"),
+    ("fa-solid fa-calendar-check",  "Events / Schedule"),
+    ("fa-solid fa-door-open",       "Admissions"),
+    ("fa-solid fa-file-pen",        "Exams / Tests"),
+]
+
 # ──────────────────────────────────────────────
 # TRUST SECTION
 # ──────────────────────────────────────────────
 
 class TrustCard(Orderable):
     page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="trust_cards")
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        default="fa-solid fa-graduation-cap",
+        help_text="Choose a Font Awesome icon — no image upload needed.",
+    )
     logo = models.ForeignKey(
-        "wagtailimages.Image", null=True,
+        "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="trust_card_logo",
+        help_text="Optional: upload an image to override the icon above.",
     )
     heading = models.CharField(max_length=200)
     description = models.TextField()
-    url = models.CharField(max_length=255, blank=True)
 
     panels = [
+        FieldPanel("icon_class"),
         FieldPanel("logo"),
         FieldPanel("heading"),
         FieldPanel("description"),
-        FieldPanel("url"),
     ]
 
     def __str__(self):
         return self.heading
+
+
+# ──────────────────────────────────────────────
+# BOARDS SECTION
+# ──────────────────────────────────────────────
+
+BOARD_TAB_CHOICES = [
+    ("all",          "All"),
+    ("matric",       "Matric"),
+    ("intermediate", "Intermediate"),
+    ("cambridge",    "Cambridge"),
+    ("primary",      "Primary"),
+]
+
+
+class BoardCard(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="board_cards")
+    tab = models.CharField(max_length=20, choices=BOARD_TAB_CHOICES, default="all")
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        default="fa-solid fa-graduation-cap",
+    )
+    board_name = models.CharField(max_length=200, help_text='e.g. "Federal Board (FBISE)"')
+    level_label = models.CharField(max_length=100, blank=True,
+                                   help_text='e.g. "Class 9 – 10", "A Level"')
+    description = models.TextField()
+    subjects_list = models.CharField(
+        max_length=400, blank=True,
+        help_text='Comma-separated subjects, e.g. "Physics, Chemistry, Biology, Maths"',
+    )
+    learn_more_url = models.CharField(max_length=255, blank=True)
+
+    panels = [
+        FieldRowPanel([FieldPanel("tab"), FieldPanel("icon_class")]),
+        FieldPanel("board_name"),
+        FieldPanel("level_label"),
+        FieldPanel("description"),
+        FieldPanel("subjects_list"),
+        FieldPanel("learn_more_url"),
+    ]
+
+    @property
+    def subjects_as_list(self):
+        return [s.strip() for s in self.subjects_list.split(",") if s.strip()]
+
+    def __str__(self):
+        return self.board_name
 
 
 # ──────────────────────────────────────────────
@@ -202,6 +287,34 @@ class BlogPost(Orderable):
         FieldPanel("title"),
         FieldPanel("excerpt"),
         FieldPanel("url"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+# ──────────────────────────────────────────────
+# NOTICES / ANNOUNCEMENTS
+# ──────────────────────────────────────────────
+
+class HomeNotice(Orderable):
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="home_notices")
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        default="fa-solid fa-bullhorn",
+    )
+    title = models.CharField(max_length=300)
+    description = models.TextField(blank=True)
+    date = models.DateField(null=True, blank=True)
+    url = models.CharField(max_length=255, blank=True)
+    is_urgent = models.BooleanField(default=False,
+                                    help_text="Highlights notice in accent colour — use for time-sensitive items.")
+
+    panels = [
+        FieldRowPanel([FieldPanel("icon_class"), FieldPanel("is_urgent")]),
+        FieldPanel("title"),
+        FieldPanel("description"),
+        FieldRowPanel([FieldPanel("date"), FieldPanel("url")]),
     ]
 
     def __str__(self):
@@ -1039,9 +1152,26 @@ class HomePage(Page):
     )
     about_mission_title = models.CharField(max_length=300, blank=True)
 
-    # ── Courses ───────────────────────────────
+    # ── Boards ────────────────────────────────
+    boards_subtitle = models.CharField(max_length=100, default="Academic Programs")
+    boards_title = models.CharField(max_length=300, default="Boards We Follow")
+
+    # ── Courses (kept for migration compatibility) ─
     courses_subtitle = models.CharField(max_length=100, default="")
     courses_title = models.CharField(max_length=300, default="")
+
+    # ── Admissions CTA ────────────────────────
+    admissions_cta_subtitle = models.CharField(max_length=100, blank=True, default="Admissions Open")
+    admissions_cta_title = models.CharField(max_length=300, blank=True, default="")
+    admissions_cta_description = models.TextField(blank=True, default="")
+    admissions_cta_btn_label = models.CharField(max_length=50, blank=True, default="Apply Now")
+    admissions_cta_btn_url = models.CharField(max_length=255, blank=True, default="")
+    admissions_cta_secondary_label = models.CharField(max_length=50, blank=True, default="")
+    admissions_cta_secondary_url = models.CharField(max_length=255, blank=True, default="")
+
+    # ── Notices / Announcements ───────────────
+    notices_subtitle = models.CharField(max_length=100, default="Latest Updates")
+    notices_title = models.CharField(max_length=300, default="School Notices & Announcements")
 
     # ── Benefits ──────────────────────────────
     benefits_subtitle = models.CharField(max_length=100, default="")
@@ -1124,10 +1254,10 @@ class HomePage(Page):
         ], heading="About"),
 
         MultiFieldPanel([
-            FieldPanel("courses_subtitle"),
-            FieldPanel("courses_title"),
-            InlinePanel("course_cards", label="Course Cards"),
-        ], heading="Courses"),
+            FieldPanel("boards_subtitle"),
+            FieldPanel("boards_title"),
+            InlinePanel("board_cards", label="Board Cards"),
+        ], heading="Boards"),
 
         MultiFieldPanel([
             FieldPanel("benefits_subtitle"),
