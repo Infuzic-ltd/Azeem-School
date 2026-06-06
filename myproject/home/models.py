@@ -1106,6 +1106,11 @@ class HomePage(Page):
         on_delete=models.SET_NULL, related_name="nav_logo_image",
         verbose_name="Logo",
     )
+    nav_school_name = models.CharField(
+        max_length=100, blank=True, default="",
+        verbose_name="School Short Name",
+        help_text="Short name shown next to the logo, e.g. 'Azeem School'",
+    )
     nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
     nav_btn_label = models.CharField(max_length=50, default="", verbose_name="Button Label")
     nav_btn_url = models.CharField(max_length=255, default="", verbose_name="Button URL")
@@ -1218,13 +1223,15 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
 
+        # ── Section 1: Navbar ─────────────────────────────────────────────
         MultiFieldPanel([
-            FieldPanel("nav_logo"),
+            FieldRowPanel([FieldPanel("nav_logo"), FieldPanel("nav_school_name")]),
             FieldPanel("nav_phone"),
             InlinePanel("navbar_menus", label="Menu Items (with Dropdowns)"),
             FieldRowPanel([FieldPanel("nav_btn_label"), FieldPanel("nav_btn_url")]),
-        ], heading="Navbar"),
+        ], heading="① Navbar"),
 
+        # ── Section 2: Hero / Banner ──────────────────────────────────────
         MultiFieldPanel([
             FieldPanel("hero_bg_image"),
             FieldPanel("hero_logo"),
@@ -1232,75 +1239,76 @@ class HomePage(Page):
             FieldPanel("hero_headline_2"),
             FieldPanel("hero_tagline"),
             FieldRowPanel([FieldPanel("hero_btn_label"), FieldPanel("hero_btn_url")]),
-        ], heading="Hero"),
+        ], heading="② Hero / Banner"),
 
+        # ── Section 3: Stats Strip ────────────────────────────────────────
+        MultiFieldPanel([
+            InlinePanel("benefit_cards", label="Stat Cards  (counter, suffix %, +, label)"),
+        ], heading="③ Stats Strip  — 98%, 500+, 25+, 1500+"),
+
+        # ── Section 4: Why Choose Us ──────────────────────────────────────
         MultiFieldPanel([
             FieldPanel("trust_heading"),
             FieldPanel("trust_description"),
             FieldRowPanel([FieldPanel("trust_btn_label"), FieldPanel("trust_btn_url")]),
-            InlinePanel("trust_cards", label="Trust Cards"),
-        ], heading="Trust"),
+            InlinePanel("trust_cards", label="Feature Cards  (icon dropdown, heading, description)"),
+        ], heading="④ Why Choose Us"),
 
+        # ── Section 5: About ──────────────────────────────────────────────
         MultiFieldPanel([
-            FieldPanel("about_subtitle"),
-            FieldPanel("about_title"),
+            FieldRowPanel([FieldPanel("about_subtitle"), FieldPanel("about_title")]),
             FieldPanel("about_description"),
             FieldPanel("about_image_main"),
             FieldPanel("about_image_video_thumb"),
-            FieldPanel("about_video_url"),
-            FieldPanel("about_mission_icon"),
-            FieldPanel("about_mission_title"),
-            InlinePanel("about_features", label="Bullet Points"),
-        ], heading="About"),
+            FieldPanel("about_video_url",
+                       help_text="YouTube URL — used for both the hero 'Watch Our Story' button and the About play button."),
+            InlinePanel("about_features", label="Bullet Points  (tick-list items)"),
+            FieldRowPanel([FieldPanel("about_mission_icon"), FieldPanel("about_mission_title")]),
+        ], heading="⑤ About Us"),
 
+        # ── Section 6: Boards ─────────────────────────────────────────────
         MultiFieldPanel([
-            FieldPanel("boards_subtitle"),
-            FieldPanel("boards_title"),
-            InlinePanel("board_cards", label="Board Cards"),
-        ], heading="Boards"),
+            FieldRowPanel([FieldPanel("boards_subtitle"), FieldPanel("boards_title")]),
+            InlinePanel("board_cards", label="Board Cards  (icon, board name, level, subjects, link)"),
+        ], heading="⑥ Boards  — BSEK & Aga Khan"),
 
+        # ── Section 7: Admissions CTA ─────────────────────────────────────
         MultiFieldPanel([
-            FieldPanel("benefits_subtitle"),
-            FieldPanel("benefits_title"),
-            InlinePanel("benefit_cards", label="Benefit Cards"),
-        ], heading="Benefits / Counter Stats"),
+            FieldPanel("admissions_cta_subtitle",
+                       help_text="Small badge text, e.g. 'Admissions Open'"),
+            FieldPanel("admissions_cta_title"),
+            FieldPanel("admissions_cta_description"),
+            FieldRowPanel([FieldPanel("admissions_cta_btn_label"), FieldPanel("admissions_cta_btn_url")]),
+            FieldRowPanel([FieldPanel("admissions_cta_secondary_label"), FieldPanel("admissions_cta_secondary_url")]),
+        ], heading="⑦ Admissions CTA  — also used in footer strip"),
 
+        # ── Section 8: Testimonials ───────────────────────────────────────
         MultiFieldPanel([
-            FieldPanel("journey_logo"),
-            FieldPanel("journey_subtitle"),
-            FieldPanel("journey_title"),
-            FieldRowPanel([FieldPanel("journey_btn_label"), FieldPanel("journey_btn_url")]),
-        ], heading="Journey CTA"),
+            FieldRowPanel([FieldPanel("testimonials_subtitle"), FieldPanel("testimonials_title")]),
+            InlinePanel("testimonials", label="Testimonials  (quote, photo, name, role)"),
+        ], heading="⑧ Testimonials"),
 
+        # ── Section 9: Notices / Announcements ───────────────────────────
         MultiFieldPanel([
-            FieldPanel("testimonials_subtitle"),
-            FieldPanel("testimonials_title"),
-            InlinePanel("testimonials", label="Testimonials"),
-        ], heading="Testimonials"),
+            FieldRowPanel([FieldPanel("notices_subtitle"), FieldPanel("notices_title")]),
+            InlinePanel("home_notices", label="Notices  (icon, title, description, date, URL, urgent flag)"),
+        ], heading="⑨ Notices & Announcements"),
 
-        MultiFieldPanel([
-            FieldPanel("blog_subtitle"),
-            FieldPanel("blog_title"),
-            InlinePanel("blog_posts", label="Blog Posts"),
-        ], heading="Blog / Articles"),
-
+        # ── Section 10: Footer ────────────────────────────────────────────
         MultiFieldPanel([
             FieldPanel("footer_logo"),
-            FieldPanel("footer_newsletter_heading"),
             FieldPanel("footer_about_title"),
             FieldPanel("footer_about_text"),
             InlinePanel("footer_social_links", label="Social Links"),
-            FieldPanel("footer_links_title"),
+            FieldRowPanel([FieldPanel("footer_links_title"), FieldPanel("footer_explore_title")]),
             InlinePanel("footer_useful_links", label="Useful Links"),
-            FieldPanel("footer_explore_title"),
-            InlinePanel("footer_explore_links", label="Explore Links"),
+            InlinePanel("footer_explore_links", label="Explore / Programs Links"),
             FieldPanel("footer_contact_title"),
-            FieldPanel("footer_contact_phone"),
-            FieldPanel("footer_contact_email"),
+            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
             FieldPanel("footer_contact_address"),
             FieldPanel("footer_contact_map_url"),
             FieldPanel("footer_copyright_text"),
-        ], heading="Footer"),
+        ], heading="⑩ Footer"),
     ]
 
     class Meta:

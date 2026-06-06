@@ -237,10 +237,13 @@
     <header class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="/" style="gap:10px;">
                     {% if page.nav_logo %}
                         {% image page.nav_logo original as nav_logo_img %}
                         <figure class="logo mb-0"><img src="{{ nav_logo_img.url }}" alt="logo" class="img-fluid"></figure>
+                    {% endif %}
+                    {% if page.nav_school_name %}
+                        <span class="navbar-school-name" style="font-size:17px;font-weight:800;color:#1f1741;letter-spacing:-0.3px;line-height:1.1;">{{ page.nav_school_name }}</span>
                     {% endif %}
                 </a>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
