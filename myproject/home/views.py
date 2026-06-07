@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils import timezone
@@ -95,6 +95,7 @@ def admissions_view(request):
 
             # ── 2. Emails (failure is logged but never shown to user) ─────────
             try:
+                import traceback
                 from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
                 submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
                 email_ctx = {**data, "submitted_at": submitted_at}
@@ -102,15 +103,14 @@ def admissions_view(request):
                 owner_email = (page.form_contact_email if page else None) or \
                               getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
                 owner_html = render_to_string("home/emails/admission_owner.html", email_ctx)
-                owner_msg = EmailMultiAlternatives(
+                send_mail(
                     subject=f"New Admission Application — {data['first_name']} {data['last_name']}",
-                    body=f"New application from {data['first_name']} {data['last_name']} ({data['email']}) for {data['class_level']}.",
+                    message=f"New application from {data['first_name']} {data['last_name']} ({data['email']}) for {data['class_level']}.",
                     from_email=from_email,
-                    to=[owner_email],
-                    reply_to=[data["email"]],
+                    recipient_list=[owner_email],
+                    html_message=owner_html,
+                    fail_silently=False,
                 )
-                owner_msg.attach_alternative(owner_html, "text/html")
-                owner_msg.send(fail_silently=False)
 
                 applicant_ctx = {
                     **data,
@@ -119,22 +119,22 @@ def admissions_view(request):
                     "contact_address": page.footer_contact_address if page else "",
                 }
                 applicant_html = render_to_string("home/emails/admission_applicant.html", applicant_ctx)
-                applicant_msg = EmailMultiAlternatives(
+                send_mail(
                     subject="Application Received — Azeem School",
-                    body=(
+                    message=(
                         f"Dear {data['first_name']},\n\n"
                         "Thank you for applying to Azeem School. We have received your application "
                         f"for {data['class_level']} and our team will contact you within 24–48 hours.\n\n"
                         "Visit us: https://azeem-school.vercel.app/"
                     ),
                     from_email=from_email,
-                    to=[data["email"]],
+                    recipient_list=[data["email"]],
+                    html_message=applicant_html,
+                    fail_silently=False,
                 )
-                applicant_msg.attach_alternative(applicant_html, "text/html")
-                applicant_msg.send(fail_silently=False)
 
             except Exception as exc:
-                print(f"[admissions_view] email error: {exc}", file=sys.stderr)
+                print(f"[admissions_view] email error: {exc}\n{traceback.format_exc()}", file=sys.stderr)
 
             context["success"] = True
             context["form_data"] = {}
@@ -225,6 +225,7 @@ def admissions_view2(request):
                 return render(request, "home/admissions_2.html", context)
 
             try:
+                import traceback
                 from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
                 submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
                 email_ctx = {**data, "submitted_at": submitted_at}
@@ -232,15 +233,14 @@ def admissions_view2(request):
                 owner_email = (page.form_contact_email if page else None) or \
                               getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
                 owner_html = render_to_string("home/emails/admission_owner.html", email_ctx)
-                owner_msg = EmailMultiAlternatives(
+                send_mail(
                     subject=f"New Admission Application — {data['first_name']} {data['last_name']}",
-                    body=f"New application from {data['first_name']} {data['last_name']} ({data['email']}) for {data['class_level']}.",
+                    message=f"New application from {data['first_name']} {data['last_name']} ({data['email']}) for {data['class_level']}.",
                     from_email=from_email,
-                    to=[owner_email],
-                    reply_to=[data["email"]],
+                    recipient_list=[owner_email],
+                    html_message=owner_html,
+                    fail_silently=False,
                 )
-                owner_msg.attach_alternative(owner_html, "text/html")
-                owner_msg.send(fail_silently=False)
 
                 applicant_ctx = {
                     **data,
@@ -249,22 +249,22 @@ def admissions_view2(request):
                     "contact_address": page.footer_contact_address if page else "",
                 }
                 applicant_html = render_to_string("home/emails/admission_applicant.html", applicant_ctx)
-                applicant_msg = EmailMultiAlternatives(
+                send_mail(
                     subject="Application Received — Azeem School",
-                    body=(
+                    message=(
                         f"Dear {data['first_name']},\n\n"
                         "Thank you for applying to Azeem School. We have received your application "
                         f"for {data['class_level']} and our team will contact you within 24–48 hours.\n\n"
                         "Visit us: https://azeem-school.vercel.app/"
                     ),
                     from_email=from_email,
-                    to=[data["email"]],
+                    recipient_list=[data["email"]],
+                    html_message=applicant_html,
+                    fail_silently=False,
                 )
-                applicant_msg.attach_alternative(applicant_html, "text/html")
-                applicant_msg.send(fail_silently=False)
 
             except Exception as exc:
-                print(f"[admissions_view2] email error: {exc}", file=sys.stderr)
+                print(f"[admissions_view2] email error: {exc}\n{traceback.format_exc()}", file=sys.stderr)
 
             context["success"] = True
             context["form_data"] = {}
