@@ -36,6 +36,41 @@
     <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
 
     <style>
+    /* ── Global image masking — prevents oversized CMS uploads breaking layout ── */
+
+    /* Nav logo: fixed 48×48 box, any image scales inside */
+    .navbar-brand figure.logo { flex-shrink:0; width:48px; height:48px; overflow:hidden; border-radius:8px; display:flex; align-items:center; justify-content:center; margin:0; }
+    .navbar-brand figure.logo img { width:100%; height:100%; object-fit:contain; }
+
+    /* About section images */
+    .az-about .img-main,
+    .az-about .img-main img { border-radius:20px; overflow:hidden; width:100%; }
+    .az-about .img-main img { height:360px; object-fit:cover; }
+    .az-about .img-thumb { overflow:hidden; }
+    .az-about .img-thumb img { width:100%; height:120px; object-fit:cover; }
+    .az-about .mission-box img { width:32px; height:32px; object-fit:contain; flex-shrink:0; }
+
+    /* Why-choose / Trust card icons */
+    .why-icon img { width:36px; height:36px; object-fit:contain; }
+
+    /* Testimonial person photo — circular avatar */
+    .testi-person img { width:48px !important; height:48px !important; border-radius:50%; object-fit:cover; flex-shrink:0; }
+
+    /* Facility teaser cards */
+    .fac-v2 { overflow:hidden; }
+    .fac-v2 img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Footer logo */
+    .footer-logo { overflow:hidden; max-height:60px; display:flex; align-items:center; }
+    .footer-logo img { max-height:60px; width:auto; object-fit:contain; }
+
+    /* Hero logo icon */
+    .banner-logoicon { display:flex; justify-content:center; margin-bottom:38px; }
+    .banner-logoicon img { max-height:80px; width:auto; object-fit:contain; }
+
+    /* General safety net for all CMS-rendered images */
+    .img-fluid { max-width:100%; height:auto; }
+
     /* ── Design tokens — aligned to original site palette ── */
     :root {
         --navy:      #1f1741;
