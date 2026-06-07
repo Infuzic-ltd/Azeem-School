@@ -332,51 +332,6 @@ class AboutFeature(Orderable):
         return self.text
 
 
-# ──────────────────────────────────────────────
-# COURSES SECTION
-# ──────────────────────────────────────────────
-
-class CourseCard(Orderable):
-    TAB_CHOICES = [
-        ("all", "All"),
-        ("design", "Design"),
-        ("data-science", "Data Science"),
-        ("marketing", "Marketing"),
-        ("development", "Development"),
-    ]
-
-    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="course_cards")
-    image = models.ForeignKey(
-        "wagtailimages.Image", null=True,
-        on_delete=models.SET_NULL, related_name="course_card_image",
-    )
-
-    tab = models.CharField(max_length=20, choices=TAB_CHOICES, default="all")
-    title = models.CharField(max_length=200)
-    lessons_count = models.CharField(max_length=20, default="", help_text='e.g. "8 Lessons"')
-    students_count = models.CharField(max_length=20, default="", help_text='e.g. "70 Students"')
-    price = models.CharField(max_length=20, default="", help_text='e.g. "$87"')
-    modal_description = models.TextField(default="")
-    modal_btn_label = models.CharField(max_length=50, default="Read More")
-    modal_btn_url = models.CharField(max_length=255, default="")
-
-    panels = [
-        FieldPanel("image"),
-        FieldRowPanel([FieldPanel("tab"), FieldPanel("price")]),
-        FieldPanel("title"),
-        FieldRowPanel([FieldPanel("lessons_count"), FieldPanel("students_count")]),
-        FieldPanel("modal_description"),
-        FieldRowPanel([FieldPanel("modal_btn_label"), FieldPanel("modal_btn_url")]),
-    ]
-
-    def __str__(self):
-        return self.title
-
-
-# ──────────────────────────────────────────────
-# BENEFITS / COUNTER STATS
-# ──────────────────────────────────────────────
-
 class BenefitCard(Orderable):
     page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="benefit_cards")
     counter = models.CharField(max_length=20, help_text='e.g. "95"')
@@ -417,34 +372,6 @@ class Testimonial(Orderable):
         return self.name
 
 
-# ──────────────────────────────────────────────
-# BLOG / ARTICLES
-# ──────────────────────────────────────────────
-
-class BlogPost(Orderable):
-    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="blog_posts")
-    image = models.ForeignKey(
-        "wagtailimages.Image", null=True,
-        on_delete=models.SET_NULL, related_name="blog_post_image",
-    )
-    date = models.DateField()
-    title = models.CharField(max_length=300)
-    excerpt = models.TextField()
-    url = models.CharField(max_length=255, blank=True)
-
-    panels = [
-        FieldPanel("image"),
-        FieldPanel("date"),
-        FieldPanel("title"),
-        FieldPanel("excerpt"),
-        FieldPanel("url"),
-    ]
-
-    def __str__(self):
-        return self.title
-
-
-# ──────────────────────────────────────────────
 # NOTICES / ANNOUNCEMENTS
 # ──────────────────────────────────────────────
 
@@ -1370,10 +1297,6 @@ class HomePage(Page):
         help_text="Tick to display the 6 page-navigation cards (About, Academics, Admissions, Facilities, News, Contact). Untick to hide the section.",
     )
 
-    # ── Courses (kept for migration compatibility) ─
-    courses_subtitle = models.CharField(max_length=100, default="")
-    courses_title = models.CharField(max_length=300, default="")
-
     # ── Admissions CTA ────────────────────────
     admissions_cta_subtitle = models.CharField(max_length=100, blank=True, default="Admissions Open")
     admissions_cta_title = models.CharField(max_length=300, blank=True, default="")
@@ -1387,34 +1310,15 @@ class HomePage(Page):
     notices_subtitle = models.CharField(max_length=100, default="Latest Updates")
     notices_title = models.CharField(max_length=300, default="School Notices & Announcements")
 
-    # ── Benefits ──────────────────────────────
-    benefits_subtitle = models.CharField(max_length=100, default="")
-    benefits_title = models.CharField(max_length=300, default="")
-
-    # ── Journey CTA ───────────────────────────
-    journey_logo = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True,
-        on_delete=models.SET_NULL, related_name="journey_logo_image",
-    )
-    journey_subtitle = models.CharField(max_length=100, default="")
-    journey_title = models.CharField(max_length=300, default="")
-    journey_btn_label = models.CharField(max_length=50, default="")
-    journey_btn_url = models.CharField(max_length=255, default="")
-
     # ── Testimonials ──────────────────────────
     testimonials_subtitle = models.CharField(max_length=100, default="")
     testimonials_title = models.CharField(max_length=300, default="")
-
-    # ── Blog / Articles ───────────────────────
-    blog_subtitle = models.CharField(max_length=100, default="")
-    blog_title = models.CharField(max_length=300, default="")
 
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="footer_logo_img",
     )
-    footer_newsletter_heading = models.CharField(max_length=200, default="")
     footer_about_title = models.CharField(max_length=100, default="About Us")
     footer_about_text = models.TextField(default="")
     footer_links_title = models.CharField(max_length=100, default="Useful Links")
