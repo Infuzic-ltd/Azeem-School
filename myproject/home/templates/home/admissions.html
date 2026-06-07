@@ -380,6 +380,11 @@
                         <span>{{ error }}</span>
                     </div>
                     {% endif %}
+                    {% if email_debug %}
+                    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#856404;word-break:break-all;">
+                        <strong>Email debug:</strong> {{ email_debug }}
+                    </div>
+                    {% endif %}
 
                     <form method="post" action="/admissions/#apply" novalidate>
                         {% csrf_token %}

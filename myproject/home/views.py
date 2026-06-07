@@ -135,6 +135,7 @@ def admissions_view(request):
 
             except Exception as exc:
                 print(f"[admissions_view] email error: {exc}\n{traceback.format_exc()}", file=sys.stderr)
+                context["email_debug"] = str(exc)
 
             context["success"] = True
             context["form_data"] = {}
@@ -265,6 +266,7 @@ def admissions_view2(request):
 
             except Exception as exc:
                 print(f"[admissions_view2] email error: {exc}\n{traceback.format_exc()}", file=sys.stderr)
+                context["email_debug"] = str(exc)
 
             context["success"] = True
             context["form_data"] = {}
