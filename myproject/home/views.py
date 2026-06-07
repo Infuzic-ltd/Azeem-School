@@ -117,6 +117,8 @@ def homepage_preview2(request):
 
 def academics_view2(request):
     page = AcademicsPage.objects.live().first()
+
+    
     return render(request, "home/academics_2.html", {"page": page})
 
 

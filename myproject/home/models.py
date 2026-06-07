@@ -134,29 +134,94 @@ BOARD_TAB_CHOICES = [
 
 
 class BoardCard(Orderable):
+    """
+    One card in the Boards section on the homepage.
+    Each card shows as a premium 2-column card with a dark gradient header.
+    Cards alternate colour: odd = navy (BSEK style), even = green (Aga Khan style).
+
+    Example setup for Azeem School:
+    ─────────────────────────────────────────────────────────────────────
+    Card 1 — BSEK Matric
+      Tab:         Matric
+      Icon:        Book Open Reader
+      Board Name:  BSEK  (Matric — Class 9 & 10)
+      Level Label: Class 9 – 10
+      Description: Nationally recognised qualification aligned with Pakistan's federal curriculum...
+      Subjects:    Physics, Chemistry, Biology, Mathematics, Urdu, Pakistan Studies, Islamiyat
+      Link:        /academics/
+
+    Card 2 — Aga Khan O/A Level
+      Tab:         Cambridge
+      Icon:        Globe
+      Board Name:  Aga Khan Board  (AKUEB — O & A Level)
+      Level Label: O Level & A Level
+      Description: Internationally recognised qualifications, accepted by top universities worldwide...
+      Subjects:    Physics, Chemistry, Biology, Mathematics, English, Business Studies, ICT
+      Link:        /academics/
+    ─────────────────────────────────────────────────────────────────────
+    """
+
     page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="board_cards")
-    tab = models.CharField(max_length=20, choices=BOARD_TAB_CHOICES, default="all")
+
+    tab = models.CharField(
+        max_length=20, choices=BOARD_TAB_CHOICES, default="all",
+        verbose_name="Category Tab",
+        help_text="Which board category this card belongs to. e.g. Matric, Intermediate, Cambridge, Primary.",
+    )
     icon_class = models.CharField(
         max_length=100, choices=HOME_ICON_CHOICES,
         default="fa-solid fa-graduation-cap",
+        verbose_name="Card Icon",
+        help_text="Icon shown in the coloured header. Choose from the dropdown — no image upload needed.",
     )
-    board_name = models.CharField(max_length=200, help_text='e.g. "Federal Board (FBISE)"')
-    level_label = models.CharField(max_length=100, blank=True,
-                                   help_text='e.g. "Class 9 – 10", "A Level"')
-    description = models.TextField()
+    board_name = models.CharField(
+        max_length=200,
+        verbose_name="Board / Programme Name",
+        help_text='Full name shown as the card title.  e.g.  BSEK  (Matric — Class 9 & 10)',
+    )
+    level_label = models.CharField(
+        max_length=100, blank=True,
+        verbose_name="Level / Class Range",
+        help_text='Shown as a small label below the board name.  e.g.  Class 9 – 10   or   O Level & A Level',
+    )
+    description = models.TextField(
+        verbose_name="Description",
+        help_text=(
+            "2–3 sentences about this board/programme.  "
+            "e.g.  Nationally recognised Matric qualification aligned with Pakistan's federal curriculum, "
+            "preparing students for competitive examinations across the country."
+        ),
+    )
     subjects_list = models.CharField(
         max_length=400, blank=True,
-        help_text='Comma-separated subjects, e.g. "Physics, Chemistry, Biology, Maths"',
+        verbose_name="Subjects (comma-separated)",
+        help_text=(
+            "Type subjects separated by commas — they appear as tags on the card.  "
+            "e.g.  Physics, Chemistry, Biology, Mathematics, Urdu, Islamiyat"
+        ),
     )
-    learn_more_url = models.CharField(max_length=255, blank=True)
+    learn_more_url = models.CharField(
+        max_length=255, blank=True,
+        verbose_name="'Explore Program' Button URL",
+        help_text='URL the Explore Program button links to.  e.g.  /academics/',
+    )
 
     panels = [
-        FieldRowPanel([FieldPanel("tab"), FieldPanel("icon_class")]),
-        FieldPanel("board_name"),
-        FieldPanel("level_label"),
-        FieldPanel("description"),
-        FieldPanel("subjects_list"),
-        FieldPanel("learn_more_url"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel("tab"),
+                FieldPanel("icon_class"),
+            ]),
+        ], heading="Category & Icon"),
+        MultiFieldPanel([
+            FieldPanel("board_name"),
+            FieldPanel("level_label"),
+            FieldPanel("description"),
+        ], heading="Card Content"),
+        MultiFieldPanel([
+            FieldPanel("subjects_list"),
+            FieldPanel("learn_more_url"),
+        ], heading="Subjects & Link"),
     ]
 
     @property
@@ -165,6 +230,94 @@ class BoardCard(Orderable):
 
     def __str__(self):
         return self.board_name
+
+
+# ──────────────────────────────────────────────
+# FACILITIES TEASER SECTION
+# ──────────────────────────────────────────────
+
+class HomeFacilityCard(Orderable):
+    """
+    One card in the Facilities Teaser section on the homepage.
+    Shows as an image card with an icon badge, title, and short description.
+
+    Example setup (4 cards recommended):
+    ────────────────────────────────────────────────────────────
+    Card 1:  Image → computer lab photo    Icon → Computer / IT
+             Title → Computer Labs
+             Description → Modern PCs, high-speed internet and coding tools for all grades.
+             Link → /facilities/
+
+    Card 2:  Image → science lab photo    Icon → Microscope
+             Title → Science Labs
+             Description → Fully equipped Physics, Chemistry, and Biology laboratories.
+             Link → /facilities/
+
+    Card 3:  Image → library photo        Icon → Book Open
+             Title → Digital Library
+             Description → Thousands of books, e-resources and quiet study spaces available daily.
+             Link → /facilities/
+
+    Card 4:  Image → sports ground photo  Icon → Sports / PE
+             Title → Sports Grounds
+             Description → Cricket, football, basketball and indoor games — PE taken seriously.
+             Link → /facilities/
+    ────────────────────────────────────────────────────────────
+    """
+
+    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="facility_teasers")
+
+    image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="facility_teaser_image",
+        verbose_name="Background Image",
+        help_text="Photo shown as the card background. Use a clear, high-quality image of this facility.",
+    )
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        default="fa-solid fa-school",
+        verbose_name="Card Icon",
+        help_text="Icon shown on the card.  e.g.  Computer / IT  for a computer lab.",
+    )
+    icon_bg_color = models.CharField(
+        max_length=30, blank=True, default="",
+        verbose_name="Icon Colour (optional)",
+        help_text=(
+            "Leave blank for gold (default).  "
+            "Or enter a CSS colour code to customise.  "
+            "e.g.  #16a34a  (green)   #ca8a04  (amber)   #ec407a  (pink)"
+        ),
+    )
+    title = models.CharField(
+        max_length=200,
+        verbose_name="Facility Name",
+        help_text='e.g.  Computer Labs',
+    )
+    description = models.CharField(
+        max_length=300,
+        verbose_name="Short Description",
+        help_text='One sentence.  e.g.  Modern PCs, high-speed internet and coding tools for all grades.',
+    )
+    link_url = models.CharField(
+        max_length=255, blank=True, default="/facilities/",
+        verbose_name="Card Link URL",
+        help_text="Where the card links to.  Default:  /facilities/",
+    )
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("image"),
+        ], heading="Background Image"),
+        MultiFieldPanel([
+            FieldRowPanel([FieldPanel("icon_class"), FieldPanel("icon_bg_color")]),
+            FieldPanel("title"),
+            FieldPanel("description"),
+            FieldPanel("link_url"),
+        ], heading="Card Content"),
+    ]
+
+    def __str__(self):
+        return self.title
 
 
 # ──────────────────────────────────────────────
@@ -1160,6 +1313,32 @@ class HomePage(Page):
     # ── Boards ────────────────────────────────
     boards_subtitle = models.CharField(max_length=100, default="Academic Programs")
     boards_title = models.CharField(max_length=300, default="Boards We Follow")
+    boards_description = models.TextField(default="We follow the curriculum of top educational boards to ensure quality education for our students.")
+
+    # ── Facilities Teaser ─────────────────────
+    facilities_subtitle = models.CharField(
+        max_length=100, blank=True, default="Campus Life",
+        verbose_name="Section Label",
+        help_text='Small label above the heading.  e.g.  Campus Life',
+    )
+    facilities_title = models.CharField(
+        max_length=300, blank=True, default="World-Class Facilities",
+        verbose_name="Section Heading",
+        help_text='Main heading.  e.g.  World-Class Facilities',
+    )
+    facilities_description = models.TextField(
+        blank=True,
+        default="Every resource a student needs — under one roof, in a safe and inspiring environment.",
+        verbose_name="Section Description",
+        help_text='One or two sentences shown below the heading.',
+    )
+
+    # ── Explore Pages toggle ──────────────────
+    show_explore_pages = models.BooleanField(
+        default=True,
+        verbose_name="Show 'Explore Azeem School' section",
+        help_text="Tick to display the 6 page-navigation cards (About, Academics, Admissions, Facilities, News, Contact). Untick to hide the section.",
+    )
 
     # ── Courses (kept for migration compatibility) ─
     courses_subtitle = models.CharField(max_length=100, default="")
@@ -1268,11 +1447,23 @@ class HomePage(Page):
 
         # ── Section 6: Boards ─────────────────────────────────────────────
         MultiFieldPanel([
-            FieldRowPanel([FieldPanel("boards_subtitle"), FieldPanel("boards_title")]),
+            FieldRowPanel([FieldPanel("boards_subtitle"), FieldPanel("boards_title"), FieldPanel("boards_description")]), 
             InlinePanel("board_cards", label="Board Cards  (icon, board name, level, subjects, link)"),
         ], heading="⑥ Boards  — BSEK & Aga Khan"),
 
-        # ── Section 7: Admissions CTA ─────────────────────────────────────
+        # ── Section 7: Facilities Teaser ─────────────────────────────────
+        MultiFieldPanel([
+            FieldRowPanel([FieldPanel("facilities_subtitle"), FieldPanel("facilities_title")]),
+            FieldPanel("facilities_description"),
+            InlinePanel("facility_teasers", label="Facility Cards  (image, icon, title, description, link)"),
+        ], heading="⑦ Facilities Teaser  — 4 cards recommended"),
+
+        # ── Section 7b: Explore Pages toggle ─────────────────────────────
+        MultiFieldPanel([
+            FieldPanel("show_explore_pages"),
+        ], heading="⑦b Explore Pages  — toggle on/off"),
+
+        # ── Section 8: Admissions CTA ─────────────────────────────────────
         MultiFieldPanel([
             FieldPanel("admissions_cta_subtitle",
                        help_text="Small badge text, e.g. 'Admissions Open'"),
@@ -1280,19 +1471,19 @@ class HomePage(Page):
             FieldPanel("admissions_cta_description"),
             FieldRowPanel([FieldPanel("admissions_cta_btn_label"), FieldPanel("admissions_cta_btn_url")]),
             FieldRowPanel([FieldPanel("admissions_cta_secondary_label"), FieldPanel("admissions_cta_secondary_url")]),
-        ], heading="⑦ Admissions CTA  — also used in footer strip"),
+        ], heading="⑧ Admissions CTA  — also used in footer strip"),
 
-        # ── Section 8: Testimonials ───────────────────────────────────────
+        # ── Section 9: Testimonials ───────────────────────────────────────
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("testimonials_subtitle"), FieldPanel("testimonials_title")]),
             InlinePanel("testimonials", label="Testimonials  (quote, photo, name, role)"),
-        ], heading="⑧ Testimonials"),
+        ], heading="⑨ Testimonials"),
 
         # ── Section 9: Notices / Announcements ───────────────────────────
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("notices_subtitle"), FieldPanel("notices_title")]),
             InlinePanel("home_notices", label="Notices  (icon, title, description, date, URL, urgent flag)"),
-        ], heading="⑨ Notices & Announcements"),
+        ], heading="⑩ Notices & Announcements"),
 
         # ── Section 10: Footer ────────────────────────────────────────────
         MultiFieldPanel([
@@ -1308,7 +1499,7 @@ class HomePage(Page):
             FieldPanel("footer_contact_address"),
             FieldPanel("footer_contact_map_url"),
             FieldPanel("footer_copyright_text"),
-        ], heading="⑩ Footer"),
+        ], heading="⑪ Footer"),
     ]
 
     class Meta:

@@ -474,6 +474,7 @@
             <div class="col-lg-7 text-center">
                 <div class="sec-sub" data-aos="fade-up">{{ page.boards_subtitle }}</div>
                 <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.boards_title }}</h2>
+                <p class="sec-desc" data-aos="fade-up" data-aos-delay="120">{{ page.boards_description }}</p>
             </div>
         </div>
         <div class="row">
@@ -525,81 +526,53 @@
 </section>
 {% endif %}
 
-<!-- ══ FACILITIES (static teaser — always links to /facilities/) ══ -->
+<!-- ══ FACILITIES TEASER ══ -->
+{% if page.facility_teasers.count %}
 <section class="az-facilities">
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-lg-6 text-center">
-                <div class="sec-sub" data-aos="fade-up">Campus Life</div>
-                <h2 class="sec-head sec-head-white" data-aos="fade-up" data-aos-delay="60">World-Class Facilities</h2>
-                <p class="sec-desc sec-desc-white mx-auto" data-aos="fade-up" data-aos-delay="120">Every resource a student needs — under one roof, in a safe and inspiring environment.</p>
+                <div class="sec-sub" data-aos="fade-up">{{ page.facilities_subtitle }}</div>
+                <h2 class="sec-head sec-head-white" data-aos="fade-up" data-aos-delay="60">{{ page.facilities_title }}</h2>
+                {% if page.facilities_description %}
+                <p class="sec-desc sec-desc-white mx-auto" data-aos="fade-up" data-aos-delay="120">{{ page.facilities_description }}</p>
+                {% endif %}
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
-                <a href="/facilities/" class="text-decoration-none">
+            {% for card in page.facility_teasers.all %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0|stringformat:'s' }}">
+                <a href="{{ card.link_url|default:'/facilities/' }}" class="text-decoration-none">
                     <div class="fac-v2">
-                        <img src="{% static 'images/course-image1.jpg' %}" alt="Computer Lab">
+                        {% if card.image %}
+                            {% image card.image original as fac_img %}
+                            <img src="{{ fac_img.url }}" alt="{{ card.title }}">
+                        {% else %}
+                            <img src="{% static 'images/course-image1.jpg' %}" alt="{{ card.title }}">
+                        {% endif %}
                         <div class="fac-v2-overlay"></div>
                         <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
                         <div class="fac-v2-content">
-                            <div class="fac-v2-icon"><i class="fa-solid fa-computer"></i></div>
-                            <h5>Computer Labs</h5>
-                            <p>Modern PCs, high-speed internet and coding tools for all grades.</p>
+                            <div class="fac-v2-icon"{% if card.icon_bg_color %} style="background:{{ card.icon_bg_color }};"{% endif %}>
+                                <i class="{{ card.icon_class }}"></i>
+                            </div>
+                            <h5>{{ card.title }}</h5>
+                            <p>{{ card.description }}</p>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
-                <a href="/facilities/" class="text-decoration-none">
-                    <div class="fac-v2">
-                        <img src="{% static 'images/course-image2.jpg' %}" alt="Science Labs">
-                        <div class="fac-v2-overlay"></div>
-                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="fac-v2-content">
-                            <div class="fac-v2-icon" style="background:#16a34a;"><i class="fa-solid fa-microscope"></i></div>
-                            <h5>Science Labs</h5>
-                            <p>Fully equipped Physics, Chemistry, and Biology laboratories.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
-                <a href="/facilities/" class="text-decoration-none">
-                    <div class="fac-v2">
-                        <img src="{% static 'images/course-image3.jpg' %}" alt="Library">
-                        <div class="fac-v2-overlay"></div>
-                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="fac-v2-content">
-                            <div class="fac-v2-icon" style="background:#ca8a04;"><i class="fa-solid fa-book-open"></i></div>
-                            <h5>Digital Library</h5>
-                            <p>Thousands of books, e-resources and quiet study spaces available daily.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
-                <a href="/facilities/" class="text-decoration-none">
-                    <div class="fac-v2">
-                        <img src="{% static 'images/course-image4.jpg' %}" alt="Sports">
-                        <div class="fac-v2-overlay"></div>
-                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="fac-v2-content">
-                            <div class="fac-v2-icon" style="background:#ec407a;"><i class="fa-solid fa-person-running"></i></div>
-                            <h5>Sports Grounds</h5>
-                            <p>Cricket, football, basketball and indoor games — PE taken seriously.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            {% endfor %}
         </div>
         <div class="section-cta-row" data-aos="fade-up">
             <a href="/facilities/" class="btn-view-all">View All Facilities <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </div>
 </section>
+{% endif %}
 
-<!-- ══ EXPLORE PAGES (permanent navigation — static) ══ -->
+<!-- ══ EXPLORE PAGES (static links, CMS toggle) ══ -->
+{% if page.show_explore_pages %}
 <section class="az-explore">
     <div class="container">
         <div class="row justify-content-center mb-5">
@@ -655,6 +628,7 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- ══ ADMISSIONS CTA ══ -->
 {% if page.admissions_cta_title %}
