@@ -103,3 +103,67 @@
     </div>
 </section>
 {% endif %}
+
+<script>
+/* ── Universal count-up animation (all pages) ── */
+(function () {
+    var SELECTOR = [
+        '.stat-count',    /* homepage stats strip (data-target driven) */
+        '.stat-number',   /* admissions */
+        '.stat-num',      /* academics, facilities */
+        '.big-num',       /* academics achievements, facilities safety */
+        '.lib-stat-num',  /* facilities library */
+        '.counter',       /* about page */
+    ].join(',');
+
+    function animate(el) {
+        /* Number lives in the first text node; suffix is inside <sup> — keep it untouched */
+        var node = el.childNodes[0];
+        if (!node || node.nodeType !== 3) return;
+        var raw = node.textContent.trim();
+        if (!/^\d+$/.test(raw)) return;   /* skip "5K", "98h" — not pure integers */
+        var target = parseInt(raw, 10);
+        if (target <= 0) return;
+
+        var duration = 1800;
+        var startTime = null;
+        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var p = Math.min((ts - startTime) / duration, 1);
+            node.textContent = Math.ceil(easeOut(p) * target);
+            if (p < 1) requestAnimationFrame(step);
+            else node.textContent = target;
+        }
+        requestAnimationFrame(step);
+    }
+
+    function init() {
+        var els = Array.prototype.slice.call(document.querySelectorAll(SELECTOR));
+        /* Filter to pure-integer text nodes only; skip homepage .stat-count (uses data-target, starts at "0") */
+        var targets = els.filter(function (el) {
+            var node = el.childNodes[0];
+            if (!node || node.nodeType !== 3) return false;
+            var raw = node.textContent.trim();
+            return /^\d+$/.test(raw) && parseInt(raw, 10) > 0;
+        });
+        if (!targets.length) return;
+
+        var observer = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                obs.unobserve(entry.target);
+                animate(entry.target);
+            });
+        }, { threshold: 0.35 });
+
+        targets.forEach(function (el) { observer.observe(el); });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
