@@ -3,7 +3,7 @@ from home.models import HomePage
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailPageTestCase
 
-
+# this is just to add migrations
 class HomeSetUpTests(WagtailPageTestCase):
     """
     Tests for basic page structure setup and HomePage creation.
