@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
-from home.views import about_view, contact_view, admissions_view, admissions_view2, academics_view, academics_view2, facilities_view, document_download, facilities_view2, news_view, news_view2, homepage_preview2
+from home.views import home_view, about_view, contact_view, admissions_view, admissions_view2, academics_view, academics_view2, facilities_view, document_download, facilities_view2, news_view, news_view2, homepage_preview2
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -37,5 +37,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = urlpatterns + [
-    path("", include(wagtail_urls)),
+    path("", home_view, name="home"),          # CMS homepage — home_page.html
+    path("", include(wagtail_urls)),           # Wagtail handles all other page URLs
 ]
