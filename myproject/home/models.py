@@ -236,33 +236,40 @@ class BoardCard(Orderable):
 # FACILITIES TEASER SECTION
 # ──────────────────────────────────────────────
 
+FAC_ICON_COLOR_CHOICES = [
+    ("",        "Gold (default)"),
+    ("#1565c0", "Blue"),
+    ("#16a34a", "Green"),
+    ("#ca8a04", "Amber / Yellow"),
+    ("#ec407a", "Pink / Red"),
+    ("#ab47bc", "Purple"),
+    ("#0097a7", "Teal / Cyan"),
+    ("#e65100", "Orange"),
+    ("#1f1741", "Dark Navy"),
+]
+
+
 class HomeFacilityCard(Orderable):
     """
-    One card in the Facilities Teaser section on the homepage.
-    Shows as an image card with an icon badge, title, and short description.
+    One card in the Facilities Teaser section (4 cards recommended).
 
-    Example setup (4 cards recommended):
-    ────────────────────────────────────────────────────────────
-    Card 1:  Image → computer lab photo    Icon → Computer / IT
-             Title → Computer Labs
-             Description → Modern PCs, high-speed internet and coding tools for all grades.
-             Link → /facilities/
+    Example setup:
+      Card 1 — Computer Labs
+        Image:       Upload a photo of the computer lab
+        Icon:        Computer / IT
+        Icon Colour: Blue
+        Title:       Computer Labs
+        Description: Modern PCs, high-speed internet and coding tools for all grades.
+        Link:        /facilities/
 
-    Card 2:  Image → science lab photo    Icon → Microscope
-             Title → Science Labs
-             Description → Fully equipped Physics, Chemistry, and Biology laboratories.
-             Link → /facilities/
+      Card 2 — Science Labs
+        Icon: Microscope   Colour: Green
 
-    Card 3:  Image → library photo        Icon → Book Open
-             Title → Digital Library
-             Description → Thousands of books, e-resources and quiet study spaces available daily.
-             Link → /facilities/
+      Card 3 — Digital Library
+        Icon: Book Open    Colour: Amber / Yellow
 
-    Card 4:  Image → sports ground photo  Icon → Sports / PE
-             Title → Sports Grounds
-             Description → Cricket, football, basketball and indoor games — PE taken seriously.
-             Link → /facilities/
-    ────────────────────────────────────────────────────────────
+      Card 4 — Sports Grounds
+        Icon: Sports / PE  Colour: Pink / Red
     """
 
     page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="facility_teasers")
@@ -271,22 +278,17 @@ class HomeFacilityCard(Orderable):
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="facility_teaser_image",
         verbose_name="Background Image",
-        help_text="Photo shown as the card background. Use a clear, high-quality image of this facility.",
+        help_text="Photo shown as the card background.",
     )
     icon_class = models.CharField(
         max_length=100, choices=HOME_ICON_CHOICES,
         default="fa-solid fa-school",
         verbose_name="Card Icon",
-        help_text="Icon shown on the card.  e.g.  Computer / IT  for a computer lab.",
     )
     icon_bg_color = models.CharField(
         max_length=30, blank=True, default="",
-        verbose_name="Icon Colour (optional)",
-        help_text=(
-            "Leave blank for gold (default).  "
-            "Or enter a CSS colour code to customise.  "
-            "e.g.  #16a34a  (green)   #ca8a04  (amber)   #ec407a  (pink)"
-        ),
+        choices=FAC_ICON_COLOR_CHOICES,
+        verbose_name="Icon Background Colour",
     )
     title = models.CharField(
         max_length=200,
@@ -301,19 +303,15 @@ class HomeFacilityCard(Orderable):
     link_url = models.CharField(
         max_length=255, blank=True, default="/facilities/",
         verbose_name="Card Link URL",
-        help_text="Where the card links to.  Default:  /facilities/",
+        help_text="Default:  /facilities/",
     )
 
     panels = [
-        MultiFieldPanel([
-            FieldPanel("image"),
-        ], heading="Background Image"),
-        MultiFieldPanel([
-            FieldRowPanel([FieldPanel("icon_class"), FieldPanel("icon_bg_color")]),
-            FieldPanel("title"),
-            FieldPanel("description"),
-            FieldPanel("link_url"),
-        ], heading="Card Content"),
+        FieldPanel("image"),
+        FieldRowPanel([FieldPanel("icon_class"), FieldPanel("icon_bg_color")]),
+        FieldPanel("title"),
+        FieldPanel("description"),
+        FieldPanel("link_url"),
     ]
 
     def __str__(self):
