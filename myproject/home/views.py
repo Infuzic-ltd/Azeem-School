@@ -5,7 +5,12 @@ from django.conf import settings
 from wagtail.documents import get_document_model
 import cloudinary
 import cloudinary.utils
-from .models import AboutPage, AdmissionsPage, ContactPage, AcademicsPage, FacilitiesPage, NewsPage
+from .models import AboutPage, AdmissionsPage, ContactPage, AcademicsPage, FacilitiesPage, NewsPage, HomePage
+
+
+def home_view(request):
+    page = HomePage.objects.live().first()
+    return render(request, "home/home_page.html", {"page": page})
 
 
 def news_view(request):
