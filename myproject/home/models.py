@@ -1331,6 +1331,38 @@ class HomePage(Page):
         help_text='One or two sentences shown below the heading.',
     )
 
+    # ── Facility Card 1 ───────────────────────
+    fac1_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 1 — Image")
+    fac1_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-computer", verbose_name="Card 1 — Icon")
+    fac1_color = models.CharField(max_length=30, blank=True, default="", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 1 — Icon Colour")
+    fac1_title = models.CharField(max_length=200, blank=True, default="Computer Labs", verbose_name="Card 1 — Title")
+    fac1_desc  = models.CharField(max_length=300, blank=True, default="Modern PCs, high-speed internet and coding tools for all grades.", verbose_name="Card 1 — Description")
+    fac1_url   = models.CharField(max_length=255, blank=True, default="/facilities/", verbose_name="Card 1 — Link URL")
+
+    # ── Facility Card 2 ───────────────────────
+    fac2_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 2 — Image")
+    fac2_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-microscope", verbose_name="Card 2 — Icon")
+    fac2_color = models.CharField(max_length=30, blank=True, default="#16a34a", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 2 — Icon Colour")
+    fac2_title = models.CharField(max_length=200, blank=True, default="Science Labs", verbose_name="Card 2 — Title")
+    fac2_desc  = models.CharField(max_length=300, blank=True, default="Fully equipped Physics, Chemistry, and Biology laboratories.", verbose_name="Card 2 — Description")
+    fac2_url   = models.CharField(max_length=255, blank=True, default="/facilities/", verbose_name="Card 2 — Link URL")
+
+    # ── Facility Card 3 ───────────────────────
+    fac3_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 3 — Image")
+    fac3_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-book-open", verbose_name="Card 3 — Icon")
+    fac3_color = models.CharField(max_length=30, blank=True, default="#ca8a04", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 3 — Icon Colour")
+    fac3_title = models.CharField(max_length=200, blank=True, default="Digital Library", verbose_name="Card 3 — Title")
+    fac3_desc  = models.CharField(max_length=300, blank=True, default="Thousands of books, e-resources and quiet study spaces available daily.", verbose_name="Card 3 — Description")
+    fac3_url   = models.CharField(max_length=255, blank=True, default="/facilities/", verbose_name="Card 3 — Link URL")
+
+    # ── Facility Card 4 ───────────────────────
+    fac4_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 4 — Image")
+    fac4_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-person-running", verbose_name="Card 4 — Icon")
+    fac4_color = models.CharField(max_length=30, blank=True, default="#ec407a", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 4 — Icon Colour")
+    fac4_title = models.CharField(max_length=200, blank=True, default="Sports Grounds", verbose_name="Card 4 — Title")
+    fac4_desc  = models.CharField(max_length=300, blank=True, default="Cricket, football, basketball and indoor games — PE taken seriously.", verbose_name="Card 4 — Description")
+    fac4_url   = models.CharField(max_length=255, blank=True, default="/facilities/", verbose_name="Card 4 — Link URL")
+
     # ── Explore Pages toggle ──────────────────
     show_explore_pages = models.BooleanField(
         default=True,
@@ -1453,12 +1485,31 @@ class HomePage(Page):
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("facilities_subtitle"), FieldPanel("facilities_title")]),
             FieldPanel("facilities_description"),
-        ], heading="⑦ Facilities Teaser — Section Heading"),
-        InlinePanel(
-            "facility_teasers",
-            label="⑦ Facility Cards",
-            help_text="Add 4 cards (image, icon, title, description, link). See examples in the model docstring.",
-        ),
+            MultiFieldPanel([
+                FieldPanel("fac1_image"),
+                FieldRowPanel([FieldPanel("fac1_icon"), FieldPanel("fac1_color")]),
+                FieldRowPanel([FieldPanel("fac1_title"), FieldPanel("fac1_url")]),
+                FieldPanel("fac1_desc"),
+            ], heading="Card 1  — e.g. Computer Labs"),
+            MultiFieldPanel([
+                FieldPanel("fac2_image"),
+                FieldRowPanel([FieldPanel("fac2_icon"), FieldPanel("fac2_color")]),
+                FieldRowPanel([FieldPanel("fac2_title"), FieldPanel("fac2_url")]),
+                FieldPanel("fac2_desc"),
+            ], heading="Card 2  — e.g. Science Labs"),
+            MultiFieldPanel([
+                FieldPanel("fac3_image"),
+                FieldRowPanel([FieldPanel("fac3_icon"), FieldPanel("fac3_color")]),
+                FieldRowPanel([FieldPanel("fac3_title"), FieldPanel("fac3_url")]),
+                FieldPanel("fac3_desc"),
+            ], heading="Card 3  — e.g. Digital Library"),
+            MultiFieldPanel([
+                FieldPanel("fac4_image"),
+                FieldRowPanel([FieldPanel("fac4_icon"), FieldPanel("fac4_color")]),
+                FieldRowPanel([FieldPanel("fac4_title"), FieldPanel("fac4_url")]),
+                FieldPanel("fac4_desc"),
+            ], heading="Card 4  — e.g. Sports Grounds"),
+        ], heading="⑦ Facilities Teaser  — 4 Cards"),
 
         # ── Section 7b: Explore Pages toggle ─────────────────────────────
         MultiFieldPanel([

@@ -527,7 +527,7 @@
 {% endif %}
 
 <!-- ══ FACILITIES TEASER ══ -->
-{% if page.facility_teasers.count %}
+{% if page.fac1_title %}
 <section class="az-facilities">
     <div class="container">
         <div class="row justify-content-center mb-5">
@@ -540,29 +540,70 @@
             </div>
         </div>
         <div class="row">
-            {% for card in page.facility_teasers.all %}
-            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0|stringformat:'s' }}">
-                <a href="{{ card.link_url|default:'/facilities/' }}" class="text-decoration-none">
+            {% if page.fac1_title %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                <a href="{{ page.fac1_url|default:'/facilities/' }}" class="text-decoration-none">
                     <div class="fac-v2">
-                        {% if card.image %}
-                            {% image card.image original as fac_img %}
-                            <img src="{{ fac_img.url }}" alt="{{ card.title }}">
-                        {% else %}
-                            <img src="{% static 'images/course-image1.jpg' %}" alt="{{ card.title }}">
-                        {% endif %}
+                        {% if page.fac1_image %}{% image page.fac1_image original as fi1 %}<img src="{{ fi1.url }}" alt="{{ page.fac1_title }}">{% else %}<img src="{% static 'images/course-image1.jpg' %}" alt="{{ page.fac1_title }}">{% endif %}
                         <div class="fac-v2-overlay"></div>
                         <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
                         <div class="fac-v2-content">
-                            <div class="fac-v2-icon"{% if card.icon_bg_color %} style="background:{{ card.icon_bg_color }};"{% endif %}>
-                                <i class="{{ card.icon_class }}"></i>
-                            </div>
-                            <h5>{{ card.title }}</h5>
-                            <p>{{ card.description }}</p>
+                            <div class="fac-v2-icon"{% if page.fac1_color %} style="background:{{ page.fac1_color }};"{% endif %}><i class="{{ page.fac1_icon }}"></i></div>
+                            <h5>{{ page.fac1_title }}</h5>
+                            <p>{{ page.fac1_desc }}</p>
                         </div>
                     </div>
                 </a>
             </div>
-            {% endfor %}
+            {% endif %}
+            {% if page.fac2_title %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="80">
+                <a href="{{ page.fac2_url|default:'/facilities/' }}" class="text-decoration-none">
+                    <div class="fac-v2">
+                        {% if page.fac2_image %}{% image page.fac2_image original as fi2 %}<img src="{{ fi2.url }}" alt="{{ page.fac2_title }}">{% else %}<img src="{% static 'images/course-image2.jpg' %}" alt="{{ page.fac2_title }}">{% endif %}
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon"{% if page.fac2_color %} style="background:{{ page.fac2_color }};"{% endif %}><i class="{{ page.fac2_icon }}"></i></div>
+                            <h5>{{ page.fac2_title }}</h5>
+                            <p>{{ page.fac2_desc }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% if page.fac3_title %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="160">
+                <a href="{{ page.fac3_url|default:'/facilities/' }}" class="text-decoration-none">
+                    <div class="fac-v2">
+                        {% if page.fac3_image %}{% image page.fac3_image original as fi3 %}<img src="{{ fi3.url }}" alt="{{ page.fac3_title }}">{% else %}<img src="{% static 'images/course-image3.jpg' %}" alt="{{ page.fac3_title }}">{% endif %}
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon"{% if page.fac3_color %} style="background:{{ page.fac3_color }};"{% endif %}><i class="{{ page.fac3_icon }}"></i></div>
+                            <h5>{{ page.fac3_title }}</h5>
+                            <p>{{ page.fac3_desc }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% if page.fac4_title %}
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="240">
+                <a href="{{ page.fac4_url|default:'/facilities/' }}" class="text-decoration-none">
+                    <div class="fac-v2">
+                        {% if page.fac4_image %}{% image page.fac4_image original as fi4 %}<img src="{{ fi4.url }}" alt="{{ page.fac4_title }}">{% else %}<img src="{% static 'images/course-image4.jpg' %}" alt="{{ page.fac4_title }}">{% endif %}
+                        <div class="fac-v2-overlay"></div>
+                        <div class="fac-v2-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="fac-v2-content">
+                            <div class="fac-v2-icon"{% if page.fac4_color %} style="background:{{ page.fac4_color }};"{% endif %}><i class="{{ page.fac4_icon }}"></i></div>
+                            <h5>{{ page.fac4_title }}</h5>
+                            <p>{{ page.fac4_desc }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
         </div>
         <div class="section-cta-row" data-aos="fade-up">
             <a href="/facilities/" class="btn-view-all">View All Facilities <i class="fa-solid fa-arrow-right"></i></a>
