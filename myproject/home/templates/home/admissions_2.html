@@ -372,51 +372,19 @@
             margin: auto;
         }
     </style>
+    {% include 'home/includes/_shared_styles.html' %}
 </head>
 
 <body>
 <!-- Back to top button -->
 <a id="button"></a>
+{% include 'home/includes/_whatsapp.html' %}
 
 <!-- ═══════════════════════════════════════════════════════
      HEADER + SUB-BANNER
 ═══════════════════════════════════════════════════════ -->
 <div class="sub_banner position-relative">
-    <header class="header">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a class="navbar-brand" href="/">
-                    <figure class="logo mb-0">
-                        <img src="{% static 'images/logo.png' %}" alt="Educiza" class="img-fluid">
-                    </figure>
-                </a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbarAdmissions" aria-controls="navbarAdmissions"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarAdmissions">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/admissions/">Admissions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contact/">Contact Us</a></li>
-                        <li class="nav-item">
-                            <a class="nav-link log_in" href="#">Log In <i class="fa-solid fa-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="phone-number">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="tel:+61383766284" class="text-decoration-none">
-                        <span class="number">+61 3 8376 6284</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
+        {% include 'home/includes/_navbar.html' %}
     <!-- Sub banner -->
     <section class="sub_banner_con position-relative" style="background-image: none;">
         <div class="container position-relative">
@@ -776,96 +744,7 @@
 <!-- ═══════════════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════════════ -->
-<section class="footer-con position-relative">
-    <figure class="footer-rightimage mb-0">
-        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
-    </figure>
-    <div class="footer_upperportion position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="upper_portion">
-                        <a href="/">
-                            <figure class="footer-logo mb-0">
-                                <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Educiza">
-                            </figure>
-                        </a>
-                        <h4>Begin Your Journey at Azeem School</h4>
-                        <a href="/admissions/" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-accent);color:var(--e-global-color-very-dark-blue);padding:14px 32px;border-radius:50px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.3s;margin-top:8px;">
-                            Apply for Admission <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer_lowerportion position-relative">
-        <div class="container">
-            <div class="middle_portion">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="logo-content">
-                            <h4 class="heading">About Us</h4>
-                            <p class="text-size-14 text">
-                                Educiza is a leading online learning platform empowering students worldwide
-                                with quality education, skilled instructors, and flexible programs.
-                            </p>
-                            <ul class="list-unstyled mb-0 social-icons">
-                                <li><a href="https://www.facebook.com/" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
-                                <li><a href="https://twitter.com/" class="text-decoration-none"><i class="fa-brands fa-x-twitter social-networks"></i></a></li>
-                                <li><a href="https://www.youtube.com/" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
-                        <div class="links">
-                            <h4 class="heading">Useful Links</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/about/">About</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/admissions/">Admissions</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/contact/">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <div class="use-link links">
-                            <h4 class="heading">Programs</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Business Studies</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Programming</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">UI/UX Design</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Digital Marketing</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="#">Data Science</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
-                        <div class="icon">
-                            <h4 class="heading">Contact Us</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li class="text">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <a href="tel:+61383766284" class="text-decoration-none">+61 3 8376 6284</a>
-                                </li>
-                                <li class="text">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <a href="mailto:admissions@educiza.com" class="text-decoration-none">admissions@educiza.com</a>
-                                </li>
-                                <li class="text">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <a href="#" class="text-decoration-none address mb-0">21 King Street Melbourne, 3000, Australia</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p class="mb-0">Copyright 2025, educiza.com All Rights Reserved.</p>
-        </div>
-    </div>
-</section>
+{% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
 <div class="loader-mask">

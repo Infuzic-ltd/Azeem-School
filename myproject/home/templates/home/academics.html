@@ -269,56 +269,16 @@
         }
         .cta-apply-btn:hover { background: #ffffff; color: var(--e-global-color-very-dark-blue); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(31,23,65,0.2); text-decoration: none; }
     </style>
+    {% include 'home/includes/_shared_styles.html' %}
 </head>
 
 <body>
 <a id="button"></a>
+{% include 'home/includes/_whatsapp.html' %}
 
 <!-- ═══ HEADER + SUB-BANNER ═══ -->
 <div class="sub_banner position-relative">
-    <header class="header">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a class="navbar-brand" href="/">
-                    <figure class="logo mb-0">
-                        {% if page.nav_logo %}
-                            {% image page.nav_logo original as nav_logo_img %}
-                            <img src="{{ nav_logo_img.url }}" alt="Logo" class="img-fluid">
-                        {% else %}
-                            <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid">
-                        {% endif %}
-                    </figure>
-                </a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbarAcademics" aria-controls="navbarAcademics"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarAcademics">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/academics/">Academics</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/admissions/">Admissions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contact/">Contact Us</a></li>
-                        <li class="nav-item">
-                            <a class="nav-link log_in" href="{{ page.nav_login_url }}">
-                                {{ page.nav_login_label }} <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="phone-number">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="tel:{{ page.nav_phone }}" class="text-decoration-none">
-                        <span class="number">{{ page.nav_phone }}</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
+        {% include 'home/includes/_navbar.html' %}
     <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ acad_banner_bg.url }}')"{% endif %}>
         <div class="container position-relative">
             <div class="row">
@@ -663,111 +623,7 @@
 </section>
 
 <!-- ═══ FOOTER ═══ -->
-<section class="footer-con position-relative">
-    <figure class="footer-rightimage mb-0">
-        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
-    </figure>
-    <div class="footer_upperportion position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="upper_portion">
-                        <a href="/">
-                            <figure class="footer-logo mb-0">
-                                {% if page.footer_logo %}
-                                    {% image page.footer_logo original as footer_logo_img %}
-                                    <img class="img-fluid" src="{{ footer_logo_img.url }}" alt="Logo">
-                                {% else %}
-                                    <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Logo">
-                                {% endif %}
-                            </figure>
-                        </a>
-                        <h4>{{ page.footer_newsletter_heading }}</h4>
-                        <a href="/admissions/" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-accent);color:var(--e-global-color-very-dark-blue);padding:14px 32px;border-radius:50px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.3s;margin-top:8px;">
-                            Apply for Admission <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer_lowerportion position-relative">
-        <div class="container">
-            <div class="middle_portion">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="logo-content">
-                            <h4 class="heading">{{ page.footer_about_title }}</h4>
-                            <p class="text-size-14 text">{{ page.footer_about_text }}</p>
-                            <ul class="list-unstyled mb-0 social-icons">
-                                {% for link in page.academics_footer_social_links.all %}
-                                <li>
-                                    <a href="{{ link.url }}" class="text-decoration-none">
-                                        {% if link.platform == "facebook" %}<i class="fa-brands fa-facebook-f social-networks"></i>
-                                        {% elif link.platform == "twitter" %}<i class="fa-brands fa-x-twitter social-networks"></i>
-                                        {% elif link.platform == "youtube" %}<i class="fa-brands fa-youtube social-networks"></i>
-                                        {% elif link.platform == "instagram" %}<i class="fa-brands fa-instagram social-networks"></i>
-                                        {% elif link.platform == "linkedin" %}<i class="fa-brands fa-linkedin-in social-networks"></i>
-                                        {% endif %}
-                                    </a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
-                        <div class="links">
-                            <h4 class="heading">{{ page.footer_links_title }}</h4>
-                            <ul class="list-unstyled mb-0">
-                                {% for link in page.academics_footer_useful_links.all %}
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <div class="use-link links">
-                            <h4 class="heading">{{ page.footer_explore_title }}</h4>
-                            <ul class="list-unstyled mb-0">
-                                {% for link in page.academics_footer_explore_links.all %}
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
-                        <div class="icon">
-                            <h4 class="heading">{{ page.footer_contact_title }}</h4>
-                            <ul class="list-unstyled mb-0">
-                                {% if page.footer_contact_phone %}
-                                <li class="text">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <a href="tel:{{ page.footer_contact_phone }}" class="text-decoration-none">{{ page.footer_contact_phone }}</a>
-                                </li>
-                                {% endif %}
-                                {% if page.footer_contact_email %}
-                                <li class="text">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <a href="mailto:{{ page.footer_contact_email }}" class="text-decoration-none">{{ page.footer_contact_email }}</a>
-                                </li>
-                                {% endif %}
-                                {% if page.footer_contact_address %}
-                                <li class="text">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <a href="{{ page.footer_contact_map_url }}" class="text-decoration-none address mb-0">{{ page.footer_contact_address }}</a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p class="mb-0">{{ page.footer_copyright_text }}</p>
-        </div>
-    </div>
-</section>
+{% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
 <div class="loader-mask">

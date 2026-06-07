@@ -1,0 +1,105 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+{% if home_page %}
+<section class="footer-con position-relative">
+    <figure class="footer-rightimage mb-0">
+        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
+    </figure>
+    <div class="footer_upperportion position-relative">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="upper_portion" style="justify-content:space-between;flex-wrap:wrap;gap:20px;">
+                        {% if home_page.footer_logo %}
+                            {% image home_page.footer_logo original as footer_logo_img %}
+                            <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="{{ footer_logo_img.url }}" alt="logo"></figure></a>
+                        {% endif %}
+                        <div style="text-align:center;flex:1;">
+                            <h4 style="margin-bottom:4px;">{{ home_page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
+                            <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
+                        </div>
+                        <a href="{{ home_page.admissions_cta_btn_url|default:'/admissions/' }}" class="text-decoration-none footer-apply-btn">
+                            {{ home_page.admissions_cta_btn_label|default:"Apply Now" }} <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_lowerportion position-relative">
+        <div class="container">
+            <div class="middle_portion">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="logo-content">
+                            <h4 class="heading">{{ home_page.footer_about_title }}</h4>
+                            <p class="text-size-14 text">{{ home_page.footer_about_text }}</p>
+                            <ul class="list-unstyled mb-0 social-icons">
+                                {% for link in home_page.footer_social_links.all %}
+                                <li>
+                                    <a href="{{ link.url }}" class="text-decoration-none">
+                                        {% if link.platform == "facebook" %}<i class="fa-brands fa-facebook-f social-networks"></i>
+                                        {% elif link.platform == "twitter" %}<i class="fa-brands fa-x-twitter social-networks"></i>
+                                        {% elif link.platform == "youtube" %}<i class="fa-brands fa-youtube social-networks"></i>
+                                        {% elif link.platform == "instagram" %}<i class="fa-brands fa-instagram social-networks"></i>
+                                        {% elif link.platform == "linkedin" %}<i class="fa-brands fa-linkedin social-networks"></i>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
+                        <div class="links">
+                            <h4 class="heading">{{ home_page.footer_links_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% for link in home_page.footer_useful_links.all %}
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                        <div class="use-link links">
+                            <h4 class="heading">{{ home_page.footer_explore_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% for link in home_page.footer_explore_links.all %}
+                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
+                        <div class="icon">
+                            <h4 class="heading">{{ home_page.footer_contact_title }}</h4>
+                            <ul class="list-unstyled mb-0">
+                                {% if home_page.footer_contact_phone %}
+                                <li class="text">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:{{ home_page.footer_contact_phone }}" class="text-decoration-none">{{ home_page.footer_contact_phone }}</a>
+                                </li>
+                                {% endif %}
+                                {% if home_page.footer_contact_email %}
+                                <li class="text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:{{ home_page.footer_contact_email }}" class="text-decoration-none">{{ home_page.footer_contact_email }}</a>
+                                </li>
+                                {% endif %}
+                                {% if home_page.footer_contact_address %}
+                                <li class="text">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <a href="{{ home_page.footer_contact_map_url }}" class="text-decoration-none address mb-0">{{ home_page.footer_contact_address }}</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">{{ home_page.footer_copyright_text }}</p>
+        </div>
+    </div>
+</section>
+{% endif %}

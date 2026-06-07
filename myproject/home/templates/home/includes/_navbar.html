@@ -1,0 +1,77 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if home_page %}
+<header class="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light p-0">
+            <a class="navbar-brand d-flex align-items-center" href="/" style="gap:12px;">
+                {% if home_page.nav_logo %}
+                    {% image home_page.nav_logo original as nav_logo_img %}
+                    <figure class="logo mb-0" style="flex-shrink:0;width:48px;height:48px;overflow:hidden;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <img src="{{ nav_logo_img.url }}" alt="logo" style="width:100%;height:100%;object-fit:contain;display:block;">
+                    </figure>
+                {% endif %}
+                {% if home_page.nav_school_name %}
+                    <span style="font-size:22px;font-weight:900;color:#1f1741;letter-spacing:-0.5px;line-height:1.1;">{{ home_page.nav_school_name }}</span>
+                {% endif %}
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                data-target="#navbarMain" aria-controls="navbarMain"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav mx-auto">
+                    {% for menu in home_page.navbar_menus.all %}
+                        {% with items=menu.menu_items.all %}
+                        {% if items %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
+                                id="navbarDropdown{{ forloop.counter }}" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ menu.title }}
+                            </a>
+                            <div class="dropdown-menu drop-down-content">
+                                <ul class="list-unstyled drop-down-pages">
+                                    {% for item in items %}
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="{{ item.url }}">{{ item.label }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        {% elif menu.url %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ menu.url }}">{{ menu.title }}</a>
+                        </li>
+                        {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                    <li class="nav-item">
+                        <a class="nav-link log_in" href="{{ home_page.nav_btn_url }}">
+                            {{ home_page.nav_btn_label }}<i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="phone-number">
+                <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+                <a href="https://wa.me/{{ home_page.nav_phone|cut:' '|cut:'+'|cut:'-' }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                    <span class="number">{{ home_page.nav_phone }}</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+<script>
+(function() {
+    var h = document.querySelector('.header');
+    if (!h) return;
+    window.addEventListener('scroll', function() {
+        h.classList.toggle('nav-scrolled', window.scrollY > 80);
+    }, { passive: true });
+})();
+</script>
+{% endif %}

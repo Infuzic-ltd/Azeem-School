@@ -1,0 +1,48 @@
+{% load static %}
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --navy:      #1f1741;
+    --navy-mid:  #231b49;
+    --navy-soft: #2d1f5e;
+    --accent:    #6a52e0;
+    --gold:      #dcb32e;
+    --green:     #99b251;
+    --red-label: #ff0000;
+    --light-bg:  #fafafa;
+    --white:     #ffffff;
+    --text:      #506172;
+    --heading:   #1f1741;
+    --border:    #e6e8f0;
+    --radius:    18px;
+    --shadow-sm: 0 2px 12px rgba(31,23,65,0.07);
+    --shadow-md: 0 8px 32px rgba(31,23,65,0.12);
+    --shadow-lg: 0 20px 56px rgba(31,23,65,0.18);
+}
+body { font-family: 'Urbanist', sans-serif; overflow-x: hidden; }
+
+/* Nav logo masking */
+.navbar-brand figure.logo { flex-shrink:0; width:48px; height:48px; overflow:hidden; border-radius:8px; display:flex; align-items:center; justify-content:center; margin:0; }
+.navbar-brand figure.logo img { width:100%; height:100%; object-fit:contain; }
+
+/* Sticky nav */
+.header { transition: box-shadow .3s, background-color .3s; }
+.header.nav-scrolled { position:fixed; top:0; left:0; width:100%; z-index:999; background-color:rgba(255,255,255,0.97); box-shadow:0 3px 24px rgba(0,0,0,0.10); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+
+/* WhatsApp float */
+.wa-float { position:fixed; bottom:30px; right:26px; z-index:2000; width:60px; height:60px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.55); text-decoration:none; transition:transform .22s, box-shadow .22s; }
+.wa-float i { font-size:32px; color:#fff; }
+.wa-float:hover { transform:scale(1.13); box-shadow:0 8px 32px rgba(37,211,102,0.75); color:#fff; }
+.wa-float::after { content:""; position:absolute; inset:-7px; border-radius:50%; border:3px solid rgba(37,211,102,0.5); animation:wa-ring 2.2s ease-out infinite; }
+@keyframes wa-ring { 0%{transform:scale(1);opacity:.9;} 70%{transform:scale(1.6);opacity:0;} 100%{transform:scale(1.6);opacity:0;} }
+
+/* Footer logo masking */
+.footer-logo { overflow:hidden; max-height:60px; display:flex; align-items:center; }
+.footer-logo img { max-height:60px; width:auto; object-fit:contain; }
+
+/* Footer Apply Now button */
+.footer-apply-btn { display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--navy) !important; font-weight:800; font-size:15px; padding:14px 28px; border-radius:50px; white-space:nowrap; flex-shrink:0; box-shadow:0 4px 18px rgba(220,179,46,0.35); transition:transform .22s, box-shadow .22s; text-decoration:none; }
+.footer-apply-btn:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(220,179,46,0.55); color:var(--navy) !important; }
+.footer-apply-btn i { transition:transform .22s; }
+.footer-apply-btn:hover i { transform:translateX(4px); }
+</style>

@@ -1,0 +1,5 @@
+{% if home_page and home_page.nav_phone %}
+<a href="https://wa.me/{{ home_page.nav_phone|cut:' '|cut:'+'|cut:'-' }}" target="_blank" rel="noopener noreferrer" class="wa-float" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+{% endif %}

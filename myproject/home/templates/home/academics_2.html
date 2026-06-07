@@ -259,49 +259,16 @@
             text-decoration: none;
         }
     </style>
+    {% include 'home/includes/_shared_styles.html' %}
 </head>
 
 <body>
 <a id="button"></a>
+{% include 'home/includes/_whatsapp.html' %}
 
 <!-- ═══ HEADER + SUB-BANNER ═══ -->
 <div class="sub_banner position-relative">
-    <header class="header">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a class="navbar-brand" href="/">
-                    <figure class="logo mb-0">
-                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid">
-                    </figure>
-                </a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbarAcademics" aria-controls="navbarAcademics"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarAcademics">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about/">About Us</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/academics/">Academics</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/admissions/">Admissions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contact/">Contact Us</a></li>
-                        <li class="nav-item">
-                            <a class="nav-link log_in" href="#">Student Portal <i class="fa-solid fa-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="phone-number">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="tel:+922134567890" class="text-decoration-none">
-                        <span class="number">+92 21 3456 7890</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
+        {% include 'home/includes/_navbar.html' %}
     <section class="sub_banner_con position-relative">
         <div class="container position-relative">
             <div class="row">
@@ -859,95 +826,7 @@
 </section>
 
 <!-- ═══ FOOTER ═══ -->
-<section class="footer-con position-relative">
-    <figure class="footer-rightimage mb-0">
-        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
-    </figure>
-    <div class="footer_upperportion position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="upper_portion">
-                        <a href="/">
-                            <figure class="footer-logo mb-0">
-                                <img class="img-fluid" src="{% static 'images/footer-logo.png' %}" alt="Logo">
-                            </figure>
-                        </a>
-                        <h4>Begin Your Journey at Azeem School</h4>
-                        <a href="/admissions/" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-accent);color:var(--e-global-color-very-dark-blue);padding:14px 32px;border-radius:50px;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.3s;margin-top:8px;">
-                            Apply for Admission <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer_lowerportion position-relative">
-        <div class="container">
-            <div class="middle_portion">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="logo-content">
-                            <h4 class="heading">About Azeem School</h4>
-                            <p class="text-size-14 text">Providing quality education with modern teaching methods and a nurturing environment for over 25 years in Karachi.</p>
-                            <ul class="list-unstyled mb-0 social-icons">
-                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-facebook-f social-networks"></i></a></li>
-                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-instagram social-networks"></i></a></li>
-                                <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-youtube social-networks"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
-                        <div class="links">
-                            <h4 class="heading">Quick Links</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/">Home</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/about/">About Us</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/">Academics</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/admissions/">Admissions</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/contact/">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <div class="use-link links">
-                            <h4 class="heading">Academics</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#curriculum">Curriculum</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#subjects">Subjects</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#calendar">Calendar</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#faculty">Faculty</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="/academics/#downloads">Downloads</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
-                        <div class="icon">
-                            <h4 class="heading">Contact Us</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li class="text">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <a href="tel:+922134567890" class="text-decoration-none">+92 21 3456 7890</a>
-                                </li>
-                                <li class="text">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <a href="mailto:info@azeem.edu.pk" class="text-decoration-none">info@azeem.edu.pk</a>
-                                </li>
-                                <li class="text">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <a href="#" class="text-decoration-none address mb-0">KDA Scheme, Karachi, Pakistan</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p class="mb-0">© 2025 Azeem School. All Rights Reserved.</p>
-        </div>
-    </div>
-</section>
+{% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
 <div class="loader-mask">

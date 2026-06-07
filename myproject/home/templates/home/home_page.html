@@ -286,78 +286,11 @@
 <body>
 <a id="button"></a>
 
-<!-- ══ WHATSAPP ══ -->
-<a href="https://wa.me/{{ page.nav_phone|cut:' '|cut:'+'|cut:'-' }}" target="_blank" rel="noopener noreferrer" class="wa-float" title="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+{% include 'home/includes/_whatsapp.html' %}
 
 <!-- ══ NAVBAR + HERO ══ -->
 <div class="home_banner_outer position-relative">
-    <header class="header">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light p-0">
-                <a class="navbar-brand d-flex align-items-center" href="/" style="gap:12px;">
-                    {% if page.nav_logo %}
-                        {% image page.nav_logo original as nav_logo_img %}
-                        <figure class="logo mb-0" style="flex-shrink:0;width:48px;height:48px;overflow:hidden;border-radius:8px;display:flex;align-items:center;justify-content:center;">
-                            <img src="{{ nav_logo_img.url }}" alt="logo" style="width:100%;height:100%;object-fit:contain;display:block;">
-                        </figure>
-                    {% endif %}
-                    {% if page.nav_school_name %}
-                        <span class="navbar-school-name" style="font-size:22px;font-weight:900;color:#1f1741;letter-spacing:-0.5px;line-height:1.1;">{{ page.nav_school_name }}</span>
-                    {% endif %}
-                </a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbarMain" aria-controls="navbarMain"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarMain">
-                    <ul class="navbar-nav mx-auto">
-                        {% for menu in page.navbar_menus.all %}
-                            {% with items=menu.menu_items.all %}
-                            {% if items %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
-                                    id="navbarDropdown{{ forloop.counter }}" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ menu.title }}
-                                </a>
-                                <div class="dropdown-menu drop-down-content">
-                                    <ul class="list-unstyled drop-down-pages">
-                                        {% for item in items %}
-                                        <li class="nav-item">
-                                            <a class="dropdown-item nav-link" href="{{ item.url }}">{{ item.label }}</a>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </li>
-                            {% elif menu.url %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ menu.url }}">{{ menu.title }}</a>
-                            </li>
-                            {% endif %}
-                            {% endwith %}
-                        {% endfor %}
-                        <li class="nav-item">
-                            <a class="nav-link log_in" href="{{ page.nav_btn_url }}">
-                                {{ page.nav_btn_label }}<i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="phone-number">
-                    <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
-                    <a href="https://wa.me/{{ page.nav_phone|cut:' '|cut:'+'|cut:'-' }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                        <span class="number">{{ page.nav_phone }}</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
+        {% include 'home/includes/_navbar.html' %}
 
     <!-- ── HERO ── -->
     {% if page.hero_bg_image %}{% image page.hero_bg_image original as hero_bg %}{% endif %}
@@ -835,109 +768,7 @@
 </section>
 {% endif %}
 
-<!-- ══ FOOTER ══ -->
-<section class="footer-con position-relative">
-    <figure class="footer-rightimage mb-0">
-        <img src="{% static 'images/footer-rightimage.png' %}" class="img-fluid" alt="">
-    </figure>
-    <div class="footer_upperportion position-relative">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12">
-                    <div class="upper_portion" style="justify-content:space-between;flex-wrap:wrap;gap:20px;">
-                        {% if page.footer_logo %}
-                            {% image page.footer_logo original as footer_logo_img %}
-                            <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="{{ footer_logo_img.url }}" alt="logo"></figure></a>
-                        {% endif %}
-                        <div style="text-align:center;flex:1;">
-                            <h4 style="margin-bottom:4px;">{{ page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
-                            <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
-                        </div>
-                        <a href="{{ page.admissions_cta_btn_url|default:'/admissions/' }}" class="text-decoration-none footer-apply-btn">
-                            {{ page.admissions_cta_btn_label|default:"Apply Now" }} <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer_lowerportion position-relative">
-        <div class="container">
-            <div class="middle_portion">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="logo-content">
-                            <h4 class="heading">{{ page.footer_about_title }}</h4>
-                            <p class="text-size-14 text">{{ page.footer_about_text }}</p>
-                            <ul class="list-unstyled mb-0 social-icons">
-                                {% for link in page.footer_social_links.all %}
-                                <li>
-                                    <a href="{{ link.url }}" class="text-decoration-none">
-                                        {% if link.platform == "facebook" %}<i class="fa-brands fa-facebook-f social-networks"></i>
-                                        {% elif link.platform == "twitter" %}<i class="fa-brands fa-x-twitter social-networks"></i>
-                                        {% elif link.platform == "youtube" %}<i class="fa-brands fa-youtube social-networks"></i>
-                                        {% elif link.platform == "instagram" %}<i class="fa-brands fa-instagram social-networks"></i>
-                                        {% elif link.platform == "linkedin" %}<i class="fa-brands fa-linkedin social-networks"></i>
-                                        {% endif %}
-                                    </a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
-                        <div class="links">
-                            <h4 class="heading">{{ page.footer_links_title }}</h4>
-                            <ul class="list-unstyled mb-0">
-                                {% for link in page.footer_useful_links.all %}
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <div class="use-link links">
-                            <h4 class="heading">{{ page.footer_explore_title }}</h4>
-                            <ul class="list-unstyled mb-0">
-                                {% for link in page.footer_explore_links.all %}
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="{{ link.url }}">{{ link.label }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
-                        <div class="icon">
-                            <h4 class="heading">{{ page.footer_contact_title }}</h4>
-                            <ul class="list-unstyled mb-0">
-                                {% if page.footer_contact_phone %}
-                                <li class="text">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <a href="tel:{{ page.footer_contact_phone }}" class="text-decoration-none">{{ page.footer_contact_phone }}</a>
-                                </li>
-                                {% endif %}
-                                {% if page.footer_contact_email %}
-                                <li class="text">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <a href="mailto:{{ page.footer_contact_email }}" class="text-decoration-none">{{ page.footer_contact_email }}</a>
-                                </li>
-                                {% endif %}
-                                {% if page.footer_contact_address %}
-                                <li class="text">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <a href="{{ page.footer_contact_map_url }}" class="text-decoration-none address mb-0">{{ page.footer_contact_address }}</a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p class="mb-0">{{ page.footer_copyright_text }}</p>
-        </div>
-    </div>
-</section>
+{% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
 <div class="loader-mask"><div class="loader"><div></div><div></div></div></div>
