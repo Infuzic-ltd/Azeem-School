@@ -3,6 +3,7 @@ from wagtail.models import Page, Orderable
 from wagtail.admin.panels import (
     FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel
 )
+from wagtail.snippets.models import register_snippet
 from wagtail.documents.models import AbstractDocument
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -3087,3 +3088,40 @@ class NewsPage(Page):
 
     class Meta:
         verbose_name = "News & Gallery Page"
+
+
+# ──────────────────────────────────────────────
+# ADMISSION APPLICATIONS  (stored in DB, viewable in Wagtail admin)
+# ──────────────────────────────────────────────
+
+@register_snippet
+class AdmissionApplication(models.Model):
+    first_name   = models.CharField(max_length=100, verbose_name="First Name")
+    last_name    = models.CharField(max_length=100, verbose_name="Last Name")
+    email        = models.EmailField(verbose_name="Email")
+    phone        = models.CharField(max_length=30, verbose_name="Phone")
+    dob          = models.CharField(max_length=30, blank=True, verbose_name="Date of Birth")
+    campus       = models.CharField(max_length=200, verbose_name="Campus")
+    board        = models.CharField(max_length=200, verbose_name="Board")
+    class_level  = models.CharField(max_length=100, verbose_name="Class")
+    message      = models.TextField(blank=True, verbose_name="Message / Goals")
+    submitted_at = models.DateTimeField(auto_now_add=True, verbose_name="Submitted At")
+    is_read      = models.BooleanField(default=False, verbose_name="Marked as Read")
+
+    panels = [
+        FieldRowPanel([FieldPanel("first_name"), FieldPanel("last_name")]),
+        FieldRowPanel([FieldPanel("email"), FieldPanel("phone")]),
+        FieldRowPanel([FieldPanel("dob"), FieldPanel("campus")]),
+        FieldRowPanel([FieldPanel("board"), FieldPanel("class_level")]),
+        FieldPanel("message"),
+        FieldPanel("is_read"),
+    ]
+
+    class Meta:
+        ordering = ["-submitted_at"]
+        verbose_name = "Admission Application"
+        verbose_name_plural = "Admission Applications"
+
+    def __str__(self):
+        ts = self.submitted_at.strftime("%d %b %Y %H:%M") if self.submitted_at else "—"
+        return f"{self.first_name} {self.last_name} — {self.class_level} ({ts})"

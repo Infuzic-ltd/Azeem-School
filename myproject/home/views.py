@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.conf import settings
+from django.utils import timezone
 from wagtail.documents import get_document_model
 import cloudinary
 import cloudinary.utils
-from .models import AboutPage, AdmissionsPage, ContactPage, AcademicsPage, FacilitiesPage, NewsPage, HomePage
+from .models import AboutPage, AdmissionsPage, ContactPage, AcademicsPage, FacilitiesPage, NewsPage, HomePage, AdmissionApplication
 
 
 def home_view(request):
@@ -71,36 +73,70 @@ def admissions_view(request):
         if errors:
             context["errors"] = errors
         else:
-            sales_email = getattr(settings, "ADMISSIONS_SALES_EMAIL", "admissions@educiza.com")
-            subject = f"New Admission Application — {data['first_name']} {data['last_name']}"
-            body = f"""New admission application received.
-
-Name:        {data['first_name']} {data['last_name']}
-Email:       {data['email']}
-Phone:       {data['phone']}
-DOB:         {data['dob'] or 'Not provided'}
-Campus:      {data['campus']}
-Board:       {data['board']}
-Class:       {data['class_level']}
-
-Message / Goals:
-{data['message'] or 'None'}
-"""
             try:
-                email = EmailMessage(
-                    subject=subject,
-                    body=body,
-                    from_email=getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@educiza.com"),
-                    to=[sales_email],
+                # ── 1. Save to database ───────────────────
+                application = AdmissionApplication.objects.create(
+                    first_name=data["first_name"],
+                    last_name=data["last_name"],
+                    email=data["email"],
+                    phone=data["phone"],
+                    dob=data["dob"],
+                    campus=data["campus"],
+                    board=data["board"],
+                    class_level=data["class_level"],
+                    message=data["message"],
+                )
+
+                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@azeemschool.edu.pk")
+                submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
+
+                email_ctx = {**data, "submitted_at": submitted_at}
+
+                # ── 2. Notify owner ───────────────────────
+                owner_email = (page.form_contact_email if page else None) or \
+                              getattr(settings, "ADMISSIONS_SALES_EMAIL", "admissions@azeemschool.edu.pk")
+                owner_html = render_to_string("home/emails/admission_owner.html", email_ctx)
+                owner_msg = EmailMultiAlternatives(
+                    subject=f"New Admission Application — {data['first_name']} {data['last_name']}",
+                    body=f"New application from {data['first_name']} {data['last_name']} ({data['email']}) for {data['class_level']}.",
+                    from_email=from_email,
+                    to=[owner_email],
                     reply_to=[data["email"]],
                 )
-                email.send(fail_silently=False)
+                owner_msg.attach_alternative(owner_html, "text/html")
+                owner_msg.send(fail_silently=True)
+
+                # ── 3. Confirm to applicant ───────────────
+                applicant_ctx = {
+                    **data,
+                    "contact_phone":   page.footer_contact_phone if page else "",
+                    "contact_email":   page.footer_contact_email if page else "",
+                    "contact_address": page.footer_contact_address if page else "",
+                }
+                applicant_html = render_to_string("home/emails/admission_applicant.html", applicant_ctx)
+                applicant_msg = EmailMultiAlternatives(
+                    subject="Application Received — Azeem School",
+                    body=(
+                        f"Dear {data['first_name']},\n\n"
+                        "Thank you for applying to Azeem School. We have received your application "
+                        f"for {data['class_level']} and our team will contact you within 24–48 hours.\n\n"
+                        "Visit us: https://azeem-school.vercel.app/"
+                    ),
+                    from_email=from_email,
+                    to=[data["email"]],
+                )
+                applicant_msg.attach_alternative(applicant_html, "text/html")
+                applicant_msg.send(fail_silently=True)
+
                 context["success"] = True
                 context["form_data"] = {}
-            except Exception:
+
+            except Exception as exc:
+                import sys
+                print(f"[admissions_view] error: {exc}", file=sys.stderr)
                 context["error"] = (
-                    "Your application could not be sent at this time. "
-                    "Please email us directly at admissions@educiza.com."
+                    "Your application could not be submitted at this time. "
+                    f"Please email us directly at {(page.form_contact_email if page else 'admissions@azeemschool.edu.pk')}."
                 )
 
     return render(request, "home/admissions.html", context)
@@ -169,37 +205,66 @@ def admissions_view2(request):
         if errors:
             context["errors"] = errors
         else:
-            sales_email = getattr(settings, "ADMISSIONS_SALES_EMAIL", "admissions@educiza.com")
-            subject = f"New Admission Application — {data['first_name']} {data['last_name']}"
-            body = f"""New admission application received.
-
-Name:        {data['first_name']} {data['last_name']}
-Email:       {data['email']}
-Phone:       {data['phone']}
-DOB:         {data['dob'] or 'Not provided'}
-Campus:      {data['campus']}
-Board:       {data['board']}
-Class:       {data['class_level']}
-Education:   {data['education']}
-
-Message / Goals:
-{data['message'] or 'None'}
-"""
             try:
-                email = EmailMessage(
-                    subject=subject,
-                    body=body,
-                    from_email=getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@educiza.com"),
-                    to=[sales_email],
+                application = AdmissionApplication.objects.create(
+                    first_name=data["first_name"],
+                    last_name=data["last_name"],
+                    email=data["email"],
+                    phone=data["phone"],
+                    dob=data["dob"],
+                    campus=data["campus"],
+                    board=data["board"],
+                    class_level=data["class_level"],
+                    message=data["message"],
+                )
+
+                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@azeemschool.edu.pk")
+                submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
+                email_ctx = {**data, "submitted_at": submitted_at}
+
+                owner_email = (page.form_contact_email if page else None) or \
+                              getattr(settings, "ADMISSIONS_SALES_EMAIL", "admissions@azeemschool.edu.pk")
+                owner_html = render_to_string("home/emails/admission_owner.html", email_ctx)
+                owner_msg = EmailMultiAlternatives(
+                    subject=f"New Admission Application — {data['first_name']} {data['last_name']}",
+                    body=f"New application from {data['first_name']} {data['last_name']} ({data['email']}) for {data['class_level']}.",
+                    from_email=from_email,
+                    to=[owner_email],
                     reply_to=[data["email"]],
                 )
-                email.send(fail_silently=False)
+                owner_msg.attach_alternative(owner_html, "text/html")
+                owner_msg.send(fail_silently=True)
+
+                applicant_ctx = {
+                    **data,
+                    "contact_phone":   page.footer_contact_phone if page else "",
+                    "contact_email":   page.footer_contact_email if page else "",
+                    "contact_address": page.footer_contact_address if page else "",
+                }
+                applicant_html = render_to_string("home/emails/admission_applicant.html", applicant_ctx)
+                applicant_msg = EmailMultiAlternatives(
+                    subject="Application Received — Azeem School",
+                    body=(
+                        f"Dear {data['first_name']},\n\n"
+                        "Thank you for applying to Azeem School. We have received your application "
+                        f"for {data['class_level']} and our team will contact you within 24–48 hours.\n\n"
+                        "Visit us: https://azeem-school.vercel.app/"
+                    ),
+                    from_email=from_email,
+                    to=[data["email"]],
+                )
+                applicant_msg.attach_alternative(applicant_html, "text/html")
+                applicant_msg.send(fail_silently=True)
+
                 context["success"] = True
                 context["form_data"] = {}
-            except Exception:
+
+            except Exception as exc:
+                import sys
+                print(f"[admissions_view2] error: {exc}", file=sys.stderr)
                 context["error"] = (
-                    "Your application could not be sent at this time. "
-                    "Please email us directly at admissions@educiza.com."
+                    "Your application could not be submitted at this time. "
+                    f"Please email us directly at {(page.form_contact_email if page else 'admissions@azeemschool.edu.pk')}."
                 )
 
     return render(request, "home/admissions_2.html", context)

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Admission Application</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6fb;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6fb;padding:40px 0;">
+  <tr>
+    <td align="center">
+      <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;">
+
+        <!-- ── Header ── -->
+        <tr>
+          <td style="background:#1f1741;border-radius:16px 16px 0 0;padding:36px 40px;text-align:center;">
+            <h1 style="margin:0;font-size:26px;font-weight:800;color:#dcb32e;letter-spacing:-0.5px;">
+              Azeem School
+            </h1>
+            <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;">
+              Admissions Management
+            </p>
+          </td>
+        </tr>
+
+        <!-- ── Alert Banner ── -->
+        <tr>
+          <td style="background:#dcb32e;padding:14px 40px;text-align:center;">
+            <p style="margin:0;font-size:14px;font-weight:800;color:#1f1741;letter-spacing:0.5px;text-transform:uppercase;">
+              &#9679;&nbsp; New Application Received
+            </p>
+          </td>
+        </tr>
+
+        <!-- ── Body ── -->
+        <tr>
+          <td style="background:#ffffff;padding:40px;">
+
+            <p style="margin:0 0 6px;font-size:14px;color:#777;text-transform:uppercase;letter-spacing:1px;font-weight:700;">
+              Submitted on {{ submitted_at }}
+            </p>
+            <h2 style="margin:0 0 28px;font-size:22px;font-weight:800;color:#1f1741;">
+              {{ first_name }} {{ last_name }}
+            </h2>
+
+            <!-- Details table -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="border:1px solid #e6e8f0;border-radius:12px;overflow:hidden;">
+              <tr style="background:#f8f9fc;">
+                <td style="padding:14px 20px;font-size:13px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.8px;width:38%;border-bottom:1px solid #e6e8f0;">
+                  Field
+                </td>
+                <td style="padding:14px 20px;font-size:13px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e6e8f0;">
+                  Value
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Full Name</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#1f1741;border-bottom:1px solid #f0f0f0;">
+                  {{ first_name }} {{ last_name }}
+                </td>
+              </tr>
+              <tr style="background:#fafafa;">
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Email</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#1f1741;border-bottom:1px solid #f0f0f0;">
+                  <a href="mailto:{{ email }}" style="color:#6a52e0;text-decoration:none;">{{ email }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Phone</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#1f1741;border-bottom:1px solid #f0f0f0;">
+                  <a href="tel:{{ phone }}" style="color:#6a52e0;text-decoration:none;">{{ phone }}</a>
+                </td>
+              </tr>
+              <tr style="background:#fafafa;">
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Date of Birth</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#1f1741;border-bottom:1px solid #f0f0f0;">
+                  {{ dob|default:"Not provided" }}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Campus</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#1f1741;border-bottom:1px solid #f0f0f0;">
+                  {{ campus }}
+                </td>
+              </tr>
+              <tr style="background:#fafafa;">
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Board</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#1f1741;border-bottom:1px solid #f0f0f0;">
+                  {{ board }}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;">Class Applied</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:700;color:#dcb32e;">
+                  {{ class_level }}
+                </td>
+              </tr>
+            </table>
+
+            <!-- Message -->
+            {% if message %}
+            <div style="margin-top:24px;background:#f8f9fc;border-left:4px solid #6a52e0;border-radius:0 10px 10px 0;padding:18px 22px;">
+              <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#6a52e0;text-transform:uppercase;letter-spacing:1px;">
+                Message / Goals
+              </p>
+              <p style="margin:0;font-size:14px;color:#444;line-height:1.7;">{{ message }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Reply CTA -->
+            <div style="margin-top:32px;text-align:center;">
+              <a href="mailto:{{ email }}"
+                 style="display:inline-block;background:#1f1741;color:#dcb32e;font-weight:800;font-size:15px;padding:14px 36px;border-radius:50px;text-decoration:none;letter-spacing:0.3px;">
+                Reply to Applicant
+              </a>
+            </div>
+
+          </td>
+        </tr>
+
+        <!-- ── Footer ── -->
+        <tr>
+          <td style="background:#1f1741;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">
+            <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.45);">
+              This is an automated notification from Azeem School's website admissions system.
+              <br>Please do not reply directly to this email.
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
