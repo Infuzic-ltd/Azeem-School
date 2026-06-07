@@ -71,6 +71,30 @@
     /* General safety net for all CMS-rendered images */
     .img-fluid { max-width:100%; height:auto; }
 
+    /* Footer upper strip — Apply Now button */
+    .footer-apply-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--gold);
+        color: var(--navy) !important;
+        font-weight: 800;
+        font-size: 15px;
+        padding: 14px 28px;
+        border-radius: 50px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        box-shadow: 0 4px 18px rgba(220,179,46,0.35);
+        transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .footer-apply-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 28px rgba(220,179,46,0.55);
+        color: var(--navy) !important;
+    }
+    .footer-apply-btn i { transition: transform .22s ease; }
+    .footer-apply-btn:hover i { transform: translateX(4px); }
+
     /* ── Design tokens — aligned to original site palette ── */
     :root {
         --navy:      #1f1741;
@@ -490,12 +514,7 @@
                 {% endif %}
                 {% if page.about_mission_title %}
                 <div class="mission-box">
-                    {% if page.about_mission_icon %}
-                        {% image page.about_mission_icon original as mission_icon %}
-                        <img src="{{ mission_icon.url }}" alt="" style="width:32px;height:32px;object-fit:contain;flex-shrink:0;">
-                    {% else %}
-                        <i class="fa-solid fa-star-and-crescent"></i>
-                    {% endif %}
+                    <i class="{{ page.about_mission_icon_class|default:'fa-solid fa-star-and-crescent' }}"></i>
                     <p>{{ page.about_mission_title }}</p>
                 </div>
                 {% endif %}
@@ -834,7 +853,7 @@
                             <h4 style="margin-bottom:4px;">{{ page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
                             <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
                         </div>
-                        <a href="{{ page.admissions_cta_btn_url|default:'/admissions/' }}" class="text-decoration-none primary_btn" style="white-space:nowrap;">
+                        <a href="{{ page.admissions_cta_btn_url|default:'/admissions/' }}" class="text-decoration-none footer-apply-btn">
                             {{ page.admissions_cta_btn_label|default:"Apply Now" }} <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>

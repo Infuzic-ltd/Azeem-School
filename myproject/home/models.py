@@ -1229,9 +1229,11 @@ class HomePage(Page):
         on_delete=models.SET_NULL, related_name="about_image_video_thumb",
     )
     about_video_url = models.URLField(blank=True)
-    about_mission_icon = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True,
-        on_delete=models.SET_NULL, related_name="about_mission_icon",
+    about_mission_icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        blank=True, default="fa-solid fa-star-and-crescent",
+        verbose_name="Mission Icon",
+        help_text="Icon displayed in the mission box.  e.g.  Star & Crescent for Islamic values.",
     )
     about_mission_title = models.CharField(max_length=300, blank=True)
 
@@ -1376,7 +1378,7 @@ class HomePage(Page):
             FieldPanel("about_video_url",
                        help_text="YouTube URL — used for both the hero 'Watch Our Story' button and the About play button."),
             InlinePanel("about_features", label="Bullet Points  (tick-list items)"),
-            FieldRowPanel([FieldPanel("about_mission_icon"), FieldPanel("about_mission_title")]),
+            FieldRowPanel([FieldPanel("about_mission_icon_class"), FieldPanel("about_mission_title")]),
         ], heading="⑤ About Us"),
 
         # ── Section 6: Boards ─────────────────────────────────────────────
