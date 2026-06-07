@@ -1453,8 +1453,12 @@ class HomePage(Page):
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("facilities_subtitle"), FieldPanel("facilities_title")]),
             FieldPanel("facilities_description"),
-            InlinePanel("facility_teasers", label="Facility Cards  (image, icon, title, description, link)"),
-        ], heading="⑦ Facilities Teaser  — 4 cards recommended"),
+        ], heading="⑦ Facilities Teaser — Section Heading"),
+        InlinePanel(
+            "facility_teasers",
+            label="⑦ Facility Cards",
+            help_text="Add 4 cards (image, icon, title, description, link). See examples in the model docstring.",
+        ),
 
         # ── Section 7b: Explore Pages toggle ─────────────────────────────
         MultiFieldPanel([
