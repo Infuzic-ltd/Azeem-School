@@ -58,36 +58,93 @@ class NavbarMenuItem(Orderable):
 
 
 HOME_ICON_CHOICES = [
-    ("fa-solid fa-graduation-cap", "Graduation Cap"),
-    ("fa-solid fa-book-open",       "Book Open"),
-    ("fa-solid fa-trophy",          "Trophy"),
-    ("fa-solid fa-medal",           "Medal"),
-    ("fa-solid fa-star",            "Star"),
-    ("fa-solid fa-users",           "Group / Students"),
-    ("fa-solid fa-chalkboard-user", "Teacher"),
-    ("fa-solid fa-school",          "School Building"),
-    ("fa-solid fa-microscope",      "Science Lab"),
-    ("fa-solid fa-computer",        "Computer / IT"),
-    ("fa-solid fa-moon",            "Islamic Studies"),
-    ("fa-solid fa-flag",            "Pakistan Studies"),
-    ("fa-solid fa-shield-halved",   "Excellence / Discipline"),
-    ("fa-solid fa-heart",           "Values / Character"),
-    ("fa-solid fa-lightbulb",       "Innovation / Ideas"),
-    ("fa-solid fa-award",           "Award / Recognition"),
-    ("fa-solid fa-check-double",    "Quality Assurance"),
-    ("fa-solid fa-person-running",  "Sports / PE"),
-    ("fa-solid fa-palette",         "Arts & Craft"),
-    ("fa-solid fa-calculator",      "Mathematics"),
-    ("fa-solid fa-flask",           "Chemistry"),
-    ("fa-solid fa-atom",            "Physics"),
-    ("fa-solid fa-dna",             "Biology"),
-    ("fa-solid fa-language",        "Languages"),
-    ("fa-solid fa-pen-nib",         "Urdu / Writing"),
-    ("fa-solid fa-earth-asia",      "General Knowledge"),
-    ("fa-solid fa-bullhorn",        "Announcement"),
-    ("fa-solid fa-calendar-check",  "Events / Schedule"),
-    ("fa-solid fa-door-open",       "Admissions"),
-    ("fa-solid fa-file-pen",        "Exams / Tests"),
+    # ── Academics & Subjects ──────────────────────────────
+    ("fa-solid fa-graduation-cap",      "Graduation Cap"),
+    ("fa-solid fa-book-open",           "Book Open"),
+    ("fa-solid fa-book",                "Book Closed"),
+    ("fa-solid fa-book-open-reader",    "Book Reader"),
+    ("fa-solid fa-calculator",          "Mathematics"),
+    ("fa-solid fa-flask",               "Chemistry / Lab"),
+    ("fa-solid fa-atom",                "Physics / Atom"),
+    ("fa-solid fa-microscope",          "Science Lab / Microscope"),
+    ("fa-solid fa-dna",                 "Biology / DNA"),
+    ("fa-solid fa-bolt",                "Electricity / Electronics"),
+    ("fa-solid fa-computer",            "Computer / IT"),
+    ("fa-solid fa-laptop-code",         "Coding / Programming"),
+    ("fa-solid fa-microchip",           "Robotics / Microchip"),
+    ("fa-solid fa-language",            "Languages / English"),
+    ("fa-solid fa-pen-nib",             "Urdu / Writing"),
+    ("fa-solid fa-pen-to-square",       "Editing / Exams"),
+    ("fa-solid fa-moon",                "Islamic Studies"),
+    ("fa-solid fa-star-and-crescent",   "Islamic / Crescent"),
+    ("fa-solid fa-flag",                "Pakistan Studies"),
+    ("fa-solid fa-earth-asia",          "Geography / GK"),
+    ("fa-solid fa-map",                 "Social Studies / Map"),
+    ("fa-solid fa-palette",             "Arts & Craft"),
+    ("fa-solid fa-music",               "Music"),
+    ("fa-solid fa-masks-theater",       "Drama / Theatre"),
+    ("fa-solid fa-seedling",            "Early Years / Nursery"),
+    ("fa-solid fa-child-reaching",      "Primary / Children"),
+    # ── Sports & Activities ───────────────────────────────
+    ("fa-solid fa-person-running",      "Sports / PE"),
+    ("fa-solid fa-futbol",              "Football"),
+    ("fa-solid fa-basketball",          "Basketball"),
+    ("fa-solid fa-table-tennis-paddle-ball", "Table Tennis"),
+    ("fa-solid fa-dumbbell",            "Gym / Fitness"),
+    # ── Achievement & Recognition ─────────────────────────
+    ("fa-solid fa-trophy",              "Trophy"),
+    ("fa-solid fa-medal",               "Medal"),
+    ("fa-solid fa-star",                "Star"),
+    ("fa-solid fa-award",               "Award / Certificate"),
+    ("fa-solid fa-ranking-star",        "Rankings / Top Scorer"),
+    # ── School Life ───────────────────────────────────────
+    ("fa-solid fa-school",              "School Building"),
+    ("fa-solid fa-chalkboard-user",     "Teacher / Lecture"),
+    ("fa-solid fa-users",               "Students / Group"),
+    ("fa-solid fa-user-graduate",       "Graduate Student"),
+    ("fa-solid fa-user-tie",            "Principal / Admin"),
+    ("fa-solid fa-people-group",        "Community / Assembly"),
+    ("fa-solid fa-handshake",           "Partnership / Trust"),
+    ("fa-solid fa-hands-holding-child", "Child Support"),
+    # ── Admissions & Enrolment ────────────────────────────
+    ("fa-solid fa-door-open",           "Admissions / Open Door"),
+    ("fa-solid fa-file-pen",            "Exams / Test Paper"),
+    ("fa-solid fa-file-circle-check",   "Application Approved"),
+    ("fa-solid fa-clipboard-list",      "Checklist / Requirements"),
+    ("fa-solid fa-clipboard-check",     "Verification / Check"),
+    ("fa-solid fa-id-card",             "Student ID"),
+    ("fa-solid fa-calendar-check",      "Events / Schedule"),
+    ("fa-solid fa-calendar-days",       "Academic Calendar"),
+    ("fa-regular fa-calendar",          "Calendar"),
+    # ── Facilities & Infrastructure ───────────────────────
+    ("fa-solid fa-building-columns",    "Library / Hall"),
+    ("fa-solid fa-utensils",            "Cafeteria / Canteen"),
+    ("fa-solid fa-bus",                 "School Transport"),
+    ("fa-solid fa-kit-medical",         "Medical / First Aid"),
+    ("fa-solid fa-shield-halved",       "Security / Discipline"),
+    ("fa-solid fa-person-praying",      "Prayer Room"),
+    ("fa-solid fa-camera",              "CCTV / Safety"),
+    ("fa-solid fa-fire-extinguisher",   "Fire Safety"),
+    ("fa-solid fa-water",               "Swimming Pool"),
+    # ── Values & Ethos ────────────────────────────────────
+    ("fa-solid fa-heart",               "Values / Character"),
+    ("fa-solid fa-heart-pulse",         "Wellbeing / Health"),
+    ("fa-solid fa-hand-holding-heart",  "Caring Environment"),
+    ("fa-solid fa-lightbulb",           "Innovation / Ideas"),
+    ("fa-solid fa-check-double",        "Quality Assurance"),
+    ("fa-solid fa-circle-check",        "Verified / Certified"),
+    # ── Communication & Notices ───────────────────────────
+    ("fa-solid fa-bullhorn",            "Announcement"),
+    ("fa-solid fa-bell",                "Notice / Alert"),
+    ("fa-solid fa-envelope",            "Email / Letter"),
+    ("fa-solid fa-phone",               "Phone / Contact"),
+    ("fa-solid fa-comment-dots",        "Message / Chat"),
+    # ── General ───────────────────────────────────────────
+    ("fa-solid fa-check",               "Checkmark"),
+    ("fa-solid fa-arrow-right",         "Arrow Right"),
+    ("fa-solid fa-info-circle",         "Information"),
+    ("fa-solid fa-question-circle",     "FAQ / Help"),
+    ("fa-solid fa-link",                "Link / Resource"),
 ]
 
 # ──────────────────────────────────────────────
@@ -465,8 +522,10 @@ class AdmissionStat(Orderable):
 
 class AdmissionRequirement(Orderable):
     page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_requirements")
-    icon_class = models.CharField(max_length=100, default="fa-solid fa-check",
-                                  help_text='Font Awesome class, e.g. "fa-solid fa-graduation-cap"')
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-check",
+        verbose_name="Icon",
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
 
@@ -484,8 +543,10 @@ class AdmissionIntakeCard(Orderable):
     ]
     page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_intake_cards")
     bg_choice = models.CharField(max_length=10, choices=BG_CHOICES, default="bg1")
-    icon_class = models.CharField(max_length=100, default="fa-solid fa-calendar-check",
-                                  help_text='Font Awesome class, e.g. "fa-solid fa-calendar-check"')
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-calendar-check",
+        verbose_name="Icon",
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
 
@@ -513,8 +574,10 @@ class AdmissionStep(Orderable):
 
 class AdmissionFormInfo(Orderable):
     page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_form_infos")
-    icon_class = models.CharField(max_length=100, default="fa-solid fa-bolt",
-                                  help_text='Font Awesome class, e.g. "fa-solid fa-bolt"')
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-bolt",
+        verbose_name="Icon",
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
 
@@ -728,16 +791,18 @@ class AboutPageFeature(Orderable):
 
 class AboutChooseFeature(Orderable):
     page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="choose_features")
-    icon = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True,
-        on_delete=models.SET_NULL, related_name="about_choose_icon",
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        default="fa-solid fa-graduation-cap",
+        verbose_name="Icon",
+        help_text="Choose an icon from the dropdown — no image upload needed.",
     )
     title = models.CharField(max_length=200)
     description = models.TextField()
-    link_url = models.CharField(max_length=255, blank=True, default="./about.html")
+    link_url = models.CharField(max_length=255, blank=True, default="/about/")
 
     panels = [
-        FieldPanel("icon"),
+        FieldPanel("icon_class"),
         FieldPanel("title"),
         FieldPanel("description"),
         FieldPanel("link_url"),

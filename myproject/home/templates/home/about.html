@@ -130,12 +130,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12 all_column">
                 <div class="choose-box box{{ i }} all_boxes">
                     <figure class="icon icon{{ i }}">
-                        {% if feature.icon %}
-                            {% image feature.icon original as feat_icon %}
-                            <img src="{{ feat_icon.url }}" alt="image" class="img-fluid">
-                        {% else %}
-                            <img src="{% static 'images/choose-icon'|add:i|stringformat:'s'|add:'.png' %}" alt="image" class="img-fluid">
-                        {% endif %}
+                        <i class="{{ feature.icon_class|default:'fa-solid fa-graduation-cap' }}" style="font-size:36px;"></i>
                     </figure>
                     <h4>{{ feature.title }}</h4>
                     <p class="text-size-16">{{ feature.description }}</p>

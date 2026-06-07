@@ -72,6 +72,14 @@
     window.addEventListener('scroll', function() {
         h.classList.toggle('nav-scrolled', window.scrollY > 80);
     }, { passive: true });
+
+    /* Ensure all navbar links are site-absolute (fixes relative URLs on subpages) */
+    document.querySelectorAll('.header .navbar-nav a[href]').forEach(function(a) {
+        var href = a.getAttribute('href');
+        if (href && href !== '#' && !/^(\/|http|https|mailto:|tel:)/.test(href)) {
+            a.setAttribute('href', '/' + href);
+        }
+    });
 })();
 </script>
 {% endif %}
