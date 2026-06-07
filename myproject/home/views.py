@@ -73,8 +73,10 @@ def admissions_view(request):
         if errors:
             context["errors"] = errors
         else:
+            import sys
+
+            # ── 1. Save to database (must succeed) ────────────────────────────
             try:
-                # ── 1. Save to database ───────────────────
                 application = AdmissionApplication.objects.create(
                     first_name=data["first_name"],
                     last_name=data["last_name"],
@@ -86,15 +88,19 @@ def admissions_view(request):
                     class_level=data["class_level"],
                     message=data["message"],
                 )
+            except Exception as exc:
+                print(f"[admissions_view] DB error: {exc}", file=sys.stderr)
+                context["error"] = "Your application could not be submitted right now. Please try again or contact us directly."
+                return render(request, "home/admissions.html", context)
 
-                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@azeemschool.edu.pk")
+            # ── 2. Emails (failure is logged but never shown to user) ─────────
+            try:
+                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
                 submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
-
                 email_ctx = {**data, "submitted_at": submitted_at}
 
-                # ── 2. Notify owner ───────────────────────
                 owner_email = (page.form_contact_email if page else None) or \
-                              getattr(settings, "ADMISSIONS_SALES_EMAIL", "admissions@azeemschool.edu.pk")
+                              getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
                 owner_html = render_to_string("home/emails/admission_owner.html", email_ctx)
                 owner_msg = EmailMultiAlternatives(
                     subject=f"New Admission Application — {data['first_name']} {data['last_name']}",
@@ -104,9 +110,8 @@ def admissions_view(request):
                     reply_to=[data["email"]],
                 )
                 owner_msg.attach_alternative(owner_html, "text/html")
-                owner_msg.send(fail_silently=True)
+                owner_msg.send(fail_silently=False)
 
-                # ── 3. Confirm to applicant ───────────────
                 applicant_ctx = {
                     **data,
                     "contact_phone":   page.footer_contact_phone if page else "",
@@ -126,18 +131,13 @@ def admissions_view(request):
                     to=[data["email"]],
                 )
                 applicant_msg.attach_alternative(applicant_html, "text/html")
-                applicant_msg.send(fail_silently=True)
-
-                context["success"] = True
-                context["form_data"] = {}
+                applicant_msg.send(fail_silently=False)
 
             except Exception as exc:
-                import sys
-                print(f"[admissions_view] error: {exc}", file=sys.stderr)
-                context["error"] = (
-                    "Your application could not be submitted at this time. "
-                    f"Please email us directly at {(page.form_contact_email if page else 'admissions@azeemschool.edu.pk')}."
-                )
+                print(f"[admissions_view] email error: {exc}", file=sys.stderr)
+
+            context["success"] = True
+            context["form_data"] = {}
 
     return render(request, "home/admissions.html", context)
 
@@ -205,6 +205,8 @@ def admissions_view2(request):
         if errors:
             context["errors"] = errors
         else:
+            import sys
+
             try:
                 application = AdmissionApplication.objects.create(
                     first_name=data["first_name"],
@@ -217,13 +219,18 @@ def admissions_view2(request):
                     class_level=data["class_level"],
                     message=data["message"],
                 )
+            except Exception as exc:
+                print(f"[admissions_view2] DB error: {exc}", file=sys.stderr)
+                context["error"] = "Your application could not be submitted right now. Please try again or contact us directly."
+                return render(request, "home/admissions_2.html", context)
 
-                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@azeemschool.edu.pk")
+            try:
+                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
                 submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
                 email_ctx = {**data, "submitted_at": submitted_at}
 
                 owner_email = (page.form_contact_email if page else None) or \
-                              getattr(settings, "ADMISSIONS_SALES_EMAIL", "admissions@azeemschool.edu.pk")
+                              getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
                 owner_html = render_to_string("home/emails/admission_owner.html", email_ctx)
                 owner_msg = EmailMultiAlternatives(
                     subject=f"New Admission Application — {data['first_name']} {data['last_name']}",
@@ -233,7 +240,7 @@ def admissions_view2(request):
                     reply_to=[data["email"]],
                 )
                 owner_msg.attach_alternative(owner_html, "text/html")
-                owner_msg.send(fail_silently=True)
+                owner_msg.send(fail_silently=False)
 
                 applicant_ctx = {
                     **data,
@@ -254,18 +261,13 @@ def admissions_view2(request):
                     to=[data["email"]],
                 )
                 applicant_msg.attach_alternative(applicant_html, "text/html")
-                applicant_msg.send(fail_silently=True)
-
-                context["success"] = True
-                context["form_data"] = {}
+                applicant_msg.send(fail_silently=False)
 
             except Exception as exc:
-                import sys
-                print(f"[admissions_view2] error: {exc}", file=sys.stderr)
-                context["error"] = (
-                    "Your application could not be submitted at this time. "
-                    f"Please email us directly at {(page.form_contact_email if page else 'admissions@azeemschool.edu.pk')}."
-                )
+                print(f"[admissions_view2] email error: {exc}", file=sys.stderr)
+
+            context["success"] = True
+            context["form_data"] = {}
 
     return render(request, "home/admissions_2.html", context)
 
