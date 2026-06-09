@@ -27,6 +27,10 @@ def about_view(request):
     page = AboutPage.objects.live().first()
     return render(request, "home/about.html", {"page": page})
 
+def about_view2(request):
+    page = AboutPage.objects.live().first()
+    return render(request, "home/about_static.html")
+
 
 def contact_view(request):
     page = ContactPage.objects.live().first()

@@ -1,321 +1,492 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
+{% if page.banner_bg_image %}{% image page.banner_bg_image original as about_banner_bg %}{% endif %}
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html lang="en">
 <head>
-    <title>{{ page.banner_title }} | Educiza</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <meta charset="utf-8">
-    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicon/apple-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicon/apple-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicon/apple-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicon/apple-icon-76x76.png' %}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
-    {% include 'home/includes/_shared_styles.html' %}
+  <title>{{ page.banner_title }} | Azeem School</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  <meta name="theme-color" content="#ffffff">
+  <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
+
+  <style>
+    /* ── Icon colour themes ── */
+    .icon-blue   { background:#e3f2fd; } .icon-blue   i { color:#42a5f5; }
+    .icon-green  { background:#e8f5e9; } .icon-green  i { color:#66bb6a; }
+    .icon-yellow { background:#fff8e1; } .icon-yellow i { color:#f4b942; }
+    .icon-pink   { background:#fce4ec; } .icon-pink   i { color:#ec407a; }
+    .icon-purple { background:#f3e5f5; } .icon-purple i { color:#ab47bc; }
+    .icon-cyan   { background:#e0f7fa; } .icon-cyan   i { color:#26c6da; }
+    .icon-orange { background:#fff3e0; } .icon-orange i { color:#ff7043; }
+    .icon-teal   { background:#e0f2f1; } .icon-teal   i { color:#26a69a; }
+    .icon-red    { background:#fce8e8; } .icon-red    i { color:#ef5350; }
+
+    /* ── Stats strip ── */
+    .ab-stats-con { background:var(--e-global-color-very-dark-blue); padding:60px 0; }
+    .ab-stat-item { text-align:center; padding:0 20px; }
+    .ab-stat-item .stat-num {
+      font-size:48px; font-weight:800; color:var(--e-global-color-accent);
+      line-height:1; display:block; margin-bottom:8px; font-family:"Urbanist",serif;
+    }
+    .ab-stat-item p { color:rgba(255,255,255,0.7); font-size:14px; margin-bottom:0; }
+
+    /* ── Story section ── */
+    .ab-story-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); position:relative; overflow:hidden; }
+    .ab-img-stack { position:relative; height:460px; }
+    .ab-img-stack img { position:absolute; border-radius:20px; object-fit:cover; box-shadow:0 20px 60px rgba(106,82,224,0.14); }
+    .ab-img-main   { width:74%; height:370px; top:0; left:0; }
+    .ab-img-accent { width:52%; height:250px; bottom:0; right:0; border:6px solid #fff; }
+    .ab-exp-badge {
+      position:absolute; bottom:50px; left:20px; z-index:2;
+      background:var(--e-global-color-accent); color:var(--e-global-color-very-dark-blue);
+      border-radius:16px; padding:14px 22px; font-weight:900; font-size:13px; line-height:1.3;
+      box-shadow:0 8px 28px rgba(106,82,224,0.2);
+    }
+    .ab-exp-badge .big { font-size:34px; display:block; line-height:1; font-family:"Urbanist",serif; }
+    .ab-check-list { list-style:none; padding:0; margin:0 0 30px; }
+    .ab-check-list li { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; font-size:15px; color:var(--e-global-color-text); line-height:1.5; }
+    .ab-check-list li .chk { width:22px; height:22px; border-radius:50%; flex-shrink:0; margin-top:1px; background:var(--e-global-color-soft-blue); display:flex; align-items:center; justify-content:center; }
+    .ab-check-list li .chk i { color:#fff; font-size:9px; }
+    .ab-story-btn { display:inline-flex; align-items:center; gap:10px; background:var(--e-global-color-very-dark-blue); color:var(--e-global-color-accent); font-weight:700; font-size:15px; padding:15px 32px; border-radius:50px; text-decoration:none; transition:all 0.3s; }
+    .ab-story-btn:hover { background:var(--e-global-color-accent); color:var(--e-global-color-very-dark-blue); text-decoration:none; transform:translateY(-2px); box-shadow:0 8px 24px rgba(106,82,224,0.2); }
+
+    /* ── Choose section ── */
+    .ab-choose-con { padding:100px 0; background:#ffffff; }
+    .ab-choose-card { background:#fafafa; border:1.5px solid #f0f0f8; border-radius:20px; padding:36px 28px; height:100%; transition:all 0.3s ease; margin-bottom:24px; position:relative; overflow:hidden; }
+    .ab-choose-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--e-global-color-soft-blue); opacity:0; transition:opacity 0.3s; }
+    .ab-choose-card:hover::before { opacity:1; }
+    .ab-choose-card:hover { background:#ffffff; border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(106,82,224,0.12); transform:translateY(-5px); }
+    .ab-choose-icon { width:64px; height:64px; border-radius:18px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
+    .ab-choose-icon i { font-size:26px; }
+    .ab-choose-card h4 { font-size:17px; font-weight:700; color:var(--e-global-color-very-dark-blue); margin-bottom:10px; }
+    .ab-choose-card p { font-size:14px; color:var(--e-global-color-text); margin:0; line-height:1.7; }
+
+    /* ── Video section ── */
+    .ab-video-con { padding:100px 0; background:var(--e-global-color-very-dark-blue); position:relative; overflow:hidden; }
+    .ab-video-con::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:rgba(220,253,125,0.04); top:-150px; right:-150px; }
+    .ab-video-con::after  { content:''; position:absolute; width:350px; height:350px; border-radius:50%; background:rgba(106,82,224,0.08); bottom:-100px; left:-100px; }
+    .ab-video-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(220,253,125,0.12); border:1px solid rgba(220,253,125,0.25); color:var(--e-global-color-accent); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 18px; border-radius:50px; margin-bottom:14px; }
+    .ab-video-wrapper { position:relative; z-index:1; border-radius:20px; overflow:hidden; border:1px solid rgba(220,253,125,0.15); box-shadow:0 32px 80px rgba(0,0,0,0.4); aspect-ratio:16/9; }
+    .ab-yt-link { display:block; width:100%; height:100%; }
+    .ab-yt-link img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+    .ab-yt-link:hover img { transform:scale(1.03); }
+    .ab-play-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.22); transition:background 0.3s; }
+    .ab-yt-link:hover .ab-play-overlay { background:rgba(0,0,0,0.38); }
+    .ab-play-circle { width:80px; height:80px; background:rgba(255,255,255,0.95); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(0,0,0,0.35); transition:transform 0.3s; }
+    .ab-yt-link:hover .ab-play-circle { transform:scale(1.1); }
+    .ab-play-circle i { color:var(--e-global-color-very-dark-blue); font-size:28px; margin-left:5px; }
+
+    /* ── Mission & Vision ── */
+    .ab-mv-con { padding:100px 0; background:var(--e-global-color-very-dark-blue); position:relative; overflow:hidden; }
+    .ab-mv-con::before { content:''; position:absolute; width:450px; height:450px; border-radius:50%; background:rgba(220,253,125,0.04); top:-120px; right:-120px; }
+    .ab-mv-con::after  { content:''; position:absolute; width:320px; height:320px; border-radius:50%; background:rgba(106,82,224,0.08); bottom:-80px; left:-80px; }
+    .ab-mv-card { background:rgba(255,255,255,0.05); border:1px solid rgba(220,253,125,0.12); border-radius:24px; padding:44px 36px; position:relative; z-index:1; height:100%; transition:all 0.3s; }
+    .ab-mv-card:hover { background:rgba(220,253,125,0.06); border-color:rgba(220,253,125,0.3); }
+    .ab-mv-icon { width:60px; height:60px; border-radius:16px; margin-bottom:24px; background:rgba(220,253,125,0.12); border:1px solid rgba(220,253,125,0.25); display:flex; align-items:center; justify-content:center; }
+    .ab-mv-icon i { font-size:24px; color:var(--e-global-color-accent); }
+    .ab-mv-card h3 { font-size:24px; font-weight:800; color:#fff; margin-bottom:14px; }
+    .ab-mv-card p  { font-size:15px; color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:24px; }
+    .ab-mv-list { list-style:none; padding:0; margin:0; }
+    .ab-mv-list li { display:flex; align-items:center; gap:10px; font-size:14px; color:rgba(255,255,255,0.75); padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .ab-mv-list li:last-child { border-bottom:none; }
+    .ab-mv-list li i { color:var(--e-global-color-accent); font-size:11px; flex-shrink:0; }
+
+    /* ── Core Values ── */
+    .ab-values-con { padding:80px 0; background:var(--e-global-color-very-pale-blue); }
+    .ab-value-chip { display:inline-flex; align-items:center; gap:8px; background:#ffffff; border:1.5px solid rgba(106,82,224,0.15); border-radius:50px; padding:11px 22px; font-size:14px; font-weight:600; color:var(--e-global-color-very-dark-blue); margin:6px; transition:all 0.25s; }
+    .ab-value-chip i { color:var(--e-global-color-soft-blue); font-size:13px; }
+    .ab-value-chip:hover { background:var(--e-global-color-soft-blue); border-color:var(--e-global-color-soft-blue); color:#fff; }
+    .ab-value-chip:hover i { color:var(--e-global-color-accent); }
+
+    /* ── Team ── */
+    .ab-team-con { padding:100px 0; background:#ffffff; }
+    .ab-team-card { border-radius:20px; overflow:hidden; background:var(--e-global-color-very-pale-blue); border:1.5px solid transparent; transition:all 0.35s; height:100%; }
+    .ab-team-card:hover { border-color:var(--e-global-color-soft-blue); transform:translateY(-6px); box-shadow:0 24px 60px rgba(106,82,224,0.14); }
+    .ab-team-photo { position:relative; overflow:hidden; height:280px; }
+    .ab-team-photo img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
+    .ab-team-card:hover .ab-team-photo img { transform:scale(1.06); }
+    .ab-team-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(31,23,65,0.85) 0%,transparent 55%); opacity:0; transition:opacity 0.35s; display:flex; align-items:flex-end; padding:18px; gap:10px; }
+    .ab-team-card:hover .ab-team-overlay { opacity:1; }
+    .ab-team-overlay a { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.15); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; text-decoration:none; transition:background 0.2s; }
+    .ab-team-overlay a:hover { background:var(--e-global-color-accent); color:var(--e-global-color-very-dark-blue); }
+    .ab-team-info { padding:22px 24px; }
+    .ab-team-info h4 { font-size:17px; font-weight:800; color:var(--e-global-color-very-dark-blue); margin-bottom:4px; }
+    .ab-team-info .sub { font-size:13px; color:var(--e-global-color-text); }
+    .ab-team-info .role-tag { display:inline-block; margin-top:10px; background:var(--e-global-color-soft-blue); color:#fff; font-size:11px; font-weight:700; padding:4px 14px; border-radius:50px; }
+
+    /* ── Testimonials ── */
+    .ab-testi-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); }
+    .ab-testi-card { background:#ffffff; border-radius:20px; padding:36px; border:1.5px solid #f0f0f8; height:100%; transition:all 0.3s; position:relative; }
+    .ab-testi-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(106,82,224,0.1); transform:translateY(-4px); }
+    .ab-testi-card .quote-mark { position:absolute; top:22px; right:24px; font-size:52px; color:rgba(106,82,224,0.1); line-height:1; }
+    .ab-stars { color:var(--e-global-color-accent); margin-bottom:14px; font-size:13px; }
+    .ab-testi-card blockquote { font-size:15px; color:var(--e-global-color-text); line-height:1.8; margin:0 0 22px; font-style:italic; }
+    .ab-testi-person { display:flex; align-items:center; gap:14px; }
+    .ab-testi-person img { width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--e-global-color-soft-blue); }
+    .ab-testi-person .name { display:block; font-size:14px; font-weight:800; color:var(--e-global-color-very-dark-blue); }
+    .ab-testi-person .role { font-size:12px; color:var(--e-global-color-text); }
+
+    /* ── CTA band ── */
+    .ab-cta-con { padding:80px 0; background:var(--e-global-color-soft-blue); position:relative; overflow:hidden; text-align:center; }
+    .ab-cta-con::before { content:''; position:absolute; width:450px; height:450px; border-radius:50%; background:rgba(255,255,255,0.05); top:-160px; right:-100px; }
+    .ab-cta-con::after  { content:''; position:absolute; width:300px; height:300px; border-radius:50%; background:rgba(220,253,125,0.06); bottom:-100px; left:-80px; }
+    .ab-cta-con h2 { font-size:clamp(28px,4vw,42px); font-weight:800; color:#fff; margin-bottom:14px; }
+    .ab-cta-con p  { font-size:16px; color:rgba(255,255,255,0.8); max-width:520px; margin:0 auto 32px; line-height:1.7; }
+    .ab-cta-primary { display:inline-flex; align-items:center; gap:10px; background:var(--e-global-color-accent); color:var(--e-global-color-very-dark-blue); padding:16px 38px; border-radius:50px; font-weight:700; font-size:16px; text-decoration:none; transition:all 0.3s; margin-right:14px; margin-bottom:12px; }
+    .ab-cta-primary:hover { background:#fff; color:var(--e-global-color-very-dark-blue); transform:translateY(-2px); box-shadow:0 8px 24px rgba(31,23,65,0.2); text-decoration:none; }
+    .ab-cta-outline { display:inline-flex; align-items:center; gap:10px; background:transparent; color:#fff; padding:15px 36px; border-radius:50px; font-weight:700; font-size:16px; text-decoration:none; transition:all 0.3s; border:2px solid rgba(255,255,255,0.5); margin-bottom:12px; }
+    .ab-cta-outline:hover { background:rgba(255,255,255,0.1); border-color:#fff; color:#fff; text-decoration:none; }
+
+    /* ── Shared heading helpers ── */
+    .sec-label      { color:var(--e-global-color-soft-blue); font-size:15px; font-weight:600; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:10px; }
+    .sec-label-light{ color:var(--e-global-color-accent); font-size:15px; font-weight:600; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:10px; }
+    .sec-title      { font-size:clamp(28px,3.5vw,40px); font-weight:800; color:var(--e-global-color-very-dark-blue); margin-bottom:16px; line-height:1.2; }
+    .sec-title-light{ font-size:clamp(28px,3.5vw,40px); font-weight:800; color:#fff; margin-bottom:16px; line-height:1.2; }
+    .sub_banner .about_banner_con::before { background-image: var(--banner-bg, url("{% static 'images/subbanner-aboutbackground.jpg' %}")); }
+  </style>
+  {% include 'home/includes/_shared_styles.html' %}
 </head>
 <body>
-<!-- Back to top button -->
 <a id="button"></a>
 {% include 'home/includes/_whatsapp.html' %}
+
+<!-- ═══ HEADER + SUB-BANNER ═══ -->
 <div class="sub_banner position-relative">
-        {% include 'home/includes/_navbar.html' %}
-    <!-- Sub banner -->
-    <section class="sub_banner_con about_banner_con position-relative">
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-xl-6 col-md-8 col-12 mx-auto">
-                    <div class="sub_banner_content" data-aos="fade-up">
-                        <h1 class="text-white">{{ page.banner_title }}</h1>
-                        <p class="text-white text-size-18">{{ page.banner_description }}</p>
-                        <div class="box">
-                            <a href="/" class="text-decoration-none">
-                                <span class="mb-0">Home</span>
-                            </a>
-                            <i class="arrow fa-solid fa-arrow-right"></i>
-                            <span class="mb-0 box_span">{{ page.banner_title }}</span>
-                        </div>
-                    </div>
-                </div>
+  {% include 'home/includes/_navbar.html' %}
+  <section class="sub_banner_con about_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ about_banner_bg.url }}')"{% endif %}>
+    <div class="container position-relative">
+      <div class="row">
+        <div class="col-xl-8 col-md-10 col-12 mx-auto">
+          <div class="sub_banner_content" data-aos="fade-up">
+            <h1 class="text-white">{{ page.banner_title }}</h1>
+            <p class="text-white text-size-18">{{ page.banner_description }}</p>
+            <div class="box">
+              <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
+              <i class="arrow fa-solid fa-arrow-right"></i>
+              <span class="mb-0 box_span">{{ page.banner_title }}</span>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- About -->
-<section class="about-con aboutpage-con position-relative">
-    <figure class="about-rightimage mb-0">
-        <img src="{% static 'images/about-rightimage.png' %}" alt="image" class="img-fluid">
-    </figure>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-2 text-lg-left text-center">
-                <div class="about_wrapper position-relative">
-                    <figure class="aboutpage-image1 image mb-0">
-                        {% if page.about_image1 %}
-                            {% image page.about_image1 original as about_img1 %}
-                            <img src="{{ about_img1.url }}" alt="image">
-                        {% else %}
-                            <img src="{% static 'images/aboutpage-image1.jpg' %}" alt="image">
-                        {% endif %}
-                    </figure>
-                    <figure class="aboutpage-image2 image mb-0">
-                        {% if page.about_image2 %}
-                            {% image page.about_image2 original as about_img2 %}
-                            <img src="{{ about_img2.url }}" alt="image">
-                        {% else %}
-                            <img src="{% static 'images/aboutpage-image2.jpg' %}" alt="image">
-                        {% endif %}
-                    </figure>
-                    <figure class="aboutpage-crossimage mb-0">
-                        <img src="{% static 'images/aboutpage-crossimage.png' %}" alt="image">
-                    </figure>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-2 order-1">
-                <div class="about_content" data-aos="fade-up">
-                    <h6>{{ page.about_subtitle }}</h6>
-                    <h2>{{ page.about_heading }}</h2>
-                    <p class="text-size-18 text">{{ page.about_description }}</p>
-                    <ul class="list-unstyled">
-                        {% for feature in page.about_features.all %}
-                        <li>
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            <p class="mb-0 text-size-16">{{ feature.text }}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <a href="{{ page.about_btn_url }}" class="text-decoration-none primary_btn">
-                        {{ page.about_btn_label }}<i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
+<!-- ═══ STATS STRIP ═══ -->
+{% if page.benefit_stats.exists %}
+<section class="ab-stats-con">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      {% for stat in page.benefit_stats.all %}
+      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="ab-stat-item">
+          <span class="stat-num">
+            <span class="stat-count">{{ stat.counter }}</span>{% if stat.suffix %}<sup style="font-size:24px">{{ stat.suffix }}</sup>{% endif %}
+          </span>
+          <p>{{ stat.label }}</p>
         </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </section>
-
-<!-- Choose -->
-<section class="choose-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="choose_content text-center" data-aos="fade-up">
-                    <h6>{{ page.choose_subtitle }}</h6>
-                    <h2>{{ page.choose_heading }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row all_row" data-aos="fade-up">
-            {% for feature in page.choose_features.all %}
-            {% with forloop.counter as i %}
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12 all_column">
-                <div class="choose-box box{{ i }} all_boxes">
-                    <figure class="icon icon{{ i }}">
-                        <i class="{{ feature.icon_class|default:'fa-solid fa-graduation-cap' }}" style="font-size:36px;"></i>
-                    </figure>
-                    <h4>{{ feature.title }}</h4>
-                    <p class="text-size-16">{{ feature.description }}</p>
-                    <a href="{{ feature.link_url }}" class="text-decoration-none arrow"><i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-            {% endwith %}
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-{% if page and page.benefit_video_thumb %}
-{% image page.benefit_video_thumb original as benefit_thumb %}
-{% if benefit_thumb %}
-<style>
-.faqbenefit-con::before {
-    background-image: url('{{ benefit_thumb.url }}');
-    background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat;
-}
-</style>
 {% endif %}
+
+<!-- ═══ ABOUT STORY ═══ -->
+<section class="ab-story-con">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="ab-img-stack">
+          {% if page.about_image1 %}
+            {% image page.about_image1 original as img1 %}
+            <img class="ab-img-main" src="{{ img1.url }}" alt="{{ page.about_heading }}">
+          {% else %}
+            <img class="ab-img-main" src="{% static 'images/aboutpage-image1.jpg' %}" alt="About us">
+          {% endif %}
+          {% if page.about_image2 %}
+            {% image page.about_image2 original as img2 %}
+            <img class="ab-img-accent" src="{{ img2.url }}" alt="Students">
+          {% else %}
+            <img class="ab-img-accent" src="{% static 'images/aboutpage-image2.jpg' %}" alt="Students">
+          {% endif %}
+          {% if page.benefit_stats.exists %}
+          {% with page.benefit_stats.first as s %}
+          <div class="ab-exp-badge">
+            <span class="big">{{ s.counter }}{{ s.suffix }}</span>{{ s.label }}
+          </div>
+          {% endwith %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <span class="sec-label">{{ page.about_subtitle }}</span>
+        <h2 class="sec-title">{{ page.about_heading }}</h2>
+        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-bottom:24px;">{{ page.about_description }}</p>
+        {% if page.about_features.exists %}
+        <ul class="ab-check-list">
+          {% for feature in page.about_features.all %}
+          <li><span class="chk"><i class="fa-solid fa-check"></i></span>{{ feature.text }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <a href="{{ page.about_btn_url }}" class="ab-story-btn">{{ page.about_btn_label }} <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY CHOOSE US ═══ -->
+{% if page.choose_features.exists %}
+<section class="ab-choose-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-7 text-center" data-aos="fade-up">
+        <span class="sec-label">{{ page.choose_subtitle }}</span>
+        <h2 class="sec-title">{{ page.choose_heading }}</h2>
+        {% if page.choose_description %}<p style="font-size:15px;color:var(--e-global-color-text);">{{ page.choose_description }}</p>{% endif %}
+      </div>
+    </div>
+    <div class="row g-0">
+      {% for feature in page.choose_features.all %}
+      <div class="col-lg-3 col-md-6 col-12 p-2" data-aos="fade-up" data-aos-delay="{% cycle '0' '100' '200' '300' as cdelay %}">
+        <div class="ab-choose-card">
+          <div class="ab-choose-icon {% cycle 'icon-blue' 'icon-green' 'icon-yellow' 'icon-pink' 'icon-purple' 'icon-cyan' 'icon-orange' 'icon-teal' %}">
+            <i class="{{ feature.icon_class|default:'fa-solid fa-graduation-cap' }}"></i>
+          </div>
+          <h4>{{ feature.title }}</h4>
+          <p>{{ feature.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endif %}
-<!-- Benefit -->
-<section class="faqbenefit-con position-relative">
-    <figure class="benefit-leftimage mb-0">
-        <img src="{% static 'images/testimonial-leftimage.png' %}" class="img-fluid" alt="image">
-    </figure>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="benefit_content" data-aos="fade-up">
-                    <h6>{{ page.benefit_subtitle }}</h6>
-                    <h2 class="text-white">{{ page.benefit_heading }}</h2>
-                    <p class="text-white text-size-18 text">{{ page.benefit_description }}</p>
-                    <ul class="list-unstyled mb-0">
-                        {% for stat in page.benefit_stats.all %}
-                        <li>
-                            <span class="value">
-                                <span class="counter">{{ stat.counter }}</span>
-                                <sup>{{ stat.suffix }}</sup>
-                            </span>
-                            <p class="text-size-14 mb-0">{{ stat.label }}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-lg-left text-center">
-                <div class="benefit_wrapper position-relative" data-aos="fade-up">
-                    {% if page.benefit_video_url %}
-                    <div class="icon">
-                        <a class="popup-vimeo" href="{{ page.benefit_video_url }}">
-                            <div class="mb-0 video-icon">
-                                <img class="thumb img-fluid" style="cursor: pointer" src="{% static 'images/play-icon.png' %}" alt="image">
-                            </div>
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Team -->
-<section class="team-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="team_content text-center" data-aos="fade-up">
-                    <h6>{{ page.team_subtitle }}</h6>
-                    <h2>{{ page.team_heading }}</h2>
-                </div>
+<!-- ═══ VIDEO SECTION ═══ -->
+{% if page.video_youtube_id or page.video_thumbnail %}
+<section class="ab-video-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-7 text-center" data-aos="fade-up">
+        {% if page.video_label %}
+        <div class="ab-video-tag"><i class="fa-solid fa-play"></i> {{ page.video_label }}</div>
+        {% endif %}
+        <h2 class="sec-title-light">{{ page.video_heading }}</h2>
+        {% if page.video_description %}
+        <p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;">{{ page.video_description }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+        <div class="ab-video-wrapper">
+          {% if page.video_youtube_id %}
+          <a class="ab-yt-link" href="https://www.youtube.com/watch?v={{ page.video_youtube_id }}" target="_blank" rel="noopener">
+            {% if page.video_thumbnail %}
+              {% image page.video_thumbnail original as vthumb %}
+              <img src="{{ vthumb.url }}" alt="{{ page.video_heading }}">
+            {% else %}
+              <img src="https://img.youtube.com/vi/{{ page.video_youtube_id }}/maxresdefault.jpg" alt="{{ page.video_heading }}">
+            {% endif %}
+            <div class="ab-play-overlay">
+              <div class="ab-play-circle"><i class="fa-solid fa-play"></i></div>
             </div>
+          </a>
+          {% elif page.video_thumbnail %}
+            {% image page.video_thumbnail original as vthumb %}
+            <img style="width:100%;height:100%;object-fit:cover;display:block;" src="{{ vthumb.url }}" alt="{{ page.video_heading }}">
+          {% endif %}
         </div>
-        <div class="row all_row" data-aos="fade-up">
-            {% for member in page.team_members.all %}
-            <div class="col-lg-4 col-md-4 col-sm-6 col-12 mx-auto all_column">
-                <div class="team-box all_boxes{% if forloop.last %} mb-0{% endif %}">
-                    <figure class="team-image">
-                        {% if member.photo %}
-                            {% image member.photo original as member_photo %}
-                            <img src="{{ member_photo.url }}" alt="image" class="img-fluid">
-                        {% else %}
-                            <img src="{% static 'images/team-image1.jpg' %}" alt="image" class="img-fluid">
-                        {% endif %}
-                    </figure>
-                    <div class="content all_boxes">
-                        <h4>{{ member.name }}</h4>
-                        <span class="text-size-16">{{ member.role }}</span>
-                        <ul class="list-unstyled mb-0">
-                            {% if member.facebook_url %}
-                            <li class="icons"><a href="{{ member.facebook_url }}"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
-                            {% endif %}
-                            {% if member.twitter_url %}
-                            <li class="icons"><a href="{{ member.twitter_url }}"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a></li>
-                            {% endif %}
-                            {% if member.youtube_url %}
-                            <li class="icons"><a href="{{ member.youtube_url }}"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══ MISSION & VISION ═══ -->
+{% if page.mission_description or page.vision_description %}
+<section class="ab-mv-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-6 text-center" data-aos="fade-up">
+        <span class="sec-label-light">{{ page.mv_label }}</span>
+        <h2 class="sec-title-light">{{ page.mv_title }}</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% if page.mission_description %}
+      <div class="col-md-6" data-aos="fade-right">
+        <div class="ab-mv-card">
+          <div class="ab-mv-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <h3>{{ page.mission_heading }}</h3>
+          <p>{{ page.mission_description }}</p>
+          {% if page.mission_points.exists %}
+          <ul class="ab-mv-list">
+            {% for point in page.mission_points.all %}
+            <li><i class="fa-solid fa-check"></i>{{ point.text }}</li>
             {% endfor %}
+          </ul>
+          {% endif %}
         </div>
+      </div>
+      {% endif %}
+      {% if page.vision_description %}
+      <div class="col-md-6" data-aos="fade-left">
+        <div class="ab-mv-card">
+          <div class="ab-mv-icon"><i class="fa-solid fa-eye"></i></div>
+          <h3>{{ page.vision_heading }}</h3>
+          <p>{{ page.vision_description }}</p>
+          {% if page.vision_points.exists %}
+          <ul class="ab-mv-list">
+            {% for point in page.vision_points.all %}
+            <li><i class="fa-solid fa-check"></i>{{ point.text }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
     </div>
+  </div>
 </section>
+{% endif %}
 
-<!-- Testimonial -->
-<section class="testimonial-con position-relative">
-    <figure class="testimonial-leftimage mb-0">
-        <img src="{% static 'images/testimonial-leftimage.png' %}" class="img-fluid" alt="image">
-    </figure>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="testimonial_content text-center" data-aos="fade-up">
-                    <h6>{{ page.testimonials_subtitle }}</h6>
-                    <h2>{{ page.testimonials_heading }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <div class="col-12">
-                <div class="owl-carousel owl-theme">
-                    {% for testimonial in page.about_testimonials.all %}
-                    <div class="item">
-                        <div class="testimonial-box float-left w-100">
-                            <ul class="list-unstyled">
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-solid fa-star"></i></li>
-                                <li><i class="fa-solid fa-star"></i></li>
-                            </ul>
-                            <p class="text text-size-16">"{{ testimonial.quote }}"</p>
-                            <div class="info position-relative">
-                                <figure class="user-img mb-0">
-                                    {% if testimonial.photo %}
-                                        {% image testimonial.photo original as t_photo %}
-                                        <img class="img-fluid" src="{{ t_photo.url }}" alt="image">
-                                    {% else %}
-                                        <img class="img-fluid" src="{% static 'images/testimonial-personimage1.jpg' %}" alt="image">
-                                    {% endif %}
-                                </figure>
-                                <div class="designation-outer">
-                                    <span class="name">{{ testimonial.name }}</span>
-                                    <span class="mb-0 position">{{ testimonial.role }}</span>
-                                </div>
-                                <figure class="quote-img position-absolute mb-0">
-                                    <img class="img-fluid" src="{% static 'images/testimonial-quoteimg.png' %}" alt="image">
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+<!-- ═══ CORE VALUES ═══ -->
+{% if page.core_values.exists %}
+<section class="ab-values-con">
+  <div class="container text-center">
+    <div data-aos="fade-up" class="mb-4">
+      <span class="sec-label">{{ page.values_label }}</span>
+      <h2 class="sec-title">{{ page.values_title }}</h2>
     </div>
+    <div data-aos="fade-up" data-aos-delay="100">
+      {% for value in page.core_values.all %}
+      <span class="ab-value-chip"><i class="{{ value.icon_class }}"></i>{{ value.label }}</span>
+      {% endfor %}
+    </div>
+  </div>
 </section>
+{% endif %}
+
+<!-- ═══ OUR TEAM ═══ -->
+{% if page.team_members.exists %}
+<section class="ab-team-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-6 text-center" data-aos="fade-up">
+        <span class="sec-label">{{ page.team_subtitle }}</span>
+        <h2 class="sec-title">{{ page.team_heading }}</h2>
+      </div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      {% for member in page.team_members.all %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="ab-team-card">
+          <div class="ab-team-photo">
+            {% if member.photo %}
+              {% image member.photo original as mphoto %}
+              <img src="{{ mphoto.url }}" alt="{{ member.name }}">
+            {% else %}
+              <img src="{% static 'images/team-image1.jpg' %}" alt="{{ member.name }}">
+            {% endif %}
+            <div class="ab-team-overlay">
+              {% if member.facebook_url %}<a href="{{ member.facebook_url }}" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>{% endif %}
+              {% if member.twitter_url %}<a href="{{ member.twitter_url }}" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>{% endif %}
+              {% if member.youtube_url %}<a href="{{ member.youtube_url }}" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>{% endif %}
+            </div>
+          </div>
+          <div class="ab-team-info">
+            <h4>{{ member.name }}</h4>
+            <span class="sub">{{ member.role }}</span>
+            <div class="role-tag">{{ member.role }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══ TESTIMONIALS ═══ -->
+{% if page.about_testimonials.exists %}
+<section class="ab-testi-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-6 text-center" data-aos="fade-up">
+        <span class="sec-label">{{ page.testimonials_subtitle }}</span>
+        <h2 class="sec-title">{{ page.testimonials_heading }}</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for testimonial in page.about_testimonials.all %}
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="ab-testi-card">
+          <div class="quote-mark"><i class="fa-solid fa-quote-right"></i></div>
+          <div class="ab-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <blockquote>"{{ testimonial.quote }}"</blockquote>
+          <div class="ab-testi-person">
+            {% if testimonial.photo %}
+              {% image testimonial.photo original as tphoto %}
+              <img src="{{ tphoto.url }}" alt="{{ testimonial.name }}">
+            {% else %}
+              <img src="{% static 'images/testimonial-personimage1.jpg' %}" alt="{{ testimonial.name }}">
+            {% endif %}
+            <div>
+              <span class="name">{{ testimonial.name }}</span>
+              <span class="role">{{ testimonial.role }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══ CTA BAND ═══ -->
+{% if page.cta_heading %}
+<section class="ab-cta-con">
+  <div class="container position-relative" style="z-index:2;" data-aos="fade-up">
+    <h2>{{ page.cta_heading }}</h2>
+    {% if page.cta_description %}<p>{{ page.cta_description }}</p>{% endif %}
+    {% if page.cta_btn_label %}<a href="{{ page.cta_btn_url }}" class="ab-cta-primary">{{ page.cta_btn_label }} <i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+    {% if page.cta_outline_label %}<a href="{{ page.cta_outline_url }}" class="ab-cta-outline">{{ page.cta_outline_label }} <i class="fa-solid fa-envelope"></i></a>{% endif %}
+  </div>
+</section>
+{% endif %}
 
 {% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
 <div class="loader-mask">
-    <div class="loader">
-        <div></div>
-        <div></div>
-    </div>
+  <div class="loader"><div></div><div></div></div>
 </div>
+
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/owl.carousel.js' %}"></script>
-<script src="{% static 'js/carousel.js' %}"></script>
 <script src="{% static 'js/animation.js' %}"></script>
 <script src="{% static 'js/back-to-top-button.js' %}"></script>
 <script src="{% static 'js/preloader.js' %}"></script>
-<script src="{% static 'js/video.js' %}"></script>
 <script src="{% static 'js/video-popup.js' %}"></script>
+<script>AOS.init({ duration: 700, once: true, offset: 60 });</script>
 </body>
 </html>

@@ -874,6 +874,37 @@ class AboutTestimonial(Orderable):
         return self.name
 
 
+class AboutMissionPoint(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="mission_points")
+    text = models.CharField(max_length=300)
+    panels = [FieldPanel("text")]
+
+    def __str__(self):
+        return self.text
+
+
+class AboutVisionPoint(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="vision_points")
+    text = models.CharField(max_length=300)
+    panels = [FieldPanel("text")]
+
+    def __str__(self):
+        return self.text
+
+
+class AboutCoreValue(Orderable):
+    page = ParentalKey("AboutPage", on_delete=models.CASCADE, related_name="core_values")
+    icon_class = models.CharField(
+        max_length=100, choices=HOME_ICON_CHOICES,
+        default="fa-solid fa-star", verbose_name="Icon",
+    )
+    label = models.CharField(max_length=100)
+    panels = [FieldPanel("icon_class"), FieldPanel("label")]
+
+    def __str__(self):
+        return self.label
+
+
 # ──────────────────────────────────────────────
 # ABOUT PAGE — FOOTER INLINE MODELS
 # ──────────────────────────────────────────────
@@ -1103,6 +1134,12 @@ class AboutPage(Page):
     nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
 
     # ── Sub-banner ────────────────────────────
+    banner_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_banner_bg",
+        verbose_name="Banner Background Image",
+        help_text="Recommended resolution: 1920 × 486 px",
+    )
     banner_title = models.CharField(max_length=200, default="About Us")
     banner_description = models.TextField(default="")
 
@@ -1126,6 +1163,7 @@ class AboutPage(Page):
     # ── Choose / Features Section ─────────────
     choose_subtitle = models.CharField(max_length=100, default="Our Features")
     choose_heading = models.CharField(max_length=300, default="Why You Should Choose Us")
+    choose_description = models.TextField(blank=True, default="")
 
     # ── Benefit Section ───────────────────────
     benefit_subtitle = models.CharField(max_length=100, default="Our Expertise")
@@ -1137,6 +1175,41 @@ class AboutPage(Page):
         verbose_name="Benefit Video Background Image",
     )
     benefit_video_url = models.URLField(blank=True, verbose_name="Benefit Video URL")
+
+    # ── Video Section ─────────────────────────
+    video_label       = models.CharField(max_length=100, default="Watch & Learn", blank=True)
+    video_heading     = models.CharField(max_length=300, default="See Our Campus in Action", blank=True)
+    video_description = models.TextField(default="", blank=True)
+    video_youtube_id  = models.CharField(
+        max_length=30, blank=True,
+        verbose_name="YouTube Video ID",
+        help_text="Paste just the video ID from the URL — e.g. for https://youtu.be/dQw4w9WgXcQ paste dQw4w9WgXcQ",
+    )
+    video_thumbnail = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_video_thumbnail",
+        verbose_name="Video Thumbnail (shown if no YouTube ID set)",
+    )
+
+    # ── Mission & Vision Section ──────────────
+    mv_label          = models.CharField(max_length=100, default="Our Purpose", blank=True, verbose_name="Section Label")
+    mv_title          = models.CharField(max_length=300, default="Mission & Vision", blank=True, verbose_name="Section Heading")
+    mission_heading   = models.CharField(max_length=200, default="Our Mission", blank=True)
+    mission_description = models.TextField(default="", blank=True)
+    vision_heading    = models.CharField(max_length=200, default="Our Vision", blank=True)
+    vision_description = models.TextField(default="", blank=True)
+
+    # ── Core Values Section ───────────────────
+    values_label = models.CharField(max_length=100, default="What We Stand For", blank=True, verbose_name="Values Section Label")
+    values_title = models.CharField(max_length=300, default="Our Core Values", blank=True, verbose_name="Values Section Heading")
+
+    # ── CTA Section ───────────────────────────
+    cta_heading      = models.CharField(max_length=300, default="Ready to Join the Azeem Family?", blank=True)
+    cta_description  = models.TextField(default="", blank=True)
+    cta_btn_label    = models.CharField(max_length=100, default="Apply for Admission", blank=True)
+    cta_btn_url      = models.CharField(max_length=255, default="/admissions/", blank=True)
+    cta_outline_label = models.CharField(max_length=100, default="Contact Us", blank=True)
+    cta_outline_url  = models.CharField(max_length=255, default="/contact/", blank=True)
 
     # ── Team Section ──────────────────────────
     team_subtitle = models.CharField(max_length=100, default="Instructors")
@@ -1175,6 +1248,7 @@ class AboutPage(Page):
         ], heading="Navbar"),
 
         MultiFieldPanel([
+            FieldPanel("banner_bg_image"),
             FieldPanel("banner_title"),
             FieldPanel("banner_description"),
         ], heading="Sub-Banner"),
@@ -1192,6 +1266,7 @@ class AboutPage(Page):
         MultiFieldPanel([
             FieldPanel("choose_subtitle"),
             FieldPanel("choose_heading"),
+            FieldPanel("choose_description"),
             InlinePanel("choose_features", label="Feature Boxes"),
         ], heading="Choose / Features Section"),
 
@@ -1201,8 +1276,33 @@ class AboutPage(Page):
             FieldPanel("benefit_description"),
             FieldPanel("benefit_video_thumb"),
             FieldPanel("benefit_video_url"),
-            InlinePanel("benefit_stats", label="Counter Stats"),
-        ], heading="Benefit Section"),
+            InlinePanel("benefit_stats", label="Stats Strip Items"),
+        ], heading="Stats Strip"),
+
+        MultiFieldPanel([
+            FieldPanel("video_label"),
+            FieldPanel("video_heading"),
+            FieldPanel("video_description"),
+            FieldPanel("video_youtube_id"),
+            FieldPanel("video_thumbnail"),
+        ], heading="Video Section"),
+
+        MultiFieldPanel([
+            FieldPanel("mv_label"),
+            FieldPanel("mv_title"),
+            FieldPanel("mission_heading"),
+            FieldPanel("mission_description"),
+            InlinePanel("mission_points", label="Mission Bullet Points"),
+            FieldPanel("vision_heading"),
+            FieldPanel("vision_description"),
+            InlinePanel("vision_points", label="Vision Bullet Points"),
+        ], heading="Mission & Vision Section"),
+
+        MultiFieldPanel([
+            FieldPanel("values_label"),
+            FieldPanel("values_title"),
+            InlinePanel("core_values", label="Core Values"),
+        ], heading="Core Values Section"),
 
         MultiFieldPanel([
             FieldPanel("team_subtitle"),
@@ -1215,6 +1315,13 @@ class AboutPage(Page):
             FieldPanel("testimonials_heading"),
             InlinePanel("about_testimonials", label="Testimonials"),
         ], heading="Testimonials Section"),
+
+        MultiFieldPanel([
+            FieldPanel("cta_heading"),
+            FieldPanel("cta_description"),
+            FieldRowPanel([FieldPanel("cta_btn_label"), FieldPanel("cta_btn_url")]),
+            FieldRowPanel([FieldPanel("cta_outline_label"), FieldPanel("cta_outline_url")]),
+        ], heading="CTA Section"),
 
         MultiFieldPanel([
             FieldPanel("footer_logo"),
