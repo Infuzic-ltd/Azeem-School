@@ -36,6 +36,10 @@ def contact_view(request):
     page = ContactPage.objects.live().first()
     return render(request, "home/contact.html", {"page": page})
 
+def contact_view2(request):
+    page = ContactPage.objects.live().first()
+    return render(request, "home/contact_static.html", {"page": page})
+
 
 def admissions_view(request):
     page = AdmissionsPage.objects.live().first()

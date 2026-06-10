@@ -714,12 +714,6 @@ class AdmissionsPage(Page):
     content_panels = Page.content_panels + [
 
         MultiFieldPanel([
-            FieldPanel("nav_logo"),
-            FieldPanel("nav_phone"),
-            FieldRowPanel([FieldPanel("nav_login_label"), FieldPanel("nav_login_url")]),
-        ], heading="Navbar"),
-
-        MultiFieldPanel([
             FieldPanel("banner_bg_image"),
             FieldPanel("banner_title"),
             FieldPanel("banner_description"),
@@ -754,22 +748,6 @@ class AdmissionsPage(Page):
             InlinePanel("admission_boards", label="Board Selection Options"),
         ], heading="Application Form Section"),
 
-        MultiFieldPanel([
-            FieldPanel("footer_logo"),
-            FieldPanel("footer_newsletter_heading"),
-            FieldPanel("footer_about_title"),
-            FieldPanel("footer_about_text"),
-            InlinePanel("admissions_footer_social_links", label="Social Links"),
-            FieldPanel("footer_links_title"),
-            InlinePanel("admissions_footer_useful_links", label="Useful Links"),
-            FieldPanel("footer_explore_title"),
-            InlinePanel("admissions_footer_explore_links", label="Explore / Programs Links"),
-            FieldPanel("footer_contact_title"),
-            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
-            FieldPanel("footer_contact_address"),
-            FieldPanel("footer_contact_map_url"),
-            FieldPanel("footer_copyright_text"),
-        ], heading="Footer"),
     ]
 
     class Meta:
@@ -991,6 +969,43 @@ class ContactFooterExploreLink(Orderable):
 # CONTACT PAGE
 # ──────────────────────────────────────────────
 
+class ContactStat(Orderable):
+    page    = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_stats")
+    counter = models.CharField(max_length=20, help_text='e.g. "3500"')
+    suffix  = models.CharField(max_length=5, blank=True, help_text='e.g. "%", "+"')
+    label   = models.CharField(max_length=100)
+
+    panels = [
+        FieldRowPanel([FieldPanel("counter"), FieldPanel("suffix")]),
+        FieldPanel("label"),
+    ]
+
+    def __str__(self):
+        return f"{self.counter}{self.suffix} — {self.label}"
+
+
+class ContactHour(Orderable):
+    page = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_hours")
+    day  = models.CharField(max_length=100, help_text='e.g. "Monday – Friday"')
+    time = models.CharField(max_length=100, help_text='e.g. "8:00 AM – 3:00 PM"')
+
+    panels = [FieldRowPanel([FieldPanel("day"), FieldPanel("time")])]
+
+    def __str__(self):
+        return f"{self.day}: {self.time}"
+
+
+class ContactFAQ(Orderable):
+    page     = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_faqs")
+    question = models.CharField(max_length=400)
+    answer   = models.TextField()
+
+    panels = [FieldPanel("question"), FieldPanel("answer")]
+
+    def __str__(self):
+        return self.question
+
+
 class ContactPage(Page):
 
     # ── Navbar ────────────────────────────────
@@ -1026,17 +1041,28 @@ class ContactPage(Page):
     email_1 = models.EmailField(default="")
     email_2 = models.EmailField(default="", blank=True)
 
-    # ── Contact Form section ──────────────────
-    form_subtitle = models.CharField(max_length=100, default="Registration")
-    form_title = models.CharField(max_length=200, default="Register Your Free Account")
-    form_bg_image = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True,
-        on_delete=models.SET_NULL, related_name="contact_form_bg",
-        verbose_name="Form Left Background Image",
-    )
+    # ── Opening Hours section ─────────────────
+    hours_label   = models.CharField(max_length=100, blank=True, default="School Hours")
+    hours_heading = models.CharField(max_length=300, blank=True, default="When We're Open")
 
     # ── Map ───────────────────────────────────
-    map_embed_url = models.URLField(blank=True, verbose_name="Google Maps Embed URL")
+    map_label       = models.CharField(max_length=100, blank=True, default="Find Us")
+    map_heading     = models.CharField(max_length=300, blank=True, default="Visit Our Campus")
+    map_description = models.TextField(blank=True, default="")
+    map_embed_url   = models.URLField(blank=True, verbose_name="Google Maps Embed URL")
+    map_link_url    = models.URLField(blank=True, verbose_name="Google Maps Link URL (for 'Open in Maps' button)")
+    map_link_label  = models.CharField(max_length=100, blank=True, default="Open in Google Maps")
+
+    # ── FAQ section ───────────────────────────
+    faq_label   = models.CharField(max_length=100, blank=True, default="Common Questions")
+    faq_heading = models.CharField(max_length=300, blank=True, default="Frequently Asked Questions")
+
+    # ── Social links ──────────────────────────
+    social_facebook_url  = models.URLField(blank=True)
+    social_instagram_url = models.URLField(blank=True)
+    social_twitter_url   = models.URLField(blank=True)
+    social_youtube_url   = models.URLField(blank=True)
+    social_whatsapp_url  = models.URLField(blank=True)
 
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
@@ -1055,64 +1081,89 @@ class ContactPage(Page):
     footer_contact_map_url = models.URLField(blank=True)
     footer_copyright_text = models.CharField(max_length=200, default="")
 
+    @property
+    def map_embed_src(self):
+        import re
+        url = self.map_embed_url
+        if not url:
+            return ""
+        # Already a proper embed URL — pass through
+        if "output=embed" in url or "/maps/embed" in url:
+            return url
+        # Extract @lat,lng,zoom from a regular Google Maps place/search URL
+        match = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+),(\d+)', url)
+        if match:
+            lat, lng, zoom = match.group(1), match.group(2), match.group(3)
+            return f"https://www.google.com/maps?q={lat},{lng}&z={zoom}&output=embed"
+        # Fallback: append output=embed
+        sep = "&" if "?" in url else "?"
+        return url + sep + "output=embed"
+
     # ──────────────────────────────────────────
     # ADMIN PANELS
     # ──────────────────────────────────────────
 
     content_panels = Page.content_panels + [
 
-        MultiFieldPanel([
-            FieldPanel("nav_logo"),
-            FieldPanel("nav_phone"),
-        ], heading="Navbar"),
-
+        # ── 1. Sub-Banner ─────────────────────
         MultiFieldPanel([
             FieldPanel("banner_bg_image"),
             FieldPanel("banner_title"),
             FieldPanel("banner_description"),
         ], heading="Sub-Banner"),
 
+        # ── 2. Stats Strip ────────────────────
+        MultiFieldPanel([
+            InlinePanel("contact_stats", label="Stat Item"),
+        ], heading="Stats Strip"),
+
+        # ── 3. Contact Info Cards ──────────────
         MultiFieldPanel([
             FieldPanel("contact_info_subtitle"),
             FieldPanel("contact_info_title"),
             MultiFieldPanel([
                 FieldPanel("location_address"),
                 FieldPanel("location_map_url"),
-            ], heading="Location Box"),
+            ], heading="Address Card"),
             MultiFieldPanel([
                 FieldRowPanel([FieldPanel("phone_1"), FieldPanel("phone_2")]),
-            ], heading="Phone Box"),
+            ], heading="Phone Card"),
             MultiFieldPanel([
                 FieldRowPanel([FieldPanel("email_1"), FieldPanel("email_2")]),
-            ], heading="Email Box"),
+            ], heading="Email Card"),
         ], heading="Contact Info Section"),
 
+        # ── 4. Opening Hours ──────────────────
         MultiFieldPanel([
-            FieldPanel("form_subtitle"),
-            FieldPanel("form_title"),
-            FieldPanel("form_bg_image"),
-        ], heading="Contact Form Section"),
+            FieldPanel("hours_label"),
+            FieldPanel("hours_heading"),
+            InlinePanel("contact_hours", label="Hours Row"),
+        ], heading="Opening Hours Section"),
 
+        # ── 5. Social Links ───────────────────
         MultiFieldPanel([
+            FieldPanel("social_facebook_url"),
+            FieldPanel("social_instagram_url"),
+            FieldPanel("social_twitter_url"),
+            FieldPanel("social_youtube_url"),
+            FieldPanel("social_whatsapp_url"),
+        ], heading="Social Links"),
+
+        # ── 6. Map Section ────────────────────
+        MultiFieldPanel([
+            FieldPanel("map_label"),
+            FieldPanel("map_heading"),
+            FieldPanel("map_description"),
             FieldPanel("map_embed_url"),
-        ], heading="Map"),
+            FieldRowPanel([FieldPanel("map_link_url"), FieldPanel("map_link_label")]),
+        ], heading="Map Section"),
 
+        # ── 7. FAQ Section ────────────────────
         MultiFieldPanel([
-            FieldPanel("footer_logo"),
-            FieldPanel("footer_newsletter_heading"),
-            FieldPanel("footer_about_title"),
-            FieldPanel("footer_about_text"),
-            InlinePanel("contact_footer_social_links", label="Social Links"),
-            FieldPanel("footer_links_title"),
-            InlinePanel("contact_footer_useful_links", label="Useful Links"),
-            FieldPanel("footer_explore_title"),
-            InlinePanel("contact_footer_explore_links", label="Explore Links"),
-            FieldPanel("footer_contact_title"),
-            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
-            FieldPanel("footer_contact_address"),
-            FieldPanel("footer_contact_map_url"),
-            FieldPanel("footer_copyright_text"),
-        ], heading="Footer"),
+            FieldPanel("faq_label"),
+            FieldPanel("faq_heading"),
+            InlinePanel("contact_faqs", label="FAQ Item"),
+        ], heading="FAQ Section"),
     ]
 
     class Meta:
@@ -1243,11 +1294,6 @@ class AboutPage(Page):
     content_panels = Page.content_panels + [
 
         MultiFieldPanel([
-            FieldPanel("nav_logo"),
-            FieldPanel("nav_phone"),
-        ], heading="Navbar"),
-
-        MultiFieldPanel([
             FieldPanel("banner_bg_image"),
             FieldPanel("banner_title"),
             FieldPanel("banner_description"),
@@ -1323,22 +1369,6 @@ class AboutPage(Page):
             FieldRowPanel([FieldPanel("cta_outline_label"), FieldPanel("cta_outline_url")]),
         ], heading="CTA Section"),
 
-        MultiFieldPanel([
-            FieldPanel("footer_logo"),
-            FieldPanel("footer_newsletter_heading"),
-            FieldPanel("footer_about_title"),
-            FieldPanel("footer_about_text"),
-            InlinePanel("about_footer_social_links", label="Social Links"),
-            FieldPanel("footer_links_title"),
-            InlinePanel("about_footer_useful_links", label="Useful Links"),
-            FieldPanel("footer_explore_title"),
-            InlinePanel("about_footer_explore_links", label="Explore Links"),
-            FieldPanel("footer_contact_title"),
-            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
-            FieldPanel("footer_contact_address"),
-            FieldPanel("footer_contact_map_url"),
-            FieldPanel("footer_copyright_text"),
-        ], heading="Footer"),
     ]
 
     class Meta:
@@ -2098,12 +2128,6 @@ class AcademicsPage(Page):
     content_panels = Page.content_panels + [
 
         MultiFieldPanel([
-            FieldPanel("nav_logo"),
-            FieldPanel("nav_phone"),
-            FieldRowPanel([FieldPanel("nav_login_label"), FieldPanel("nav_login_url")]),
-        ], heading="Navbar"),
-
-        MultiFieldPanel([
             FieldPanel("banner_bg_image"),
             FieldPanel("banner_title"),
             FieldPanel("banner_description"),
@@ -2171,22 +2195,6 @@ class AcademicsPage(Page):
             FieldRowPanel([FieldPanel("cta_button_label"), FieldPanel("cta_button_url")]),
         ], heading="CTA Section"),
 
-        MultiFieldPanel([
-            FieldPanel("footer_logo"),
-            FieldPanel("footer_newsletter_heading"),
-            FieldPanel("footer_about_title"),
-            FieldPanel("footer_about_text"),
-            InlinePanel("academics_footer_social_links", label="Social Links"),
-            FieldPanel("footer_links_title"),
-            InlinePanel("academics_footer_useful_links", label="Useful Links"),
-            FieldPanel("footer_explore_title"),
-            InlinePanel("academics_footer_explore_links", label="Explore / Academics Links"),
-            FieldPanel("footer_contact_title"),
-            FieldRowPanel([FieldPanel("footer_contact_phone"), FieldPanel("footer_contact_email")]),
-            FieldPanel("footer_contact_address"),
-            FieldPanel("footer_contact_map_url"),
-            FieldPanel("footer_copyright_text"),
-        ], heading="Footer"),
     ]
 
     class Meta:

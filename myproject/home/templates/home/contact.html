@@ -1,213 +1,341 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
+{% if page.banner_bg_image %}{% image page.banner_bg_image original as contact_banner_bg %}{% endif %}
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html lang="en">
 <head>
-    <title>{{ page.banner_title }} | Educiza</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <meta charset="utf-8">
-    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicon/apple-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicon/apple-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicon/apple-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicon/apple-icon-76x76.png' %}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
-    {% include 'home/includes/_shared_styles.html' %}
+  <title>{{ page.banner_title }} | Azeem School</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  <meta name="theme-color" content="#ffffff">
+  <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+
+  <style>
+    /* ── Contact Info Cards ── */
+    .ct-info-con { padding:80px 0; background:var(--e-global-color-very-pale-blue); }
+    .ct-info-card { background:#ffffff; border:1.5px solid #f0f0f8; border-radius:20px; padding:36px 28px; text-align:center; height:100%; transition:all 0.3s; position:relative; overflow:hidden; }
+    .ct-info-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--e-global-color-soft-blue); opacity:0; transition:opacity 0.3s; }
+    .ct-info-card:hover::before { opacity:1; }
+    .ct-info-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(106,82,224,0.12); transform:translateY(-5px); }
+    .ct-icon-wrap { width:68px; height:68px; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+    .ct-icon-wrap i { font-size:28px; }
+    .ct-icon-purple { background:#f3e5f5; } .ct-icon-purple i { color:#ab47bc; }
+    .ct-icon-blue   { background:#e3f2fd; } .ct-icon-blue   i { color:#42a5f5; }
+    .ct-icon-green  { background:#e8f5e9; } .ct-icon-green  i { color:#66bb6a; }
+    .ct-icon-orange { background:#fff3e0; } .ct-icon-orange i { color:#ff7043; }
+    .ct-info-card h4 { font-size:17px; font-weight:800; color:var(--e-global-color-very-dark-blue); margin-bottom:10px; }
+    .ct-info-card p, .ct-info-card a { font-size:14px; color:var(--e-global-color-text); line-height:1.7; margin-bottom:4px; text-decoration:none; display:block; }
+    .ct-info-card a:hover { color:var(--e-global-color-soft-blue); }
+    .ct-map-chip { display:inline-flex; align-items:center; gap:6px; margin-top:10px; background:var(--e-global-color-soft-blue); color:#fff; font-size:12px; font-weight:700; padding:5px 16px; border-radius:50px; text-decoration:none; transition:background 0.2s; }
+    .ct-map-chip:hover { background:var(--e-global-color-very-dark-blue); color:#fff; text-decoration:none; }
+
+    /* ── Opening Hours ── */
+    .ct-hours-con { padding:80px 0; background:#ffffff; }
+    .ct-hours-table { width:100%; border-collapse:collapse; }
+    .ct-hours-table tr { border-bottom:1px solid #f0f0f8; }
+    .ct-hours-table td { padding:14px 20px; font-size:15px; color:var(--e-global-color-text); }
+    .ct-hours-table td:first-child { font-weight:700; color:var(--e-global-color-very-dark-blue); width:55%; }
+    .ct-hours-table td:last-child { color:var(--e-global-color-soft-blue); font-weight:600; text-align:right; }
+    .ct-hours-table tr.closed td { color:rgba(0,0,0,0.35); }
+    .ct-hours-table tr.closed td:last-child { color:rgba(0,0,0,0.35); }
+    .ct-hours-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(102,187,106,0.1); border:1px solid rgba(102,187,106,0.3); color:#43a047; font-size:12px; font-weight:700; padding:5px 16px; border-radius:50px; margin-bottom:20px; }
+    .ct-hours-badge i { font-size:9px; }
+    .ct-hours-img { border-radius:20px; overflow:hidden; height:420px; }
+    .ct-hours-img img { width:100%; height:100%; object-fit:cover; }
+
+    /* ── Map Section ── */
+    .ct-map-con { padding:80px 0 0; background:var(--e-global-color-very-dark-blue); position:relative; overflow:hidden; }
+    .ct-map-con::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:rgba(220,253,125,0.04); top:-150px; right:-150px; }
+    .ct-map-con::after  { content:''; position:absolute; width:350px; height:350px; border-radius:50%; background:rgba(106,82,224,0.08); bottom:0; left:-100px; }
+    .ct-map-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(220,253,125,0.12); border:1px solid rgba(220,253,125,0.25); color:var(--e-global-color-accent); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 18px; border-radius:50px; margin-bottom:14px; }
+    .ct-map-iframe-wrap { position:relative; z-index:1; margin-top:48px; border-radius:20px 20px 0 0; overflow:hidden; border:1px solid rgba(220,253,125,0.12); box-shadow:0 -16px 60px rgba(0,0,0,0.3); height:420px; }
+    .ct-map-iframe-wrap iframe { width:100%; height:100%; display:block; border:none; }
+    .ct-open-maps-btn { display:inline-flex; align-items:center; gap:10px; background:var(--e-global-color-accent); color:var(--e-global-color-very-dark-blue); padding:14px 34px; border-radius:50px; font-weight:700; font-size:15px; text-decoration:none; transition:all 0.3s; }
+    .ct-open-maps-btn:hover { background:#fff; color:var(--e-global-color-very-dark-blue); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.2); text-decoration:none; }
+    .ct-directions-btn { display:inline-flex; align-items:center; gap:10px; background:transparent; color:rgba(255,255,255,0.75); padding:13px 32px; border-radius:50px; font-weight:600; font-size:15px; text-decoration:none; transition:all 0.3s; border:2px solid rgba(255,255,255,0.25); margin-left:12px; }
+    .ct-directions-btn:hover { border-color:rgba(255,255,255,0.6); color:#fff; text-decoration:none; }
+
+    /* ── Stats strip ── */
+    .ct-stats-con { background:var(--e-global-color-very-dark-blue); padding:60px 0; }
+    .ct-stat-item { text-align:center; padding:0 20px; }
+    .ct-stat-item .stat-num { font-size:48px; font-weight:800; color:var(--e-global-color-accent); line-height:1; display:block; margin-bottom:8px; font-family:"Urbanist",serif; }
+    .ct-stat-item p { color:rgba(255,255,255,0.7); font-size:14px; margin-bottom:0; }
+
+    /* ── FAQ ── */
+    .ct-faq-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); }
+    .ct-faq-item { background:#ffffff; border:1.5px solid #f0f0f8; border-radius:16px; margin-bottom:12px; overflow:hidden; transition:border-color 0.3s; }
+    .ct-faq-item.show-item { border-color:var(--e-global-color-soft-blue); }
+    .ct-faq-btn { width:100%; background:none; border:none; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; font-size:15px; font-weight:700; color:var(--e-global-color-very-dark-blue); text-align:left; cursor:pointer; gap:16px; }
+    .ct-faq-btn:focus { outline:none; }
+    .ct-faq-btn .faq-icon { width:32px; height:32px; border-radius:50%; flex-shrink:0; background:var(--e-global-color-very-pale-blue); display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+    .ct-faq-btn .faq-icon i { font-size:12px; color:var(--e-global-color-soft-blue); transition:transform 0.3s; }
+    .ct-faq-btn[aria-expanded="true"] .faq-icon { background:var(--e-global-color-soft-blue); }
+    .ct-faq-btn[aria-expanded="true"] .faq-icon i { color:#fff; transform:rotate(45deg); }
+    .ct-faq-body { padding:0 24px 20px; font-size:14px; color:var(--e-global-color-text); line-height:1.8; }
+
+    /* ── Social Connect ── */
+    .ct-social-con { padding:70px 0; background:var(--e-global-color-soft-blue); text-align:center; position:relative; overflow:hidden; }
+    .ct-social-con::before { content:''; position:absolute; width:450px; height:450px; border-radius:50%; background:rgba(255,255,255,0.05); top:-160px; right:-100px; }
+    .ct-social-con h2 { font-size:clamp(24px,3.5vw,36px); font-weight:800; color:#fff; margin-bottom:10px; }
+    .ct-social-con p { font-size:15px; color:rgba(255,255,255,0.8); margin-bottom:28px; }
+    .ct-social-link { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border-radius:50%; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.3); color:#fff; font-size:18px; margin:0 6px; text-decoration:none; transition:all 0.3s; }
+    .ct-social-link:hover { background:var(--e-global-color-accent); border-color:var(--e-global-color-accent); color:var(--e-global-color-very-dark-blue); transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+
+    /* ── Shared helpers ── */
+    .sec-label { color:var(--e-global-color-soft-blue); font-size:15px; font-weight:600; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:10px; }
+    .sec-label-light { color:var(--e-global-color-accent); font-size:15px; font-weight:600; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:10px; }
+    .sec-title { font-size:clamp(28px,3.5vw,40px); font-weight:800; color:var(--e-global-color-very-dark-blue); margin-bottom:16px; line-height:1.2; }
+    .sec-title-light { font-size:clamp(28px,3.5vw,40px); font-weight:800; color:#fff; margin-bottom:16px; line-height:1.2; }
+  </style>
+  {% include 'home/includes/_shared_styles.html' %}
 </head>
 <body>
-<!-- Back to top button -->
 <a id="button"></a>
 {% include 'home/includes/_whatsapp.html' %}
+
+<!-- ═══ 1. HEADER + SUB-BANNER ═══ -->
 <div class="sub_banner position-relative">
-        {% include 'home/includes/_navbar.html' %}
-    <!-- Sub banner -->
-    {% if page.banner_bg_image %}{% image page.banner_bg_image original as banner_bg %}{% endif %}
-    <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ banner_bg.url }}')"{% endif %}>
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-xl-6 col-md-10 col-12 mx-auto">
-                    <div class="sub_banner_content" data-aos="fade-up">
-                        <h1 class="text-white">{{ page.banner_title }}</h1>
-                        <p class="text-white text-size-18">{{ page.banner_description }}</p>
-                        <div class="box">
-                            <a href="/" class="text-decoration-none">
-                                <span class="mb-0">Home</span>
-                            </a>
-                            <i class="arrow fa-solid fa-arrow-right"></i>
-                            <span class="mb-0 box_span">{{ page.banner_title }}</span>
-                        </div>
-                    </div>
-                </div>
+  {% include 'home/includes/_navbar.html' %}
+  <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ contact_banner_bg.url }}')"{% endif %}>
+    <div class="container position-relative">
+      <div class="row">
+        <div class="col-xl-8 col-md-10 col-12 mx-auto">
+          <div class="sub_banner_content" data-aos="fade-up">
+            <h1 class="text-white">{{ page.banner_title }}</h1>
+            <p class="text-white text-size-18">{{ page.banner_description }}</p>
+            <div class="box">
+              <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
+              <i class="arrow fa-solid fa-arrow-right"></i>
+              <span class="mb-0 box_span">{{ page.banner_title }}</span>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- Contact Info -->
-<section class="contactinfo-con">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="contactinfo_content text-center" data-aos="fade-up">
-                    <h6>{{ page.contact_info_subtitle }}</h6>
-                    <h2>{{ page.contact_info_title }}</h2>
-                </div>
-            </div>
+<!-- ═══ 2. STATS STRIP ═══ -->
+{% if page.contact_stats.exists %}
+<section class="ct-stats-con">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      {% for stat in page.contact_stats.all %}
+      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="ct-stat-item">
+          <span class="stat-num">
+            <span class="stat-count">{{ stat.counter }}</span>{% if stat.suffix %}<sup style="font-size:24px">{{ stat.suffix }}</sup>{% endif %}
+          </span>
+          <p>{{ stat.label }}</p>
         </div>
-        <div class="row all_row" data-aos="fade-up">
-            <!-- Location -->
-            <div class="col-lg-4 col-md-4 col-sm-12 col-12 all_column">
-                <div class="contact-box box1 all_boxes">
-                    <figure class="icon icon1">
-                        <img src="{% static 'images/contact-icon1.png' %}" alt="Location" class="img-fluid">
-                    </figure>
-                    <h3>Our Location</h3>
-                    <a href="{{ page.location_map_url }}" class="text-decoration-none text-size-16 mb-0">
-                        {{ page.location_address }}
-                    </a>
-                </div>
-            </div>
-            <!-- Phone -->
-            <div class="col-lg-4 col-md-4 col-sm-12 col-12 all_column">
-                <div class="contact-box box2 all_boxes">
-                    <figure class="icon icon2">
-                        <img src="{% static 'images/contact-icon2.png' %}" alt="Phone" class="img-fluid">
-                    </figure>
-                    <h3>Phone Number</h3>
-                    <a href="tel:{{ page.phone_1 }}" class="text-decoration-none text-size-16">{{ page.phone_1 }}</a>
-                    {% if page.phone_2 %}
-                    <div class="clearfix"></div>
-                    <a href="tel:{{ page.phone_2 }}" class="text-decoration-none text-size-16 mb-0">{{ page.phone_2 }}</a>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- Email -->
-            <div class="col-lg-4 col-md-4 col-sm-12 col-12 all_column">
-                <div class="contact-box box3 mb-0 all_boxes">
-                    <figure class="icon icon3">
-                        <img src="{% static 'images/contact-icon3.png' %}" alt="Email" class="img-fluid">
-                    </figure>
-                    <h3>Our Email</h3>
-                    <a href="mailto:{{ page.email_1 }}" class="text-decoration-none text-size-16">{{ page.email_1 }}</a>
-                    {% if page.email_2 %}
-                    <div class="clearfix"></div>
-                    <a href="mailto:{{ page.email_2 }}" class="text-decoration-none text-size-16 mb-0">{{ page.email_2 }}</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══ 3. CONTACT INFO CARDS ═══ -->
+<section class="ct-info-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-6 text-center" data-aos="fade-up">
+        <span class="sec-label">{{ page.contact_info_subtitle }}</span>
+        <h2 class="sec-title">{{ page.contact_info_title }}</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-purple"><i class="fa-solid fa-location-dot"></i></div>
+          <h4>Our Address</h4>
+          <p>{{ page.location_address }}</p>
+          {% if page.location_map_url %}
+          <a href="{{ page.location_map_url }}" target="_blank" rel="noopener" class="ct-map-chip">
+            <i class="fa-solid fa-map-location-dot"></i> View on Map
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-blue"><i class="fa-solid fa-phone"></i></div>
+          <h4>Phone Numbers</h4>
+          {% if page.phone_1 %}<a href="tel:{{ page.phone_1 }}">{{ page.phone_1 }}</a>{% endif %}
+          {% if page.phone_2 %}<a href="tel:{{ page.phone_2 }}">{{ page.phone_2 }}</a>{% endif %}
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-green"><i class="fa-solid fa-envelope"></i></div>
+          <h4>Email Us</h4>
+          {% if page.email_1 %}<a href="mailto:{{ page.email_1 }}">{{ page.email_1 }}</a>{% endif %}
+          {% if page.email_2 %}<a href="mailto:{{ page.email_2 }}">{{ page.email_2 }}</a>{% endif %}
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-orange"><i class="fa-solid fa-clock"></i></div>
+          <h4>School Hours</h4>
+          {% if page.contact_hours.exists %}
+            {% for hour in page.contact_hours.all|slice:":2" %}
+            <p{% if forloop.last %} style="margin-bottom:0"{% endif %}>{{ hour.day }}: {{ hour.time }}</p>
+            {% endfor %}
+          {% else %}
+            <p>Mon – Fri: 7:30 AM – 2:30 PM</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Contact Form -->
-<section class="contactform-con position-relative">
-    <figure class="contact-righttopimage mb-0">
-        <img src="{% static 'images/contactform-righttopimage.png' %}" alt="image" class="img-fluid">
-    </figure>
-    <div class="container">
-        
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="contact_wrapper position-relative" data-aos="fade-up">
-                    <figure class="contact-leftbackground mb-0">
-                        {% if page.form_bg_image %}
-                            {% image page.form_bg_image original as form_bg %}
-                            <img src="{{ form_bg.url }}" alt="image" class="img-fluid">
-                        {% else %}
-                            <img src="{% static 'images/contact-leftbackground.jpg' %}" alt="image" class="img-fluid">
-                        {% endif %}
-                    </figure>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="contact_content position-relative" data-aos="fade-up">
-                    <h6>{{ page.form_subtitle }}</h6>
-                    <h2 class="text-white">{{ page.form_title }}</h2>
-                    <form id="contactpage" method="post" action="{{ page.url }}" class="position-relative">
-                        {% csrf_token %}
-                        <div class="form-group input1 float-left">
-                            <input type="text" class="form_style" placeholder="Name" name="fname" id="fname">
-                        </div>
-                        <div class="form-group float-left">
-                            <input type="tel" class="form_style" placeholder="Phone" name="phone" id="phone">
-                        </div>
-                        <div class="form-group input1 float-left">
-                            <input type="email" class="form_style" placeholder="Email" name="email" id="email">
-                        </div>
-                        <div class="form-group float-left">
-                            <input type="text" class="form_style" placeholder="Address" name="address" id="address">
-                        </div>
-                        <div class="form-group message">
-                            <textarea class="form_style" placeholder="Message" rows="3" name="msg"></textarea>
-                        </div>
-                        <button type="submit" id="submit" class="submit_now text-decoration-none">
-                            Sign Up Now<i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </form>
-                    <figure class="contact-crossimage mb-0">
-                        <img src="{% static 'images/contactform-crossimage.png' %}" alt="image" class="img-fluid">
-                    </figure>
-                    <figure class="contact-triangleimage mb-0">
-                        <img src="{% static 'images/contactform-triangleimage.png' %}" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-            </div>
+<!-- ═══ 4. OPENING HOURS ═══ -->
+{% if page.contact_hours.exists %}
+<section class="ct-hours-con">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <span class="sec-label">{{ page.hours_label }}</span>
+        <h2 class="sec-title">{{ page.hours_heading }}</h2>
+        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-bottom:28px;">Our campus is open throughout the week for classes, administrative support, and parent visits. Below is our weekly schedule.</p>
+        <div class="ct-hours-badge"><i class="fa-solid fa-circle"></i> Currently Open</div>
+        <table class="ct-hours-table">
+          {% for hour in page.contact_hours.all %}
+          <tr>
+            <td>{{ hour.day }}</td>
+            <td>{{ hour.time }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="ct-hours-img">
+          <img src="{% static 'images/aboutpage-image1.jpg' %}" alt="School Campus">
         </div>
+      </div>
     </div>
+  </div>
 </section>
+{% endif %}
 
-<!-- Map -->
-{% if page.map_embed_url %}
-<div class="map-con">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <iframe src="{{ page.map_embed_url }}" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
+<!-- ═══ 5. SOCIAL LINKS ═══ -->
+{% if page.social_facebook_url or page.social_instagram_url or page.social_twitter_url or page.social_youtube_url or page.social_whatsapp_url %}
+<section class="ct-social-con">
+  <div class="container position-relative" style="z-index:1;" data-aos="fade-up">
+    <h2>Connect With Us Online</h2>
+    <p>Follow Azeem School on social media for news, events, and student highlights.</p>
+    <div>
+      {% if page.social_facebook_url %}
+      <a href="{{ page.social_facebook_url }}" target="_blank" rel="noopener" class="ct-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      {% endif %}
+      {% if page.social_instagram_url %}
+      <a href="{{ page.social_instagram_url }}" target="_blank" rel="noopener" class="ct-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      {% endif %}
+      {% if page.social_twitter_url %}
+      <a href="{{ page.social_twitter_url }}" target="_blank" rel="noopener" class="ct-social-link" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+      {% endif %}
+      {% if page.social_youtube_url %}
+      <a href="{{ page.social_youtube_url }}" target="_blank" rel="noopener" class="ct-social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      {% endif %}
+      {% if page.social_whatsapp_url %}
+      <a href="{{ page.social_whatsapp_url }}" target="_blank" rel="noopener" class="ct-social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      {% endif %}
     </div>
-</div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══ 6. MAP SECTION ═══ -->
+{% if page.map_embed_src %}
+<section class="ct-map-con">
+  <div class="container position-relative" style="z-index:1;">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center" data-aos="fade-up">
+        {% if page.map_label %}<div class="ct-map-tag"><i class="fa-solid fa-location-dot"></i> {{ page.map_label }}</div>{% endif %}
+        <h2 class="sec-title-light">{{ page.map_heading }}</h2>
+        {% if page.map_description %}
+        <p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:28px;">{{ page.map_description }}</p>
+        {% endif %}
+        {% if page.map_link_url %}
+        <a href="{{ page.map_link_url }}" target="_blank" rel="noopener" class="ct-open-maps-btn">
+          <i class="fa-solid fa-map-location-dot"></i> {{ page.map_link_label|default:"Open in Google Maps" }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="100">
+    <iframe src="{{ page.map_embed_src }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══ 7. FAQ SECTION ═══ -->
+{% if page.contact_faqs.exists %}
+<section class="ct-faq-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-7 text-center" data-aos="fade-up">
+        <span class="sec-label">{{ page.faq_label }}</span>
+        <h2 class="sec-title">{{ page.faq_heading }}</h2>
+        {% if page.email_1 %}<p style="font-size:15px;color:var(--e-global-color-text);">Can't find what you're looking for? Email us at <a href="mailto:{{ page.email_1 }}" style="color:var(--e-global-color-soft-blue);">{{ page.email_1 }}</a></p>{% endif %}
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9" data-aos="fade-up" data-aos-delay="100">
+        <div class="accordion" id="ctFaqAccordion">
+          {% for faq in page.contact_faqs.all %}
+          <div class="ct-faq-item{% if forloop.first %} show-item{% endif %}">
+            <button class="ct-faq-btn" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#faq{{ forloop.counter }}"
+              aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{ faq.question }}
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div id="faq{{ forloop.counter }}" class="collapse{% if forloop.first %} show{% endif %}" data-bs-parent="#ctFaqAccordion">
+              <div class="ct-faq-body">{{ faq.answer }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endif %}
 
 {% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
 <div class="loader-mask">
-    <div class="loader">
-        <div></div>
-        <div></div>
-    </div>
+  <div class="loader"><div></div><div></div></div>
 </div>
+
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
-<script src="{% static 'js/owl.carousel.js' %}"></script>
-<script src="{% static 'js/carousel.js' %}"></script>
 <script src="{% static 'js/animation.js' %}"></script>
 <script src="{% static 'js/back-to-top-button.js' %}"></script>
 <script src="{% static 'js/preloader.js' %}"></script>
-<script src="{% static 'js/counter.js' %}"></script>
-<script src="{% static 'js/contact-form.js' %}"></script>
-<script src="{% static 'js/contact-validate.js' %}"></script>
+<script>
+AOS.init({ duration: 700, once: true, offset: 60 });
+document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var item = this.closest('.ct-faq-item');
+    var isExpanded = this.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.ct-faq-item').forEach(function(el) { el.classList.remove('show-item'); });
+    if (!isExpanded) item.classList.add('show-item');
+  });
+});
+</script>
 </body>
 </html>

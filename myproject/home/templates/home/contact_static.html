@@ -1,0 +1,546 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Contact Us | Azeem School</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  <meta name="theme-color" content="#ffffff">
+  <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+
+  <style>
+    /* ── Contact Info Cards ── */
+    .ct-info-con {
+      padding: 80px 0;
+      background: var(--e-global-color-very-pale-blue);
+    }
+    .ct-info-card {
+      background: #ffffff;
+      border: 1.5px solid #f0f0f8;
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      height: 100%;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ct-info-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--e-global-color-soft-blue);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .ct-info-card:hover::before { opacity: 1; }
+    .ct-info-card:hover {
+      border-color: var(--e-global-color-soft-blue);
+      box-shadow: 0 16px 48px rgba(106,82,224,0.12);
+      transform: translateY(-5px);
+    }
+    .ct-icon-wrap {
+      width: 68px; height: 68px; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .ct-icon-wrap i { font-size: 28px; }
+    .ct-icon-purple { background: #f3e5f5; } .ct-icon-purple i { color: #ab47bc; }
+    .ct-icon-blue   { background: #e3f2fd; } .ct-icon-blue   i { color: #42a5f5; }
+    .ct-icon-green  { background: #e8f5e9; } .ct-icon-green  i { color: #66bb6a; }
+    .ct-icon-orange { background: #fff3e0; } .ct-icon-orange i { color: #ff7043; }
+    .ct-info-card h4 {
+      font-size: 17px; font-weight: 800;
+      color: var(--e-global-color-very-dark-blue); margin-bottom: 10px;
+    }
+    .ct-info-card p, .ct-info-card a {
+      font-size: 14px; color: var(--e-global-color-text);
+      line-height: 1.7; margin-bottom: 4px; text-decoration: none;
+      display: block;
+    }
+    .ct-info-card a:hover { color: var(--e-global-color-soft-blue); }
+    .ct-map-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px;
+      background: var(--e-global-color-soft-blue);
+      color: #fff; font-size: 12px; font-weight: 700;
+      padding: 5px 16px; border-radius: 50px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .ct-map-chip:hover { background: var(--e-global-color-very-dark-blue); color: #fff; text-decoration: none; }
+
+    /* ── Opening Hours ── */
+    .ct-hours-con {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+    .ct-hours-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .ct-hours-table tr {
+      border-bottom: 1px solid #f0f0f8;
+    }
+    .ct-hours-table td {
+      padding: 14px 20px; font-size: 15px;
+      color: var(--e-global-color-text);
+    }
+    .ct-hours-table td:first-child {
+      font-weight: 700;
+      color: var(--e-global-color-very-dark-blue);
+      width: 55%;
+    }
+    .ct-hours-table td:last-child {
+      color: var(--e-global-color-soft-blue);
+      font-weight: 600;
+      text-align: right;
+    }
+    .ct-hours-table tr.closed td { color: rgba(0,0,0,0.35); }
+    .ct-hours-table tr.closed td:last-child { color: rgba(0,0,0,0.35); }
+    .ct-hours-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(102,187,106,0.1); border: 1px solid rgba(102,187,106,0.3);
+      color: #43a047; font-size: 12px; font-weight: 700;
+      padding: 5px 16px; border-radius: 50px; margin-bottom: 20px;
+    }
+    .ct-hours-badge i { font-size: 9px; }
+    .ct-hours-img {
+      border-radius: 20px; overflow: hidden; height: 420px;
+    }
+    .ct-hours-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* ── Map Section ── */
+    .ct-map-con {
+      padding: 80px 0 0;
+      background: var(--e-global-color-very-dark-blue);
+      position: relative; overflow: hidden;
+    }
+    .ct-map-con::before {
+      content: ''; position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: rgba(220,253,125,0.04); top: -150px; right: -150px;
+    }
+    .ct-map-con::after {
+      content: ''; position: absolute;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: rgba(106,82,224,0.08); bottom: 0; left: -100px;
+    }
+    .ct-map-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(220,253,125,0.12);
+      border: 1px solid rgba(220,253,125,0.25);
+      color: var(--e-global-color-accent);
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 6px 18px; border-radius: 50px; margin-bottom: 14px;
+    }
+    .ct-map-iframe-wrap {
+      position: relative; z-index: 1; margin-top: 48px;
+      border-radius: 20px 20px 0 0; overflow: hidden;
+      border: 1px solid rgba(220,253,125,0.12);
+      box-shadow: 0 -16px 60px rgba(0,0,0,0.3);
+      height: 420px;
+    }
+    .ct-map-iframe-wrap iframe {
+      width: 100%; height: 100%; display: block; border: none;
+    }
+    .ct-open-maps-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--e-global-color-accent);
+      color: var(--e-global-color-very-dark-blue);
+      padding: 14px 34px; border-radius: 50px;
+      font-weight: 700; font-size: 15px;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .ct-open-maps-btn:hover {
+      background: #fff; color: var(--e-global-color-very-dark-blue);
+      transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      text-decoration: none;
+    }
+    .ct-directions-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: rgba(255,255,255,0.75);
+      padding: 13px 32px; border-radius: 50px;
+      font-weight: 600; font-size: 15px;
+      text-decoration: none; transition: all 0.3s;
+      border: 2px solid rgba(255,255,255,0.25);
+      margin-left: 12px;
+    }
+    .ct-directions-btn:hover {
+      border-color: rgba(255,255,255,0.6); color: #fff; text-decoration: none;
+    }
+
+    /* ── FAQ ── */
+    .ct-faq-con {
+      padding: 100px 0;
+      background: var(--e-global-color-very-pale-blue);
+    }
+    .ct-faq-item {
+      background: #ffffff;
+      border: 1.5px solid #f0f0f8;
+      border-radius: 16px; margin-bottom: 12px;
+      overflow: hidden; transition: border-color 0.3s;
+    }
+    .ct-faq-item.show-item { border-color: var(--e-global-color-soft-blue); }
+    .ct-faq-btn {
+      width: 100%; background: none; border: none; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 15px; font-weight: 700;
+      color: var(--e-global-color-very-dark-blue);
+      text-align: left; cursor: pointer; gap: 16px;
+    }
+    .ct-faq-btn:focus { outline: none; }
+    .ct-faq-btn .faq-icon {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--e-global-color-very-pale-blue);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .ct-faq-btn .faq-icon i { font-size: 12px; color: var(--e-global-color-soft-blue); transition: transform 0.3s; }
+    .ct-faq-btn[aria-expanded="true"] .faq-icon { background: var(--e-global-color-soft-blue); }
+    .ct-faq-btn[aria-expanded="true"] .faq-icon i { color: #fff; transform: rotate(45deg); }
+    .ct-faq-body {
+      padding: 0 24px 20px;
+      font-size: 14px; color: var(--e-global-color-text); line-height: 1.8;
+    }
+
+    /* ── Social Connect ── */
+    .ct-social-con {
+      padding: 70px 0;
+      background: var(--e-global-color-soft-blue);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .ct-social-con::before {
+      content: ''; position: absolute;
+      width: 450px; height: 450px; border-radius: 50%;
+      background: rgba(255,255,255,0.05); top: -160px; right: -100px;
+    }
+    .ct-social-con h2 {
+      font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; color: #fff; margin-bottom: 10px;
+    }
+    .ct-social-con p { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 28px; }
+    .ct-social-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 18px; margin: 0 6px;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .ct-social-link:hover {
+      background: var(--e-global-color-accent);
+      border-color: var(--e-global-color-accent);
+      color: var(--e-global-color-very-dark-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* ── Stats strip ── */
+    .ct-stats-con { background: var(--e-global-color-very-dark-blue); padding: 60px 0; }
+    .ct-stat-item { text-align: center; padding: 0 20px; }
+    .ct-stat-item .stat-num { font-size: 48px; font-weight: 800; color: var(--e-global-color-accent); line-height: 1; display: block; margin-bottom: 8px; font-family: "Urbanist", serif; }
+    .ct-stat-item p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 0; }
+
+    /* ── Shared helpers ── */
+    .sec-label { color: var(--e-global-color-soft-blue); font-size: 15px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+    .sec-label-light { color: var(--e-global-color-accent); font-size: 15px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+    .sec-title { font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; color: var(--e-global-color-very-dark-blue); margin-bottom: 16px; line-height: 1.2; }
+    .sec-title-light { font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.2; }
+  </style>
+  {% include 'home/includes/_shared_styles.html' %}
+</head>
+<body>
+<a id="button"></a>
+{% include 'home/includes/_whatsapp.html' %}
+
+<!-- ═══ HEADER + SUB-BANNER ═══ -->
+<div class="sub_banner position-relative">
+  {% include 'home/includes/_navbar.html' %}
+  <section class="sub_banner_con position-relative">
+    <div class="container position-relative">
+      <div class="row">
+        <div class="col-xl-8 col-md-10 col-12 mx-auto">
+          <div class="sub_banner_content" data-aos="fade-up">
+            <h1 class="text-white">Contact Us</h1>
+            <p class="text-white text-size-18">We'd love to hear from you — reach out to our team and we'll get back to you shortly.</p>
+            <div class="box">
+              <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
+              <i class="arrow fa-solid fa-arrow-right"></i>
+              <span class="mb-0 box_span">Contact Us</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ STATS STRIP ═══ -->
+<section class="ct-stats-con">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+        <div class="ct-stat-item">
+          <span class="stat-num"><span class="stat-count">3500</span><sup style="font-size:24px">+</sup></span>
+          <p>Students Enrolled</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+        <div class="ct-stat-item">
+          <span class="stat-num"><span class="stat-count">25</span><sup style="font-size:24px">+</sup></span>
+          <p>Years of Excellence</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="ct-stat-item">
+          <span class="stat-num"><span class="stat-count">150</span><sup style="font-size:24px">+</sup></span>
+          <p>Qualified Teachers</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="ct-stat-item">
+          <span class="stat-num"><span class="stat-count">98</span><sup style="font-size:24px">%</sup></span>
+          <p>Pass Rate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT INFO CARDS ═══ -->
+<section class="ct-info-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-6 text-center" data-aos="fade-up">
+        <span class="sec-label">Contact Info</span>
+        <h2 class="sec-title">Get In Touch With Us</h2>
+        <p style="font-size:15px;color:var(--e-global-color-text);">Multiple ways to reach us — choose what works best for you.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-purple"><i class="fa-solid fa-location-dot"></i></div>
+          <h4>Our Address</h4>
+          <p>123 Education Avenue, Block C, Gulberg III, Lahore, Punjab 54000</p>
+          <a href="https://maps.google.com" target="_blank" class="ct-map-chip"><i class="fa-solid fa-map-location-dot"></i> View on Map</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-blue"><i class="fa-solid fa-phone"></i></div>
+          <h4>Phone Numbers</h4>
+          <a href="tel:+923001234567">+92 300 123 4567</a>
+          <a href="tel:+924235678901">+92 42 3567 8901</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-green"><i class="fa-solid fa-envelope"></i></div>
+          <h4>Email Us</h4>
+          <a href="mailto:info@azeemschool.edu.pk">info@azeemschool.edu.pk</a>
+          <a href="mailto:admissions@azeemschool.edu.pk">admissions@azeemschool.edu.pk</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="ct-info-card">
+          <div class="ct-icon-wrap ct-icon-orange"><i class="fa-solid fa-clock"></i></div>
+          <h4>School Hours</h4>
+          <p>Mon – Fri: 7:30 AM – 2:30 PM</p>
+          <p style="margin-bottom:0;">Saturday: 8:00 AM – 12:00 PM</p>
+          <span style="display:inline-block;margin-top:10px;background:rgba(102,187,106,0.1);border:1px solid rgba(102,187,106,0.3);color:#43a047;font-size:11px;font-weight:700;padding:3px 14px;border-radius:50px;">Open Now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OPENING HOURS ═══ -->
+<section class="ct-hours-con">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <span class="sec-label">School Hours</span>
+        <h2 class="sec-title">When We're Open</h2>
+        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-bottom:28px;">Our campus is open throughout the week for classes, administrative support, and parent visits. Below is our weekly schedule.</p>
+        <div class="ct-hours-badge"><i class="fa-solid fa-circle"></i> Currently Open</div>
+        <table class="ct-hours-table">
+          <tr>
+            <td>Monday – Friday</td><td>7:30 AM – 2:30 PM</td>
+          </tr>
+          <tr>
+            <td>Saturday (Admin)</td><td>8:00 AM – 12:00 PM</td>
+          </tr>
+          <tr class="closed">
+            <td>Sunday</td><td>Closed</td>
+          </tr>
+          <tr>
+            <td>Admissions Office</td><td>9:00 AM – 4:00 PM</td>
+          </tr>
+          <tr class="closed">
+            <td>Public Holidays</td><td>Closed</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="ct-hours-img">
+          <img src="{% static 'images/aboutpage-image1.jpg' %}" alt="School Campus">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAP SECTION ═══ -->
+<section class="ct-map-con">
+  <div class="container position-relative" style="z-index:1;">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center" data-aos="fade-up">
+        <div class="ct-map-tag"><i class="fa-solid fa-location-dot"></i> Find Us</div>
+        <h2 class="sec-title-light">Visit Our Campus</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:28px;">
+          Located in the heart of Lahore, Azeem School is easily accessible from all major routes. Secure parking and public transport stops are nearby.
+        </p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="ct-open-maps-btn">
+          <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
+        </a>
+        <a href="https://maps.google.com/dir/" target="_blank" rel="noopener" class="ct-directions-btn">
+          <i class="fa-solid fa-route"></i> Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="100">
+    <!-- Replace with actual Google Maps embed URL -->
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108539.08348680985!2d74.2358674!3d31.5203696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190483e58107d9%3A0xc23abe6ccc7e2462!2sLahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1234567890"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- ═══ FAQ SECTION ═══ -->
+<section class="ct-faq-con">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-7 text-center" data-aos="fade-up">
+        <span class="sec-label">Common Questions</span>
+        <h2 class="sec-title">Frequently Asked Questions</h2>
+        <p style="font-size:15px;color:var(--e-global-color-text);">Can't find what you're looking for? Email us at info@azeemschool.edu.pk</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9" data-aos="fade-up" data-aos-delay="100">
+        <div class="accordion" id="ctFaqAccordion">
+
+          <div class="ct-faq-item" id="faq-wrap-1">
+            <button class="ct-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+              What are the admission requirements for Azeem School?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div id="faq1" class="collapse show" data-bs-parent="#ctFaqAccordion">
+              <div class="ct-faq-body">Students require previous academic records, a school leaving certificate, and must pass our entry assessment. Admissions are open for Classes I through XII. Please visit our Admissions page for complete details and required documents.</div>
+            </div>
+          </div>
+
+          <div class="ct-faq-item" id="faq-wrap-2">
+            <button class="ct-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+              How can I schedule a campus visit?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div id="faq2" class="collapse" data-bs-parent="#ctFaqAccordion">
+              <div class="ct-faq-body">Campus visits can be arranged by calling our admissions office at +92 300 123 4567 or emailing admissions@azeemschool.edu.pk. Visits are available Monday through Friday, 9 AM to 2 PM, and Saturdays by prior appointment.</div>
+            </div>
+          </div>
+
+          <div class="ct-faq-item" id="faq-wrap-3">
+            <button class="ct-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+              Which examination boards does Azeem School follow?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div id="faq3" class="collapse" data-bs-parent="#ctFaqAccordion">
+              <div class="ct-faq-body">Azeem School follows Lahore Board (BISE Lahore), Federal Board (FBISE), and Cambridge (O/A Levels). Students and parents may select the preferred board at the time of enrollment subject to availability.</div>
+            </div>
+          </div>
+
+          <div class="ct-faq-item" id="faq-wrap-4">
+            <button class="ct-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+              Is transport available from different areas of Lahore?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div id="faq4" class="collapse" data-bs-parent="#ctFaqAccordion">
+              <div class="ct-faq-body">Yes, school transport is available from major residential areas including DHA, Gulberg, Model Town, Johar Town, and Bahria Town. Routes and timings are shared upon enrollment. Contact our transport coordinator for availability in your area.</div>
+            </div>
+          </div>
+
+          <div class="ct-faq-item" id="faq-wrap-5">
+            <button class="ct-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false">
+              What are the fee structure and payment options?
+              <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div id="faq5" class="collapse" data-bs-parent="#ctFaqAccordion">
+              <div class="ct-faq-body">Fee structures vary by class level and chosen board. Monthly, quarterly, and annual payment plans are available. Sibling discounts and need-based scholarships are also offered. Please contact our accounts office for a detailed fee schedule.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOCIAL CONNECT ═══ -->
+<section class="ct-social-con">
+  <div class="container position-relative" style="z-index:1;" data-aos="fade-up">
+    <h2>Connect With Us Online</h2>
+    <p>Follow Azeem School on social media for news, events, and student highlights.</p>
+    <div>
+      <a href="#" class="ct-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" class="ct-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="ct-social-link" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" class="ct-social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" class="ct-social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </div>
+</section>
+
+{% include 'home/includes/_footer.html' %}
+
+<!-- PRE LOADER -->
+<div class="loader-mask">
+  <div class="loader"><div></div><div></div></div>
+</div>
+
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/animation.js' %}"></script>
+<script src="{% static 'js/back-to-top-button.js' %}"></script>
+<script src="{% static 'js/preloader.js' %}"></script>
+<script>
+AOS.init({ duration: 700, once: true, offset: 60 });
+
+/* FAQ accordion active class sync */
+document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var item = this.closest('.ct-faq-item');
+    var isExpanded = this.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.ct-faq-item').forEach(function(el) { el.classList.remove('show-item'); });
+    if (!isExpanded) item.classList.add('show-item');
+  });
+});
+document.querySelectorAll('.collapse.show').forEach(function(el) {
+  var item = el.closest('.ct-faq-item');
+  if (item) item.classList.add('show-item');
+});
+</script>
+</body>
+</html>
