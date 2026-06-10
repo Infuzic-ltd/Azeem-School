@@ -416,7 +416,7 @@ class Testimonial(Orderable):
         on_delete=models.SET_NULL, related_name="testimonial_photo",
     )
     name = models.CharField(max_length=100)
-    role = models.CharField(max_length=100, default="Happy Client")
+    role = models.CharField(max_length=100, blank=True, default="Happy Client")
     quote = models.TextField()
 
     panels = [
@@ -543,7 +543,7 @@ class AdmissionIntakeCard(Orderable):
         ("bg3", "Red (bg3)"),
     ]
     page = ParentalKey("AdmissionsPage", on_delete=models.CASCADE, related_name="admission_intake_cards")
-    bg_choice = models.CharField(max_length=10, choices=BG_CHOICES, default="bg1")
+    bg_choice = models.CharField(max_length=10, choices=BG_CHOICES, blank=True, default="bg1")
     icon_class = models.CharField(
         max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-calendar-check",
         verbose_name="Icon",
@@ -659,9 +659,9 @@ class AdmissionsPage(Page):
         on_delete=models.SET_NULL, related_name="admissions_nav_logo",
         verbose_name="Navbar Logo",
     )
-    nav_phone = models.CharField(max_length=30, default="")
-    nav_login_label = models.CharField(max_length=50, default="Log In")
-    nav_login_url = models.CharField(max_length=255, default="#")
+    nav_phone = models.CharField(max_length=30, blank=True, default="")
+    nav_login_label = models.CharField(max_length=50, blank=True, default="Log In")
+    nav_login_url = models.CharField(max_length=255, blank=True, default="#")
 
     # ── Sub-Banner ────────────────────────────
     banner_bg_image = models.ForeignKey(
@@ -670,23 +670,23 @@ class AdmissionsPage(Page):
         verbose_name="Banner Background Image",
         help_text="Recommended resolution: 1920 × 486 px",
     )
-    banner_title = models.CharField(max_length=200, default="Start Your Journey With Us")
+    banner_title = models.CharField(max_length=200, blank=True, default="Start Your Journey With Us")
     banner_description = models.TextField(default="")
 
     # ── Requirements Section ──────────────────
-    requirements_subtitle = models.CharField(max_length=100, default="Who Can Apply")
-    requirements_heading = models.CharField(max_length=300, default="Eligibility & Requirements")
+    requirements_subtitle = models.CharField(max_length=100, blank=True, default="Who Can Apply")
+    requirements_heading = models.CharField(max_length=300, blank=True, default="Eligibility & Requirements")
 
     # ── Process Section ───────────────────────
-    process_subtitle = models.CharField(max_length=100, default="Simple & Fast")
-    process_heading = models.CharField(max_length=300, default="How Our Admissions Works")
+    process_subtitle = models.CharField(max_length=100, blank=True, default="Simple & Fast")
+    process_heading = models.CharField(max_length=300, blank=True, default="How Our Admissions Works")
 
     # ── Form Section ──────────────────────────
-    form_subtitle = models.CharField(max_length=100, default="Apply Now")
-    form_heading = models.CharField(max_length=300, default="Your Future Starts With One Form")
+    form_subtitle = models.CharField(max_length=100, blank=True, default="Apply Now")
+    form_heading = models.CharField(max_length=300, blank=True, default="Your Future Starts With One Form")
     form_intro_text = models.TextField(default="")
     form_contact_email = models.EmailField(default="admissions@educiza.com")
-    form_submit_label = models.CharField(max_length=100, default="Submit My Application")
+    form_submit_label = models.CharField(max_length=100, blank=True, default="Submit My Application")
     form_success_message = models.TextField(
         default="Application submitted! Our admissions team will contact you within 48 hours.")
 
@@ -695,17 +695,17 @@ class AdmissionsPage(Page):
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="admissions_footer_logo",
     )
-    footer_newsletter_heading = models.CharField(max_length=200, default="Sign up for the newsletter:")
-    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_newsletter_heading = models.CharField(max_length=200, blank=True, default="Sign up for the newsletter:")
+    footer_about_title = models.CharField(max_length=100, blank=True, default="About Us")
     footer_about_text = models.TextField(default="")
-    footer_links_title = models.CharField(max_length=100, default="Useful Links")
-    footer_explore_title = models.CharField(max_length=100, default="Programs")
-    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
-    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_links_title = models.CharField(max_length=100, blank=True, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, blank=True, default="Programs")
+    footer_contact_title = models.CharField(max_length=100, blank=True, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, blank=True, default="")
     footer_contact_email = models.EmailField(default="")
-    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_address = models.CharField(max_length=300, blank=True, default="")
     footer_contact_map_url = models.URLField(blank=True)
-    footer_copyright_text = models.CharField(max_length=200, default="")
+    footer_copyright_text = models.CharField(max_length=200, blank=True, default="")
 
     # ──────────────────────────────────────────
     # ADMIN PANELS
@@ -838,7 +838,7 @@ class AboutTestimonial(Orderable):
         on_delete=models.SET_NULL, related_name="about_testimonial_photo",
     )
     name = models.CharField(max_length=100)
-    role = models.CharField(max_length=100, default="Happy Student")
+    role = models.CharField(max_length=100, blank=True, default="Happy Student")
     quote = models.TextField()
 
     panels = [
@@ -1014,7 +1014,7 @@ class ContactPage(Page):
         on_delete=models.SET_NULL, related_name="contact_nav_logo",
         verbose_name="Navbar Logo",
     )
-    nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
+    nav_phone = models.CharField(max_length=30, blank=True, default="", verbose_name="Phone Number")
 
     # ── Sub-banner ────────────────────────────
     banner_bg_image = models.ForeignKey(
@@ -1022,30 +1022,30 @@ class ContactPage(Page):
         on_delete=models.SET_NULL, related_name="contact_banner_bg",
         verbose_name="Banner Background Image",
     )
-    banner_title = models.CharField(max_length=200, default="Contact Us")
-    banner_description = models.TextField(default="")
+    banner_title = models.CharField(max_length=200, blank=True, default="Contact Us")
+    banner_description = models.TextField(blank=True, default="")
 
     # ── Contact Info section ──────────────────
-    contact_info_subtitle     = models.CharField(max_length=100, default="Contact Info")
-    contact_info_title        = models.CharField(max_length=200, default="Our Contact Information")
+    contact_info_subtitle     = models.CharField(max_length=100, blank=True, default="Contact Info")
+    contact_info_title        = models.CharField(max_length=200, blank=True, default="Our Contact Information")
     contact_info_description  = models.TextField(blank=True, default="")
 
     # Location box
-    location_address = models.TextField(default="")
+    location_address = models.TextField(blank=True, default="")
     location_map_url = models.URLField(blank=True, verbose_name="Location Google Maps URL")
 
     # Phone box
-    phone_1 = models.CharField(max_length=30, default="")
-    phone_2 = models.CharField(max_length=30, default="", blank=True)
+    phone_1 = models.CharField(max_length=30, blank=True, default="")
+    phone_2 = models.CharField(max_length=30, blank=True, default="")
 
     # Email box
-    email_1 = models.EmailField(default="")
-    email_2 = models.EmailField(default="", blank=True)
+    email_1 = models.EmailField(blank=True, default="")
+    email_2 = models.EmailField(blank=True, default="")
 
     # ── Opening Hours section ─────────────────
     hours_label       = models.CharField(max_length=100, blank=True, default="School Hours")
     hours_heading     = models.CharField(max_length=300, blank=True, default="When We're Open")
-    hours_description = models.TextField(blank=True, default="")
+    hours_description = models.TextField(blank=True, default="Our campus is open throughout the week for classes, administrative support, and parent visits. Below is our weekly schedule.")
     hours_image       = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="contact_hours_image",
@@ -1076,17 +1076,17 @@ class ContactPage(Page):
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="contact_footer_logo",
     )
-    footer_newsletter_heading = models.CharField(max_length=200, default="Sign up for the newsletter:")
-    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_newsletter_heading = models.CharField(max_length=200, blank=True, default="Sign up for the newsletter:")
+    footer_about_title = models.CharField(max_length=100, blank=True, default="About Us")
     footer_about_text = models.TextField(default="")
-    footer_links_title = models.CharField(max_length=100, default="Useful Links")
-    footer_explore_title = models.CharField(max_length=100, default="Explore")
-    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
-    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_links_title = models.CharField(max_length=100, blank=True, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, blank=True, default="Explore")
+    footer_contact_title = models.CharField(max_length=100, blank=True, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, blank=True, default="")
     footer_contact_email = models.EmailField(default="")
-    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_address = models.CharField(max_length=300, blank=True, default="")
     footer_contact_map_url = models.URLField(blank=True)
-    footer_copyright_text = models.CharField(max_length=200, default="")
+    footer_copyright_text = models.CharField(max_length=200, blank=True, default="")
 
     @property
     def map_embed_src(self):
@@ -1192,7 +1192,7 @@ class AboutPage(Page):
         on_delete=models.SET_NULL, related_name="about_nav_logo",
         verbose_name="Navbar Logo",
     )
-    nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
+    nav_phone = models.CharField(max_length=30, blank=True, default="", verbose_name="Phone Number")
 
     # ── Sub-banner ────────────────────────────
     banner_bg_image = models.ForeignKey(
@@ -1201,12 +1201,12 @@ class AboutPage(Page):
         verbose_name="Banner Background Image",
         help_text="Recommended resolution: 1920 × 486 px",
     )
-    banner_title = models.CharField(max_length=200, default="About Us")
+    banner_title = models.CharField(max_length=200, blank=True, default="About Us")
     banner_description = models.TextField(default="")
 
     # ── About Section ─────────────────────────
-    about_subtitle = models.CharField(max_length=100, default="About Us")
-    about_heading = models.CharField(max_length=300, default="")
+    about_subtitle = models.CharField(max_length=100, blank=True, default="About Us")
+    about_heading = models.CharField(max_length=300, blank=True, default="")
     about_description = models.TextField(default="")
     about_image1 = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
@@ -1218,17 +1218,17 @@ class AboutPage(Page):
         on_delete=models.SET_NULL, related_name="about_page_image2",
         verbose_name="About Image 2 (overlap)",
     )
-    about_btn_label = models.CharField(max_length=50, default="Read More")
-    about_btn_url = models.CharField(max_length=255, default="./about.html")
+    about_btn_label = models.CharField(max_length=50, blank=True, default="Read More")
+    about_btn_url = models.CharField(max_length=255, blank=True, default="./about.html")
 
     # ── Choose / Features Section ─────────────
-    choose_subtitle = models.CharField(max_length=100, default="Our Features")
-    choose_heading = models.CharField(max_length=300, default="Why You Should Choose Us")
+    choose_subtitle = models.CharField(max_length=100, blank=True, default="Our Features")
+    choose_heading = models.CharField(max_length=300, blank=True, default="Why You Should Choose Us")
     choose_description = models.TextField(blank=True, default="")
 
     # ── Benefit Section ───────────────────────
-    benefit_subtitle = models.CharField(max_length=100, default="Our Expertise")
-    benefit_heading = models.CharField(max_length=300, default="Benefits of Learning With Us")
+    benefit_subtitle = models.CharField(max_length=100, blank=True, default="Our Expertise")
+    benefit_heading = models.CharField(max_length=300, blank=True, default="Benefits of Learning With Us")
     benefit_description = models.TextField(default="")
     benefit_video_thumb = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
@@ -1273,29 +1273,29 @@ class AboutPage(Page):
     cta_outline_url  = models.CharField(max_length=255, default="/contact/", blank=True)
 
     # ── Team Section ──────────────────────────
-    team_subtitle = models.CharField(max_length=100, default="Instructors")
-    team_heading = models.CharField(max_length=300, default="Our Skilled Instructors")
+    team_subtitle = models.CharField(max_length=100, blank=True, default="Instructors")
+    team_heading = models.CharField(max_length=300, blank=True, default="Our Skilled Instructors")
 
     # ── Testimonials Section ──────────────────
-    testimonials_subtitle = models.CharField(max_length=100, default="Reviews")
-    testimonials_heading = models.CharField(max_length=300, default="Student's Say About Us")
+    testimonials_subtitle = models.CharField(max_length=100, blank=True, default="Reviews")
+    testimonials_heading = models.CharField(max_length=300, blank=True, default="Student's Say About Us")
 
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="about_footer_logo",
     )
-    footer_newsletter_heading = models.CharField(max_length=200, default="Sign up for the newsletter:")
-    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_newsletter_heading = models.CharField(max_length=200, blank=True, default="Sign up for the newsletter:")
+    footer_about_title = models.CharField(max_length=100, blank=True, default="About Us")
     footer_about_text = models.TextField(default="")
-    footer_links_title = models.CharField(max_length=100, default="Useful Links")
-    footer_explore_title = models.CharField(max_length=100, default="Explore")
-    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
-    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_links_title = models.CharField(max_length=100, blank=True, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, blank=True, default="Explore")
+    footer_contact_title = models.CharField(max_length=100, blank=True, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, blank=True, default="")
     footer_contact_email = models.EmailField(default="")
-    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_address = models.CharField(max_length=300, blank=True, default="")
     footer_contact_map_url = models.URLField(blank=True)
-    footer_copyright_text = models.CharField(max_length=200, default="")
+    footer_copyright_text = models.CharField(max_length=200, blank=True, default="")
 
     # ──────────────────────────────────────────
     # ADMIN PANELS
@@ -1402,9 +1402,9 @@ class HomePage(Page):
         verbose_name="School Short Name",
         help_text="Short name shown next to the logo, e.g. 'Azeem School'",
     )
-    nav_phone = models.CharField(max_length=30, default="", verbose_name="Phone Number")
-    nav_btn_label = models.CharField(max_length=50, default="", verbose_name="Button Label")
-    nav_btn_url = models.CharField(max_length=255, default="", verbose_name="Button URL")
+    nav_phone = models.CharField(max_length=30, blank=True, default="", verbose_name="Phone Number")
+    nav_btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Label")
+    nav_btn_url = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
 
     # ── Hero ──────────────────────────────────
     hero_bg_image = models.ForeignKey(
@@ -1417,21 +1417,21 @@ class HomePage(Page):
         on_delete=models.SET_NULL, related_name="hero_logo_image",
         verbose_name="Hero Logo",
     )
-    hero_headline = models.CharField(max_length=300, default="", verbose_name="Headline")
-    hero_headline_2 = models.CharField(max_length=300, default="", verbose_name="Headline 2 Optional")
-    hero_tagline = models.CharField(max_length=300, default="", verbose_name="Tagline")
-    hero_btn_label = models.CharField(max_length=50, default="", verbose_name="Button Title")
-    hero_btn_url = models.CharField(max_length=255, default="", verbose_name="Button URL")
+    hero_headline = models.CharField(max_length=300, blank=True, default="", verbose_name="Headline")
+    hero_headline_2 = models.CharField(max_length=300, blank=True, default="", verbose_name="Headline 2 Optional")
+    hero_tagline = models.CharField(max_length=300, blank=True, default="", verbose_name="Tagline")
+    hero_btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Title")
+    hero_btn_url = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
 
     # ── Trust ─────────────────────────────────
-    trust_heading = models.CharField(max_length=200, default="", verbose_name="Heading")
+    trust_heading = models.CharField(max_length=200, blank=True, default="", verbose_name="Heading")
     trust_description = models.TextField(default="", verbose_name="Description")
-    trust_btn_label = models.CharField(max_length=50, default="", verbose_name="Button Label")
-    trust_btn_url = models.CharField(max_length=255, default="", verbose_name="Button URL")
+    trust_btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Label")
+    trust_btn_url = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
 
     # ── About ─────────────────────────────────
-    about_subtitle = models.CharField(max_length=100, default="")
-    about_title = models.CharField(max_length=300, default="")
+    about_subtitle = models.CharField(max_length=100, blank=True, default="")
+    about_title = models.CharField(max_length=300, blank=True, default="")
     about_description = models.TextField(default="")
     about_image_main = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
@@ -1451,8 +1451,8 @@ class HomePage(Page):
     about_mission_title = models.CharField(max_length=300, blank=True)
 
     # ── Boards ────────────────────────────────
-    boards_subtitle = models.CharField(max_length=100, default="Academic Programs")
-    boards_title = models.CharField(max_length=300, default="Boards We Follow")
+    boards_subtitle = models.CharField(max_length=100, blank=True, default="Academic Programs")
+    boards_title = models.CharField(max_length=300, blank=True, default="Boards We Follow")
     boards_description = models.TextField(default="We follow the curriculum of top educational boards to ensure quality education for our students.")
 
     # ── Facilities Teaser ─────────────────────
@@ -1475,7 +1475,7 @@ class HomePage(Page):
 
     # ── Facility Card 1 ───────────────────────
     fac1_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 1 — Image")
-    fac1_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-computer", verbose_name="Card 1 — Icon")
+    fac1_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, blank=True, default="fa-solid fa-computer", verbose_name="Card 1 — Icon")
     fac1_color = models.CharField(max_length=30, blank=True, default="", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 1 — Icon Colour")
     fac1_title = models.CharField(max_length=200, blank=True, default="Computer Labs", verbose_name="Card 1 — Title")
     fac1_desc  = models.CharField(max_length=300, blank=True, default="Modern PCs, high-speed internet and coding tools for all grades.", verbose_name="Card 1 — Description")
@@ -1483,7 +1483,7 @@ class HomePage(Page):
 
     # ── Facility Card 2 ───────────────────────
     fac2_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 2 — Image")
-    fac2_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-microscope", verbose_name="Card 2 — Icon")
+    fac2_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, blank=True, default="fa-solid fa-microscope", verbose_name="Card 2 — Icon")
     fac2_color = models.CharField(max_length=30, blank=True, default="#16a34a", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 2 — Icon Colour")
     fac2_title = models.CharField(max_length=200, blank=True, default="Science Labs", verbose_name="Card 2 — Title")
     fac2_desc  = models.CharField(max_length=300, blank=True, default="Fully equipped Physics, Chemistry, and Biology laboratories.", verbose_name="Card 2 — Description")
@@ -1491,7 +1491,7 @@ class HomePage(Page):
 
     # ── Facility Card 3 ───────────────────────
     fac3_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 3 — Image")
-    fac3_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-book-open", verbose_name="Card 3 — Icon")
+    fac3_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, blank=True, default="fa-solid fa-book-open", verbose_name="Card 3 — Icon")
     fac3_color = models.CharField(max_length=30, blank=True, default="#ca8a04", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 3 — Icon Colour")
     fac3_title = models.CharField(max_length=200, blank=True, default="Digital Library", verbose_name="Card 3 — Title")
     fac3_desc  = models.CharField(max_length=300, blank=True, default="Thousands of books, e-resources and quiet study spaces available daily.", verbose_name="Card 3 — Description")
@@ -1499,7 +1499,7 @@ class HomePage(Page):
 
     # ── Facility Card 4 ───────────────────────
     fac4_image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Card 4 — Image")
-    fac4_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-person-running", verbose_name="Card 4 — Icon")
+    fac4_icon  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, blank=True, default="fa-solid fa-person-running", verbose_name="Card 4 — Icon")
     fac4_color = models.CharField(max_length=30, blank=True, default="#ec407a", choices=FAC_ICON_COLOR_CHOICES, verbose_name="Card 4 — Icon Colour")
     fac4_title = models.CharField(max_length=200, blank=True, default="Sports Grounds", verbose_name="Card 4 — Title")
     fac4_desc  = models.CharField(max_length=300, blank=True, default="Cricket, football, basketball and indoor games — PE taken seriously.", verbose_name="Card 4 — Description")
@@ -1522,28 +1522,28 @@ class HomePage(Page):
     admissions_cta_secondary_url = models.CharField(max_length=255, blank=True, default="")
 
     # ── Notices / Announcements ───────────────
-    notices_subtitle = models.CharField(max_length=100, default="Latest Updates")
-    notices_title = models.CharField(max_length=300, default="School Notices & Announcements")
+    notices_subtitle = models.CharField(max_length=100, blank=True, default="Latest Updates")
+    notices_title = models.CharField(max_length=300, blank=True, default="School Notices & Announcements")
 
     # ── Testimonials ──────────────────────────
-    testimonials_subtitle = models.CharField(max_length=100, default="")
-    testimonials_title = models.CharField(max_length=300, default="")
+    testimonials_subtitle = models.CharField(max_length=100, blank=True, default="")
+    testimonials_title = models.CharField(max_length=300, blank=True, default="")
 
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="footer_logo_img",
     )
-    footer_about_title = models.CharField(max_length=100, default="About Us")
+    footer_about_title = models.CharField(max_length=100, blank=True, default="About Us")
     footer_about_text = models.TextField(default="")
-    footer_links_title = models.CharField(max_length=100, default="Useful Links")
-    footer_explore_title = models.CharField(max_length=100, default="Explore")
-    footer_contact_title = models.CharField(max_length=100, default="Contact Us")
-    footer_contact_phone = models.CharField(max_length=30, default="")
+    footer_links_title = models.CharField(max_length=100, blank=True, default="Useful Links")
+    footer_explore_title = models.CharField(max_length=100, blank=True, default="Explore")
+    footer_contact_title = models.CharField(max_length=100, blank=True, default="Contact Us")
+    footer_contact_phone = models.CharField(max_length=30, blank=True, default="")
     footer_contact_email = models.EmailField(default="")
-    footer_contact_address = models.CharField(max_length=300, default="")
+    footer_contact_address = models.CharField(max_length=300, blank=True, default="")
     footer_contact_map_url = models.URLField(blank=True)
-    footer_copyright_text = models.CharField(max_length=200, default="")
+    footer_copyright_text = models.CharField(max_length=200, blank=True, default="")
 
     # ──────────────────────────────────────────
     # ADMIN PANELS
@@ -1779,11 +1779,11 @@ ACAD_AVATAR_COLOR_CHOICES = [
 
 class AcademicStat(Orderable):
     page = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="academic_stats")
-    number = models.CharField(max_length=20, default="14",
+    number = models.CharField(max_length=20, blank=True, default="14",
                               help_text='e.g. "14", "98", "25"')
     suffix = models.CharField(max_length=10, blank=True, default="+",
                               help_text='e.g. "+", "%", "×"')
-    label  = models.CharField(max_length=150, default="Subjects Offered")
+    label  = models.CharField(max_length=150, blank=True, default="Subjects Offered")
 
     panels = [
         FieldRowPanel([FieldPanel("number"), FieldPanel("suffix")]),
@@ -1801,13 +1801,13 @@ class AcademicBoard(Orderable):
     ]
 
     page        = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="academic_boards")
-    border_color = models.CharField(max_length=20, choices=BORDER_CHOICES, default="soft-blue",
+    border_color = models.CharField(max_length=20, choices=BORDER_CHOICES, blank=True, default="soft-blue",
                                     help_text="Left border colour of this board card")
     icon_bg_dark = models.BooleanField(default=False,
                                        help_text="Tick for dark-navy icon background instead of soft-blue")
     icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES,
                                    default="fa-solid fa-graduation-cap")
-    name        = models.CharField(max_length=200, default="Board Name")
+    name        = models.CharField(max_length=200, blank=True, default="Board Name")
     description = models.TextField(default="")
     tag_1       = models.CharField(max_length=100, blank=True, default="",
                                    help_text="Grade / group tag (optional)")
@@ -1832,10 +1832,10 @@ class AcademicGradeLadderItem(Orderable):
     page       = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="grade_ladder_items")
     icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES,
                                    default="fa-solid fa-book-open")
-    icon_color = models.CharField(max_length=20, choices=ACAD_GL_COLOR_CHOICES, default="gl-blue",
+    icon_color = models.CharField(max_length=20, choices=ACAD_GL_COLOR_CHOICES, blank=True, default="gl-blue",
                                   help_text="Icon colour on dark-navy background")
-    title      = models.CharField(max_length=100, default="Grade Level")
-    subtitle   = models.CharField(max_length=200, default="",
+    title      = models.CharField(max_length=100, blank=True, default="Grade Level")
+    subtitle   = models.CharField(max_length=200, blank=True, default="",
                                   help_text='e.g. "Class 1 – Class 5"')
 
     panels = [
@@ -1850,11 +1850,11 @@ class AcademicGradeLadderItem(Orderable):
 
 class AcademicSubject(Orderable):
     page       = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="academic_subjects")
-    level      = models.CharField(max_length=20, choices=ACAD_LEVEL_CHOICES, default="primary")
-    name       = models.CharField(max_length=100, default="Subject")
+    level      = models.CharField(max_length=20, choices=ACAD_LEVEL_CHOICES, blank=True, default="primary")
+    name       = models.CharField(max_length=100, blank=True, default="Subject")
     icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES,
                                    default="fa-solid fa-book")
-    icon_color = models.CharField(max_length=20, choices=ACAD_COLOR_CHOICES, default="icon-blue")
+    icon_color = models.CharField(max_length=20, choices=ACAD_COLOR_CHOICES, blank=True, default="icon-blue")
 
     panels = [
         FieldPanel("level"),
@@ -1868,12 +1868,12 @@ class AcademicSubject(Orderable):
 
 class AcademicCalendarTerm(Orderable):
     page            = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="calendar_terms")
-    badge_label     = models.CharField(max_length=50, default="Term 1",
+    badge_label     = models.CharField(max_length=50, blank=True, default="Term 1",
                                        help_text='Lime badge label, e.g. "Term 1", "Break", "Finals"')
     badge_icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES,
                                          default="fa-solid fa-leaf")
-    title           = models.CharField(max_length=100, default="Autumn Term")
-    date_range      = models.CharField(max_length=100, default="Sep 2 – Nov 15")
+    title           = models.CharField(max_length=100, blank=True, default="Autumn Term")
+    date_range      = models.CharField(max_length=100, blank=True, default="Sep 2 – Nov 15")
     events          = models.TextField(
         default="",
         help_text="One event per line, e.g.:\nSchool reopens — Sep 2\nUnit Test 1 — Oct 4",
@@ -1898,10 +1898,10 @@ class AcademicAssessment(Orderable):
     page       = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="academic_assessments")
     icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES,
                                    default="fa-solid fa-clipboard-check")
-    icon_color = models.CharField(max_length=20, choices=ACAD_COLOR_CHOICES, default="icon-blue")
-    title      = models.CharField(max_length=200, default="Assessment Type")
+    icon_color = models.CharField(max_length=20, choices=ACAD_COLOR_CHOICES, blank=True, default="icon-blue")
+    title      = models.CharField(max_length=200, blank=True, default="Assessment Type")
     description = models.TextField(default="")
-    weight     = models.CharField(max_length=20, default="20%",
+    weight     = models.CharField(max_length=20, blank=True, default="20%",
                                   help_text='Weightage badge text, e.g. "20% Weightage"')
 
     panels = [
@@ -1917,13 +1917,13 @@ class AcademicAssessment(Orderable):
 
 class AcademicFaculty(Orderable):
     page           = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="academic_faculty")
-    name           = models.CharField(max_length=100, default="Faculty Name")
-    subject        = models.CharField(max_length=100, default="Subject")
+    name           = models.CharField(max_length=100, blank=True, default="Faculty Name")
+    subject        = models.CharField(max_length=100, blank=True, default="Subject")
     experience     = models.CharField(max_length=50, blank=True, default="",
                                       help_text='e.g. "10 yrs experience"')
-    avatar_initial = models.CharField(max_length=2, default="A",
+    avatar_initial = models.CharField(max_length=2, blank=True, default="A",
                                       help_text="1–2 letters displayed in the avatar circle")
-    avatar_color   = models.CharField(max_length=20, choices=ACAD_AVATAR_COLOR_CHOICES, default="#6a52e0",
+    avatar_color   = models.CharField(max_length=20, choices=ACAD_AVATAR_COLOR_CHOICES, blank=True, default="#6a52e0",
                                       help_text="Avatar circle background colour")
     is_hod         = models.BooleanField(default=False, verbose_name="Head of Department (HOD)")
 
@@ -1941,10 +1941,10 @@ class AcademicFaculty(Orderable):
 
 class AcademicAchievementStat(Orderable):
     page   = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="achievement_stats")
-    number = models.CharField(max_length=20, default="98")
+    number = models.CharField(max_length=20, blank=True, default="98")
     suffix = models.CharField(max_length=10, blank=True, default="%",
                               help_text='e.g. "%", "+", "×"')
-    label  = models.CharField(max_length=150, default="Overall Pass Rate")
+    label  = models.CharField(max_length=150, blank=True, default="Overall Pass Rate")
 
     panels = [
         FieldRowPanel([FieldPanel("number"), FieldPanel("suffix")]),
@@ -1957,8 +1957,8 @@ class AcademicAchievementStat(Orderable):
 
 class AcademicAchievementCard(Orderable):
     page        = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="achievement_cards")
-    icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES, default="fa-solid fa-trophy")
-    title       = models.CharField(max_length=200, default="Achievement Highlight")
+    icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES, blank=True, default="fa-solid fa-trophy")
+    title       = models.CharField(max_length=200, blank=True, default="Achievement Highlight")
     description = models.TextField(default="")
 
     panels = [
@@ -1975,9 +1975,9 @@ class AcademicDownload(Orderable):
     page        = ParentalKey("AcademicsPage", on_delete=models.CASCADE, related_name="academic_downloads")
     icon_choice = models.CharField(max_length=100, choices=ACAD_ICON_CHOICES,
                                    default="fa-solid fa-file-arrow-down")
-    icon_color  = models.CharField(max_length=20, choices=ACAD_COLOR_CHOICES, default="icon-blue")
-    title       = models.CharField(max_length=200, default="Document Title")
-    description = models.CharField(max_length=200, default="PDF · 1 MB",
+    icon_color  = models.CharField(max_length=20, choices=ACAD_COLOR_CHOICES, blank=True, default="icon-blue")
+    title       = models.CharField(max_length=200, blank=True, default="Document Title")
+    description = models.CharField(max_length=200, blank=True, default="PDF · 1 MB",
                                    help_text='e.g. "Complete syllabus for all classes · PDF · 1.2 MB"')
     document    = models.FileField(
         upload_to="documents",
@@ -2047,9 +2047,9 @@ class AcademicsPage(Page):
         on_delete=models.SET_NULL, related_name="academics_nav_logo",
         verbose_name="Navbar Logo",
     )
-    nav_phone       = models.CharField(max_length=30, default="+92 21 3456 7890")
-    nav_login_label = models.CharField(max_length=50, default="Student Portal")
-    nav_login_url   = models.CharField(max_length=255, default="#")
+    nav_phone       = models.CharField(max_length=30, blank=True, default="+92 21 3456 7890")
+    nav_login_label = models.CharField(max_length=50, blank=True, default="Student Portal")
+    nav_login_url   = models.CharField(max_length=255, blank=True, default="#")
 
     # ── Sub-Banner ────────────────────────────
     banner_bg_image = models.ForeignKey(
@@ -2058,78 +2058,78 @@ class AcademicsPage(Page):
         verbose_name="Banner Background Image",
         help_text="Recommended resolution: 1920 × 486 px",
     )
-    banner_title       = models.CharField(max_length=200, default="Academics")
+    banner_title       = models.CharField(max_length=200, blank=True, default="Academics")
     banner_description = models.TextField(
         default="Shaping minds with a structured curriculum, dedicated faculty, and a culture of academic excellence.")
 
     # ── Curriculum Section ────────────────────
-    curriculum_subtitle    = models.CharField(max_length=100, default="Curriculum & Board")
-    curriculum_heading     = models.CharField(max_length=300, default="A Structured Path to Excellence")
+    curriculum_subtitle    = models.CharField(max_length=100, blank=True, default="Curriculum & Board")
+    curriculum_heading     = models.CharField(max_length=300, blank=True, default="A Structured Path to Excellence")
     curriculum_description = models.TextField(
         default="Our curriculum aligns with Pakistan's leading examination boards, ensuring every student is prepared for national and international standards.")
-    grade_ladder_subtitle = models.CharField(max_length=100, default="Grade Structure")
-    grade_ladder_heading  = models.CharField(max_length=200, default="From First Steps to Board Exams")
+    grade_ladder_subtitle = models.CharField(max_length=100, blank=True, default="Grade Structure")
+    grade_ladder_heading  = models.CharField(max_length=200, blank=True, default="From First Steps to Board Exams")
 
     # ── Subjects Section ──────────────────────
-    subjects_subtitle    = models.CharField(max_length=100, default="Subjects")
-    subjects_heading     = models.CharField(max_length=300, default="What Your Child Will Learn")
+    subjects_subtitle    = models.CharField(max_length=100, blank=True, default="Subjects")
+    subjects_heading     = models.CharField(max_length=300, blank=True, default="What Your Child Will Learn")
     subjects_description = models.TextField(
         default="Select a level to explore the subjects taught at each stage of your child's academic journey.")
 
     # ── Calendar Section ──────────────────────
-    calendar_subtitle    = models.CharField(max_length=100, default="Academic Year 2024–25")
-    calendar_heading     = models.CharField(max_length=300, default="Academic Calendar")
+    calendar_subtitle    = models.CharField(max_length=100, blank=True, default="Academic Year 2024–25")
+    calendar_heading     = models.CharField(max_length=300, blank=True, default="Academic Calendar")
     calendar_description = models.TextField(
         default="Plan ahead with every term, examination period, and holiday mapped out for the full academic year.")
 
     # ── Assessments Section ───────────────────
-    assessments_subtitle    = models.CharField(max_length=100, default="Assessments")
-    assessments_heading     = models.CharField(max_length=300, default="How We Evaluate Progress")
+    assessments_subtitle    = models.CharField(max_length=100, blank=True, default="Assessments")
+    assessments_heading     = models.CharField(max_length=300, blank=True, default="How We Evaluate Progress")
     assessments_description = models.TextField(
         default="Our multi-layered assessment system ensures every student's growth is measured fairly, comprehensively, and continuously throughout the year.")
 
     # ── Faculty Section ───────────────────────
-    faculty_subtitle    = models.CharField(max_length=100, default="Our Educators")
-    faculty_heading     = models.CharField(max_length=300, default="Meet the Faculty")
+    faculty_subtitle    = models.CharField(max_length=100, blank=True, default="Our Educators")
+    faculty_heading     = models.CharField(max_length=300, blank=True, default="Meet the Faculty")
     faculty_description = models.TextField(
         default="Our qualified and passionate educators bring decades of combined experience to every classroom.")
 
     # ── Achievements Section ──────────────────
-    achievements_subtitle    = models.CharField(max_length=100, default="Results & Achievements")
-    achievements_heading     = models.CharField(max_length=300, default="A Proven Track Record")
+    achievements_subtitle    = models.CharField(max_length=100, blank=True, default="Results & Achievements")
+    achievements_heading     = models.CharField(max_length=300, blank=True, default="A Proven Track Record")
     achievements_description = models.TextField(
         default="Year after year, our students achieve outstanding results in board examinations and national competitions.")
 
     # ── Downloads Section ─────────────────────
-    downloads_subtitle    = models.CharField(max_length=100, default="Resources")
-    downloads_heading     = models.CharField(max_length=300, default="Downloads & Resources")
+    downloads_subtitle    = models.CharField(max_length=100, blank=True, default="Resources")
+    downloads_heading     = models.CharField(max_length=300, blank=True, default="Downloads & Resources")
     downloads_description = models.TextField(
         default="Access official documents, syllabi, forms, and schedules — all in one place.")
 
     # ── CTA Section ───────────────────────────
-    cta_heading      = models.CharField(max_length=200, default="Ready to Enrol Your Child?")
+    cta_heading      = models.CharField(max_length=200, blank=True, default="Ready to Enrol Your Child?")
     cta_text         = models.TextField(
         default="Join hundreds of families who trust Azeem School for a world-class education. Apply today and secure your child's place.")
-    cta_button_label = models.CharField(max_length=100, default="Apply for Admission")
-    cta_button_url   = models.CharField(max_length=255, default="/admissions/")
+    cta_button_label = models.CharField(max_length=100, blank=True, default="Apply for Admission")
+    cta_button_url   = models.CharField(max_length=255, blank=True, default="/admissions/")
 
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="academics_footer_logo",
     )
-    footer_newsletter_heading = models.CharField(max_length=200, default="Subscribe to Our Newsletter")
-    footer_about_title        = models.CharField(max_length=100, default="About Azeem School")
+    footer_newsletter_heading = models.CharField(max_length=200, blank=True, default="Subscribe to Our Newsletter")
+    footer_about_title        = models.CharField(max_length=100, blank=True, default="About Azeem School")
     footer_about_text         = models.TextField(
         default="Providing quality education with modern teaching methods and a nurturing environment for over 25 years in Karachi.")
-    footer_links_title        = models.CharField(max_length=100, default="Quick Links")
-    footer_explore_title      = models.CharField(max_length=100, default="Academics")
-    footer_contact_title      = models.CharField(max_length=100, default="Contact Us")
-    footer_contact_phone      = models.CharField(max_length=30, default="+92 21 3456 7890")
+    footer_links_title        = models.CharField(max_length=100, blank=True, default="Quick Links")
+    footer_explore_title      = models.CharField(max_length=100, blank=True, default="Academics")
+    footer_contact_title      = models.CharField(max_length=100, blank=True, default="Contact Us")
+    footer_contact_phone      = models.CharField(max_length=30, blank=True, default="+92 21 3456 7890")
     footer_contact_email      = models.EmailField(default="info@azeem.edu.pk")
-    footer_contact_address    = models.CharField(max_length=300, default="KDA Scheme, Karachi, Pakistan")
+    footer_contact_address    = models.CharField(max_length=300, blank=True, default="KDA Scheme, Karachi, Pakistan")
     footer_contact_map_url    = models.URLField(blank=True)
-    footer_copyright_text     = models.CharField(max_length=200, default="© 2025 Azeem School. All Rights Reserved.")
+    footer_copyright_text     = models.CharField(max_length=200, blank=True, default="© 2025 Azeem School. All Rights Reserved.")
 
     # ──────────────────────────────────────────
     # ADMIN PANELS
@@ -2325,11 +2325,11 @@ FAC_LIGHT_COLOR_CHOICES = [
 
 class FacilityStat(Orderable):
     page   = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="facility_stats")
-    number = models.CharField(max_length=20, default="50",
+    number = models.CharField(max_length=20, blank=True, default="50",
                               help_text='Numeric value, e.g. "50", "12", "25"')
     suffix = models.CharField(max_length=10, blank=True, default="K",
                               help_text='Unit suffix, e.g. "K", "+", "K+", "%"')
-    label  = models.CharField(max_length=150, default="Square Feet Campus")
+    label  = models.CharField(max_length=150, blank=True, default="Square Feet Campus")
 
     panels = [
         FieldRowPanel([FieldPanel("number"), FieldPanel("suffix")]),
@@ -2342,12 +2342,12 @@ class FacilityStat(Orderable):
 
 class FacilityOverviewTile(Orderable):
     page        = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="overview_tiles")
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-school",
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-school",
                                    help_text="Font Awesome icon class")
-    icon_color  = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, default="icon-blue",
+    icon_color  = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, blank=True, default="icon-blue",
                                    help_text="Icon background colour theme")
-    title       = models.CharField(max_length=100, default="Facility Name")
-    description = models.CharField(max_length=250, default="Short description of this facility area.")
+    title       = models.CharField(max_length=100, blank=True, default="Facility Name")
+    description = models.CharField(max_length=250, blank=True, default="Short description of this facility area.")
 
     panels = [
         FieldRowPanel([FieldPanel("icon_choice"), FieldPanel("icon_color")]),
@@ -2371,12 +2371,12 @@ class FacilityHeroCard(Orderable):
         max_length=50, choices=FAC_GRADIENT_CHOICES, default="#1f1741,#6a52e0",
         help_text="Gradient shown when no image is uploaded",
     )
-    badge_icon  = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-school",
+    badge_icon  = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-school",
                                    help_text="Icon inside the lime badge")
-    badge_label = models.CharField(max_length=80, default="Facility Name",
+    badge_label = models.CharField(max_length=80, blank=True, default="Facility Name",
                                    help_text='Badge text, e.g. "Science & Labs"')
-    title       = models.CharField(max_length=200, default="Facility Title")
-    description = models.CharField(max_length=300, default="Short description for this facility area",
+    title       = models.CharField(max_length=200, blank=True, default="Facility Title")
+    description = models.CharField(max_length=300, blank=True, default="Short description for this facility area",
                                    help_text="One-line description shown beneath the title")
 
     panels = [
@@ -2403,9 +2403,9 @@ class FacilitySmallCard(Orderable):
         max_length=50, choices=FAC_GRADIENT_CHOICES, default="#0a3d62,#1565c0",
         help_text="Gradient shown when no image is uploaded",
     )
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-school")
-    title       = models.CharField(max_length=100, default="Facility")
-    subtitle    = models.CharField(max_length=200, default="Short detail line",
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-school")
+    title       = models.CharField(max_length=100, blank=True, default="Facility")
+    subtitle    = models.CharField(max_length=200, blank=True, default="Short detail line",
                                    help_text='Short line below title, e.g. "25,000+ volumes"')
 
     panels = [
@@ -2423,9 +2423,9 @@ class FacilitySmallCard(Orderable):
 class FacilityTourBullet(Orderable):
     """Bullet point in the Campus Tour section right panel."""
     page        = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="tour_bullets")
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-school")
-    title       = models.CharField(max_length=150, default="What You Will See")
-    description = models.CharField(max_length=300, default="Brief description of this tour highlight")
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-school")
+    title       = models.CharField(max_length=150, blank=True, default="What You Will See")
+    description = models.CharField(max_length=300, blank=True, default="Brief description of this tour highlight")
 
     panels = [
         FieldPanel("icon_choice"),
@@ -2453,10 +2453,10 @@ class FacilityLab(Orderable):
         max_length=20, choices=FAC_ICON_HEX_CHOICES, default="#42a5f5",
         help_text="Background colour of the floating icon circle",
     )
-    icon_choice      = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-flask")
-    icon_color       = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, default="icon-blue",
+    icon_choice      = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-flask")
+    icon_color       = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, blank=True, default="icon-blue",
                                         help_text="Icon background colour theme")
-    title            = models.CharField(max_length=200, default="Lab Name")
+    title            = models.CharField(max_length=200, blank=True, default="Lab Name")
     description      = models.TextField(default="Brief description of this laboratory.")
     features         = models.TextField(
         default="Feature one\nFeature two\nFeature three\nCapacity: 30 students",
@@ -2489,9 +2489,9 @@ class FacilitySport(Orderable):
         max_length=50, choices=FAC_GRADIENT_CHOICES, default="#0d3b2e,#26a69a",
         help_text="Gradient used when no image is uploaded",
     )
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-futbol",
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-futbol",
                                    help_text="Icon shown at the top of the sport card")
-    title       = models.CharField(max_length=200, default="Sport / Facility Name")
+    title       = models.CharField(max_length=200, blank=True, default="Sport / Facility Name")
     description = models.TextField(default="Brief description of this sports facility.")
     badges      = models.TextField(
         default="Feature One\nFeature Two\nFeature Three",
@@ -2515,9 +2515,9 @@ class FacilitySport(Orderable):
 
 class FacilityLibraryFeature(Orderable):
     page        = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="library_features")
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-book-open")
-    icon_color  = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, default="icon-green")
-    title       = models.CharField(max_length=200, default="Feature Title")
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-book-open")
+    icon_color  = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, blank=True, default="icon-green")
+    title       = models.CharField(max_length=200, blank=True, default="Feature Title")
     description = models.TextField(default="Brief description of this library feature.")
 
     panels = [
@@ -2532,9 +2532,9 @@ class FacilityLibraryFeature(Orderable):
 
 class FacilityLibraryStat(Orderable):
     page   = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="library_stats")
-    number = models.CharField(max_length=30, default="25K+",
+    number = models.CharField(max_length=30, blank=True, default="25K+",
                               help_text='The number displayed, e.g. "25K+", "3,500", "4", "6 AM"')
-    label  = models.CharField(max_length=200, default="Books and reference volumes")
+    label  = models.CharField(max_length=200, blank=True, default="Books and reference volumes")
 
     panels = [
         FieldPanel("number"),
@@ -2561,10 +2561,10 @@ class FacilityArtsCard(Orderable):
         max_length=20, choices=FAC_ICON_HEX_CHOICES, default="#ec407a",
         help_text="Background colour of the floating icon circle",
     )
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-music")
-    icon_color  = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, default="icon-pink",
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-music")
+    icon_color  = models.CharField(max_length=20, choices=FAC_LIGHT_COLOR_CHOICES, blank=True, default="icon-pink",
                                    help_text="Icon background colour theme")
-    title       = models.CharField(max_length=200, default="Arts Space Name")
+    title       = models.CharField(max_length=200, blank=True, default="Arts Space Name")
     description = models.TextField(default="Brief description of this creative space.")
     tags        = models.TextField(
         default="Tag One\nTag Two\nTag Three",
@@ -2588,9 +2588,9 @@ class FacilityArtsCard(Orderable):
 
 class FacilitySafetyStat(Orderable):
     page   = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="safety_stats")
-    number = models.CharField(max_length=20, default="120+",
+    number = models.CharField(max_length=20, blank=True, default="120+",
                               help_text='e.g. "120+", "24/7", "2", "100%"')
-    label  = models.CharField(max_length=150, default="CCTV Cameras on Campus")
+    label  = models.CharField(max_length=150, blank=True, default="CCTV Cameras on Campus")
 
     panels = [
         FieldRowPanel([FieldPanel("number"), FieldPanel("label")]),
@@ -2602,8 +2602,8 @@ class FacilitySafetyStat(Orderable):
 
 class FacilitySafetyCard(Orderable):
     page        = ParentalKey("FacilitiesPage", on_delete=models.CASCADE, related_name="safety_cards")
-    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, default="fa-solid fa-shield-halved")
-    title       = models.CharField(max_length=200, default="Safety Feature")
+    icon_choice = models.CharField(max_length=100, choices=FAC_ICON_CHOICES, blank=True, default="fa-solid fa-shield-halved")
+    title       = models.CharField(max_length=200, blank=True, default="Safety Feature")
     description = models.TextField(default="Description of this safety or welfare provision.")
 
     panels = [
@@ -2686,9 +2686,9 @@ class FacilitiesPage(Page):
         on_delete=models.SET_NULL, related_name="facilities_nav_logo",
         verbose_name="Navbar Logo",
     )
-    nav_phone       = models.CharField(max_length=30, default="+92 21 3456 7890")
-    nav_login_label = models.CharField(max_length=50, default="Student Portal")
-    nav_login_url   = models.CharField(max_length=255, default="#")
+    nav_phone       = models.CharField(max_length=30, blank=True, default="+92 21 3456 7890")
+    nav_login_label = models.CharField(max_length=50, blank=True, default="Student Portal")
+    nav_login_url   = models.CharField(max_length=255, blank=True, default="#")
 
     # ── Sub-Banner ────────────────────────────
     banner_bg_image = models.ForeignKey(
@@ -2697,19 +2697,19 @@ class FacilitiesPage(Page):
         verbose_name="Banner Background Image",
         help_text="Recommended: 1920 × 486 px",
     )
-    banner_title       = models.CharField(max_length=200, default="Our Facilities")
+    banner_title       = models.CharField(max_length=200, blank=True, default="Our Facilities")
     banner_description = models.TextField(
         default="World-class learning environments designed to inspire curiosity, nurture talent, and build tomorrow's leaders.")
 
     # ── Overview Section ──────────────────────
-    overview_subtitle    = models.CharField(max_length=100, default="What We Offer")
-    overview_heading     = models.CharField(max_length=300, default="Everything a Modern School Should Have")
+    overview_subtitle    = models.CharField(max_length=100, blank=True, default="What We Offer")
+    overview_heading     = models.CharField(max_length=300, blank=True, default="Everything a Modern School Should Have")
     overview_description = models.TextField(
         default="From cutting-edge science labs to open sports arenas, every space at Azeem School is built with purpose.")
 
     # ── Campus Tour Section ───────────────────
-    tour_eyebrow     = models.CharField(max_length=100, default="Virtual Campus Tour")
-    tour_heading     = models.CharField(max_length=300, default="See Every Corner of Our Campus")
+    tour_eyebrow     = models.CharField(max_length=100, blank=True, default="Virtual Campus Tour")
+    tour_heading     = models.CharField(max_length=300, blank=True, default="See Every Corner of Our Campus")
     tour_description = models.TextField(
         default="Walk through our labs, sports grounds, library, arts spaces, and more — from wherever you are.")
     tour_youtube_url = models.URLField(
@@ -2726,71 +2726,71 @@ class FacilitiesPage(Page):
         verbose_name="Tour Placeholder Background Image",
         help_text="Background photo shown behind the play button while the video URL is not set",
     )
-    tour_btn_label = models.CharField(max_length=100, default="Book a Live Campus Visit")
-    tour_btn_url   = models.CharField(max_length=255, default="/contact/")
+    tour_btn_label = models.CharField(max_length=100, blank=True, default="Book a Live Campus Visit")
+    tour_btn_url   = models.CharField(max_length=255, blank=True, default="/contact/")
 
     # ── Labs Section ──────────────────────────
-    labs_subtitle    = models.CharField(max_length=100, default="Hands-On Learning")
-    labs_heading     = models.CharField(max_length=300, default="State-of-the-Art Laboratories")
+    labs_subtitle    = models.CharField(max_length=100, blank=True, default="Hands-On Learning")
+    labs_heading     = models.CharField(max_length=300, blank=True, default="State-of-the-Art Laboratories")
     labs_description = models.TextField(
         default="Purpose-built labs that turn textbook theory into real-world discovery for every grade level.")
 
     # ── Sports Section ────────────────────────
-    sports_subtitle    = models.CharField(max_length=100, default="Active & Healthy")
-    sports_heading     = models.CharField(max_length=300, default="Sports & Athletics Facilities")
+    sports_subtitle    = models.CharField(max_length=100, blank=True, default="Active & Healthy")
+    sports_heading     = models.CharField(max_length=300, blank=True, default="Sports & Athletics Facilities")
     sports_description = models.TextField(
         default="We believe every student deserves a healthy body alongside a sharp mind. Our sports infrastructure reflects that commitment.")
 
     # ── Library Section ───────────────────────
-    library_subtitle      = models.CharField(max_length=100, default="Knowledge Hub")
-    library_heading       = models.CharField(max_length=300, default="Library & Resource Centre")
+    library_subtitle      = models.CharField(max_length=100, blank=True, default="Knowledge Hub")
+    library_heading       = models.CharField(max_length=300, blank=True, default="Library & Resource Centre")
     library_description   = models.TextField(
         default="A quiet, inspiring space that fuels independent research, reading habits, and lifelong learning.")
-    library_panel_eyebrow = models.CharField(max_length=100, default="Library at a Glance")
-    library_panel_heading = models.CharField(max_length=200, default="A World of Knowledge, One Shelf Away")
+    library_panel_eyebrow = models.CharField(max_length=100, blank=True, default="Library at a Glance")
+    library_panel_heading = models.CharField(max_length=200, blank=True, default="A World of Knowledge, One Shelf Away")
 
     # ── Arts Section ──────────────────────────
-    arts_subtitle    = models.CharField(max_length=100, default="Creative Expression")
-    arts_heading     = models.CharField(max_length=300, default="Arts & Performing Arts Spaces")
+    arts_subtitle    = models.CharField(max_length=100, blank=True, default="Creative Expression")
+    arts_heading     = models.CharField(max_length=300, blank=True, default="Arts & Performing Arts Spaces")
     arts_description = models.TextField(
         default="Dedicated spaces for music, visual arts, drama, and media production — because every student has a creative voice.")
 
     # ── Safety Section ────────────────────────
-    safety_eyebrow    = models.CharField(max_length=100, default="Your Child's Safety First")
-    safety_heading    = models.CharField(max_length=300, default="Health, Safety & Welfare")
+    safety_eyebrow    = models.CharField(max_length=100, blank=True, default="Your Child's Safety First")
+    safety_heading    = models.CharField(max_length=300, blank=True, default="Health, Safety & Welfare")
     safety_description = models.TextField(
         default="A comprehensive safety ecosystem ensures every student feels secure, cared for, and supported throughout the school day.")
 
     # ── Gallery Section ───────────────────────
-    gallery_subtitle = models.CharField(max_length=100, default="Campus Life")
-    gallery_heading  = models.CharField(max_length=300, default="A Glimpse of Azeem School")
+    gallery_subtitle = models.CharField(max_length=100, blank=True, default="Campus Life")
+    gallery_heading  = models.CharField(max_length=300, blank=True, default="A Glimpse of Azeem School")
 
     # ── CTA Section ───────────────────────────
-    cta_heading       = models.CharField(max_length=200, default="Come See It for Yourself")
+    cta_heading       = models.CharField(max_length=200, blank=True, default="Come See It for Yourself")
     cta_text          = models.TextField(
         default="Nothing describes Azeem School's facilities better than a live campus tour. Book a visit and let your child experience the environment firsthand.")
-    cta_btn_label     = models.CharField(max_length=100, default="Book a Campus Tour")
-    cta_btn_url       = models.CharField(max_length=255, default="/contact/")
-    cta_outline_label = models.CharField(max_length=100, default="Apply Now")
-    cta_outline_url   = models.CharField(max_length=255, default="/admissions/")
+    cta_btn_label     = models.CharField(max_length=100, blank=True, default="Book a Campus Tour")
+    cta_btn_url       = models.CharField(max_length=255, blank=True, default="/contact/")
+    cta_outline_label = models.CharField(max_length=100, blank=True, default="Apply Now")
+    cta_outline_url   = models.CharField(max_length=255, blank=True, default="/admissions/")
 
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="facilities_footer_logo",
     )
-    footer_newsletter_heading = models.CharField(max_length=200, default="Stay Connected with Azeem School")
-    footer_about_title        = models.CharField(max_length=100, default="About Azeem School")
+    footer_newsletter_heading = models.CharField(max_length=200, blank=True, default="Stay Connected with Azeem School")
+    footer_about_title        = models.CharField(max_length=100, blank=True, default="About Azeem School")
     footer_about_text         = models.TextField(
         default="Azeem School is committed to academic excellence, character development, and world-class facilities that prepare students for a bright future.")
-    footer_links_title        = models.CharField(max_length=100, default="Quick Links")
-    footer_explore_title      = models.CharField(max_length=100, default="Explore")
-    footer_contact_title      = models.CharField(max_length=100, default="Contact Us")
-    footer_contact_phone      = models.CharField(max_length=30, default="+92 21 3456 7890")
+    footer_links_title        = models.CharField(max_length=100, blank=True, default="Quick Links")
+    footer_explore_title      = models.CharField(max_length=100, blank=True, default="Explore")
+    footer_contact_title      = models.CharField(max_length=100, blank=True, default="Contact Us")
+    footer_contact_phone      = models.CharField(max_length=30, blank=True, default="+92 21 3456 7890")
     footer_contact_email      = models.EmailField(default="info@azeem.edu.pk")
-    footer_contact_address    = models.CharField(max_length=300, default="Main Campus, Azeem Road, Karachi")
+    footer_contact_address    = models.CharField(max_length=300, blank=True, default="Main Campus, Azeem Road, Karachi")
     footer_contact_map_url    = models.URLField(blank=True)
-    footer_copyright_text     = models.CharField(max_length=200, default="© 2025 Azeem School. All Rights Reserved.")
+    footer_copyright_text     = models.CharField(max_length=200, blank=True, default="© 2025 Azeem School. All Rights Reserved.")
 
     # ──────────────────────────────────────────
     # ADMIN PANELS
@@ -2977,7 +2977,7 @@ class NewsArticle(Orderable):
         on_delete=models.SET_NULL, related_name="news_article_image",
         help_text="Article cover photo (recommended: 900 × 600 px)",
     )
-    category    = models.CharField(max_length=20, choices=NEWS_CATEGORY_CHOICES, default="event")
+    category    = models.CharField(max_length=20, choices=NEWS_CATEGORY_CHOICES, blank=True, default="event")
     date        = models.DateField(help_text="Publication date shown on the card and in the popup")
     title       = models.CharField(max_length=300)
     excerpt     = models.TextField(
@@ -3045,11 +3045,11 @@ class NewsArticle(Orderable):
 
 class NewsAnnouncement(Orderable):
     page        = ParentalKey("NewsPage", on_delete=models.CASCADE, related_name="news_announcements")
-    ann_type    = models.CharField(max_length=20, choices=NEWS_ANN_TYPE_CHOICES, default="notice")
-    icon_choice = models.CharField(max_length=100, choices=NEWS_ANN_ICON_CHOICES, default="fa-solid fa-bell")
-    icon_style  = models.CharField(max_length=20, choices=NEWS_ANN_ICON_STYLE_CHOICES, default="ai-purple",
+    ann_type    = models.CharField(max_length=20, choices=NEWS_ANN_TYPE_CHOICES, blank=True, default="notice")
+    icon_choice = models.CharField(max_length=100, choices=NEWS_ANN_ICON_CHOICES, blank=True, default="fa-solid fa-bell")
+    icon_style  = models.CharField(max_length=20, choices=NEWS_ANN_ICON_STYLE_CHOICES, blank=True, default="ai-purple",
                                    help_text="Background colour of the icon box")
-    badge_style = models.CharField(max_length=20, choices=NEWS_ANN_BADGE_CHOICES, default="ab-notice",
+    badge_style = models.CharField(max_length=20, choices=NEWS_ANN_BADGE_CHOICES, blank=True, default="ab-notice",
                                    help_text="Colour of the category badge pill")
     date_label  = models.CharField(max_length=60,
                                    help_text='Right-side date label, e.g. "May 12, 2025" or "Open till Jul 31"')
@@ -3074,7 +3074,7 @@ class NewsUpcomingEvent(Orderable):
     page       = ParentalKey("NewsPage", on_delete=models.CASCADE, related_name="news_upcoming_events")
     day        = models.CharField(max_length=5, help_text='Day number shown in the date box, e.g. "12"')
     month      = models.CharField(max_length=10, help_text='Month abbreviation, e.g. "May" or "Jun"')
-    badge_type = models.CharField(max_length=20, choices=NEWS_EVENT_BADGE_CHOICES, default="upcoming")
+    badge_type = models.CharField(max_length=20, choices=NEWS_EVENT_BADGE_CHOICES, blank=True, default="upcoming")
     title      = models.CharField(max_length=200)
     time       = models.CharField(max_length=60, help_text='e.g. "8:00 AM" or "9:00 AM – 1 PM"')
     location   = models.CharField(max_length=120, help_text='e.g. "Main Hall" or "Sports Ground"')
@@ -3096,7 +3096,7 @@ class NewsGalleryPhoto(Orderable):
         on_delete=models.SET_NULL, related_name="news_gallery_photo_image",
         help_text="Gallery photo (any aspect ratio — CSS handles the masonry layout)",
     )
-    category = models.CharField(max_length=20, choices=GALLERY_CATEGORY_CHOICES, default="events")
+    category = models.CharField(max_length=20, choices=GALLERY_CATEGORY_CHOICES, blank=True, default="events")
     title    = models.CharField(max_length=200, help_text="Shown in the hover overlay")
     alt_text = models.CharField(max_length=200, blank=True, default="",
                                 help_text="Accessibility alt text (leave blank to use title)")
@@ -3118,7 +3118,7 @@ class NewsGalleryPhoto(Orderable):
 class NewsPage(Page):
 
     # ── Banner ────────────────────────────────
-    banner_title       = models.CharField(max_length=200, default="News & Gallery")
+    banner_title       = models.CharField(max_length=200, blank=True, default="News & Gallery")
     banner_description = models.TextField(
         default="Stay updated with the latest happenings, achievements, and moments from across Azeem School.")
 
@@ -3135,22 +3135,22 @@ class NewsPage(Page):
     )
 
     # ── News Section ──────────────────────────
-    news_eyebrow = models.CharField(max_length=100, default="Editor's Pick")
-    news_heading = models.CharField(max_length=200, default="Latest from Azeem School")
+    news_eyebrow = models.CharField(max_length=100, blank=True, default="Editor's Pick")
+    news_heading = models.CharField(max_length=200, blank=True, default="Latest from Azeem School")
 
     # ── Announcements Section ─────────────────
-    ann_eyebrow         = models.CharField(max_length=100, default="Notice Board")
-    ann_heading         = models.CharField(max_length=200, default="Announcements & Upcoming Events")
-    events_panel_heading = models.CharField(max_length=100, default="Upcoming Events")
+    ann_eyebrow         = models.CharField(max_length=100, blank=True, default="Notice Board")
+    ann_heading         = models.CharField(max_length=200, blank=True, default="Announcements & Upcoming Events")
+    events_panel_heading = models.CharField(max_length=100, blank=True, default="Upcoming Events")
 
     # ── Gallery Section ───────────────────────
-    gallery_eyebrow     = models.CharField(max_length=100, default="Campus Moments")
-    gallery_heading     = models.CharField(max_length=200, default="School Gallery")
+    gallery_eyebrow     = models.CharField(max_length=100, blank=True, default="Campus Moments")
+    gallery_heading     = models.CharField(max_length=200, blank=True, default="School Gallery")
     gallery_description = models.TextField(
         default="A visual celebration of life at Azeem School — from classrooms to cricket grounds and everything in between.")
 
     # ── Newsletter CTA ────────────────────────
-    cta_heading = models.CharField(max_length=200, default="Never Miss an Update")
+    cta_heading = models.CharField(max_length=200, blank=True, default="Never Miss an Update")
     cta_text    = models.TextField(
         default="Subscribe to the Azeem School newsletter and get announcements, event reminders, and highlights delivered straight to your inbox.")
 
