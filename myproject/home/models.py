@@ -1026,8 +1026,9 @@ class ContactPage(Page):
     banner_description = models.TextField(default="")
 
     # ── Contact Info section ──────────────────
-    contact_info_subtitle = models.CharField(max_length=100, default="Contact Info")
-    contact_info_title = models.CharField(max_length=200, default="Our Contact Information")
+    contact_info_subtitle     = models.CharField(max_length=100, default="Contact Info")
+    contact_info_title        = models.CharField(max_length=200, default="Our Contact Information")
+    contact_info_description  = models.TextField(blank=True, default="")
 
     # Location box
     location_address = models.TextField(default="")
@@ -1042,8 +1043,14 @@ class ContactPage(Page):
     email_2 = models.EmailField(default="", blank=True)
 
     # ── Opening Hours section ─────────────────
-    hours_label   = models.CharField(max_length=100, blank=True, default="School Hours")
-    hours_heading = models.CharField(max_length=300, blank=True, default="When We're Open")
+    hours_label       = models.CharField(max_length=100, blank=True, default="School Hours")
+    hours_heading     = models.CharField(max_length=300, blank=True, default="When We're Open")
+    hours_description = models.TextField(blank=True, default="")
+    hours_image       = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="contact_hours_image",
+        verbose_name="Hours Section Image",
+    )
 
     # ── Map ───────────────────────────────────
     map_label       = models.CharField(max_length=100, blank=True, default="Find Us")
@@ -1121,6 +1128,7 @@ class ContactPage(Page):
         MultiFieldPanel([
             FieldPanel("contact_info_subtitle"),
             FieldPanel("contact_info_title"),
+            FieldPanel("contact_info_description"),
             MultiFieldPanel([
                 FieldPanel("location_address"),
                 FieldPanel("location_map_url"),
@@ -1137,6 +1145,8 @@ class ContactPage(Page):
         MultiFieldPanel([
             FieldPanel("hours_label"),
             FieldPanel("hours_heading"),
+            FieldPanel("hours_description"),
+            FieldPanel("hours_image"),
             InlinePanel("contact_hours", label="Hours Row"),
         ], heading="Opening Hours Section"),
 
