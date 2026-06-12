@@ -1,4 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
+{% if page.ad_popup_enabled and page.ad_popup_image %}{% image page.ad_popup_image original as ad_popup_img %}{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,6 +143,29 @@
     .hero-video-btn { display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.12); color:#fff; border:2px solid rgba(255,255,255,0.4); padding:16px 28px; border-radius:50px; font-weight:700; font-size:15px; font-family:'Urbanist',sans-serif; transition:background .25s,border-color .25s; text-decoration:none; }
     .hero-video-btn:hover { background:rgba(255,255,255,0.22); border-color:#fff; color:#fff; }
     .hero-video-btn i { font-size:20px; }
+
+    /* Hero Slideshow — identical sizing to banner3-con */
+    .hero-slider { position:relative; min-height:600px; padding:186px 0 226px; overflow:hidden; isolation:isolate; background:#081933; }
+    .hero-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 1s ease; z-index:0; }
+    .hero-slide::before { content:""; position:absolute; inset:0; background:rgba(0,0,0,0.52); }
+    .hero-slide.hs-active { opacity:1; z-index:1; animation:hs-zoom 8s ease forwards; }
+    @keyframes hs-zoom { 0%{transform:scale(1);} 100%{transform:scale(1.06);} }
+    /* Mirror banner3-con decorative-figure positioning so they don't add to flow height */
+    .hero-slider .banner-lefttopcurve  { position:absolute; left:0; top:0; }
+    .hero-slider .banner-rightbottomcurve { position:absolute; bottom:0; right:0; }
+    .hero-slider .banner-circleimage   { position:absolute; bottom:60px; right:210px; }
+    .hero-slider .banner-crossimage    { position:absolute; bottom:100px; right:50px; }
+    .hero-slider .banner_content       { padding:0 15px; }
+    .hero-slider .banner_content .primary_btn { padding:21px 34px; }
+    /* Slider controls */
+    .hs-dots { position:absolute; bottom:28px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10; }
+    .hs-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.4); border:none; cursor:pointer; padding:0; transition:all .3s; }
+    .hs-dot.hs-dot-active { background:#fff; width:24px; border-radius:4px; }
+    .hs-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:10; width:48px; height:48px; background:rgba(255,255,255,0.14); border:2px solid rgba(255,255,255,0.3); border-radius:50%; color:#fff; font-size:18px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .25s; }
+    .hs-arrow:hover { background:rgba(255,255,255,0.28); }
+    .hs-prev { left:20px; }
+    .hs-next { right:20px; }
+    @media(max-width:576px) { .hs-arrow { display:none; } }
 
     /* Stats strip */
     .az-stats-strip { background:var(--navy-mid); padding:0; }
@@ -293,6 +317,92 @@
         {% include 'home/includes/_navbar.html' %}
 
     <!-- ── HERO ── -->
+    {% if page.hero_slides.exists %}
+
+    {# ── SLIDESHOW MODE ── #}
+    <div class="hero-slider">
+      {% for slide in page.hero_slides.all %}
+        {% if slide.image %}{% image slide.image original as hs_img %}{% endif %}
+        <div class="hero-slide{% if forloop.first %} hs-active{% endif %}"
+             {% if slide.image %}style="background-image:url('{{ hs_img.url }}')"{% endif %}></div>
+      {% endfor %}
+
+      <figure class="banner-lefttopcurve image mb-0">
+        <img src="{% static 'images/banner3-lefttopcurve.png' %}" alt="" class="img-fluid">
+      </figure>
+      <figure class="banner-rightbottomcurve image mb-0">
+        <img src="{% static 'images/banner3-rightbottomcurve.png' %}" alt="" class="img-fluid">
+      </figure>
+
+      <div class="container position-relative" style="z-index:2;">
+        <div class="row align-items-center">
+          <div class="col-lg-10 col-12 mx-auto">
+            <div class="banner_content text-center position-relative" id="hsSlideTxt">
+              {% if page.hero_logo %}
+                {% image page.hero_logo original as hero_logo_img %}
+                <figure class="banner-logoicon">
+                  <img src="{{ hero_logo_img.url }}" alt="logo" class="img-fluid">
+                </figure>
+              {% endif %}
+              <h1 class="text-white" id="hsHeadline">{{ page.hero_slides.first.headline|default:page.hero_headline }}</h1>
+              <h3 class="text-white" id="hsTagline">{{ page.hero_slides.first.tagline|default:page.hero_tagline }}</h3>
+              <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+                {% with s=page.hero_slides.first %}
+                {% if s.btn_url or page.hero_btn_url %}
+                <a href="{{ s.btn_url|default:page.hero_btn_url }}" class="text-decoration-none primary_btn" id="hsBtn1">
+                  <span id="hsBtnTxt">{{ s.btn_label|default:page.hero_btn_label }}</span><i class="fa-solid fa-arrow-right"></i>
+                </a>
+                {% endif %}
+                {% endwith %}
+                {% if page.about_video_url %}
+                <a href="{{ page.about_video_url }}" target="_blank" rel="noopener noreferrer" class="hero-video-btn">
+                  <i class="fa-solid fa-circle-play"></i> Watch Our Story
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-1 mx-auto">
+            <a href="#stats" class="top-btn text-center">
+              <figure class="banner-dropdownimage mb-0">
+                <img src="{% static 'images/banner-dropdownimage.png' %}" class="img-fluid" alt="">
+              </figure>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <figure class="banner-circleimage mb-0"><img src="{% static 'images/banner3-circleimage.png' %}" alt="" class="img-fluid"></figure>
+      <figure class="banner-crossimage mb-0"><img src="{% static 'images/banner3-crossimage.png' %}" alt="" class="img-fluid"></figure>
+
+      <button class="hs-arrow hs-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hs-arrow hs-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="hs-dots">
+        {% for slide in page.hero_slides.all %}
+        <button class="hs-dot{% if forloop.first %} hs-dot-active{% endif %}" data-index="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Slide data for JS #}
+    <script>
+    window.heroSlides = [
+      {% for slide in page.hero_slides.all %}
+      {
+        headline: "{{ slide.headline|default:page.hero_headline|escapejs }}",
+        tagline:  "{{ slide.tagline|default:page.hero_tagline|escapejs }}",
+        btnLabel: "{{ slide.btn_label|default:page.hero_btn_label|escapejs }}",
+        btnUrl:   "{{ slide.btn_url|default:page.hero_btn_url|escapejs }}"
+      }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ];
+    </script>
+
+    {% else %}
+
+    {# ── SINGLE IMAGE FALLBACK ── #}
     {% if page.hero_bg_image %}{% image page.hero_bg_image original as hero_bg %}{% endif %}
     <section class="banner3-con position-relative"{% if page.hero_bg_image %} style="background-image:url('{{ hero_bg.url }}');background-size:cover;background-position:center;"{% endif %}>
         <figure class="banner-lefttopcurve image mb-0">
@@ -311,12 +421,8 @@
                                 <img src="{{ hero_logo_img.url }}" alt="logo" class="img-fluid">
                             </figure>
                         {% endif %}
-                        <h1 class="text-white">
-                            {{ page.hero_headline }}
-                        </h1>
-                        <h3 class="text-white">
-                          {% if page.hero_headline_2 %} {{ page.hero_headline_2 }}{% endif %}
-                        </h3>
+                        <h1 class="text-white">{{ page.hero_headline }}</h1>
+                        <h3 class="text-white">{% if page.hero_headline_2 %}{{ page.hero_headline_2 }}{% endif %}</h3>
                         <p class="text-white text-size-18">{{ page.hero_tagline }}</p>
                         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
                             <a href="{{ page.hero_btn_url }}" class="text-decoration-none primary_btn">
@@ -348,6 +454,7 @@
             <img src="{% static 'images/banner3-crossimage.png' %}" alt="" class="img-fluid">
         </figure>
     </section>
+    {% endif %}
 </div>
 
 <!-- ══ STATS STRIP ══ -->
@@ -839,5 +946,127 @@ $(document).ready(function() {
     observer.observe(strip);
 })();
 </script>
+
+{% if page.hero_slides.exists %}
+<script>
+(function () {
+  var slides   = document.querySelectorAll('.hero-slide');
+  var dots     = document.querySelectorAll('.hs-dot');
+  var data     = window.heroSlides || [];
+  var total    = slides.length;
+  var current  = 0;
+  var timer;
+
+  var el = {
+    headline : document.getElementById('hsHeadline'),
+    tagline  : document.getElementById('hsTagline'),
+    btn1     : document.getElementById('hsBtn1'),
+    txt      : document.getElementById('hsSlideTxt'),
+  };
+
+  function goTo(idx) {
+    slides[current].classList.remove('hs-active');
+    dots[current].classList.remove('hs-dot-active');
+    current = (idx + total) % total;
+    slides[current].classList.add('hs-active');
+    dots[current].classList.add('hs-dot-active');
+    var d = data[current] || {};
+    if (el.headline) el.headline.textContent = d.headline || '';
+    if (el.tagline)  el.tagline.textContent  = d.tagline  || '';
+    if (el.btn1) {
+      if (d.btnUrl) el.btn1.href = d.btnUrl;
+      var txtEl = document.getElementById('hsBtnTxt');
+      if (txtEl && d.btnLabel) txtEl.textContent = d.btnLabel;
+    }
+    if (el.txt) { el.txt.style.opacity='0'; setTimeout(function(){ el.txt.style.opacity='1'; el.txt.style.transition='opacity .6s'; }, 50); }
+  }
+
+  function start() { timer = setInterval(function(){ goTo(current + 1); }, 5000); }
+  function reset() { clearInterval(timer); start(); }
+
+  document.querySelector('.hs-prev').addEventListener('click', function(){ goTo(current - 1); reset(); });
+  document.querySelector('.hs-next').addEventListener('click', function(){ goTo(current + 1); reset(); });
+  dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(+this.dataset.index); reset(); }); });
+
+  start();
+})();
+</script>
+{% endif %}
+
+{% if page.ad_popup_enabled and page.ad_popup_image %}
+<!-- ══ AD POPUP ══ -->
+<style>
+  #adPopupOverlay {
+    position: fixed; inset: 0; z-index: 99999;
+    background: rgba(10, 10, 30, 0.72);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  #adPopupOverlay.is-visible { opacity: 1; visibility: visible; }
+  #adPopupBox {
+    position: relative;
+    max-width: 520px; width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+    transform: translateY(28px) scale(0.96);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  #adPopupOverlay.is-visible #adPopupBox { transform: translateY(0) scale(1); }
+  #adPopupBox img { display: block; width: 100%; height: auto; }
+  #adPopupClose {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.92);
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 10;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    transition: background 0.2s, transform 0.2s;
+  }
+  #adPopupClose:hover { background: #fff; transform: scale(1.1); }
+  #adPopupClose svg { width: 14px; height: 14px; stroke: #1a1a2e; stroke-width: 2.5; }
+</style>
+<div id="adPopupOverlay" role="dialog" aria-modal="true" aria-label="Advertisement">
+  <div id="adPopupBox">
+    <button id="adPopupClose" aria-label="Close advertisement">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1" y1="1" x2="13" y2="13"/>
+        <line x1="13" y1="1" x2="1" y2="13"/>
+      </svg>
+    </button>
+    {% if page.ad_popup_link_url %}
+    <a href="{{ page.ad_popup_link_url }}" target="_blank" rel="noopener">
+      <img src="{{ ad_popup_img.url }}" alt="Advertisement">
+    </a>
+    {% else %}
+    <img src="{{ ad_popup_img.url }}" alt="Advertisement">
+    {% endif %}
+  </div>
+</div>
+<script>
+(function () {
+  var KEY = 'azeem_ad_seen';
+  if (sessionStorage.getItem(KEY)) return;
+  var overlay = document.getElementById('adPopupOverlay');
+  var closeBtn = document.getElementById('adPopupClose');
+  function closePopup() {
+    overlay.classList.remove('is-visible');
+    sessionStorage.setItem(KEY, '1');
+  }
+  setTimeout(function () { overlay.classList.add('is-visible'); }, 800);
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePopup();
+  });
+})();
+</script>
+{% endif %}
+
 </body>
 </html>

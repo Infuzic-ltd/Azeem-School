@@ -1386,6 +1386,29 @@ class AboutPage(Page):
 
 
 # ──────────────────────────────────────────────
+# HERO SLIDESHOW INLINE
+# ──────────────────────────────────────────────
+
+class HeroSlide(Orderable):
+    page      = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="hero_slides")
+    image     = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+",
+        verbose_name="Slide Background Image",
+    )
+    headline  = models.CharField(max_length=300, blank=True, default="", verbose_name="Headline (overrides page default)")
+    tagline   = models.CharField(max_length=300, blank=True, default="", verbose_name="Tagline (overrides page default)")
+    btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Label")
+    btn_url   = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
+
+    panels = [
+        FieldPanel("image"),
+        FieldPanel("headline"),
+        FieldPanel("tagline"),
+        FieldRowPanel([FieldPanel("btn_label"), FieldPanel("btn_url")]),
+    ]
+
+# ──────────────────────────────────────────────
 # MAIN HOME PAGE MODEL
 # ──────────────────────────────────────────────
 
@@ -1545,11 +1568,27 @@ class HomePage(Page):
     footer_contact_map_url = models.URLField(blank=True)
     footer_copyright_text = models.CharField(max_length=200, blank=True, default="")
 
+    # ── Ad Popup ──────────────────────────────
+    ad_popup_enabled  = models.BooleanField(default=False, verbose_name="Enable Popup")
+    ad_popup_image    = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="homepage_ad_popup",
+        verbose_name="Popup Image",
+    )
+    ad_popup_link_url = models.URLField(blank=True, verbose_name="Click-through URL (optional)")
+
     # ──────────────────────────────────────────
     # ADMIN PANELS
     # ──────────────────────────────────────────
 
     content_panels = Page.content_panels + [
+
+        # ── Ad Popup ──────────────────────────────────────────────────────
+        MultiFieldPanel([
+            FieldPanel("ad_popup_enabled"),
+            FieldPanel("ad_popup_image"),
+            FieldPanel("ad_popup_link_url"),
+        ], heading="⓪ Ad Popup  — shown once per session on homepage"),
 
         # ── Section 1: Navbar ─────────────────────────────────────────────
         MultiFieldPanel([
@@ -1561,6 +1600,8 @@ class HomePage(Page):
 
         # ── Section 2: Hero / Banner ──────────────────────────────────────
         MultiFieldPanel([
+            InlinePanel("hero_slides", label="Slide", max_num=5,
+                        help_text="Add up to 5 slides. If empty, the single background image below is used."),
             FieldPanel("hero_bg_image"),
             FieldPanel("hero_logo"),
             FieldPanel("hero_headline"),
