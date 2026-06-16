@@ -4,7 +4,7 @@
   .reg-float:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 32px rgba(0,0,0,0.22); color:#0d1b2e; }
 </style>
 {% if home_page and home_page.nav_btn_label and home_page.nav_btn_url %}
-<a href="{{ home_page.nav_btn_url }}" class="reg-float">
+<a href="{% if home_page.nav_btn_url|slice:':1' != '/' and home_page.nav_btn_url|slice:':4' != 'http' %}/{% endif %}{{ home_page.nav_btn_url }}" class="reg-float">
   <i class="fa-solid fa-graduation-cap"></i> {{ home_page.nav_btn_label }}
 </a>
 {% endif %}
