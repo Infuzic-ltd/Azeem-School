@@ -22,7 +22,7 @@
         .icon-blue   { background: #e3f2fd; } .icon-blue   i { color: #42a5f5; }
         .icon-green  { background: #e8f5e9; } .icon-green  i { color: #66bb6a; }
         .icon-yellow { background: #fff8e1; } .icon-yellow i { color: #f4b942; }
-        .icon-pink   { background: #fce4ec; } .icon-pink   i { color: #ec407a; }
+        .icon-pink   { background: #fce4ec; } .icon-pink   i { color: #60a5fa; }
         .icon-purple { background: #f3e5f5; } .icon-purple i { color: #ab47bc; }
         .icon-cyan   { background: #e0f7fa; } .icon-cyan   i { color: #26c6da; }
         .icon-orange { background: #fff3e0; } .icon-orange i { color: #ff7043; }
@@ -44,12 +44,12 @@
         .overview-tile {
             background: #ffffff; border-radius: 20px; padding: 32px 20px;
             text-align: center; transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(106,82,224,0.06);
+            box-shadow: 0 4px 20px rgba(26,86,219,0.06);
             border: 1.5px solid transparent; height: 100%; margin-bottom: 24px;
         }
         .overview-tile:hover {
             border-color: var(--e-global-color-soft-blue);
-            box-shadow: 0 12px 40px rgba(106,82,224,0.13);
+            box-shadow: 0 12px 40px rgba(26,86,219,0.13);
             transform: translateY(-5px);
         }
         .ov-icon {
@@ -63,7 +63,7 @@
         /* ── Lab cards ── */
         .labs-con { padding: 100px 0; background: #ffffff; }
         .lab-card {
-            background: #fafafa; border: 1.5px solid #f0f0f8; border-radius: 20px;
+            background: #fafafa; border: 1.5px solid #e8f0ff; border-radius: 20px;
             padding: 36px 28px; transition: all 0.3s ease; height: 100%; margin-bottom: 24px;
             position: relative; overflow: hidden;
         }
@@ -72,7 +72,7 @@
             background: var(--e-global-color-soft-blue); opacity: 0; transition: opacity 0.3s;
         }
         .lab-card:hover::before { opacity: 1; }
-        .lab-card:hover { background: #ffffff; border-color: var(--e-global-color-soft-blue); box-shadow: 0 16px 48px rgba(106,82,224,0.12); transform: translateY(-5px); }
+        .lab-card:hover { background: #ffffff; border-color: var(--e-global-color-soft-blue); box-shadow: 0 16px 48px rgba(26,86,219,0.12); transform: translateY(-5px); }
         .lab-icon {
             width: 64px; height: 64px; border-radius: 18px;
             display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
@@ -84,7 +84,7 @@
         .lab-features li {
             font-size: 13px; color: var(--e-global-color-text); padding: 5px 0;
             display: flex; align-items: center; gap: 8px;
-            border-bottom: 1px solid #f0f0f8;
+            border-bottom: 1px solid #e8f0ff;
         }
         .lab-features li:last-child { border-bottom: none; }
         .lab-features li i { color: var(--e-global-color-soft-blue); font-size: 11px; flex-shrink: 0; }
@@ -100,7 +100,7 @@
         }
         .sports-con::after {
             content: ""; position: absolute; width: 350px; height: 350px; border-radius: 50%;
-            background: rgba(106,82,224,0.08); bottom: -100px; left: -100px;
+            background: rgba(26,86,219,0.08); bottom: -100px; left: -100px;
         }
         .sport-card {
             background: rgba(255,255,255,0.05); border: 1px solid rgba(220,253,125,0.12);
@@ -128,7 +128,7 @@
         .lib-feature-row {
             display: flex; align-items: flex-start; gap: 20px;
             background: #ffffff; border-radius: 16px; padding: 24px 22px;
-            margin-bottom: 16px; box-shadow: 0 4px 20px rgba(106,82,224,0.06);
+            margin-bottom: 16px; box-shadow: 0 4px 20px rgba(26,86,219,0.06);
             transition: all 0.3s; border: 1.5px solid transparent;
         }
         .lib-feature-row:hover { border-color: var(--e-global-color-soft-blue); transform: translateX(4px); }
@@ -156,10 +156,10 @@
         /* ── Arts ── */
         .arts-con { padding: 100px 0; background: #ffffff; }
         .arts-card {
-            background: #fafafa; border: 1.5px solid #f0f0f8; border-radius: 20px;
+            background: #fafafa; border: 1.5px solid #e8f0ff; border-radius: 20px;
             padding: 32px 24px; text-align: center; transition: all 0.3s ease; height: 100%; margin-bottom: 24px;
         }
-        .arts-card:hover { background: #ffffff; border-color: var(--e-global-color-soft-blue); box-shadow: 0 12px 40px rgba(106,82,224,0.12); transform: translateY(-5px); }
+        .arts-card:hover { background: #ffffff; border-color: var(--e-global-color-soft-blue); box-shadow: 0 12px 40px rgba(26,86,219,0.12); transform: translateY(-5px); }
         .arts-icon {
             width: 72px; height: 72px; border-radius: 20px;
             margin: 0 auto 20px auto; display: flex; align-items: center; justify-content: center;
@@ -169,7 +169,7 @@
         .arts-card p { font-size: 14px; color: var(--e-global-color-text); margin-bottom: 14px; line-height: 1.7; }
         .arts-tag {
             display: inline-block; background: var(--e-global-color-very-pale-blue);
-            color: var(--e-global-color-soft-blue); border: 1px solid rgba(106,82,224,0.2);
+            color: var(--e-global-color-soft-blue); border: 1px solid rgba(26,86,219,0.2);
             border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 600;
             margin: 3px;
         }
@@ -181,7 +181,7 @@
         }
         .safety-con::before {
             content: ""; position: absolute; width: 400px; height: 400px; border-radius: 50%;
-            background: rgba(106,82,224,0.08); top: -120px; right: -120px;
+            background: rgba(26,86,219,0.08); top: -120px; right: -120px;
         }
         .safety-con::after {
             content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
@@ -232,7 +232,7 @@
             padding: 16px 36px; border-radius: 50px; font-weight: 700; font-size: 16px;
             text-decoration: none; transition: all 0.3s; margin-right: 16px; margin-bottom: 12px;
         }
-        .cta-visit-btn:hover { background: #ffffff; color: var(--e-global-color-very-dark-blue); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(31,23,65,0.2); text-decoration: none; }
+        .cta-visit-btn:hover { background: #ffffff; color: var(--e-global-color-very-dark-blue); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,36,97,0.2); text-decoration: none; }
         .cta-outline-btn {
             display: inline-flex; align-items: center; gap: 10px;
             background: transparent; color: #ffffff;

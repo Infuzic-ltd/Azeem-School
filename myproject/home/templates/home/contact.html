@@ -20,10 +20,10 @@
   <style>
     /* ── Contact Info Cards ── */
     .ct-info-con { padding:80px 0; background:var(--e-global-color-very-pale-blue); }
-    .ct-info-card { background:#ffffff; border:1.5px solid #f0f0f8; border-radius:20px; padding:36px 28px; text-align:center; height:100%; transition:all 0.3s; position:relative; overflow:hidden; }
+    .ct-info-card { background:#ffffff; border:1.5px solid #e8f0ff; border-radius:20px; padding:36px 28px; text-align:center; height:100%; transition:all 0.3s; position:relative; overflow:hidden; }
     .ct-info-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--e-global-color-soft-blue); opacity:0; transition:opacity 0.3s; }
     .ct-info-card:hover::before { opacity:1; }
-    .ct-info-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(106,82,224,0.12); transform:translateY(-5px); }
+    .ct-info-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(26,86,219,0.12); transform:translateY(-5px); }
     .ct-icon-wrap { width:68px; height:68px; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
     .ct-icon-wrap i { font-size:28px; }
     .ct-icon-purple { background:#f3e5f5; } .ct-icon-purple i { color:#ab47bc; }
@@ -39,7 +39,7 @@
     /* ── Opening Hours ── */
     .ct-hours-con { padding:80px 0; background:#ffffff; }
     .ct-hours-table { width:100%; border-collapse:collapse; }
-    .ct-hours-table tr { border-bottom:1px solid #f0f0f8; }
+    .ct-hours-table tr { border-bottom:1px solid #e8f0ff; }
     .ct-hours-table td { padding:14px 20px; font-size:15px; color:var(--e-global-color-text); }
     .ct-hours-table td:first-child { font-weight:700; color:var(--e-global-color-very-dark-blue); width:55%; }
     .ct-hours-table td:last-child { color:var(--e-global-color-soft-blue); font-weight:600; text-align:right; }
@@ -53,7 +53,7 @@
     /* ── Map Section ── */
     .ct-map-con { padding:80px 0 0; background:var(--e-global-color-very-dark-blue); position:relative; overflow:hidden; }
     .ct-map-con::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:rgba(220,253,125,0.04); top:-150px; right:-150px; }
-    .ct-map-con::after  { content:''; position:absolute; width:350px; height:350px; border-radius:50%; background:rgba(106,82,224,0.08); bottom:0; left:-100px; }
+    .ct-map-con::after  { content:''; position:absolute; width:350px; height:350px; border-radius:50%; background:rgba(26,86,219,0.08); bottom:0; left:-100px; }
     .ct-map-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(220,253,125,0.12); border:1px solid rgba(220,253,125,0.25); color:var(--e-global-color-accent); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 18px; border-radius:50px; margin-bottom:14px; }
     .ct-map-iframe-wrap { position:relative; z-index:1; margin-top:48px; border-radius:20px 20px 0 0; overflow:hidden; border:1px solid rgba(220,253,125,0.12); box-shadow:0 -16px 60px rgba(0,0,0,0.3); height:420px; }
     .ct-map-iframe-wrap iframe { width:100%; height:100%; display:block; border:none; }
@@ -70,7 +70,7 @@
 
     /* ── FAQ ── */
     .ct-faq-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); }
-    .ct-faq-item { background:#ffffff; border:1.5px solid #f0f0f8; border-radius:16px; margin-bottom:12px; overflow:hidden; transition:border-color 0.3s; }
+    .ct-faq-item { background:#ffffff; border:1.5px solid #e8f0ff; border-radius:16px; margin-bottom:12px; overflow:hidden; transition:border-color 0.3s; }
     .ct-faq-item.show-item { border-color:var(--e-global-color-soft-blue); }
     .ct-faq-btn { width:100%; background:none; border:none; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; font-size:15px; font-weight:700; color:var(--e-global-color-very-dark-blue); text-align:left; cursor:pointer; gap:16px; }
     .ct-faq-btn:focus { outline:none; }

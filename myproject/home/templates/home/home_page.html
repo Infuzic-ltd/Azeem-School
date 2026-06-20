@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="96x96"   href="{% static 'images/favicon/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16"   href="{% static 'images/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
-    <meta name="theme-color" content="#1f1741">
+    <meta name="theme-color" content="#0c2461">
 
     <!-- CSS -->
     <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
@@ -77,7 +77,7 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        background: var(--gold);
+        background: #ffffff;
         color: var(--navy) !important;
         font-weight: 800;
         font-size: 15px;
@@ -85,12 +85,12 @@
         border-radius: 50px;
         white-space: nowrap;
         flex-shrink: 0;
-        box-shadow: 0 4px 18px rgba(220,179,46,0.35);
+        box-shadow: 0 4px 18px rgba(26,86,219,0.35);
         transition: transform .22s ease, box-shadow .22s ease;
     }
     .footer-apply-btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 28px rgba(220,179,46,0.55);
+        box-shadow: 0 8px 28px rgba(26,86,219,0.55);
         color: var(--navy) !important;
     }
     .footer-apply-btn i { transition: transform .22s ease; }
@@ -98,22 +98,22 @@
 
     /* ── Design tokens — aligned to original site palette ── */
     :root {
-        --navy:      #1f1741;
-        --navy-mid:  #231b49;
-        --navy-soft: #2d1f5e;
-        --accent:    #6a52e0;
-        --gold:      #dcb32e;
+        --navy:      #0c2461;
+        --navy-mid:  #1a3a6b;
+        --navy-soft: #1e4d9b;
+        --accent:    #1a56db;
+        --gold:      #60a5fa;
         --green:     #99b251;
         --red-label: #ff0000;
         --light-bg:  #fafafa;
         --white:     #ffffff;
         --text:      #506172;
-        --heading:   #1f1741;
+        --heading:   #0c2461;
         --border:    #e6e8f0;
         --radius:    18px;
-        --shadow-sm: 0 2px 12px rgba(31,23,65,0.07);
-        --shadow-md: 0 8px 32px rgba(31,23,65,0.12);
-        --shadow-lg: 0 20px 56px rgba(31,23,65,0.18);
+        --shadow-sm: 0 2px 12px rgba(12,36,97,0.07);
+        --shadow-md: 0 8px 32px rgba(12,36,97,0.12);
+        --shadow-lg: 0 20px 56px rgba(12,36,97,0.18);
     }
     body { font-family:'Urbanist',sans-serif; overflow-x:hidden; color:var(--text); background:var(--white); }
     h1,h2,h3,h4,h5 { font-family:'Urbanist',sans-serif; font-weight:800; color:var(--heading); }
@@ -185,7 +185,7 @@
     .why-icon.c4 { background:#fee2e2; color:#dc2626; }
     .why-card h5 { font-size:18px; font-weight:800; color:var(--heading); margin-bottom:10px; }
     .why-card p  { font-size:14px; color:var(--text); line-height:1.7; margin:0; }
-    .why-num { font-size:52px; font-weight:900; color:rgba(31,23,65,0.05); line-height:1; position:absolute; right:22px; bottom:14px; user-select:none; pointer-events:none; }
+    .why-num { font-size:52px; font-weight:900; color:rgba(12,36,97,0.05); line-height:1; position:absolute; right:22px; bottom:14px; user-select:none; pointer-events:none; }
 
     /* About */
     .az-about { padding:100px 0; background:var(--light-bg); }
@@ -194,8 +194,8 @@
     .az-about .img-main img { width:100%; height:360px; object-fit:cover; }
     .az-about .img-thumb { position:absolute; bottom:-30px; right:-24px; width:180px; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg); border:4px solid var(--white); }
     .az-about .img-thumb img { width:100%; height:120px; object-fit:cover; }
-    .az-about .play-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70px; height:70px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(220,179,46,0.5); transition:transform .25s,box-shadow .25s; z-index:5; text-decoration:none; }
-    .az-about .play-btn:hover { transform:translate(-50%,-50%) scale(1.12); box-shadow:0 12px 36px rgba(220,179,46,0.7); }
+    .az-about .play-btn { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70px; height:70px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(26,86,219,0.5); transition:transform .25s,box-shadow .25s; z-index:5; text-decoration:none; }
+    .az-about .play-btn:hover { transform:translate(-50%,-50%) scale(1.12); box-shadow:0 12px 36px rgba(26,86,219,0.7); }
     .az-about .play-btn i { font-size:28px; color:var(--navy); margin-left:4px; }
     .az-about .mission-box { background:var(--navy); color:#fff; border-radius:16px; padding:22px 24px; margin-top:28px; display:flex; align-items:flex-start; gap:16px; }
     .az-about .mission-box i { font-size:28px; color:var(--gold); flex-shrink:0; margin-top:2px; }
@@ -248,7 +248,7 @@
     .fac-v2-content h5 { font-size:18px; font-weight:800; color:#fff; margin-bottom:4px; }
     .fac-v2-content p  { font-size:13px; color:rgba(255,255,255,0.72); margin:0; line-height:1.45; }
     .fac-v2-arrow { position:absolute; top:18px; right:18px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; transition:background .2s,transform .2s; }
-    .fac-v2:hover .fac-v2-arrow { background:var(--gold); color:var(--navy); transform:scale(1.1); }
+    .fac-v2:hover .fac-v2-arrow { background:#ffffff; color:var(--navy); transform:scale(1.1); }
 
     /* Explore pages */
     .az-explore { padding:100px 0; background:var(--light-bg); }
@@ -266,16 +266,16 @@
     .az-cta { padding:100px 0; background:linear-gradient(135deg,var(--navy) 0%,var(--navy-soft) 60%,#4f6ef7 100%); position:relative; overflow:hidden; }
     .az-cta::before { content:""; position:absolute; top:-120px; right:-120px; width:500px; height:500px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
     .az-cta::after  { content:""; position:absolute; bottom:-80px; left:-80px; width:360px; height:360px; border-radius:50%; background:rgba(255,255,255,0.03); pointer-events:none; }
-    .az-cta-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(220,179,46,0.15); border:1px solid rgba(220,179,46,0.4); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:7px 18px; border-radius:30px; margin-bottom:22px; }
-    .btn-primary-az { display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--navy) !important; font-weight:800; font-size:15px; padding:16px 32px; border-radius:50px; text-decoration:none; box-shadow:0 6px 24px rgba(220,179,46,0.45); transition:transform .22s,box-shadow .22s; }
-    .btn-primary-az:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(220,179,46,0.6); }
+    .az-cta-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.35); color:#ffffff; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:7px 18px; border-radius:30px; margin-bottom:22px; }
+    .btn-primary-az { display:inline-flex; align-items:center; gap:10px; background:#ffffff; color:var(--navy) !important; font-weight:800; font-size:15px; padding:16px 32px; border-radius:50px; text-decoration:none; box-shadow:0 6px 24px rgba(26,86,219,0.45); transition:transform .22s,box-shadow .22s; }
+    .btn-primary-az:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(26,86,219,0.6); }
     .btn-outline-az { display:inline-flex; align-items:center; gap:10px; background:transparent; color:#fff !important; font-weight:700; font-size:15px; padding:15px 30px; border-radius:50px; text-decoration:none; border:2px solid rgba(255,255,255,0.4); transition:background .22s,border-color .22s; }
     .btn-outline-az:hover { background:rgba(255,255,255,0.1); border-color:#fff; }
 
     /* Testimonials */
     .az-testi { padding:100px 0; background:var(--white); }
     .testi-card { background:var(--white); border:1px solid var(--border); border-radius:20px; padding:36px 32px; position:relative; overflow:hidden; }
-    .testi-card::before { content:"\201C"; position:absolute; top:-12px; right:28px; font-size:120px; color:rgba(106,82,224,0.06); font-family:Georgia,serif; line-height:1; pointer-events:none; }
+    .testi-card::before { content:"\201C"; position:absolute; top:-12px; right:28px; font-size:120px; color:rgba(26,86,219,0.06); font-family:Georgia,serif; line-height:1; pointer-events:none; }
     .testi-stars { display:flex; gap:3px; margin-bottom:16px; }
     .testi-stars i { font-size:14px; color:var(--gold); }
     .testi-card p { font-size:15px; color:var(--text); line-height:1.8; font-style:italic; margin-bottom:22px; }
@@ -724,7 +724,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
                 <a href="/about/" class="exp-card">
-                    <div class="exp-icon" style="background:linear-gradient(135deg,#1f1741,#6a52e0);"><i class="fa-solid fa-school"></i></div>
+                    <div class="exp-icon" style="background:linear-gradient(135deg,#0c2461,#1a56db);"><i class="fa-solid fa-school"></i></div>
                     <div class="exp-body"><h5>About Us</h5><p>Our history, mission, vision, and the values that drive everything we do.</p></div>
                     <div class="exp-arrow"><i class="fa-solid fa-arrow-right"></i></div>
                 </a>
