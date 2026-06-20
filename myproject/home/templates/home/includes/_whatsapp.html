@@ -1,7 +1,7 @@
 <style>
-  .reg-float { position:fixed; bottom:130px; right:20px; z-index:2000; display:inline-flex; align-items:center; gap:8px; background:var(--e-global-color-accent,#c8f55a); color:#0d1b2e; padding:11px 20px; border-radius:50px; font-weight:800; font-size:13px; font-family:'Urbanist',sans-serif; text-decoration:none; box-shadow:0 6px 24px rgba(0,0,0,0.18); transition:transform .22s,box-shadow .22s; white-space:nowrap; }
+  .reg-float { position:fixed; bottom:130px; right:20px; z-index:2000; display:inline-flex; align-items:center; gap:8px; background:#1a56db; color:#ffffff; padding:11px 20px; border-radius:50px; font-weight:800; font-size:13px; font-family:'Urbanist',sans-serif; text-decoration:none; box-shadow:0 6px 24px rgba(26,86,219,0.35); transition:transform .22s,box-shadow .22s; white-space:nowrap; }
   .reg-float i { font-size:15px; }
-  .reg-float:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 32px rgba(0,0,0,0.22); color:#0d1b2e; }
+  .reg-float:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 32px rgba(26,86,219,0.50); color:#ffffff; }
 </style>
 {% if home_page and home_page.nav_btn_label and home_page.nav_btn_url %}
 <a href="{% if home_page.nav_btn_url|slice:':1' != '/' and home_page.nav_btn_url|slice:':4' != 'http' %}/{% endif %}{{ home_page.nav_btn_url }}" class="reg-float">

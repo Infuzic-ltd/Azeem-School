@@ -24,7 +24,7 @@ Project:  Educiza
 
 #    --e-global-color-primary: #ffffff;
 #    --e-global-color-secondary: #000000;
-#    --e-global-color-accent: #dcfd7d;
+#    --e-global-color-accent: #1a56db;
 #    --e-global-color-text: #656565;
 #	 --e-global-color-white: #ffffff;
 #    --e-global-color-black: #000000;
@@ -65,7 +65,7 @@ body {
 :root {
     --e-global-color-primary: #ffffff;
     --e-global-color-secondary: #000000;
-    --e-global-color-accent: #dcfd7d;
+    --e-global-color-accent: #1a56db;
     --e-global-color-text: #656565;
 	--e-global-color-white: #ffffff;
     --e-global-color-black: #000000;
