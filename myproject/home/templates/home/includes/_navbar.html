@@ -5,13 +5,11 @@
   .navbar-nav > .nav-item.active > .nav-link { color:var(--accent) !important; font-weight:700; }
   .navbar-nav > .nav-item.active::after { content:""; display:block; height:2px; background:var(--accent); border-radius:2px; margin-top:-2px; }
 
-  /* ── Hover-open dropdowns (desktop) ── */
+  /* ── Hover-open dropdowns (desktop only) ── */
   @media (min-width:992px) {
-    /* Keep in DOM, toggle with opacity+visibility so there's a fade-out delay
-       giving the cursor time to move from the link into the menu */
     .navbar-nav .nav-item.dropdown > .dropdown-menu {
       display: block !important;
-      top: 100%;          /* attach flush to the nav item — no gap */
+      top: 100%;
       margin-top: 0;
       opacity: 0;
       visibility: hidden;
@@ -25,7 +23,6 @@
       pointer-events: auto;
       transform: translateY(0);
     }
-    /* Invisible bridge fills any sub-pixel gap so the hover never breaks */
     .navbar-nav .nav-item.dropdown > .dropdown-menu::before {
       content: '';
       position: absolute;
@@ -34,12 +31,75 @@
       right: 0;
       height: 12px;
     }
+    /* Hide mobile-only arrow on desktop */
+    .mob-dd-toggle { display:none !important; }
   }
 
-  /* ── Mobile: show dropdown sections expanded inline ── */
+  /* ── Mobile nav ── */
   @media (max-width:991px) {
-    .navbar-nav .nav-item.dropdown > .dropdown-menu { display:block; position:static; box-shadow:none; border:none; border-radius:0; background:transparent; padding:0 0 4px 16px; }
-    .navbar-nav .drop-down-pages .nav-item a { padding:6px 12px; font-size:14px; }
+    /* Scrollable collapse panel */
+    #navbarMain {
+      max-height: calc(100vh - 70px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Each dropdown li becomes a flex row so arrow sits beside the link */
+    .navbar-nav .nav-item.dropdown {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .navbar-nav .nav-item.dropdown > .nav-link {
+      flex: 1;
+    }
+
+    /* Arrow toggle button */
+    .mob-dd-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      color: inherit;
+      margin-right: 8px;
+      flex-shrink: 0;
+      transition: background .15s;
+    }
+    .mob-dd-toggle:hover { background: rgba(26,86,219,0.08); }
+    .mob-dd-toggle i {
+      font-size: 12px;
+      transition: transform .22s ease;
+      color: #0c2461;
+    }
+    .mob-dd-toggle.open i { transform: rotate(180deg); }
+
+    /* Dropdown hidden by default on mobile, takes full row when shown */
+    .navbar-nav .nav-item.dropdown > .dropdown-menu {
+      display: none;
+      flex-basis: 100%;
+      position: static;
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      padding: 0 0 6px 16px;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      pointer-events: auto !important;
+    }
+    .navbar-nav .nav-item.dropdown.mob-open > .dropdown-menu {
+      display: block;
+    }
+    .navbar-nav .drop-down-pages .nav-item a {
+      padding: 7px 12px;
+      font-size: 14px;
+    }
   }
 
   /* ── Apply Now button ── */
@@ -74,6 +134,9 @@
                     {# ── About Us ── #}
                     <li class="nav-item dropdown" id="navAboutLi">
                         <a class="nav-link navbar-text-color" href="/about/">About Us</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/about/#our-story">Our Story</a></li>
@@ -88,6 +151,9 @@
                     {# ── Academics ── #}
                     <li class="nav-item dropdown" id="navAcademicsLi">
                         <a class="nav-link navbar-text-color" href="/academics/">Academics</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/academics/#curriculum">Curriculum &amp; Boards</a></li>
@@ -102,6 +168,9 @@
                     {# ── Contact Us ── #}
                     <li class="nav-item dropdown" id="navContactLi">
                         <a class="nav-link navbar-text-color" href="/contact/">Contact Us</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/#contact-info">Contact Info</a></li>
@@ -115,6 +184,9 @@
                     {# ── Facilities ── #}
                     <li class="nav-item dropdown" id="navFacilitiesLi">
                         <a class="nav-link navbar-text-color" href="/facilities/">Facilities</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/facilities/#overview">Overview</a></li>
@@ -130,6 +202,9 @@
                     {# ── News & Gallery ── #}
                     <li class="nav-item dropdown" id="navNewsLi">
                         <a class="nav-link navbar-text-color" href="/newsv1/">News &amp; Gallery</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/newsv1/#featured-story">Featured Story</a></li>
@@ -143,6 +218,9 @@
                     {# ── Admissions ── #}
                     <li class="nav-item dropdown" id="navAdmissionsLi">
                         <a class="nav-link navbar-text-color" href="/admissions/">Admissions</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/admissions/#requirements">Requirements</a></li>
@@ -155,6 +233,9 @@
                     {# ── Careers ── #}
                     <li class="nav-item dropdown" id="navCareersLi">
                         <a class="nav-link navbar-text-color" href="/careers/">Careers</a>
+                        <button class="mob-dd-toggle" type="button" aria-label="Toggle sections">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
                         <div class="dropdown-menu drop-down-content">
                             <ul class="list-unstyled drop-down-pages">
                                 <li class="nav-item"><a class="dropdown-item nav-link" href="/careers/#why-join-us">Why Join Us</a></li>
@@ -198,7 +279,7 @@
         '/about':       'navAboutLi',
         '/academics':   'navAcademicsLi',
         '/contact':     'navContactLi',
-        '/facilities':'navFacilitiesLi',
+        '/facilities':  'navFacilitiesLi',
         '/newsv1':      'navNewsLi',
         '/admissions':  'navAdmissionsLi',
         '/careers':     'navCareersLi',
@@ -208,6 +289,17 @@
             var el = document.getElementById(pageMap[prefix]);
             if (el) el.classList.add('active');
         }
+    });
+
+    /* Mobile dropdown toggle — arrow button only, link still navigates */
+    document.querySelectorAll('.mob-dd-toggle').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var li = this.closest('.nav-item.dropdown');
+            var isOpen = li.classList.toggle('mob-open');
+            this.classList.toggle('open', isOpen);
+            this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
     });
 })();
 </script>
