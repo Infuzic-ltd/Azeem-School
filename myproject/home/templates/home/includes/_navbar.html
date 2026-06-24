@@ -1,5 +1,52 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% if home_page %}
+<style>
+  /* ── Active nav item ── */
+  .navbar-nav > .nav-item.active > .nav-link { color:var(--accent) !important; font-weight:700; }
+  .navbar-nav > .nav-item.active::after { content:""; display:block; height:2px; background:var(--accent); border-radius:2px; margin-top:-2px; }
+
+  /* ── Hover-open dropdowns (desktop) ── */
+  @media (min-width:992px) {
+    /* Keep in DOM, toggle with opacity+visibility so there's a fade-out delay
+       giving the cursor time to move from the link into the menu */
+    .navbar-nav .nav-item.dropdown > .dropdown-menu {
+      display: block !important;
+      top: 100%;          /* attach flush to the nav item — no gap */
+      margin-top: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity .18s ease, visibility .18s ease, transform .18s ease;
+    }
+    .navbar-nav .nav-item.dropdown:hover > .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    /* Invisible bridge fills any sub-pixel gap so the hover never breaks */
+    .navbar-nav .nav-item.dropdown > .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+  }
+
+  /* ── Mobile: show dropdown sections expanded inline ── */
+  @media (max-width:991px) {
+    .navbar-nav .nav-item.dropdown > .dropdown-menu { display:block; position:static; box-shadow:none; border:none; border-radius:0; background:transparent; padding:0 0 4px 16px; }
+    .navbar-nav .drop-down-pages .nav-item a { padding:6px 12px; font-size:14px; }
+  }
+
+  /* ── Apply Now button ── */
+  .nav-apply-btn { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff !important; font-weight:700; font-size:14px; padding:10px 22px; border-radius:50px; text-decoration:none !important; transition:background .22s,transform .22s; white-space:nowrap; }
+  .nav-apply-btn:hover { background:#1344b8; transform:translateY(-1px); color:#fff !important; }
+  .nav-apply-btn i { font-size:12px; }
+</style>
 <header class="header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light p-0">
@@ -23,37 +70,95 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav mx-auto">
-                    {% for menu in home_page.navbar_menus.all %}
-                        {% with items=menu.menu_items.all %}
-                        {% if items %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle dropdown-color navbar-text-color" href="#"
-                                id="navbarDropdown{{ forloop.counter }}" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ menu.title }}
-                            </a>
-                            <div class="dropdown-menu drop-down-content">
-                                <ul class="list-unstyled drop-down-pages">
-                                    {% for item in items %}
-                                    <li class="nav-item">
-                                        <a class="dropdown-item nav-link" href="{{ item.url }}">{{ item.label }}</a>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </li>
-                        {% elif menu.url %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ menu.url }}">{{ menu.title }}</a>
-                        </li>
-                        {% endif %}
-                        {% endwith %}
-                    {% endfor %}
-                    <li class="nav-item">
-                        <a class="nav-link log_in" href="{% if home_page.nav_btn_url and home_page.nav_btn_url|slice:':1' != '/' and home_page.nav_btn_url|slice:':4' != 'http' %}/{% endif %}{{ home_page.nav_btn_url }}">
-                            {{ home_page.nav_btn_label }}<i class="fa-solid fa-arrow-right"></i>
+
+                    {# ── About Us ── #}
+                    <li class="nav-item dropdown" id="navAboutLi">
+                        <a class="nav-link navbar-text-color" href="/about/">About Us</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/about/#our-story">Our Story</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/about/#why-choose-us">Why Choose Us</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/about/#mission-vision">Mission &amp; Vision</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/about/#core-values">Core Values</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/about/#our-team">Our Team</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    {# ── Academics ── #}
+                    <li class="nav-item dropdown" id="navAcademicsLi">
+                        <a class="nav-link navbar-text-color" href="/academics/">Academics</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/academics/#curriculum">Curriculum &amp; Boards</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/academics/#subjects">Subjects by Grade</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/academics/#faculty">Faculty</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/academics/#achievements">Results &amp; Achievements</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/academics/#downloads">Downloads</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    {# ── Contact Us ── #}
+                    <li class="nav-item dropdown" id="navContactLi">
+                        <a class="nav-link navbar-text-color" href="/contact/">Contact Us</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/#contact-info">Contact Info</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/#opening-hours">Opening Hours</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/#find-us">Find Us</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/contact/#faq">FAQs</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    {# ── Facilities ── #}
+                    <li class="nav-item dropdown" id="navFacilitiesLi">
+                        <a class="nav-link navbar-text-color" href="/facilitiesv1/">Facilities</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/facilitiesv1/#overview">Overview</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/facilitiesv1/#labs">Laboratories</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/facilitiesv1/#sports">Sports &amp; Athletics</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/facilitiesv1/#library">Library &amp; Resources</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/facilitiesv1/#arts">Arts</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/facilitiesv1/#safety">Health &amp; Safety</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    {# ── News & Gallery ── #}
+                    <li class="nav-item dropdown" id="navNewsLi">
+                        <a class="nav-link navbar-text-color" href="/newsv1/">News &amp; Gallery</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/newsv1/#featured-story">Featured Story</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/newsv1/#latest-news">Latest News</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/newsv1/#announcements">Announcements</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/newsv1/#gallery">Gallery</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    {# ── Admissions ── #}
+                    <li class="nav-item dropdown" id="navAdmissionsLi">
+                        <a class="nav-link navbar-text-color" href="/admissions/">Admissions</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/admissions/#requirements">Requirements</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/admissions/#process">Admissions Process</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/admissions/#apply">Apply Now</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    {# ── Apply Now CTA ── #}
+                    <li class="nav-item" style="margin-left:8px;">
+                        <a class="nav-apply-btn" href="/admissions/#apply">
+                            Apply Now <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </li>
+
                 </ul>
             </div>
             <div class="phone-number">
@@ -67,17 +172,28 @@
 </header>
 <script>
 (function() {
+    /* Sticky nav */
     var h = document.querySelector('.header');
-    if (!h) return;
-    window.addEventListener('scroll', function() {
-        h.classList.toggle('nav-scrolled', window.scrollY > 80);
-    }, { passive: true });
+    if (h) {
+        window.addEventListener('scroll', function() {
+            h.classList.toggle('nav-scrolled', window.scrollY > 80);
+        }, { passive: true });
+    }
 
-    /* Ensure all navbar links are site-absolute (fixes relative URLs on subpages) */
-    document.querySelectorAll('.header .navbar-nav a[href]').forEach(function(a) {
-        var href = a.getAttribute('href');
-        if (href && href !== '#' && !/^(\/|http|https|mailto:|tel:)/.test(href)) {
-            a.setAttribute('href', '/' + href);
+    /* Active page highlighting */
+    var path = window.location.pathname.replace(/\/$/, '') || '/';
+    var pageMap = {
+        '/about':       'navAboutLi',
+        '/academics':   'navAcademicsLi',
+        '/contact':     'navContactLi',
+        '/facilitiesv1':'navFacilitiesLi',
+        '/newsv1':      'navNewsLi',
+        '/admissions':  'navAdmissionsLi',
+    };
+    Object.keys(pageMap).forEach(function(prefix) {
+        if (path === prefix || path.startsWith(prefix + '/')) {
+            var el = document.getElementById(pageMap[prefix]);
+            if (el) el.classList.add('active');
         }
     });
 })();

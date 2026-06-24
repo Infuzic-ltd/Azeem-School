@@ -1594,8 +1594,6 @@ class HomePage(Page):
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("nav_logo"), FieldPanel("nav_school_name")]),
             FieldPanel("nav_phone"),
-            InlinePanel("navbar_menus", label="Menu Items (with Dropdowns)"),
-            FieldRowPanel([FieldPanel("nav_btn_label"), FieldPanel("nav_btn_url")]),
         ], heading="① Navbar"),
 
         # ── Section 2: Hero / Banner ──────────────────────────────────────

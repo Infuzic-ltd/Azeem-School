@@ -1,4 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
+{% if page.banner_bg_image %}{% image page.banner_bg_image original as fac_banner_bg %}{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -252,7 +253,7 @@
 <!-- ═══ HEADER + SUB-BANNER ═══ -->
 <div class="sub_banner position-relative">
         {% include 'home/includes/_navbar.html' %}
-    <section class="sub_banner_con position-relative">
+    <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ fac_banner_bg.url }}')"{% endif %}>
         <div class="container position-relative">
             <div class="row">
                 <div class="col-xl-8 col-md-10 col-12 mx-auto">
