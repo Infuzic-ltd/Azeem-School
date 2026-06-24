@@ -1264,6 +1264,13 @@ class AboutPage(Page):
     values_label = models.CharField(max_length=100, default="What We Stand For", blank=True, verbose_name="Values Section Label")
     values_title = models.CharField(max_length=300, default="Our Core Values", blank=True, verbose_name="Values Section Heading")
 
+    # ── Alumni Form ───────────────────────────
+    alumni_form_email = models.EmailField(
+        blank=True, default="",
+        verbose_name="Alumni Form — Notification Email",
+        help_text="Submissions from the alumni form are sent to this address.",
+    )
+
     # ── CTA Section ───────────────────────────
     cta_heading      = models.CharField(max_length=300, default="Ready to Join the Azeem Family?", blank=True)
     cta_description  = models.TextField(default="", blank=True)
@@ -1378,6 +1385,10 @@ class AboutPage(Page):
             FieldRowPanel([FieldPanel("cta_btn_label"), FieldPanel("cta_btn_url")]),
             FieldRowPanel([FieldPanel("cta_outline_label"), FieldPanel("cta_outline_url")]),
         ], heading="CTA Section"),
+
+        MultiFieldPanel([
+            FieldPanel("alumni_form_email"),
+        ], heading="Alumni Form"),
 
     ]
 

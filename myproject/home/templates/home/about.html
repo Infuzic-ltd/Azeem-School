@@ -471,6 +471,143 @@
 </section>
 {% endif %}
 
+<!-- ═══ ALUMNI REGISTRATION ═══ -->
+<section class="ab-alumni-con" id="alumni-registration" style="padding:80px 0;background:#f8f9fc;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div style="text-align:center;margin-bottom:40px;" data-aos="fade-up">
+          <span style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent,#1a56db);">Stay Connected</span>
+          <h2 style="font-size:36px;font-weight:800;color:#0c2461;margin:8px 0 14px;line-height:1.2;">Alumni Registration</h2>
+          <p style="font-size:16px;color:#666;max-width:520px;margin:0 auto;line-height:1.7;">Are you a former student of Azeem School? Register with our alumni network and stay connected with your school community.</p>
+        </div>
+
+        {% if alumni_success %}
+        <div style="background:#f0fdf4;border:2px solid #22c55e;border-radius:16px;padding:36px;text-align:center;" data-aos="fade-up">
+          <div style="width:64px;height:64px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+            <i class="fa-solid fa-check" style="font-size:28px;color:#fff;"></i>
+          </div>
+          <h3 style="font-size:24px;font-weight:800;color:#166534;margin:0 0 10px;">Registration Successful!</h3>
+          <p style="font-size:15px;color:#15803d;margin:0;">Thank you for registering. We'll be in touch with you soon. Please check your email for a confirmation.</p>
+        </div>
+        {% else %}
+        <div style="background:#fff;border-radius:20px;padding:44px;box-shadow:0 4px 40px rgba(12,36,97,0.08);" data-aos="fade-up">
+          <form method="POST" action="/about/#alumni-registration" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="alumni">
+
+            <div class="row">
+              <!-- Full Name -->
+              <div class="col-md-6 mb-3">
+                <label style="font-size:13px;font-weight:700;color:#0c2461;margin-bottom:6px;display:block;">Full Name <span style="color:#e53e3e;">*</span></label>
+                <input type="text" name="full_name"
+                  value="{{ alumni_data.full_name|default:'' }}"
+                  placeholder="Your full name"
+                  style="width:100%;padding:12px 16px;border:2px solid {% if alumni_errors.full_name %}#e53e3e{% else %}#e2e8f0{% endif %};border-radius:10px;font-size:14px;color:#333;outline:none;box-sizing:border-box;transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#1a56db'" onblur="this.style.borderColor='{% if alumni_errors.full_name %}#e53e3e{% else %}#e2e8f0{% endif %}'">
+                {% if alumni_errors.full_name %}<p style="margin:5px 0 0;font-size:12px;color:#e53e3e;">{{ alumni_errors.full_name }}</p>{% endif %}
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6 mb-3">
+                <label style="font-size:13px;font-weight:700;color:#0c2461;margin-bottom:6px;display:block;">Email Address <span style="color:#e53e3e;">*</span></label>
+                <input type="email" name="email"
+                  value="{{ alumni_data.email|default:'' }}"
+                  placeholder="your@email.com"
+                  style="width:100%;padding:12px 16px;border:2px solid {% if alumni_errors.email %}#e53e3e{% else %}#e2e8f0{% endif %};border-radius:10px;font-size:14px;color:#333;outline:none;box-sizing:border-box;transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#1a56db'" onblur="this.style.borderColor='{% if alumni_errors.email %}#e53e3e{% else %}#e2e8f0{% endif %}'">
+                {% if alumni_errors.email %}<p style="margin:5px 0 0;font-size:12px;color:#e53e3e;">{{ alumni_errors.email }}</p>{% endif %}
+              </div>
+
+              <!-- Phone -->
+              <div class="col-md-6 mb-3">
+                <label style="font-size:13px;font-weight:700;color:#0c2461;margin-bottom:6px;display:block;">Phone Number <span style="color:#888;font-weight:400;">(optional)</span></label>
+                <input type="tel" name="phone"
+                  value="{{ alumni_data.phone|default:'' }}"
+                  placeholder="+92 300 0000000"
+                  style="width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:14px;color:#333;outline:none;box-sizing:border-box;transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#1a56db'" onblur="this.style.borderColor='#e2e8f0'">
+              </div>
+
+              <!-- Graduation Year -->
+              <div class="col-md-6 mb-3">
+                <label style="font-size:13px;font-weight:700;color:#0c2461;margin-bottom:6px;display:block;">Passing Year <span style="color:#e53e3e;">*</span></label>
+                <select name="grad_year"
+                  style="width:100%;padding:12px 16px;border:2px solid {% if alumni_errors.grad_year %}#e53e3e{% else %}#e2e8f0{% endif %};border-radius:10px;font-size:14px;color:#333;outline:none;box-sizing:border-box;background:#fff;appearance:none;-webkit-appearance:none;transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#1a56db'" onblur="this.style.borderColor='{% if alumni_errors.grad_year %}#e53e3e{% else %}#e2e8f0{% endif %}'">
+                  <option value="">Select year</option>
+                  <option value="2025" {% if alumni_data.grad_year == "2025" %}selected{% endif %}>2025</option>
+                  <option value="2024" {% if alumni_data.grad_year == "2024" %}selected{% endif %}>2024</option>
+                  <option value="2023" {% if alumni_data.grad_year == "2023" %}selected{% endif %}>2023</option>
+                  <option value="2022" {% if alumni_data.grad_year == "2022" %}selected{% endif %}>2022</option>
+                  <option value="2021" {% if alumni_data.grad_year == "2021" %}selected{% endif %}>2021</option>
+                  <option value="2020" {% if alumni_data.grad_year == "2020" %}selected{% endif %}>2020</option>
+                  <option value="2019" {% if alumni_data.grad_year == "2019" %}selected{% endif %}>2019</option>
+                  <option value="2018" {% if alumni_data.grad_year == "2018" %}selected{% endif %}>2018</option>
+                  <option value="2017" {% if alumni_data.grad_year == "2017" %}selected{% endif %}>2017</option>
+                  <option value="2016" {% if alumni_data.grad_year == "2016" %}selected{% endif %}>2016</option>
+                  <option value="2015" {% if alumni_data.grad_year == "2015" %}selected{% endif %}>2015</option>
+                  <option value="2014" {% if alumni_data.grad_year == "2014" %}selected{% endif %}>2014</option>
+                  <option value="2013" {% if alumni_data.grad_year == "2013" %}selected{% endif %}>2013</option>
+                  <option value="2012" {% if alumni_data.grad_year == "2012" %}selected{% endif %}>2012</option>
+                  <option value="2011" {% if alumni_data.grad_year == "2011" %}selected{% endif %}>2011</option>
+                  <option value="2010" {% if alumni_data.grad_year == "2010" %}selected{% endif %}>2010</option>
+                  <option value="2009" {% if alumni_data.grad_year == "2009" %}selected{% endif %}>2009</option>
+                  <option value="2008" {% if alumni_data.grad_year == "2008" %}selected{% endif %}>2008</option>
+                  <option value="2007" {% if alumni_data.grad_year == "2007" %}selected{% endif %}>2007</option>
+                  <option value="2006" {% if alumni_data.grad_year == "2006" %}selected{% endif %}>2006</option>
+                  <option value="2005" {% if alumni_data.grad_year == "2005" %}selected{% endif %}>2005</option>
+                  <option value="2004" {% if alumni_data.grad_year == "2004" %}selected{% endif %}>2004</option>
+                  <option value="2003" {% if alumni_data.grad_year == "2003" %}selected{% endif %}>2003</option>
+                  <option value="2002" {% if alumni_data.grad_year == "2002" %}selected{% endif %}>2002</option>
+                  <option value="2001" {% if alumni_data.grad_year == "2001" %}selected{% endif %}>2001</option>
+                  <option value="2000" {% if alumni_data.grad_year == "2000" %}selected{% endif %}>2000</option>
+                  <option value="1999" {% if alumni_data.grad_year == "1999" %}selected{% endif %}>1999</option>
+                  <option value="1998" {% if alumni_data.grad_year == "1998" %}selected{% endif %}>1998</option>
+                  <option value="1997" {% if alumni_data.grad_year == "1997" %}selected{% endif %}>1997</option>
+                  <option value="1996" {% if alumni_data.grad_year == "1996" %}selected{% endif %}>1996</option>
+                  <option value="1995" {% if alumni_data.grad_year == "1995" %}selected{% endif %}>1995</option>
+                </select>
+                {% if alumni_errors.grad_year %}<p style="margin:5px 0 0;font-size:12px;color:#e53e3e;">{{ alumni_errors.grad_year }}</p>{% endif %}
+              </div>
+
+              <!-- Current Occupation -->
+              <div class="col-12 mb-3">
+                <label style="font-size:13px;font-weight:700;color:#0c2461;margin-bottom:6px;display:block;">Current Occupation <span style="color:#888;font-weight:400;">(optional)</span></label>
+                <input type="text" name="occupation"
+                  value="{{ alumni_data.occupation|default:'' }}"
+                  placeholder="e.g. Software Engineer, Doctor, Teacher…"
+                  style="width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:14px;color:#333;outline:none;box-sizing:border-box;transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#1a56db'" onblur="this.style.borderColor='#e2e8f0'">
+              </div>
+
+              <!-- Message -->
+              <div class="col-12 mb-4">
+                <label style="font-size:13px;font-weight:700;color:#0c2461;margin-bottom:6px;display:block;">Message <span style="color:#888;font-weight:400;">(optional)</span></label>
+                <textarea name="message" rows="4"
+                  placeholder="Share a memory, a message for the school, or anything you'd like to say…"
+                  style="width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:14px;color:#333;outline:none;box-sizing:border-box;resize:vertical;transition:border-color .2s;"
+                  onfocus="this.style.borderColor='#1a56db'" onblur="this.style.borderColor='#e2e8f0'">{{ alumni_data.message|default:'' }}</textarea>
+              </div>
+            </div>
+
+            <div style="text-align:center;">
+              <button type="submit"
+                style="display:inline-flex;align-items:center;gap:10px;background:#0c2461;color:#fff;font-weight:800;font-size:15px;padding:14px 44px;border-radius:50px;border:none;cursor:pointer;transition:background .22s,transform .22s;"
+                onmouseover="this.style.background='#1344b8';this.style.transform='translateY(-2px)'"
+                onmouseout="this.style.background='#0c2461';this.style.transform='translateY(0)'">
+                Register as Alumni <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
 {% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->

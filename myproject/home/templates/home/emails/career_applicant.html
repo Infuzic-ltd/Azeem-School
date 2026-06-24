@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Application Received — Azeem School</title>
+<style>
+  @keyframes infuzic-glow {
+    0%,100% { text-shadow: 0 0 6px #a78bfa, 0 0 18px #7c3aed, 0 0 35px #4f1fbf; color: #a78bfa; }
+    50%      { text-shadow: 0 0 14px #c4b5fd, 0 0 35px #a78bfa, 0 0 70px #7c3aed; color: #c4b5fd; }
+  }
+  .infuzic-brand { animation: infuzic-glow 2.4s ease-in-out infinite; }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f4f6fb;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6fb;padding:40px 0;">
+  <tr>
+    <td align="center">
+      <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;">
+
+        <!-- Header -->
+        <tr>
+          <td style="background:#0c2461;border-radius:16px 16px 0 0;padding:36px 40px;text-align:center;">
+            <h1 style="margin:0;font-size:26px;font-weight:800;color:#60a5fa;letter-spacing:-0.5px;">Azeem School</h1>
+            <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;">Careers</p>
+          </td>
+        </tr>
+
+        <!-- Welcome Banner -->
+        <tr>
+          <td style="background:#60a5fa;padding:14px 40px;text-align:center;">
+            <p style="margin:0;font-size:14px;font-weight:800;color:#0c2461;letter-spacing:0.5px;text-transform:uppercase;">
+              &#10003;&nbsp; Application Received!
+            </p>
+          </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+          <td style="background:#ffffff;padding:40px;">
+
+            <p style="margin:0 0 20px;font-size:16px;color:#0c2461;font-weight:700;">Dear {{ full_name }},</p>
+
+            <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#444;">
+              Thank you for applying to <strong style="color:#0c2461;">Azeem School</strong>. We have received your application for the
+              <strong style="color:#1a56db;">{{ position }}</strong> role and our team will review it carefully.
+            </p>
+
+            <p style="margin:0 0 28px;font-size:15px;line-height:1.7;color:#444;">
+              We appreciate your interest in joining our team. We will be in touch within 5&ndash;7 working days. In the meantime, feel free to reach out if you have any questions.
+            </p>
+
+            <!-- Summary box -->
+            <div style="background:#f8f9fc;border-radius:12px;padding:24px;margin-bottom:28px;">
+              <p style="margin:0 0 14px;font-size:12px;font-weight:700;color:#1a56db;text-transform:uppercase;letter-spacing:1px;">Your Application Summary</p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding:6px 0;font-size:14px;color:#888;width:42%;">Position</td>
+                  <td style="padding:6px 0;font-size:14px;font-weight:700;color:#1a56db;">{{ position }}</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 0;font-size:14px;color:#888;">Name</td>
+                  <td style="padding:6px 0;font-size:14px;font-weight:600;color:#0c2461;">{{ full_name }}</td>
+                </tr>
+                <tr>
+                  <td style="padding:6px 0;font-size:14px;color:#888;">Email</td>
+                  <td style="padding:6px 0;font-size:14px;font-weight:600;color:#0c2461;">{{ email }}</td>
+                </tr>
+                {% if phone %}
+                <tr>
+                  <td style="padding:6px 0;font-size:14px;color:#888;">Phone</td>
+                  <td style="padding:6px 0;font-size:14px;font-weight:600;color:#0c2461;">{{ phone }}</td>
+                </tr>
+                {% endif %}
+              </table>
+            </div>
+
+            <!-- What happens next -->
+            <div style="border-left:4px solid #1a56db;border-radius:0 10px 10px 0;background:#f0f5ff;padding:18px 22px;margin-bottom:28px;">
+              <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a56db;text-transform:uppercase;letter-spacing:1px;">What Happens Next</p>
+              <ul style="margin:0;padding-left:18px;font-size:14px;color:#444;line-height:1.9;">
+                <li>Our team will review your CV and application details.</li>
+                <li>If shortlisted, you will be invited for an interview and/or demo class.</li>
+                <li>A final decision will be communicated within 5&ndash;7 working days.</li>
+              </ul>
+            </div>
+
+            <p style="margin:0 0 28px;font-size:14px;color:#666;line-height:1.7;">
+              If you have any questions, please do not hesitate to reply to this email. We look forward to speaking with you.
+            </p>
+
+            <div style="text-align:center;">
+              <a href="/careers/"
+                 style="display:inline-block;background:#0c2461;color:#60a5fa;font-weight:800;font-size:15px;padding:14px 36px;border-radius:50px;text-decoration:none;">
+                Visit Our Website
+              </a>
+            </div>
+
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:#0c2461;border-radius:0 0 16px 16px;padding:24px 40px 20px;text-align:center;">
+            <p style="margin:0 0 4px;font-size:13px;color:rgba(255,255,255,0.5);">
+              &copy; Azeem School &mdash; All Rights Reserved
+            </p>
+            <p style="margin:0 0 16px;font-size:12px;color:rgba(255,255,255,0.35);">
+              You are receiving this email because you submitted an application through our website.
+            </p>
+            <p style="margin:0 0 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);">powered by</p>
+            <span class="infuzic-brand" style="font-size:15px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:#a78bfa;text-shadow:0 0 8px #a78bfa,0 0 20px #7c3aed,0 0 40px #4f1fbf;">INFUZIC</span>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

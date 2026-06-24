@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils import timezone
@@ -25,7 +25,68 @@ def news_view2(request):
 
 def about_view(request):
     page = AboutPage.objects.live().first()
-    return render(request, "home/about.html", {"page": page})
+    context = {"page": page, "alumni_success": False, "alumni_errors": {}, "alumni_data": {}}
+
+    if request.method == "POST" and request.POST.get("form_type") == "alumni":
+        data = {
+            "full_name":   request.POST.get("full_name",   "").strip(),
+            "email":       request.POST.get("email",       "").strip(),
+            "phone":       request.POST.get("phone",       "").strip(),
+            "grad_year":   request.POST.get("grad_year",   "").strip(),
+            "occupation":  request.POST.get("occupation",  "").strip(),
+            "message":     request.POST.get("message",     "").strip(),
+        }
+        context["alumni_data"] = data
+
+        errors = {}
+        if not data["full_name"]:
+            errors["full_name"] = "Full name is required."
+        if not data["email"] or "@" not in data["email"]:
+            errors["email"] = "A valid email address is required."
+        if not data["grad_year"]:
+            errors["grad_year"] = "Graduation year is required."
+
+        if errors:
+            context["alumni_errors"] = errors
+        else:
+            try:
+                import traceback, sys
+                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
+                recipient = (page.alumni_form_email if page and page.alumni_form_email else None) or \
+                            getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
+                email_ctx = {**data}
+
+                owner_html = render_to_string("home/emails/alumni_owner.html", email_ctx)
+                send_mail(
+                    subject=f"New Alumni Registration — {data['full_name']} ({data['grad_year']})",
+                    message=f"Alumni registration from {data['full_name']} ({data['email']}), passing year {data['grad_year']}.",
+                    from_email=from_email,
+                    recipient_list=[recipient],
+                    html_message=owner_html,
+                    fail_silently=False,
+                )
+
+                alumni_html = render_to_string("home/emails/alumni_registrant.html", email_ctx)
+                send_mail(
+                    subject="Welcome Back — Azeem School Alumni",
+                    message=(
+                        f"Dear {data['full_name']},\n\n"
+                        "Thank you for registering with the Azeem School alumni network. "
+                        "We'll be in touch soon.\n\nAzeem School"
+                    ),
+                    from_email=from_email,
+                    recipient_list=[data["email"]],
+                    html_message=alumni_html,
+                    fail_silently=False,
+                )
+            except Exception as exc:
+                import traceback, sys
+                print(f"[about_view] alumni email error: {exc}\n{traceback.format_exc()}", file=sys.stderr)
+
+            context["alumni_success"] = True
+            context["alumni_data"] = {}
+
+    return render(request, "home/about.html", context)
 
 def about_view2(request):
     page = AboutPage.objects.live().first()
@@ -149,6 +210,74 @@ def admissions_view(request):
             context["form_data"] = {}
 
     return render(request, "home/admissions.html", context)
+
+
+def careers_view(request):
+    context = {"career_success": False, "career_errors": {}, "career_data": {}}
+
+    if request.method == "POST" and request.POST.get("form_type") == "career":
+        data = {
+            "full_name":    request.POST.get("full_name",    "").strip(),
+            "email":        request.POST.get("email",        "").strip(),
+            "phone":        request.POST.get("phone",        "").strip(),
+            "position":     request.POST.get("position",     "").strip(),
+            "cover_letter": request.POST.get("cover_letter", "").strip(),
+        }
+        cv_file = request.FILES.get("cv")
+        context["career_data"] = data
+
+        errors = {}
+        if not data["full_name"]:
+            errors["full_name"] = "Full name is required."
+        if not data["email"] or "@" not in data["email"]:
+            errors["email"] = "A valid email is required."
+        if not data["phone"]:
+            errors["phone"] = "Phone number is required."
+        if not data["position"]:
+            errors["position"] = "Please select a position."
+        if not cv_file:
+            errors["cv"] = "Please attach your CV."
+
+        if errors:
+            context["career_errors"] = errors
+        else:
+            try:
+                import sys, traceback
+                from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
+                recipient = getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
+
+                # ── Owner email (with CV attachment) ──
+                owner_html = render_to_string("home/emails/career_owner.html", data)
+                owner_msg = EmailMultiAlternatives(
+                    subject=f"New Career Application — {data['full_name']} ({data['position']})",
+                    body=f"New career application from {data['full_name']} ({data['email']}) for {data['position']}.",
+                    from_email=from_email,
+                    to=[recipient],
+                )
+                owner_msg.attach_alternative(owner_html, "text/html")
+                if cv_file:
+                    cv_file.seek(0)
+                    owner_msg.attach(cv_file.name, cv_file.read(), cv_file.content_type)
+                owner_msg.send(fail_silently=False)
+
+                # ── Applicant confirmation email ──
+                applicant_html = render_to_string("home/emails/career_applicant.html", data)
+                send_mail(
+                    subject="Application Received — Azeem School",
+                    message=f"Dear {data['full_name']}, thank you for applying for {data['position']} at Azeem School. We'll review your application and get back to you within 5–7 working days.",
+                    from_email=from_email,
+                    recipient_list=[data["email"]],
+                    html_message=applicant_html,
+                    fail_silently=False,
+                )
+            except Exception as exc:
+                import traceback, sys
+                print(f"[careers_view] email error: {exc}\n{traceback.format_exc()}", file=sys.stderr)
+
+            context["career_success"] = True
+            context["career_data"] = {}
+
+    return render(request, "home/careers.html", context)
 
 
 def academics_view(request):

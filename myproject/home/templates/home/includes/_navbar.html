@@ -152,6 +152,18 @@
                         </div>
                     </li>
 
+                    {# ── Careers ── #}
+                    <li class="nav-item dropdown" id="navCareersLi">
+                        <a class="nav-link navbar-text-color" href="/careers/">Careers</a>
+                        <div class="dropdown-menu drop-down-content">
+                            <ul class="list-unstyled drop-down-pages">
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/careers/#why-join-us">Why Join Us</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/careers/#open-positions">Open Positions</a></li>
+                                <li class="nav-item"><a class="dropdown-item nav-link" href="/careers/#how-to-apply">How to Apply</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                     {# ── Apply Now CTA ── #}
                     <li class="nav-item" style="margin-left:8px;">
                         <a class="nav-apply-btn" href="/admissions/#apply">
@@ -189,6 +201,7 @@
         '/facilities':'navFacilitiesLi',
         '/newsv1':      'navNewsLi',
         '/admissions':  'navAdmissionsLi',
+        '/careers':     'navCareersLi',
     };
     Object.keys(pageMap).forEach(function(prefix) {
         if (path === prefix || path.startsWith(prefix + '/')) {

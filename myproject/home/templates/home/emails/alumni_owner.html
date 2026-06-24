@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Alumni Registration</title>
+<style>
+  @keyframes infuzic-glow {
+    0%,100% { text-shadow: 0 0 6px #a78bfa, 0 0 18px #7c3aed, 0 0 35px #4f1fbf; color: #a78bfa; }
+    50%      { text-shadow: 0 0 14px #c4b5fd, 0 0 35px #a78bfa, 0 0 70px #7c3aed; color: #c4b5fd; }
+  }
+  .infuzic-brand { animation: infuzic-glow 2.4s ease-in-out infinite; }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f4f6fb;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6fb;padding:40px 0;">
+  <tr>
+    <td align="center">
+      <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;">
+
+        <!-- Header -->
+        <tr>
+          <td style="background:#0c2461;border-radius:16px 16px 0 0;padding:36px 40px;text-align:center;">
+            <h1 style="margin:0;font-size:26px;font-weight:800;color:#60a5fa;letter-spacing:-0.5px;">Azeem School</h1>
+            <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.6);letter-spacing:1px;text-transform:uppercase;">Alumni Network</p>
+          </td>
+        </tr>
+
+        <!-- Alert Banner -->
+        <tr>
+          <td style="background:#60a5fa;padding:14px 40px;text-align:center;">
+            <p style="margin:0;font-size:14px;font-weight:800;color:#0c2461;letter-spacing:0.5px;text-transform:uppercase;">
+              &#9679;&nbsp; New Alumni Registration
+            </p>
+          </td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+          <td style="background:#ffffff;padding:40px;">
+
+            <h2 style="margin:0 0 28px;font-size:22px;font-weight:800;color:#0c2461;">{{ full_name }}</h2>
+
+            <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="border:1px solid #e6e8f0;border-radius:12px;overflow:hidden;">
+              <tr style="background:#f8f9fc;">
+                <td style="padding:14px 20px;font-size:13px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.8px;width:38%;border-bottom:1px solid #e6e8f0;">Field</td>
+                <td style="padding:14px 20px;font-size:13px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e6e8f0;">Value</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Full Name</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">{{ full_name }}</td>
+              </tr>
+              <tr style="background:#fafafa;">
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Email</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">
+                  <a href="mailto:{{ email }}" style="color:#1a56db;text-decoration:none;">{{ email }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Phone</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">{{ phone|default:"Not provided" }}</td>
+              </tr>
+              <tr style="background:#fafafa;">
+                <td style="padding:14px 20px;font-size:14px;color:#888;border-bottom:1px solid #f0f0f0;">Passing Year</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:700;color:#60a5fa;border-bottom:1px solid #f0f0f0;">{{ grad_year }}</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 20px;font-size:14px;color:#888;">Current Occupation</td>
+                <td style="padding:14px 20px;font-size:14px;font-weight:600;color:#0c2461;">{{ occupation|default:"Not provided" }}</td>
+              </tr>
+            </table>
+
+            {% if message %}
+            <div style="margin-top:24px;background:#f8f9fc;border-left:4px solid #1a56db;border-radius:0 10px 10px 0;padding:18px 22px;">
+              <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#1a56db;text-transform:uppercase;letter-spacing:1px;">Message</p>
+              <p style="margin:0;font-size:14px;color:#444;line-height:1.7;">{{ message }}</p>
+            </div>
+            {% endif %}
+
+            <div style="margin-top:32px;text-align:center;">
+              <a href="mailto:{{ email }}"
+                 style="display:inline-block;background:#0c2461;color:#60a5fa;font-weight:800;font-size:15px;padding:14px 36px;border-radius:50px;text-decoration:none;">
+                Reply to Alumni
+              </a>
+            </div>
+
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background:#0c2461;border-radius:0 0 16px 16px;padding:24px 40px 20px;text-align:center;">
+            <p style="margin:0 0 16px;font-size:12px;color:rgba(255,255,255,0.45);">
+              Automated notification from Azeem School's alumni registration system.
+            </p>
+            <p style="margin:0 0 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);">powered by</p>
+            <span class="infuzic-brand" style="font-size:15px;font-weight:900;letter-spacing:5px;text-transform:uppercase;color:#a78bfa;text-shadow:0 0 8px #a78bfa,0 0 20px #7c3aed,0 0 40px #4f1fbf;">INFUZIC</span>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
