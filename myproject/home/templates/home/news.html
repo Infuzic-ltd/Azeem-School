@@ -345,9 +345,10 @@
 {% include 'home/includes/_whatsapp.html' %}
 
 <!-- ═══ HEADER + SUB-BANNER ═══ -->
+{% if page.banner_bg_image %}{% image page.banner_bg_image original as news_banner_bg %}{% endif %}
 <div class="sub_banner position-relative">
         {% include 'home/includes/_navbar.html' %}
-    <section class="sub_banner_con position-relative">
+    <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ news_banner_bg.url }}')"{% endif %}>
         <div class="container position-relative">
             <div class="row">
                 <div class="col-xl-8 col-md-10 col-12 mx-auto">
