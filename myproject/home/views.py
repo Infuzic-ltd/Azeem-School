@@ -7,7 +7,7 @@ from django.utils import timezone
 from wagtail.documents import get_document_model
 import cloudinary
 import cloudinary.utils
-from .models import AboutPage, AdmissionsPage, ContactPage, AcademicsPage, FacilitiesPage, NewsPage, HomePage, AdmissionApplication
+from .models import AboutPage, AdmissionsPage, ContactPage, AcademicsPage, FacilitiesPage, NewsPage, HomePage, AdmissionApplication, CareersPage
 
 
 def home_view(request):
@@ -213,7 +213,8 @@ def admissions_view(request):
 
 
 def careers_view(request):
-    context = {"career_success": False, "career_errors": {}, "career_data": {}}
+    page = CareersPage.objects.live().first()
+    context = {"page": page, "career_success": False, "career_errors": {}, "career_data": {}}
 
     if request.method == "POST" and request.POST.get("form_type") == "career":
         data = {
@@ -244,7 +245,8 @@ def careers_view(request):
             try:
                 import sys, traceback
                 from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
-                recipient = getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
+                recipient = (page.application_email if page and page.application_email else None) or \
+                            getattr(settings, "ADMISSIONS_SALES_EMAIL", "azeemadmissions@gmail.com")
 
                 # ── Owner email (with CV attachment) ──
                 owner_html = render_to_string("home/emails/career_owner.html", data)

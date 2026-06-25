@@ -3266,6 +3266,169 @@ class NewsPage(Page):
 
 
 # ──────────────────────────────────────────────
+# CAREERS PAGE — INLINE MODELS
+# ──────────────────────────────────────────────
+
+CAREER_BADGE_CHOICES = [
+    ("teaching", "Teaching"),
+    ("admin",    "Administration"),
+    ("support",  "Support Staff"),
+]
+
+CAREER_ICON_COLOR_CHOICES = [
+    ("blue",   "Blue"),
+    ("green",  "Green"),
+    ("yellow", "Yellow"),
+    ("pink",   "Pink / Red"),
+    ("orange", "Orange"),
+    ("purple", "Purple"),
+]
+
+
+class CareerStat(Orderable):
+    page   = ParentalKey("CareersPage", on_delete=models.CASCADE, related_name="career_stats")
+    number = models.CharField(max_length=20, help_text='e.g. "50+", "98%", "1k+"')
+    label  = models.CharField(max_length=100, help_text='e.g. "Faculty Members"')
+
+    panels = [FieldRowPanel([FieldPanel("number"), FieldPanel("label")])]
+
+    def __str__(self):
+        return f"{self.number} {self.label}"
+
+
+class CareerBenefit(Orderable):
+    page        = ParentalKey("CareersPage", on_delete=models.CASCADE, related_name="career_benefits")
+    icon_class  = models.CharField(max_length=100, choices=HOME_ICON_CHOICES, default="fa-solid fa-heart-pulse")
+    icon_color  = models.CharField(max_length=20, choices=CAREER_ICON_COLOR_CHOICES, default="blue")
+    title       = models.CharField(max_length=200)
+    description = models.TextField()
+
+    panels = [
+        FieldRowPanel([FieldPanel("icon_class"), FieldPanel("icon_color")]),
+        FieldPanel("title"),
+        FieldPanel("description"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+class CareerPosition(Orderable):
+    page            = ParentalKey("CareersPage", on_delete=models.CASCADE, related_name="career_positions")
+    badge_type      = models.CharField(max_length=20, choices=CAREER_BADGE_CHOICES, default="teaching")
+    title           = models.CharField(max_length=200)
+    employment_type = models.CharField(max_length=100, blank=True, default="Full-time")
+    qualification   = models.CharField(max_length=200, blank=True, default="")
+    location        = models.CharField(max_length=200, blank=True, default="On-site")
+    description     = models.TextField()
+
+    panels = [
+        FieldPanel("badge_type"),
+        FieldPanel("title"),
+        FieldRowPanel([FieldPanel("employment_type"), FieldPanel("location")]),
+        FieldPanel("qualification"),
+        FieldPanel("description"),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+class CareerStep(Orderable):
+    page        = ParentalKey("CareersPage", on_delete=models.CASCADE, related_name="career_steps")
+    title       = models.CharField(max_length=200)
+    description = models.TextField()
+
+    panels = [FieldPanel("title"), FieldPanel("description")]
+
+    def __str__(self):
+        return self.title
+
+
+# ──────────────────────────────────────────────
+# CAREERS PAGE
+# ──────────────────────────────────────────────
+
+class CareersPage(Page):
+
+    # ── Sub-Banner ────────────────────────────
+    banner_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="careers_banner_bg",
+        verbose_name="Banner Background Image",
+        help_text="Recommended: 1920 × 486 px",
+    )
+    banner_title       = models.CharField(max_length=200, blank=True, default="Careers at Azeem School")
+    banner_description = models.TextField(blank=True, default="Shape the next generation. Join a team of passionate educators and staff committed to excellence.")
+
+    # ── Why Join Us ───────────────────────────
+    why_subtitle = models.CharField(max_length=100, blank=True, default="Why Azeem School")
+    why_heading  = models.CharField(max_length=300, blank=True, default="A Place Where Educators Thrive")
+
+    # ── Open Positions ────────────────────────
+    positions_subtitle = models.CharField(max_length=100, blank=True, default="Current Openings")
+    positions_heading  = models.CharField(max_length=300, blank=True, default="Open Positions")
+    positions_intro    = models.TextField(blank=True, default="We welcome applications from passionate individuals. Submit your CV even if your position isn't listed — we keep strong candidates on file.")
+
+    # ── How to Apply ──────────────────────────
+    howto_subtitle = models.CharField(max_length=100, blank=True, default="Application Process")
+    howto_heading  = models.CharField(max_length=300, blank=True, default="How to Apply")
+
+    # ── CTA Box ───────────────────────────────
+    cta_heading     = models.CharField(max_length=200, blank=True, default="Ready to Make a Difference?")
+    cta_description = models.TextField(blank=True, default="Can't find the right opening? Send us a general application and we'll keep your CV on file for future vacancies.")
+    cta_email       = models.EmailField(blank=True, default="careers@azeemschool.edu.pk")
+
+    # ── Application email ─────────────────────
+    application_email = models.EmailField(
+        blank=True,
+        help_text="Receives career application form submissions. Falls back to settings.ADMISSIONS_SALES_EMAIL if blank.",
+    )
+
+    content_panels = Page.content_panels + [
+
+        MultiFieldPanel([
+            FieldPanel("banner_bg_image"),
+            FieldPanel("banner_title"),
+            FieldPanel("banner_description"),
+        ], heading="Sub-Banner"),
+
+        MultiFieldPanel([
+            InlinePanel("career_stats", label="Stat Items"),
+        ], heading="Stats Strip"),
+
+        MultiFieldPanel([
+            FieldPanel("why_subtitle"),
+            FieldPanel("why_heading"),
+            InlinePanel("career_benefits", label="Benefit Cards"),
+        ], heading="Why Join Us"),
+
+        MultiFieldPanel([
+            FieldPanel("positions_subtitle"),
+            FieldPanel("positions_heading"),
+            FieldPanel("positions_intro"),
+            InlinePanel("career_positions", label="Job Positions"),
+        ], heading="Open Positions"),
+
+        MultiFieldPanel([
+            FieldPanel("howto_subtitle"),
+            FieldPanel("howto_heading"),
+            InlinePanel("career_steps", label="Steps"),
+        ], heading="How to Apply"),
+
+        MultiFieldPanel([
+            FieldPanel("cta_heading"),
+            FieldPanel("cta_description"),
+            FieldPanel("cta_email"),
+            FieldPanel("application_email"),
+        ], heading="CTA & Email"),
+    ]
+
+    class Meta:
+        verbose_name = "Careers Page"
+
+
+# ──────────────────────────────────────────────
 # ADMISSION APPLICATIONS  (stored in DB, viewable in Wagtail admin)
 # ──────────────────────────────────────────────
 

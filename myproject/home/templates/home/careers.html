@@ -1,4 +1,5 @@
-{% load static %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+{% if page.banner_bg_image %}{% image page.banner_bg_image original as careers_banner_bg %}{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
     .sec-title-light { font-size:clamp(28px,3.5vw,36px); font-weight:800; color:#fff; margin-bottom:16px; line-height:1.2; }
 
     /* ── Banner ── */
-    .sub_banner .careers_banner_con::before { background-image: url("{% static 'images/subbanner-contactbackground.jpg' %}"); }
+    .sub_banner .careers_banner_con::before { background-image: var(--banner-bg, url("{% static 'images/subbanner-contactbackground.jpg' %}")); }
 
     /* ── Stats strip ── */
     .cr-stats-con { background:var(--e-global-color-very-dark-blue); padding:60px 0; }
@@ -113,13 +114,13 @@
 <!-- ═══ 1. HEADER + SUB-BANNER ═══ -->
 <div class="sub_banner position-relative">
   {% include 'home/includes/_navbar.html' %}
-  <section class="sub_banner_con careers_banner_con position-relative">
+  <section class="sub_banner_con careers_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ careers_banner_bg.url }}')"{% endif %}>
     <div class="container position-relative">
       <div class="row">
         <div class="col-xl-8 col-md-10 col-12 mx-auto">
           <div class="sub_banner_content" data-aos="fade-up">
-            <h1 class="text-white">Careers at Azeem School</h1>
-            <p class="text-white text-size-18">Shape the next generation. Join a team of passionate educators and staff committed to excellence.</p>
+            <h1 class="text-white">{% if page %}{{ page.banner_title }}{% else %}Careers at Azeem School{% endif %}</h1>
+            <p class="text-white text-size-18">{% if page %}{{ page.banner_description }}{% else %}Shape the next generation. Join our team.{% endif %}</p>
             <div class="box">
               <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
               <i class="arrow fa-solid fa-arrow-right"></i>
@@ -133,102 +134,55 @@
 </div>
 
 <!-- ═══ 2. STATS STRIP ═══ -->
+{% if page and page.career_stats.exists %}
 <section class="cr-stats-con" id="about-careers">
   <div class="container">
     <div class="row align-items-center text-center">
-      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="0">
+      {% for stat in page.career_stats.all %}
+      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
         <div class="cr-stat-item">
-          <span class="stat-num">50<sup style="font-size:24px">+</sup></span>
-          <p>Faculty Members</p>
+          <span class="stat-num">{{ stat.number }}</span>
+          <p>{{ stat.label }}</p>
         </div>
       </div>
-      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
-        <div class="cr-stat-item">
-          <span class="stat-num">15<sup style="font-size:24px">+</sup></span>
-          <p>Years of Excellence</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
-        <div class="cr-stat-item">
-          <span class="stat-num">98<sup style="font-size:24px">%</sup></span>
-          <p>Pass Rate</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
-        <div class="cr-stat-item">
-          <span class="stat-num">1000<sup style="font-size:24px">+</sup></span>
-          <p>Students Enrolled</p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
+{% endif %}
 
 <!-- ═══ 3. WHY JOIN US ═══ -->
 <section class="cr-why-con" id="why-join-us">
   <div class="container">
     <div class="row justify-content-center mb-5">
       <div class="col-lg-7 text-center" data-aos="fade-up">
-        <span class="sec-label">Work With Us</span>
-        <h2 class="sec-title">Why Join Azeem School?</h2>
-        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-top:12px;">We believe great schools are built by great people. We invest in our team as much as we invest in our students.</p>
+        <span class="sec-label">{% if page %}{{ page.why_subtitle }}{% else %}Why Azeem School{% endif %}</span>
+        <h2 class="sec-title">{% if page %}{{ page.why_heading }}{% else %}A Place Where Educators Thrive{% endif %}</h2>
       </div>
     </div>
     <div class="row g-4">
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+      {% if page %}{% for benefit in page.career_benefits.all %}
+      {% with c=benefit.icon_color %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|divisibleby:3|yesno:'0,100,200' }}">
         <div class="cr-why-card">
-          <div class="cr-why-icon" style="background:#eff6ff;">
-            <i class="fa-solid fa-heart" style="color:var(--e-global-color-soft-blue);"></i>
-          </div>
-          <h4>Supportive Culture</h4>
-          <p>A collaborative, respectful environment where every team member's voice is heard and valued. We celebrate wins together and grow through challenges as one.</p>
+          {% if c == "green" %}
+          <div class="cr-why-icon" style="background:#f0fdf4;"><i class="{{ benefit.icon_class }}" style="color:#16a34a;"></i></div>
+          {% elif c == "yellow" %}
+          <div class="cr-why-icon" style="background:#fefce8;"><i class="{{ benefit.icon_class }}" style="color:#ca8a04;"></i></div>
+          {% elif c == "pink" %}
+          <div class="cr-why-icon" style="background:#fff1f2;"><i class="{{ benefit.icon_class }}" style="color:#e11d48;"></i></div>
+          {% elif c == "orange" %}
+          <div class="cr-why-icon" style="background:#fff7ed;"><i class="{{ benefit.icon_class }}" style="color:#ea580c;"></i></div>
+          {% elif c == "purple" %}
+          <div class="cr-why-icon" style="background:#fdf4ff;"><i class="{{ benefit.icon_class }}" style="color:#a855f7;"></i></div>
+          {% else %}
+          <div class="cr-why-icon" style="background:#eff6ff;"><i class="{{ benefit.icon_class }}" style="color:var(--e-global-color-soft-blue);"></i></div>
+          {% endif %}
+          <h4>{{ benefit.title }}</h4>
+          <p>{{ benefit.description }}</p>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="cr-why-card">
-          <div class="cr-why-icon" style="background:#f0fdf4;">
-            <i class="fa-solid fa-chart-line" style="color:#16a34a;"></i>
-          </div>
-          <h4>Professional Growth</h4>
-          <p>Regular training workshops, CPD programmes, and mentorship opportunities to help you advance your career and sharpen your skills.</p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="cr-why-card">
-          <div class="cr-why-icon" style="background:#fefce8;">
-            <i class="fa-solid fa-coins" style="color:#ca8a04;"></i>
-          </div>
-          <h4>Competitive Compensation</h4>
-          <p>Market-competitive salaries, performance bonuses, and a comprehensive benefits package that recognises the importance of your contribution.</p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
-        <div class="cr-why-card">
-          <div class="cr-why-icon" style="background:#fdf4ff;">
-            <i class="fa-solid fa-shield-halved" style="color:#a855f7;"></i>
-          </div>
-          <h4>Job Security</h4>
-          <p>Stable, long-term employment backed by an institution with over 15 years of educational excellence and a strong reputation in the community.</p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="cr-why-card">
-          <div class="cr-why-icon" style="background:#fff1f2;">
-            <i class="fa-solid fa-people-group" style="color:#e11d48;"></i>
-          </div>
-          <h4>Inspiring Community</h4>
-          <p>Work alongside dedicated professionals and bright students who motivate you every day. Our shared mission of excellence creates a truly inspiring atmosphere.</p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="cr-why-card">
-          <div class="cr-why-icon" style="background:#ecfdf5;">
-            <i class="fa-solid fa-scale-balanced" style="color:#059669;"></i>
-          </div>
-          <h4>Healthy Work-Life Balance</h4>
-          <p>Structured timetables, generous leave policies, and a culture that respects personal time so you can perform at your best both in and out of school.</p>
-        </div>
-      </div>
+      {% endwith %}{% endfor %}{% endif %}
     </div>
   </div>
 </section>
@@ -238,103 +192,29 @@
   <div class="container">
     <div class="row justify-content-center mb-5">
       <div class="col-lg-7 text-center" data-aos="fade-up">
-        <span class="sec-label">Current Openings</span>
-        <h2 class="sec-title">Open Positions</h2>
-        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-top:12px;">We are actively looking for talented, dedicated individuals to join our growing team. Browse our current vacancies below.</p>
+        <span class="sec-label">{% if page %}{{ page.positions_subtitle }}{% else %}Current Openings{% endif %}</span>
+        <h2 class="sec-title">{% if page %}{{ page.positions_heading }}{% else %}Open Positions{% endif %}</h2>
+        {% if page and page.positions_intro %}
+        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-top:12px;">{{ page.positions_intro }}</p>
+        {% endif %}
       </div>
     </div>
     <div class="row g-4">
-
-      <!-- Mathematics Teacher -->
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+      {% if page %}{% for pos in page.career_positions.all %}
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|divisibleby:3|yesno:'0,100,200' }}">
         <div class="cr-pos-card">
-          <span class="cr-pos-badge badge-teaching">Teaching</span>
-          <div class="cr-pos-title">Mathematics Teacher</div>
+          <span class="cr-pos-badge badge-{{ pos.badge_type }}">{{ pos.get_badge_type_display }}</span>
+          <div class="cr-pos-title">{{ pos.title }}</div>
           <div class="cr-pos-meta">
-            <span><i class="fa-solid fa-location-dot"></i> On-site</span>
-            <span><i class="fa-solid fa-clock"></i> Full-time</span>
-            <span><i class="fa-solid fa-graduation-cap"></i> Matric / O-Level</span>
+            <span><i class="fa-solid fa-location-dot"></i> {{ pos.location }}</span>
+            <span><i class="fa-solid fa-clock"></i> {{ pos.employment_type }}</span>
+            {% if pos.qualification %}<span><i class="fa-solid fa-graduation-cap"></i> {{ pos.qualification }}</span>{% endif %}
           </div>
-          <p class="cr-pos-desc">Deliver engaging mathematics lessons, prepare students for board examinations, and foster a love for problem-solving through innovative teaching methods.</p>
-          <button class="cr-apply-btn" data-position="Mathematics Teacher" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
+          <p class="cr-pos-desc">{{ pos.description }}</p>
+          <button class="cr-apply-btn" data-position="{{ pos.title }}" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
         </div>
       </div>
-
-      <!-- Science Teacher -->
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="cr-pos-card">
-          <span class="cr-pos-badge badge-teaching">Teaching</span>
-          <div class="cr-pos-title">Science Teacher</div>
-          <div class="cr-pos-meta">
-            <span><i class="fa-solid fa-location-dot"></i> On-site</span>
-            <span><i class="fa-solid fa-clock"></i> Full-time</span>
-            <span><i class="fa-solid fa-graduation-cap"></i> Matric / O-Level</span>
-          </div>
-          <p class="cr-pos-desc">Teach Physics and/or Chemistry with practical lab sessions, nurturing students' curiosity and preparing them for higher academic pursuits.</p>
-          <button class="cr-apply-btn" data-position="Science Teacher (Physics / Chemistry)" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
-        </div>
-      </div>
-
-      <!-- English Language Teacher -->
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="cr-pos-card">
-          <span class="cr-pos-badge badge-teaching">Teaching</span>
-          <div class="cr-pos-title">English Language Teacher</div>
-          <div class="cr-pos-meta">
-            <span><i class="fa-solid fa-location-dot"></i> On-site</span>
-            <span><i class="fa-solid fa-clock"></i> Full-time</span>
-            <span><i class="fa-solid fa-graduation-cap"></i> All Levels</span>
-          </div>
-          <p class="cr-pos-desc">Develop students' language proficiency through creative lessons covering reading, writing, speaking and listening skills aligned to the national curriculum.</p>
-          <button class="cr-apply-btn" data-position="English Language Teacher" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
-        </div>
-      </div>
-
-      <!-- Computer Science Teacher -->
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
-        <div class="cr-pos-card">
-          <span class="cr-pos-badge badge-teaching">Teaching</span>
-          <div class="cr-pos-title">Computer Science Teacher</div>
-          <div class="cr-pos-meta">
-            <span><i class="fa-solid fa-location-dot"></i> On-site</span>
-            <span><i class="fa-solid fa-clock"></i> Full-time</span>
-            <span><i class="fa-solid fa-graduation-cap"></i> Secondary</span>
-          </div>
-          <p class="cr-pos-desc">Teach computer science fundamentals including programming, digital literacy, and emerging technologies, preparing students for the digital age.</p>
-          <button class="cr-apply-btn" data-position="Computer Science Teacher" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
-        </div>
-      </div>
-
-      <!-- Administrative Officer -->
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="cr-pos-card">
-          <span class="cr-pos-badge badge-admin">Administration</span>
-          <div class="cr-pos-title">Administrative Officer</div>
-          <div class="cr-pos-meta">
-            <span><i class="fa-solid fa-location-dot"></i> On-site</span>
-            <span><i class="fa-solid fa-clock"></i> Full-time</span>
-            <span><i class="fa-solid fa-building"></i> Head Office</span>
-          </div>
-          <p class="cr-pos-desc">Support the smooth day-to-day operations of the school, managing records, correspondence, scheduling, and coordination between departments.</p>
-          <button class="cr-apply-btn" data-position="Administrative Officer" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
-        </div>
-      </div>
-
-      <!-- Librarian -->
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="cr-pos-card">
-          <span class="cr-pos-badge badge-support">Support Staff</span>
-          <div class="cr-pos-title">Librarian</div>
-          <div class="cr-pos-meta">
-            <span><i class="fa-solid fa-location-dot"></i> On-site</span>
-            <span><i class="fa-solid fa-clock"></i> Full-time</span>
-            <span><i class="fa-solid fa-book"></i> Library</span>
-          </div>
-          <p class="cr-pos-desc">Manage the school library's collection, assist students and staff in research, organise reading programmes, and maintain a welcoming learning environment.</p>
-          <button class="cr-apply-btn" data-position="Librarian" data-toggle="modal" data-target="#careerModal">Apply Now <i class="fa-solid fa-arrow-right fa-sm"></i></button>
-        </div>
-      </div>
-
+      {% endfor %}{% endif %}
     </div>
   </div>
 </section>
@@ -344,58 +224,31 @@
   <div class="container">
     <div class="row justify-content-center mb-5">
       <div class="col-lg-7 text-center" data-aos="fade-up">
-        <span class="sec-label">Application Process</span>
-        <h2 class="sec-title">How to Apply</h2>
-        <p style="font-size:15px;color:var(--e-global-color-text);line-height:1.8;margin-top:12px;">Our hiring process is transparent and straightforward. Here's what to expect from start to finish.</p>
+        <span class="sec-label">{% if page %}{{ page.howto_subtitle }}{% else %}Application Process{% endif %}</span>
+        <h2 class="sec-title">{% if page %}{{ page.howto_heading }}{% else %}How to Apply{% endif %}</h2>
       </div>
     </div>
     <div class="row g-5 align-items-start">
       <div class="col-lg-7" data-aos="fade-up" data-aos-delay="0">
         <div style="display:flex;flex-direction:column;gap:28px;">
+          {% if page %}{% for step in page.career_steps.all %}
           <div class="cr-step">
-            <div class="cr-step-num">1</div>
+            <div class="cr-step-num">{{ forloop.counter }}</div>
             <div class="cr-step-body">
-              <h5>Prepare Your Documents</h5>
-              <p>Update your CV, prepare a brief cover letter outlining your experience and why you'd like to join Azeem School, and have your qualification certificates ready.</p>
+              <h5>{{ step.title }}</h5>
+              <p>{{ step.description }}</p>
             </div>
           </div>
-          <div class="cr-step">
-            <div class="cr-step-num">2</div>
-            <div class="cr-step-body">
-              <h5>Send Your Application</h5>
-              <p>Click "Apply Now" on your desired position above to complete our online application form, or email your documents directly to <a href="mailto:careers@azeemschool.edu.pk" style="color:var(--e-global-color-soft-blue);font-weight:600;">careers@azeemschool.edu.pk</a>.</p>
-            </div>
-          </div>
-          <div class="cr-step">
-            <div class="cr-step-num">3</div>
-            <div class="cr-step-body">
-              <h5>Initial Screening</h5>
-              <p>Our HR team reviews all applications within 5&ndash;7 working days. Shortlisted candidates will be contacted by phone or email to proceed to the next stage.</p>
-            </div>
-          </div>
-          <div class="cr-step">
-            <div class="cr-step-num">4</div>
-            <div class="cr-step-body">
-              <h5>Interview &amp; Demo Class</h5>
-              <p>Teaching applicants will be invited for a panel interview followed by a short demo lesson. Administrative roles require a structured interview with the management team.</p>
-            </div>
-          </div>
-          <div class="cr-step">
-            <div class="cr-step-num">5</div>
-            <div class="cr-step-body">
-              <h5>Offer &amp; Onboarding</h5>
-              <p>Successful candidates receive a formal offer letter. Our onboarding programme ensures you are fully equipped and confident before your first day in role.</p>
-            </div>
-          </div>
+          {% endfor %}{% endif %}
         </div>
       </div>
       <div class="col-lg-5" data-aos="fade-up" data-aos-delay="150">
         <div class="cr-cta-box">
-          <h3>Ready to Make a Difference?</h3>
-          <p>Can't find the right opening? Send us a general application and we'll keep your CV on file for future vacancies.</p>
-          <a href="mailto:careers@azeemschool.edu.pk" class="cr-cta-email">
+          <h3>{% if page %}{{ page.cta_heading }}{% else %}Ready to Apply?{% endif %}</h3>
+          <p>{% if page %}{{ page.cta_description }}{% else %}Send your CV and cover letter to our HR team.{% endif %}</p>
+          <a href="mailto:{% if page %}{{ page.cta_email }}{% else %}careers@azeemschool.edu.pk{% endif %}" class="cr-cta-email">
             <i class="fa-solid fa-envelope"></i>
-            careers@azeemschool.edu.pk
+            {% if page %}{{ page.cta_email }}{% else %}careers@azeemschool.edu.pk{% endif %}
           </a>
           <div style="margin-top:20px;position:relative;z-index:1;">
             <button class="cr-apply-btn" data-position="Other / General Application" data-toggle="modal" data-target="#careerModal" style="background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.3);width:100%;justify-content:center;">
@@ -459,12 +312,9 @@
                 <label class="cr-field-label" for="id_position">Position Applied For <span style="color:#e53e3e;">*</span></label>
                 <select id="id_position" name="position" class="cr-field-input{% if career_errors.position %} error{% endif %}">
                   <option value="" {% if not career_data.position %}selected{% endif %}>Select position...</option>
-                  <option value="Mathematics Teacher" {% if career_data.position == "Mathematics Teacher" %}selected{% endif %}>Mathematics Teacher</option>
-                  <option value="Science Teacher (Physics / Chemistry)" {% if career_data.position == "Science Teacher (Physics / Chemistry)" %}selected{% endif %}>Science Teacher (Physics / Chemistry)</option>
-                  <option value="English Language Teacher" {% if career_data.position == "English Language Teacher" %}selected{% endif %}>English Language Teacher</option>
-                  <option value="Computer Science Teacher" {% if career_data.position == "Computer Science Teacher" %}selected{% endif %}>Computer Science Teacher</option>
-                  <option value="Administrative Officer" {% if career_data.position == "Administrative Officer" %}selected{% endif %}>Administrative Officer</option>
-                  <option value="Librarian" {% if career_data.position == "Librarian" %}selected{% endif %}>Librarian</option>
+                  {% if page %}{% for pos in page.career_positions.all %}
+                  <option value="{{ pos.title }}" {% if career_data.position == pos.title %}selected{% endif %}>{{ pos.title }}</option>
+                  {% endfor %}{% endif %}
                   <option value="Other / General Application" {% if career_data.position == "Other / General Application" %}selected{% endif %}>Other / General Application</option>
                 </select>
                 {% if career_errors.position %}<span class="cr-field-error">{{ career_errors.position }}</span>{% endif %}
