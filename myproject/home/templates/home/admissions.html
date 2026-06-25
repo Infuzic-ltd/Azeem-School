@@ -215,15 +215,6 @@
             animation: toastProgress 5s linear forwards;
         }
         @keyframes toastProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
-        .admissions-stats-con { background: var(--e-global-color-very-dark-blue); padding: 60px 0; }
-        .stat-item { text-align: center; padding: 0 20px; }
-        .stat-item .stat-number {
-            font-size: 48px; font-weight: 800;
-            color: var(--e-global-color-accent);
-            line-height: 1; display: block; margin-bottom: 8px;
-            font-family: "Urbanist", serif;
-        }
-        .stat-item p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 0; }
     </style>
     {% include 'home/includes/_shared_styles.html' %}
 </head>
@@ -254,23 +245,6 @@
         </div>
     </section>
 </div>
-
-<!-- ═══ STATS STRIP ═══ -->
-<section class="admissions-stats-con">
-    <div class="container">
-        <div class="row align-items-center text-center">
-            {% for stat in page.admission_stats.all %}
-            <div class="col-lg-3 col-md-6 col-6 {% if forloop.counter > 2 %}mt-4 mt-lg-0{% endif %}"
-                 data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'0' }}00">
-                <div class="stat-item">
-                    <span class="stat-number">{{ stat.number }}<sup style="font-size:24px">{{ stat.suffix }}</sup></span>
-                    <p>{{ stat.label }}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 <!-- ═══ REQUIREMENTS + INTAKE INFO ═══ -->
 <section class="requirements-con" id="requirements">

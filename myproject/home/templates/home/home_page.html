@@ -167,13 +167,6 @@
     .hs-next { right:20px; }
     @media(max-width:576px) { .hs-arrow { display:none; } }
 
-    /* Stats strip */
-    .az-stats-strip { background:var(--navy-mid); padding:0; }
-    .az-stats-strip .stat-item { padding:36px 24px; border-right:1px solid rgba(255,255,255,0.08); text-align:center; }
-    .az-stats-strip .stat-item:last-child { border-right:none; }
-    .az-stats-strip .stat-num { font-size:40px; font-weight:900; color:var(--gold); line-height:1; display:block; }
-    .az-stats-strip .stat-label { font-size:13px; color:rgba(255,255,255,0.6); font-weight:600; text-transform:uppercase; letter-spacing:.8px; margin-top:6px; }
-
     /* Why / Trust cards */
     .az-why { padding:100px 0; background:var(--white); }
     .why-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:36px 28px; transition:transform .3s,box-shadow .3s,border-color .3s; height:100%; }
@@ -456,24 +449,6 @@
     </section>
     {% endif %}
 </div>
-
-<!-- ══ STATS STRIP ══ -->
-{% if page.benefit_cards.count %}
-<div class="az-stats-strip" id="stats">
-    <div class="container-fluid px-0">
-        <div class="row no-gutters">
-            {% for card in page.benefit_cards.all %}
-            <div class="col-6 col-md-3 stat-item">
-                <span class="stat-num">
-                    <span class="stat-count" data-target="{{ card.counter }}">0</span>{% if card.suffix %}<span class="stat-sfx">{{ card.suffix }}</span>{% endif %}
-                </span>
-                <div class="stat-label">{{ card.label }}</div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-{% endif %}
 
 <!-- ══ WHY CHOOSE US ══ -->
 {% if page.trust_cards.count %}
@@ -911,40 +886,6 @@ $(document).ready(function() {
     });
 });
 
-/* ── Stats strip: count-up animation triggered on scroll ── */
-(function() {
-    var strip = document.querySelector('.az-stats-strip');
-    if (!strip) return;
-
-    function animateCount(el) {
-        var target = parseInt(el.dataset.target, 10);
-        if (isNaN(target)) return;
-        var duration = 1800;
-        var startTime = null;
-
-        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-        function step(timestamp) {
-            if (!startTime) startTime = timestamp;
-            var progress = Math.min((timestamp - startTime) / duration, 1);
-            el.textContent = Math.ceil(easeOut(progress) * target);
-            if (progress < 1) requestAnimationFrame(step);
-            else el.textContent = target;
-        }
-        requestAnimationFrame(step);
-    }
-
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                strip.querySelectorAll('.stat-count').forEach(animateCount);
-                observer.unobserve(strip);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    observer.observe(strip);
-})();
 </script>
 
 {% if page.hero_slides.exists %}

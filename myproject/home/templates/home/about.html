@@ -31,15 +31,6 @@
     .icon-teal   { background:#e0f2f1; } .icon-teal   i { color:#26a69a; }
     .icon-red    { background:#fce8e8; } .icon-red    i { color:#ef5350; }
 
-    /* ── Stats strip ── */
-    .ab-stats-con { background:var(--e-global-color-very-dark-blue); padding:60px 0; }
-    .ab-stat-item { text-align:center; padding:0 20px; }
-    .ab-stat-item .stat-num {
-      font-size:48px; font-weight:800; color:var(--e-global-color-accent);
-      line-height:1; display:block; margin-bottom:8px; font-family:"Urbanist",serif;
-    }
-    .ab-stat-item p { color:rgba(255,255,255,0.7); font-size:14px; margin-bottom:0; }
-
     /* ── Story section ── */
     .ab-story-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); position:relative; overflow:hidden; }
     .ab-img-stack { position:relative; height:460px; }
@@ -181,26 +172,6 @@
     </div>
   </section>
 </div>
-
-<!-- ═══ STATS STRIP ═══ -->
-{% if page.benefit_stats.exists %}
-<section class="ab-stats-con">
-  <div class="container">
-    <div class="row align-items-center text-center">
-      {% for stat in page.benefit_stats.all %}
-      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-        <div class="ab-stat-item">
-          <span class="stat-num">
-            <span class="stat-count">{{ stat.counter }}</span>{% if stat.suffix %}<sup style="font-size:24px">{{ stat.suffix }}</sup>{% endif %}
-          </span>
-          <p>{{ stat.label }}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
 
 <!-- ═══ ABOUT STORY ═══ -->
 <section class="ab-story-con" id="our-story">

@@ -31,15 +31,6 @@
         .icon-red    { background: #fce8e8; } .icon-red    i { color: #ef5350; }
         .icon-dark   { background: var(--e-global-color-very-dark-blue); } .icon-dark i { color: var(--e-global-color-accent); }
 
-        /* ── Stats strip ── */
-        .fac-stats-con { background: var(--e-global-color-very-dark-blue); padding: 60px 0; }
-        .fac-stat-item { text-align: center; padding: 0 20px; }
-        .fac-stat-item .stat-num {
-            font-size: 48px; font-weight: 800; color: var(--e-global-color-accent);
-            line-height: 1; display: block; margin-bottom: 8px; font-family: "Urbanist", serif;
-        }
-        .fac-stat-item p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 0; }
-
         /* ── Overview tiles ── */
         .overview-con { padding: 100px 0; background: var(--e-global-color-very-pale-blue); }
         .overview-tile {
@@ -271,22 +262,6 @@
         </div>
     </section>
 </div>
-
-<!-- ═══ STATS STRIP ═══ -->
-<section class="fac-stats-con">
-    <div class="container">
-        <div class="row align-items-center text-center">
-            {% for stat in page.facility_stats.all %}
-            <div class="col-lg-3 col-md-6 col-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
-                <div class="fac-stat-item">
-                    <span class="stat-num">{{ stat.number }}{% if stat.suffix %}<sup style="font-size:24px">{{ stat.suffix }}</sup>{% endif %}</span>
-                    <p>{{ stat.label }}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 <!-- ═══ FACILITIES OVERVIEW ═══ -->
 <section class="overview-con" id="overview">

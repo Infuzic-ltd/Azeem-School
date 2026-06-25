@@ -20,7 +20,8 @@ def news_view(request):
     return render(request, "home/news.html", {"page": page})
 
 def news_view2(request):
-    return render(request, "home/newsv1.html")
+    page = NewsPage.objects.live().first()
+    return render(request, "home/news.html", {"page": page})
 
 
 def about_view(request):

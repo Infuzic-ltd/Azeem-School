@@ -26,12 +26,6 @@
     /* ── Banner ── */
     .sub_banner .careers_banner_con::before { background-image: var(--banner-bg, url("{% static 'images/subbanner-contactbackground.jpg' %}")); }
 
-    /* ── Stats strip ── */
-    .cr-stats-con { background:var(--e-global-color-very-dark-blue); padding:60px 0; }
-    .cr-stat-item { text-align:center; padding:0 20px; }
-    .cr-stat-item .stat-num { font-size:48px; font-weight:800; color:var(--e-global-color-accent); line-height:1; display:block; margin-bottom:8px; font-family:"Urbanist",serif; }
-    .cr-stat-item p { color:rgba(255,255,255,0.7); font-size:14px; margin-bottom:0; }
-
     /* ── Why Join cards ── */
     .cr-why-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); }
     .cr-why-card { background:#fafafa; border:1.5px solid #e8f0ff; border-radius:20px; padding:36px 28px; height:100%; transition:all 0.3s ease; position:relative; overflow:hidden; }
@@ -132,24 +126,6 @@
     </div>
   </section>
 </div>
-
-<!-- ═══ 2. STATS STRIP ═══ -->
-{% if page and page.career_stats.exists %}
-<section class="cr-stats-con" id="about-careers">
-  <div class="container">
-    <div class="row align-items-center text-center">
-      {% for stat in page.career_stats.all %}
-      <div class="col-6 col-md-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-        <div class="cr-stat-item">
-          <span class="stat-num">{{ stat.number }}</span>
-          <p>{{ stat.label }}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
 
 <!-- ═══ 3. WHY JOIN US ═══ -->
 <section class="cr-why-con" id="why-join-us">

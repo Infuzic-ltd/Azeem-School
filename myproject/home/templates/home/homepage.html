@@ -495,40 +495,6 @@
 </section>
 
 
-{# ════════════════════════════════════════════════════════════════
-   SECTION 6 — BENEFITS / STATS  (counters)
-   Keys used:
-     page.benefits_eyebrow          → h6
-     page.benefits_heading          → h2
-     page.stats.all()               → QuerySet of HomePageStat
-       .number                      → counter end value (e.g. 95)
-       .suffix                      → symbol after number (e.g. %)
-       .label                       → text below (e.g. Satisfied Students)
-       .box_style                   → CSS class (box1 … box4)
-   ════════════════════════════════════════════════════════════════ #}
-<section class="benefit-con benefit3-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="benefit_content text-center" data-aos="fade-up">
-                    <h6>{{ page.benefits_eyebrow }}</h6>
-                    <h2>{{ page.benefits_heading }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row all_row" data-aos="fade-up">
-            {% for stat in page.stats.all %}
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6 all_column">
-                <div class="benefit-box {{ stat.box_style }}">
-                    <span class="number counter">{{ stat.number }}</span>
-                    <sup class="plus">{{ stat.suffix }}</sup>
-                    <span class="text">{{ stat.label }}</span>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 
 {# ════════════════════════════════════════════════════════════════
