@@ -1,4 +1,4 @@
-{% load static %}
+{% load static wagtailimages_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -363,13 +363,14 @@
             </nav>
         </div>
     </header>
-    <section class="sub_banner_con position-relative">
+    {% if page.banner_bg_image %}{% image page.banner_bg_image original as news_banner_bg %}{% endif %}
+    <section class="sub_banner_con position-relative"{% if page.banner_bg_image %} style="--banner-bg: url('{{ news_banner_bg.url }}')"{% endif %}>
         <div class="container position-relative">
             <div class="row">
                 <div class="col-xl-8 col-md-10 col-12 mx-auto">
                     <div class="sub_banner_content" data-aos="fade-up">
-                        <h1 class="text-white">News & Gallery</h1>
-                        <p class="text-white text-size-18">Stay updated with the latest happenings, achievements, and moments from across Azeem School.</p>
+                        <h1 class="text-white">{{ page.banner_title }}</h1>
+                        <p class="text-white text-size-18">{{ page.banner_description }}</p>
                         <div class="box">
                             <a href="/" class="text-decoration-none"><span class="mb-0">Home</span></a>
                             <i class="arrow fa-solid fa-arrow-right"></i>

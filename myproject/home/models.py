@@ -3171,6 +3171,10 @@ class NewsPage(Page):
     banner_title       = models.CharField(max_length=200, blank=True, default="News & Gallery")
     banner_description = models.TextField(
         default="Stay updated with the latest happenings, achievements, and moments from across Azeem School.")
+    banner_bg_image    = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="news_banner_bg",
+    )
 
     # ── Ticker ────────────────────────────────
     ticker_items = models.TextField(
@@ -3223,6 +3227,7 @@ class NewsPage(Page):
     content_panels = Page.content_panels + [
 
         MultiFieldPanel([
+            FieldPanel("banner_bg_image"),
             FieldPanel("banner_title"),
             FieldPanel("banner_description"),
         ], heading="Banner"),
