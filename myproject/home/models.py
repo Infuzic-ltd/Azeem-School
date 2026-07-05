@@ -195,7 +195,7 @@ class HomePageCampus(Orderable):
     page          = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="home_campuses")
     campus_number = models.CharField(max_length=4, default="01", help_text='e.g. "01"')
     tag           = models.CharField(max_length=60, default="Campus One", help_text='Tag pill label, e.g. "Campus One"')
-    title         = models.CharField(max_length=200, default="Main Campus\nAzeem School", help_text="Use a new line to split into two lines")
+    title         = models.TextField(default="Main Campus\nAzeem School", help_text="Use a new line to split into two lines")
     location      = models.CharField(max_length=200, default="Gulshan-e-Iqbal, Karachi")
     description   = models.TextField(default="Our flagship campus is the heart of Azeem School.")
     features      = models.TextField(
