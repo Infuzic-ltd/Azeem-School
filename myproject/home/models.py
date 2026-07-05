@@ -1400,6 +1400,11 @@ class HomePage(Page):
     hero_btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Title")
     hero_btn_url = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
 
+    # ── Campuses Section Heading ───────────────
+    campuses_tag         = models.CharField(max_length=80, blank=True, default="Our Campuses", verbose_name="Section Tag (small label)")
+    campuses_heading     = models.CharField(max_length=300, blank=True, default="Two Campuses, One Standard of Excellence", verbose_name="Main Heading")
+    campuses_subheading  = models.TextField(blank=True, default="Serving Karachi's families across two prime locations, each campus upholds the same commitment to quality education, dedicated faculty, and a nurturing environment.", verbose_name="Subheading / Description")
+
     # ── Trust ─────────────────────────────────
     trust_heading = models.CharField(max_length=200, blank=True, default="", verbose_name="Heading")
     trust_description = models.TextField(blank=True, default="", verbose_name="Description")
@@ -1559,6 +1564,9 @@ class HomePage(Page):
 
         # ── Section 3: Campuses ───────────────────────────────────────────
         MultiFieldPanel([
+            FieldPanel("campuses_tag"),
+            FieldPanel("campuses_heading"),
+            FieldPanel("campuses_subheading"),
             InlinePanel("home_campuses", label="Campus Block (add one per campus — first is panel-left, second is panel-right)"),
         ], heading="③ Our Campuses"),
 

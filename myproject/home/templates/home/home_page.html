@@ -492,6 +492,15 @@
 </div>
 
 <!-- ══ CAMPUSES ══ -->
+{% if page.home_campuses.all %}
+<section class="az-campuses-header text-center py-5" style="background:#f8faff;">
+  <div class="container">
+    {% if page.campuses_tag %}<p style="color:#1a56db;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;">{{ page.campuses_tag }}</p>{% endif %}
+    {% if page.campuses_heading %}<h2 style="font-size:clamp(26px,3vw,42px);font-weight:900;color:#081933;line-height:1.2;margin-bottom:14px;">{{ page.campuses_heading }}</h2>{% endif %}
+    {% if page.campuses_subheading %}<p style="max-width:560px;margin:0 auto;color:#4b5563;font-size:15px;line-height:1.8;">{{ page.campuses_subheading }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}
 {% for campus in page.home_campuses.all %}
 {% if campus.main_image %}{% image campus.main_image original as c_main_img %}{% endif %}
 {% if campus.image_top %}{% image campus.image_top original as c_top_img %}{% endif %}
