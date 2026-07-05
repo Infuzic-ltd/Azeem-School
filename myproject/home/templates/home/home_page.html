@@ -196,35 +196,6 @@
     .feature-check li { display:flex; align-items:flex-start; gap:12px; font-size:15px; color:var(--text); margin-bottom:12px; line-height:1.55; }
     .feature-check li i { color:var(--green); font-size:16px; margin-top:2px; flex-shrink:0; }
 
-    /* Boards */
-    .az-boards { padding:100px 0; background:var(--white); }
-    .board-card-v2 { background:var(--white); border:1px solid var(--border); border-radius:24px; overflow:hidden; box-shadow:var(--shadow-sm); transition:transform .35s,box-shadow .35s; height:100%; }
-    .board-card-v2:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
-    .board-card-header { padding:32px 36px 28px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:20px; }
-    .bsek-header  { background:linear-gradient(135deg,#0d1b3e 0%,#1a3a6e 100%); }
-    .akueb-header { background:linear-gradient(135deg,#0c2461 0%,#065f46 100%); }
-    .board-icon { width:64px; height:64px; border-radius:16px; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .board-icon i { font-size:28px; color:#fff; }
-    .board-info { flex:1; }
-    .board-info .board-name { font-size:21px; font-weight:900; color:#fff; margin:0 0 4px; }
-    .board-info .board-full { font-size:13px; color:rgba(255,255,255,0.65); font-weight:500; }
-    .board-badge { background:rgba(255,255,255,0.15); color:#fff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:5px 14px; border-radius:30px; border:1px solid rgba(255,255,255,0.25); white-space:nowrap; flex-shrink:0; }
-    .board-card-body { padding:32px 36px; }
-    .board-levels { display:flex; gap:24px; margin-bottom:28px; flex-wrap:wrap; }
-    .board-level-col { flex:1; min-width:180px; }
-    .board-level-col .level-title { font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
-    .board-level-col .level-title::before { content:""; width:20px; height:2px; background:var(--accent); flex-shrink:0; }
-    .board-subject-list { list-style:none; margin:0; padding:0; }
-    .board-subject-list li { font-size:14px; color:var(--text); padding:6px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
-    .board-subject-list li:last-child { border:none; }
-    .board-subject-list li::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
-    .board-card-footer { padding:0 36px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
-    .board-tags { display:flex; gap:8px; flex-wrap:wrap; }
-    .board-tag { background:var(--light-bg); color:var(--heading); font-size:12px; font-weight:700; padding:5px 13px; border-radius:20px; }
-    .btn-board-link { display:inline-flex; align-items:center; gap:8px; background:var(--navy); color:#fff !important; font-weight:700; font-size:14px; padding:12px 26px; border-radius:50px; text-decoration:none; transition:background .22s,transform .22s; }
-    .btn-board-link:hover { background:var(--navy-soft); transform:translateX(3px); color:#fff !important; }
-    .btn-board-link i { transition:transform .22s; }
-    .btn-board-link:hover i { transform:translateX(4px); }
 
     /* Facilities */
     .az-facilities { padding:100px 0; background:var(--navy); }
@@ -298,6 +269,76 @@
     .btn-view-all:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
     .btn-view-all i { transition:transform .22s; }
     .btn-view-all:hover i { transform:translateX(4px); }
+
+    /* ═══ CAMPUS SECTION ═══ */
+    .az-campus-block { position:relative; overflow:hidden; }
+
+    /* ── Navy text panel ── */
+    .campus-panel { background:linear-gradient(145deg,#081933 0%,#0c2461 50%,#1a3a8f 100%); padding:80px 64px; position:relative; overflow:hidden; min-height:560px; display:flex; flex-direction:column; justify-content:center; }
+    .campus-panel::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#60a5fa,#1a56db,#60a5fa); background-size:200% 100%; animation:shimmer-bar 3s linear infinite; }
+    @keyframes shimmer-bar { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+    .cp-ring { position:absolute; border-radius:50%; border:1.5px solid rgba(96,165,250,0.14); pointer-events:none; }
+    .cp-ring-1 { width:300px; height:300px; top:-90px; right:-90px; }
+    .cp-ring-2 { width:190px; height:190px; top:-35px; right:-35px; border-color:rgba(96,165,250,0.07); }
+    .cp-ring-3 { width:220px; height:220px; bottom:-70px; left:-70px; }
+    .cp-ghost { position:absolute; font-size:190px; font-weight:900; font-family:'Urbanist',sans-serif; color:rgba(255,255,255,0.035); line-height:1; right:-8px; bottom:-24px; pointer-events:none; letter-spacing:-10px; user-select:none; }
+    .campus-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(96,165,250,0.15); border:1px solid rgba(96,165,250,0.32); border-radius:50px; padding:6px 18px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#60a5fa; margin-bottom:22px; width:fit-content; }
+    .campus-tag i { font-size:9px; }
+    .campus-panel h2 { font-size:clamp(28px,2.8vw,42px); font-weight:900; color:#fff; line-height:1.14; margin-bottom:10px; }
+    .campus-panel h2 em { color:#60a5fa; font-style:normal; }
+    .campus-loc { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:rgba(255,255,255,0.48); text-transform:uppercase; letter-spacing:.8px; margin-bottom:22px; }
+    .campus-loc i { color:#60a5fa; font-size:11px; }
+    .campus-panel p { font-size:15px; color:rgba(255,255,255,0.72); line-height:1.85; margin-bottom:28px; }
+    .cp-feats { list-style:none; padding:0; margin:0 0 36px; display:grid; grid-template-columns:1fr 1fr; gap:10px 20px; }
+    .cp-feats li { display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600; color:rgba(255,255,255,0.78); }
+    .cp-fi { width:30px; height:30px; border-radius:9px; background:rgba(96,165,250,0.18); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .cp-fi i { font-size:11px; color:#60a5fa; }
+    .cp-cta { display:inline-flex; align-items:center; gap:10px; background:#fff; color:#0c2461 !important; font-weight:800; font-size:14px; padding:14px 30px; border-radius:50px; text-decoration:none !important; transition:all .3s; width:fit-content; box-shadow:0 8px 32px rgba(0,0,0,0.22); }
+    .cp-cta:hover { background:#60a5fa; color:#0c2461 !important; transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,0,0,0.32); }
+    .cp-cta i { font-size:11px; transition:transform .25s; }
+    .cp-cta:hover i { transform:translateX(5px); }
+
+    /* ── Image collage ── */
+    .campus-collage { position:relative; min-height:560px; overflow:hidden; background:var(--light-bg); }
+    .campus-collage::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(26,86,219,0.11) 1px,transparent 1px); background-size:22px 22px; pointer-events:none; z-index:0; }
+    .c-glow { position:absolute; border-radius:50%; pointer-events:none; z-index:1; }
+    .c-glow-1 { width:220px; height:220px; top:-60px; right:-60px; background:radial-gradient(circle,rgba(26,86,219,0.2),transparent 70%); }
+    .c-glow-2 { width:150px; height:150px; bottom:-40px; left:15%; background:radial-gradient(circle,rgba(96,165,250,0.16),transparent 70%); }
+    .campus-collage.mirror .c-glow-1 { right:auto; left:-60px; }
+    .c-img { position:absolute; border-radius:22px; overflow:hidden; z-index:2; }
+    .c-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease; }
+    .c-img:hover img { transform:scale(1.07); }
+    .c-main { width:62%; height:370px; top:50%; left:8%; transform:translateY(-50%); box-shadow:0 32px 80px rgba(12,36,97,0.26); border:5px solid #fff; animation:cf1 7s ease-in-out infinite; }
+    .c-main::after { content:''; position:absolute; bottom:0; left:0; right:0; height:5px; background:linear-gradient(90deg,#1a56db,#60a5fa,#1a56db); background-size:200% 100%; animation:shimmer-bar 2.5s linear infinite; z-index:3; }
+    .c-top { width:37%; height:210px; top:36px; right:4%; box-shadow:0 18px 50px rgba(12,36,97,0.2); border:4px solid #fff; animation:cf2 6s ease-in-out infinite .5s; }
+    .c-bot { width:31%; height:170px; bottom:40px; right:11%; box-shadow:0 12px 38px rgba(12,36,97,0.18); border:4px solid #fff; animation:cf3 5.5s ease-in-out infinite 1s; }
+    .campus-collage.mirror .c-main { left:auto; right:8%; }
+    .campus-collage.mirror .c-top  { right:auto; left:4%; }
+    .campus-collage.mirror .c-bot  { right:auto; left:11%; }
+    @keyframes cf1 { 0%,100%{transform:translateY(-50%);} 50%{transform:translateY(calc(-50% - 13px));} }
+    @keyframes cf2 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-15px) rotate(.4deg);} }
+    @keyframes cf3 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(9px) rotate(-.3deg);} }
+
+    /* Floating badge */
+    .c-badge { position:absolute; z-index:10; background:linear-gradient(135deg,#0c2461,#1a56db); border-radius:22px; padding:18px 22px; box-shadow:0 20px 56px rgba(12,36,97,0.42); text-align:center; min-width:136px; animation:cf2 7.5s ease-in-out infinite .8s; }
+    .c-badge::before { content:''; position:absolute; inset:-9px; border-radius:28px; border:2px solid rgba(96,165,250,0.38); animation:badge-pulse 2.6s ease-out infinite; }
+    @keyframes badge-pulse { 0%{opacity:.9;transform:scale(1);} 100%{opacity:0;transform:scale(1.28);} }
+    .campus-collage:not(.mirror) .c-badge { bottom:48px; left:4%; }
+    .campus-collage.mirror .c-badge { bottom:48px; right:4%; }
+    .c-badge .b-num { font-size:38px; font-weight:900; color:#60a5fa; line-height:1; display:block; font-family:'Urbanist',sans-serif; }
+    .c-badge .b-lbl { font-size:10px; color:rgba(255,255,255,0.6); font-weight:700; text-transform:uppercase; letter-spacing:.6px; margin-top:5px; display:block; }
+
+    @media(max-width:991px) {
+      .campus-panel { padding:52px 30px; min-height:auto; }
+      .cp-ghost,.cp-ring { display:none; }
+      .cp-feats { grid-template-columns:1fr; gap:8px; }
+      .campus-collage { min-height:310px; }
+      .c-main { width:63%; height:240px; left:4%; }
+      .campus-collage.mirror .c-main { left:auto; right:4%; }
+      .c-top { width:38%; height:155px; top:20px; right:2%; }
+      .campus-collage.mirror .c-top { right:auto; left:2%; }
+      .c-bot,.c-badge { display:none; }
+    }
     </style>
 </head>
 <body>
@@ -450,6 +491,70 @@
     {% endif %}
 </div>
 
+<!-- ══ CAMPUSES ══ -->
+{% for campus in page.home_campuses.all %}
+{% if campus.main_image %}{% image campus.main_image original as c_main_img %}{% endif %}
+{% if campus.image_top %}{% image campus.image_top original as c_top_img %}{% endif %}
+{% if campus.image_bottom %}{% image campus.image_bottom original as c_bot_img %}{% endif %}
+{% if forloop.counter|divisibleby:2 %}
+{# Even campus: images left, panel right #}
+<div class="az-campus-block">
+  <div class="row no-gutters">
+    <div class="col-lg-7 order-lg-1 order-1">
+      <div class="campus-collage mirror" data-aos="fade-right" data-aos-delay="80">
+        <div class="c-glow c-glow-1"></div>
+        <div class="c-glow c-glow-2"></div>
+        <div class="c-img c-main"><img src="{% if campus.main_image %}{{ c_main_img.url }}{% else %}{% static 'images/aboutpage-image2.jpg' %}{% endif %}" alt="{{ campus.title }}"></div>
+        <div class="c-img c-top"><img src="{% if campus.image_top %}{{ c_top_img.url }}{% else %}{% static 'images/about3-image2.jpg' %}{% endif %}" alt="{{ campus.title }}"></div>
+        <div class="c-img c-bot"><img src="{% if campus.image_bottom %}{{ c_bot_img.url }}{% else %}{% static 'images/about2-image2.jpg' %}{% endif %}" alt="{{ campus.title }}"></div>
+        {% if campus.years_count %}<div class="c-badge"><span class="b-num">{{ campus.years_count }}</span><span class="b-lbl">{{ campus.years_label }}</span></div>{% endif %}
+      </div>
+    </div>
+    <div class="col-lg-5 order-lg-2 order-2">
+      <div class="campus-panel" data-aos="fade-left">
+        <div class="cp-ring cp-ring-1"></div><div class="cp-ring cp-ring-2"></div><div class="cp-ring cp-ring-3"></div>
+        <div class="cp-ghost">{{ campus.campus_number }}</div>
+        <div class="campus-tag"><i class="fa-solid fa-map-pin"></i>&nbsp; {{ campus.tag }}</div>
+        <h2>{{ campus.title|linebreaksbr }}</h2>
+        <div class="campus-loc"><i class="fa-solid fa-location-dot"></i> {{ campus.location }}</div>
+        <p>{{ campus.description }}</p>
+        {% if campus.features_list %}<ul class="cp-feats">{% for feat in campus.features_list %}<li><span class="cp-fi"><i class="fa-solid fa-circle-check"></i></span> {{ feat }}</li>{% endfor %}</ul>{% endif %}
+        <a href="{{ campus.cta_url }}" class="cp-cta">{{ campus.cta_label }} <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+{# Odd campus: panel left, images right #}
+<div class="az-campus-block">
+  <div class="row no-gutters">
+    <div class="col-lg-5 order-lg-1 order-2">
+      <div class="campus-panel" data-aos="fade-right">
+        <div class="cp-ring cp-ring-1"></div><div class="cp-ring cp-ring-2"></div><div class="cp-ring cp-ring-3"></div>
+        <div class="cp-ghost">{{ campus.campus_number }}</div>
+        <div class="campus-tag"><i class="fa-solid fa-map-pin"></i>&nbsp; {{ campus.tag }}</div>
+        <h2>{{ campus.title|linebreaksbr }}</h2>
+        <div class="campus-loc"><i class="fa-solid fa-location-dot"></i> {{ campus.location }}</div>
+        <p>{{ campus.description }}</p>
+        {% if campus.features_list %}<ul class="cp-feats">{% for feat in campus.features_list %}<li><span class="cp-fi"><i class="fa-solid fa-circle-check"></i></span> {{ feat }}</li>{% endfor %}</ul>{% endif %}
+        <a href="{{ campus.cta_url }}" class="cp-cta">{{ campus.cta_label }} <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="col-lg-7 order-lg-2 order-1">
+      <div class="campus-collage" data-aos="fade-left" data-aos-delay="80">
+        <div class="c-glow c-glow-1"></div>
+        <div class="c-glow c-glow-2"></div>
+        <div class="c-img c-main"><img src="{% if campus.main_image %}{{ c_main_img.url }}{% else %}{% static 'images/aboutpage-image1.jpg' %}{% endif %}" alt="{{ campus.title }}"></div>
+        <div class="c-img c-top"><img src="{% if campus.image_top %}{{ c_top_img.url }}{% else %}{% static 'images/about3-image1.jpg' %}{% endif %}" alt="{{ campus.title }}"></div>
+        <div class="c-img c-bot"><img src="{% if campus.image_bottom %}{{ c_bot_img.url }}{% else %}{% static 'images/about2-image1.jpg' %}{% endif %}" alt="{{ campus.title }}"></div>
+        {% if campus.years_count %}<div class="c-badge"><span class="b-num">{{ campus.years_count }}</span><span class="b-lbl">{{ campus.years_label }}</span></div>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
 <!-- ══ WHY CHOOSE US ══ -->
 {% if page.trust_cards.count %}
 <section class="az-why">
@@ -539,65 +644,6 @@
     </div>
 </section>
 
-<!-- ══ BOARDS ══ -->
-{% if page.board_cards.count %}
-<section class="az-boards">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-7 text-center">
-                <div class="sec-sub" data-aos="fade-up">{{ page.boards_subtitle }}</div>
-                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.boards_title }}</h2>
-                <p class="sec-desc" data-aos="fade-up" data-aos-delay="120">{{ page.boards_description }}</p>
-            </div>
-        </div>
-        <div class="row">
-            {% for card in page.board_cards.all %}
-            <div class="col-lg-6 mb-4" data-aos="{% if forloop.counter|divisibleby:2 %}fade-left{% else %}fade-right{% endif %}">
-                <div class="board-card-v2">
-                    <div class="board-card-header {% if forloop.counter|divisibleby:2 %}akueb-header{% else %}bsek-header{% endif %}">
-                        <div class="board-icon"><i class="{{ card.icon_class }}"></i></div>
-                        <div class="board-info">
-                            <div class="board-name">{{ card.board_name }}</div>
-                            {% if card.level_label %}<div class="board-full">{{ card.level_label }}</div>{% endif %}
-                        </div>
-                        <span class="board-badge">{{ card.get_tab_display }}</span>
-                    </div>
-                    <div class="board-card-body">
-                        <p style="color:var(--text);font-size:15px;line-height:1.7;margin-bottom:{% if card.subjects_as_list %}18px{% else %}0{% endif %};">{{ card.description }}</p>
-                        {% if card.subjects_as_list %}
-                        <div class="board-levels">
-                            <div class="board-level-col">
-                                <div class="level-title">Subjects Offered</div>
-                                <ul class="board-subject-list">
-                                    {% for subj in card.subjects_as_list %}
-                                    <li>{{ subj }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="board-card-footer">
-                        <div class="board-tags">
-                            {% if card.level_label %}<span class="board-tag">{{ card.level_label }}</span>{% endif %}
-                            <span class="board-tag">{{ card.get_tab_display }}</span>
-                        </div>
-                        {% if card.learn_more_url %}
-                        <a href="{{ card.learn_more_url }}" class="btn-board-link">
-                            Explore Program <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="section-cta-row" data-aos="fade-up">
-            <a href="/academics/" class="btn-view-all">Full Academic Overview <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-    </div>
-</section>
-{% endif %}
 
 <!-- ══ FACILITIES TEASER ══ -->
 {% if page.fac1_title %}

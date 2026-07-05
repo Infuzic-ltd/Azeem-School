@@ -191,103 +191,46 @@ BOARD_TAB_CHOICES = [
 ]
 
 
-class BoardCard(Orderable):
-    """
-    One card in the Boards section on the homepage.
-    Each card shows as a premium 2-column card with a dark gradient header.
-    Cards alternate colour: odd = navy (BSEK style), even = green (Aga Khan style).
-
-    Example setup for Azeem School:
-    ─────────────────────────────────────────────────────────────────────
-    Card 1 — BSEK Matric
-      Tab:         Matric
-      Icon:        Book Open Reader
-      Board Name:  BSEK  (Matric — Class 9 & 10)
-      Level Label: Class 9 – 10
-      Description: Nationally recognised qualification aligned with Pakistan's federal curriculum...
-      Subjects:    Physics, Chemistry, Biology, Mathematics, Urdu, Pakistan Studies, Islamiyat
-      Link:        /academics/
-
-    Card 2 — Aga Khan O/A Level
-      Tab:         Cambridge
-      Icon:        Globe
-      Board Name:  Aga Khan Board  (AKUEB — O & A Level)
-      Level Label: O Level & A Level
-      Description: Internationally recognised qualifications, accepted by top universities worldwide...
-      Subjects:    Physics, Chemistry, Biology, Mathematics, English, Business Studies, ICT
-      Link:        /academics/
-    ─────────────────────────────────────────────────────────────────────
-    """
-
-    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="board_cards")
-
-    tab = models.CharField(
-        max_length=20, choices=BOARD_TAB_CHOICES, default="all",
-        verbose_name="Category Tab",
-        help_text="Which board category this card belongs to. e.g. Matric, Intermediate, Cambridge, Primary.",
+class HomePageCampus(Orderable):
+    page          = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="home_campuses")
+    campus_number = models.CharField(max_length=4, default="01", help_text='e.g. "01"')
+    tag           = models.CharField(max_length=60, default="Campus One", help_text='Tag pill label, e.g. "Campus One"')
+    title         = models.CharField(max_length=200, default="Main Campus\nAzeem School", help_text="Use a new line to split into two lines")
+    location      = models.CharField(max_length=200, default="Gulshan-e-Iqbal, Karachi")
+    description   = models.TextField(default="Our flagship campus is the heart of Azeem School.")
+    features      = models.TextField(
+        blank=True,
+        help_text="One feature per line (up to 6 shown).\ne.g.\nAir-Conditioned Classrooms\nDigital Smart Boards",
     )
-    icon_class = models.CharField(
-        max_length=100, choices=HOME_ICON_CHOICES,
-        default="fa-solid fa-graduation-cap",
-        verbose_name="Card Icon",
-        help_text="Icon shown in the coloured header. Choose from the dropdown — no image upload needed.",
-    )
-    board_name = models.CharField(
-        max_length=200,
-        verbose_name="Board / Programme Name",
-        help_text='Full name shown as the card title.  e.g.  BSEK  (Matric — Class 9 & 10)',
-    )
-    level_label = models.CharField(
-        max_length=100, blank=True,
-        verbose_name="Level / Class Range",
-        help_text='Shown as a small label below the board name.  e.g.  Class 9 – 10   or   O Level & A Level',
-    )
-    description = models.TextField(
-        verbose_name="Description",
-        help_text=(
-            "2–3 sentences about this board/programme.  "
-            "e.g.  Nationally recognised Matric qualification aligned with Pakistan's federal curriculum, "
-            "preparing students for competitive examinations across the country."
-        ),
-    )
-    subjects_list = models.CharField(
-        max_length=400, blank=True,
-        verbose_name="Subjects (comma-separated)",
-        help_text=(
-            "Type subjects separated by commas — they appear as tags on the card.  "
-            "e.g.  Physics, Chemistry, Biology, Mathematics, Urdu, Islamiyat"
-        ),
-    )
-    learn_more_url = models.CharField(
-        max_length=255, blank=True,
-        verbose_name="'Explore Program' Button URL",
-        help_text='URL the Explore Program button links to.  e.g.  /academics/',
-    )
+    years_count   = models.CharField(max_length=10, blank=True, default="15+", help_text='e.g. "15+"')
+    years_label   = models.CharField(max_length=60, blank=True, default="Years of Excellence")
+    cta_label     = models.CharField(max_length=60, default="Explore Facilities")
+    cta_url       = models.CharField(max_length=200, default="/facilities/")
+    main_image    = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Main Image (large)")
+    image_top     = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Top Image (small)")
+    image_bottom  = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+", verbose_name="Bottom Image (small)")
 
     panels = [
+        FieldRowPanel([FieldPanel("campus_number"), FieldPanel("tag")]),
+        FieldPanel("title"),
+        FieldPanel("location"),
+        FieldPanel("description"),
+        FieldPanel("features"),
+        FieldRowPanel([FieldPanel("years_count"), FieldPanel("years_label")]),
+        FieldRowPanel([FieldPanel("cta_label"), FieldPanel("cta_url")]),
         MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel("tab"),
-                FieldPanel("icon_class"),
-            ]),
-        ], heading="Category & Icon"),
-        MultiFieldPanel([
-            FieldPanel("board_name"),
-            FieldPanel("level_label"),
-            FieldPanel("description"),
-        ], heading="Card Content"),
-        MultiFieldPanel([
-            FieldPanel("subjects_list"),
-            FieldPanel("learn_more_url"),
-        ], heading="Subjects & Link"),
+            FieldPanel("main_image"),
+            FieldPanel("image_top"),
+            FieldPanel("image_bottom"),
+        ], heading="Images"),
     ]
 
     @property
-    def subjects_as_list(self):
-        return [s.strip() for s in self.subjects_list.split(",") if s.strip()]
+    def features_list(self):
+        return [f.strip() for f in self.features.splitlines() if f.strip()][:6]
 
     def __str__(self):
-        return self.board_name
+        return f"{self.campus_number} — {self.title.splitlines()[0]}"
 
 
 # ──────────────────────────────────────────────
@@ -1484,11 +1427,6 @@ class HomePage(Page):
     )
     about_mission_title = models.CharField(max_length=300, blank=True)
 
-    # ── Boards ────────────────────────────────
-    boards_subtitle = models.CharField(max_length=100, blank=True, default="Academic Programs")
-    boards_title = models.CharField(max_length=300, blank=True, default="Boards We Follow")
-    boards_description = models.TextField(blank=True, default="We follow the curriculum of top educational boards to ensure quality education for our students.")
-
     # ── Facilities Teaser ─────────────────────
     facilities_subtitle = models.CharField(
         max_length=100, blank=True, default="Campus Life",
@@ -1619,10 +1557,10 @@ class HomePage(Page):
             FieldRowPanel([FieldPanel("hero_btn_label"), FieldPanel("hero_btn_url")]),
         ], heading="② Hero / Banner"),
 
-        # ── Section 3: Stats Strip ────────────────────────────────────────
+        # ── Section 3: Campuses ───────────────────────────────────────────
         MultiFieldPanel([
-            InlinePanel("benefit_cards", label="Stat Cards  (counter, suffix %, +, label)"),
-        ], heading="③ Stats Strip  — 98%, 500+, 25+, 1500+"),
+            InlinePanel("home_campuses", label="Campus Block (add one per campus — first is panel-left, second is panel-right)"),
+        ], heading="③ Our Campuses"),
 
         # ── Section 4: Why Choose Us ──────────────────────────────────────
         MultiFieldPanel([
@@ -1644,13 +1582,7 @@ class HomePage(Page):
             FieldRowPanel([FieldPanel("about_mission_icon_class"), FieldPanel("about_mission_title")]),
         ], heading="⑤ About Us"),
 
-        # ── Section 6: Boards ─────────────────────────────────────────────
-        MultiFieldPanel([
-            FieldRowPanel([FieldPanel("boards_subtitle"), FieldPanel("boards_title"), FieldPanel("boards_description")]), 
-            InlinePanel("board_cards", label="Board Cards  (icon, board name, level, subjects, link)"),
-        ], heading="⑥ Boards  — BSEK & Aga Khan"),
-
-        # ── Section 7: Facilities Teaser ─────────────────────────────────
+        # ── Section 6: Facilities Teaser ─────────────────────────────────
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("facilities_subtitle"), FieldPanel("facilities_title")]),
             FieldPanel("facilities_description"),
