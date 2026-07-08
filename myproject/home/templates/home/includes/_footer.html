@@ -17,7 +17,7 @@
                             <h4 style="margin-bottom:4px;">{{ home_page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
                             <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
                         </div>
-                        <a href="{{ home_page.admissions_cta_btn_url|default:'/admissions/' }}" class="text-decoration-none footer-apply-btn">
+                        <a href="{% with u=home_page.admissions_cta_btn_url|default:'/admissions/' %}{% if u|slice:':1' == '/' %}{{ u }}{% else %}/{{ u }}{% endif %}{% endwith %}" class="text-decoration-none footer-apply-btn">
                             {{ home_page.admissions_cta_btn_label|default:"Apply Now" }} <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
