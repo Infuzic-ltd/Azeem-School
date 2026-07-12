@@ -8,21 +8,14 @@
     <meta charset="utf-8">
     {% if page.search_description %}<meta name="description" content="{{ page.search_description }}">{% endif %}
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="57x57"   href="{% static 'images/favicon/apple-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60"   href="{% static 'images/favicon/apple-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72"   href="{% static 'images/favicon/apple-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76"   href="{% static 'images/favicon/apple-icon-76x76.png' %}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32"   href="{% static 'images/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="96x96"   href="{% static 'images/favicon/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16"   href="{% static 'images/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
+    <!-- Favicon -->
+    {% if home_page and home_page.favicon %}{% image home_page.favicon original as favicon_img %}
+    <link rel="icon" type="image/png" href="{{ favicon_img.url }}">
+    <link rel="apple-touch-icon" href="{{ favicon_img.url }}">
+    {% else %}
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    {% endif %}
     <meta name="theme-color" content="#0c2461">
 
     <!-- CSS -->
@@ -826,48 +819,6 @@
 </section>
 {% endif %}
 
-<!-- ══ TESTIMONIALS ══ -->
-{% if page.testimonials.count %}
-<section class="az-testi">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-6 text-center">
-                <div class="sec-sub" data-aos="fade-up">{{ page.testimonials_subtitle }}</div>
-                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.testimonials_title }}</h2>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <div class="col-12">
-                <div class="owl-carousel owl-theme">
-                    {% for t in page.testimonials.all %}
-                    <div class="item">
-                        <div class="testi-card">
-                            <div class="testi-stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>"{{ t.quote }}"</p>
-                            <div class="testi-person">
-                                {% if t.photo %}
-                                    {% image t.photo original as t_photo %}
-                                    <img src="{{ t_photo.url }}" alt="{{ t.name }}">
-                                {% endif %}
-                                <div>
-                                    <p class="tname">{{ t.name }}</p>
-                                    <p class="trole">{{ t.role }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
 <!-- ══ NOTICES ══ -->
 {% if page.home_notices.count %}
 <section class="az-notices">
@@ -908,7 +859,17 @@
 {% include 'home/includes/_footer.html' %}
 
 <!-- PRE LOADER -->
-<div class="loader-mask"><div class="loader"><div></div><div></div></div></div>
+<div class="loader-mask">
+  <div class="az-pre-wrap">
+    <div class="az-pre-glow"></div>
+    <div class="loader"><div></div><div></div></div>
+    <div class="az-pre-text">
+      <span class="az-pre-name">Azeem</span>
+      <span class="az-pre-sub">Schooling System</span>
+    </div>
+    <div class="az-pre-dots"><span></span><span></span><span></span></div>
+  </div>
+</div>
 
 <!-- JS -->
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>

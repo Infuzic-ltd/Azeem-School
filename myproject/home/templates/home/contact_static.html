@@ -1,12 +1,17 @@
-{% load static %}
+{% load static wagtailimages_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Contact Us | Azeem School</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <meta charset="utf-8">
+  {% if home_page and home_page.favicon %}{% image home_page.favicon original as favicon_img %}
+  <link rel="icon" type="image/png" href="{{ favicon_img.url }}">
+  <link rel="apple-touch-icon" href="{{ favicon_img.url }}">
+  {% else %}
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  {% endif %}
   <meta name="theme-color" content="#ffffff">
   <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -174,6 +179,30 @@
     .ct-directions-btn:hover {
       border-color: rgba(255,255,255,0.6); color: #fff; text-decoration: none;
     }
+
+    /* ── Campus Tabs ── */
+    .ct-campus-tabs { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:36px; }
+    .ct-campus-tab {
+      padding:12px 32px; border-radius:50px; font-size:14px; font-weight:700; cursor:pointer;
+      border:2px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.65);
+      background:transparent; transition:all 0.25s; letter-spacing:0.3px;
+    }
+    .ct-campus-tab.active, .ct-campus-tab:hover {
+      background:var(--e-global-color-accent); border-color:var(--e-global-color-accent);
+      color:var(--e-global-color-very-dark-blue);
+    }
+    .ct-campus-panel { display:none; }
+    .ct-campus-panel.active { display:block; }
+    .ct-campus-map { display:none; }
+    .ct-campus-map.active { display:block; }
+    .ct-campus-info-strip {
+      display:flex; flex-wrap:wrap; gap:24px; justify-content:center;
+      padding:20px 0 36px; color:rgba(255,255,255,0.7); font-size:14px;
+    }
+    .ct-campus-info-strip a { color:rgba(255,255,255,0.7); text-decoration:none; }
+    .ct-campus-info-strip a:hover { color:#fff; }
+    .ct-campus-info-item { display:flex; align-items:center; gap:8px; }
+    .ct-campus-info-item i { color:var(--e-global-color-accent); font-size:15px; }
 
     /* ── FAQ ── */
     .ct-faq-con {
@@ -397,34 +426,90 @@
 </section>
 
 <!-- ═══ MAP SECTION ═══ -->
+{% with campuses=page.contact_campuses.all %}
 <section class="ct-map-con">
   <div class="container position-relative" style="z-index:1;">
     <div class="row justify-content-center">
-      <div class="col-lg-8 text-center" data-aos="fade-up">
-        <div class="ct-map-tag"><i class="fa-solid fa-location-dot"></i> Find Us</div>
-        <h2 class="sec-title-light">Visit Our Campus</h2>
-        <p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:28px;">
-          Located in the heart of Lahore, Azeem School is easily accessible from all major routes. Secure parking and public transport stops are nearby.
-        </p>
-        <a href="https://maps.google.com" target="_blank" rel="noopener" class="ct-open-maps-btn">
-          <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
-        </a>
-        <a href="https://maps.google.com/dir/" target="_blank" rel="noopener" class="ct-directions-btn">
-          <i class="fa-solid fa-route"></i> Get Directions
-        </a>
+      <div class="col-lg-9 text-center" data-aos="fade-up">
+        <div class="ct-map-tag"><i class="fa-solid fa-location-dot"></i> {{ page.map_label|default:"Find Us" }}</div>
+        <h2 class="sec-title-light">{{ page.map_heading|default:"Visit Our Campus" }}</h2>
+        {% if page.map_description %}<p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:28px;">{{ page.map_description }}</p>{% endif %}
+
+        {% if campuses %}
+        <!-- Campus tab buttons -->
+        <div class="ct-campus-tabs">
+          {% for campus in campuses %}
+          <button class="ct-campus-tab{% if forloop.first %} active{% endif %}" data-campus="{{ forloop.counter }}">
+            <i class="fa-solid fa-location-dot"></i> {{ campus.campus_name }}
+          </button>
+          {% endfor %}
+        </div>
+        <!-- Per-campus info + action buttons -->
+        {% for campus in campuses %}
+        <div class="ct-campus-panel{% if forloop.first %} active{% endif %}" id="campus-panel-{{ forloop.counter }}">
+          <div class="ct-campus-info-strip">
+            {% if campus.address %}<div class="ct-campus-info-item"><i class="fa-solid fa-location-dot"></i><span>{{ campus.address }}</span></div>{% endif %}
+            {% if campus.phone %}<div class="ct-campus-info-item"><i class="fa-solid fa-phone"></i><a href="tel:{{ campus.phone }}">{{ campus.phone }}</a></div>{% endif %}
+            {% if campus.email %}<div class="ct-campus-info-item"><i class="fa-solid fa-envelope"></i><a href="mailto:{{ campus.email }}">{{ campus.email }}</a></div>{% endif %}
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;">
+            {% if campus.map_link_url %}<a href="{{ campus.map_link_url }}" target="_blank" rel="noopener" class="ct-open-maps-btn"><i class="fa-solid fa-map-location-dot"></i> Open in Google Maps</a>{% endif %}
+            {% if campus.map_directions_url %}<a href="{{ campus.map_directions_url }}" target="_blank" rel="noopener" class="ct-directions-btn"><i class="fa-solid fa-route"></i> Get Directions</a>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <!-- Single campus fallback buttons -->
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;">
+          {% if page.map_link_url %}<a href="{{ page.map_link_url }}" target="_blank" rel="noopener" class="ct-open-maps-btn"><i class="fa-solid fa-map-location-dot"></i> {{ page.map_link_label|default:"Open in Google Maps" }}</a>{% endif %}
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
-  <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="100">
-    <!-- Replace with actual Google Maps embed URL -->
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108539.08348680985!2d74.2358674!3d31.5203696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190483e58107d9%3A0xc23abe6ccc7e2462!2sLahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1234567890"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      allowfullscreen>
-    </iframe>
-  </div>
+
+  <!-- Map iframes — rendered outside container for full width -->
+  {% if campuses %}
+    {% for campus in campuses %}
+    <div class="ct-campus-map{% if forloop.first %} active{% endif %}" id="campus-map-{{ forloop.counter }}">
+      <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="80">
+        {% if campus.map_embed_url %}
+        <iframe src="{{ campus.map_embed_url }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        {% else %}
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);font-size:14px;">No map configured for this campus.</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    {% if page.map_embed_src %}
+    <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="100">
+      <iframe src="{{ page.map_embed_src }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+    {% endif %}
+  {% endif %}
 </section>
+{% endwith %}
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.ct-campus-tab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var idx = tab.getAttribute('data-campus');
+      document.querySelectorAll('.ct-campus-tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.ct-campus-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelectorAll('.ct-campus-map').forEach(function(m){ m.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.getElementById('campus-panel-' + idx);
+      var map   = document.getElementById('campus-map-'   + idx);
+      if(panel) panel.classList.add('active');
+      if(map)   map.classList.add('active');
+    });
+  });
+})();
+</script>
 
 <!-- ═══ FAQ SECTION ═══ -->
 <section class="ct-faq-con">
@@ -515,7 +600,15 @@
 
 <!-- PRE LOADER -->
 <div class="loader-mask">
-  <div class="loader"><div></div><div></div></div>
+  <div class="az-pre-wrap">
+    <div class="az-pre-glow"></div>
+    <div class="loader"><div></div><div></div></div>
+    <div class="az-pre-text">
+      <span class="az-pre-name">Azeem</span>
+      <span class="az-pre-sub">Schooling System</span>
+    </div>
+    <div class="az-pre-dots"><span></span><span></span><span></span></div>
+  </div>
 </div>
 
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>

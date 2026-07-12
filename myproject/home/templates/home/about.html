@@ -115,17 +115,13 @@
     .ab-team-info .sub { font-size:13px; color:var(--e-global-color-text); }
     .ab-team-info .role-tag { display:inline-block; margin-top:10px; background:var(--e-global-color-soft-blue); color:#fff; font-size:11px; font-weight:700; padding:4px 14px; border-radius:50px; }
 
-    /* ── Testimonials ── */
+    /* ── Alumni Photo Grid ── */
     .ab-testi-con { padding:100px 0; background:var(--e-global-color-very-pale-blue); }
-    .ab-testi-card { background:#ffffff; border-radius:20px; padding:36px; border:1.5px solid #e8f0ff; height:100%; transition:all 0.3s; position:relative; }
-    .ab-testi-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(26,86,219,0.1); transform:translateY(-4px); }
-    .ab-testi-card .quote-mark { position:absolute; top:22px; right:24px; font-size:52px; color:rgba(26,86,219,0.1); line-height:1; }
-    .ab-stars { color:var(--e-global-color-accent); margin-bottom:14px; font-size:13px; }
-    .ab-testi-card blockquote { font-size:15px; color:var(--e-global-color-text); line-height:1.8; margin:0 0 22px; font-style:italic; }
-    .ab-testi-person { display:flex; align-items:center; gap:14px; }
-    .ab-testi-person img { width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--e-global-color-soft-blue); }
-    .ab-testi-person .name { display:block; font-size:14px; font-weight:800; color:var(--e-global-color-very-dark-blue); }
-    .ab-testi-person .role { font-size:12px; color:var(--e-global-color-text); }
+    .ab-alumni-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:24px; }
+    .ab-alumni-photo { width:160px; height:160px; border-radius:50%; overflow:hidden; border:4px solid #fff; box-shadow:0 8px 32px rgba(26,86,219,0.12); transition:transform 0.3s, box-shadow 0.3s; flex-shrink:0; }
+    .ab-alumni-photo img { width:100%; height:100%; object-fit:cover; display:block; }
+    .ab-alumni-photo:hover { transform:translateY(-6px) scale(1.04); box-shadow:0 16px 48px rgba(26,86,219,0.2); }
+    @media(max-width:576px){ .ab-alumni-photo { width:120px; height:120px; } }
 
     /* ── CTA band ── */
     .ab-cta-con { padding:80px 0; background:var(--e-global-color-soft-blue); position:relative; overflow:hidden; text-align:center; }
@@ -401,28 +397,15 @@
         <h2 class="sec-title">{{ page.testimonials_heading }}</h2>
       </div>
     </div>
-    <div class="row g-4">
+    <div class="ab-alumni-grid" data-aos="fade-up">
       {% for testimonial in page.about_testimonials.all %}
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-        <div class="ab-testi-card">
-          <div class="quote-mark"><i class="fa-solid fa-quote-right"></i></div>
-          <div class="ab-stars">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-          </div>
-          <blockquote>"{{ testimonial.quote }}"</blockquote>
-          <div class="ab-testi-person">
-            {% if testimonial.photo %}
-              {% image testimonial.photo original as tphoto %}
-              <img src="{{ tphoto.url }}" alt="{{ testimonial.name }}">
-            {% else %}
-              <img src="{% static 'images/testimonial-personimage1.jpg' %}" alt="{{ testimonial.name }}">
-            {% endif %}
-            <div>
-              <span class="name">{{ testimonial.name }}</span>
-              <span class="role">{{ testimonial.role }}</span>
-            </div>
-          </div>
-        </div>
+      <div class="ab-alumni-photo" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}0">
+        {% if testimonial.photo %}
+          {% image testimonial.photo original as tphoto %}
+          <img src="{{ tphoto.url }}" alt="{{ testimonial.name }}">
+        {% else %}
+          <img src="{% static 'images/testimonial-personimage1.jpg' %}" alt="{{ testimonial.name }}">
+        {% endif %}
       </div>
       {% endfor %}
     </div>
@@ -583,7 +566,15 @@
 
 <!-- PRE LOADER -->
 <div class="loader-mask">
-  <div class="loader"><div></div><div></div></div>
+  <div class="az-pre-wrap">
+    <div class="az-pre-glow"></div>
+    <div class="loader"><div></div><div></div></div>
+    <div class="az-pre-text">
+      <span class="az-pre-name">Azeem</span>
+      <span class="az-pre-sub">Schooling System</span>
+    </div>
+    <div class="az-pre-dots"><span></span><span></span><span></span></div>
+  </div>
 </div>
 
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
