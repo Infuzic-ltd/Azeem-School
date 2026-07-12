@@ -6,13 +6,8 @@
     <title>{{ page.banner_title }} | Educiza</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta charset="utf-8">
-    {% if home_page and home_page.favicon %}{% image home_page.favicon original as favicon_img %}
-    <link rel="icon" type="image/png" href="{{ favicon_img.url }}">
-    <link rel="apple-touch-icon" href="{{ favicon_img.url }}">
-    {% else %}
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
-    {% endif %}
     <meta name="theme-color" content="#ffffff">
     <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -486,15 +481,7 @@
 
 <!-- PRE LOADER -->
 <div class="loader-mask">
-  <div class="az-pre-wrap">
-    <div class="az-pre-glow"></div>
     <div class="loader"><div></div><div></div></div>
-    <div class="az-pre-text">
-      <span class="az-pre-name">Azeem</span>
-      <span class="az-pre-sub">Schooling System</span>
-    </div>
-    <div class="az-pre-dots"><span></span><span></span><span></span></div>
-  </div>
 </div>
 
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>

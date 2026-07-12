@@ -949,28 +949,6 @@ class ContactFAQ(Orderable):
         return self.question
 
 
-class ContactCampus(Orderable):
-    page         = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_campuses")
-    campus_name  = models.CharField(max_length=100, default="Campus")
-    address      = models.TextField(blank=True, default="")
-    phone        = models.CharField(max_length=30, blank=True, default="")
-    email        = models.EmailField(blank=True, default="")
-    map_embed_url   = models.URLField(blank=True, verbose_name="Google Maps Embed URL")
-    map_link_url    = models.URLField(blank=True, verbose_name="Google Maps Link URL")
-    map_directions_url = models.URLField(blank=True, verbose_name="Get Directions URL")
-
-    panels = [
-        FieldPanel("campus_name"),
-        FieldPanel("address"),
-        FieldRowPanel([FieldPanel("phone"), FieldPanel("email")]),
-        FieldPanel("map_embed_url"),
-        FieldRowPanel([FieldPanel("map_link_url"), FieldPanel("map_directions_url")]),
-    ]
-
-    def __str__(self):
-        return self.campus_name
-
-
 class ContactPage(Page):
 
     # ── Navbar ────────────────────────────────
@@ -1131,14 +1109,9 @@ class ContactPage(Page):
             FieldPanel("map_description"),
             FieldPanel("map_embed_url"),
             FieldRowPanel([FieldPanel("map_link_url"), FieldPanel("map_link_label")]),
-        ], heading="Map Section (Single Campus Fallback)"),
+        ], heading="Map Section"),
 
-        # ── 7. Campus Locations ───────────────
-        MultiFieldPanel([
-            InlinePanel("contact_campuses", label="Campus", help_text="Add 2 campuses to enable the tab-switcher map. If empty, the single map above is shown."),
-        ], heading="Campus Locations (Multi-Campus)"),
-
-        # ── 8. FAQ Section ────────────────────
+        # ── 7. FAQ Section ────────────────────
         MultiFieldPanel([
             FieldPanel("faq_label"),
             FieldPanel("faq_heading"),
@@ -1409,12 +1382,6 @@ class HomePage(Page):
     nav_phone = models.CharField(max_length=30, blank=True, default="", verbose_name="Phone Number")
     nav_btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Label")
     nav_btn_url = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
-    favicon = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True,
-        on_delete=models.SET_NULL, related_name="site_favicon",
-        verbose_name="Favicon",
-        help_text="Upload a square PNG/ICO (recommended: 32×32px). Used as the browser tab icon across all pages.",
-    )
 
     # ── Hero ──────────────────────────────────
     hero_bg_image = models.ForeignKey(
@@ -1581,7 +1548,6 @@ class HomePage(Page):
         MultiFieldPanel([
             FieldRowPanel([FieldPanel("nav_logo"), FieldPanel("nav_school_name")]),
             FieldPanel("nav_phone"),
-            FieldPanel("favicon"),
         ], heading="① Navbar"),
 
         # ── Section 2: Hero / Banner ──────────────────────────────────────
