@@ -348,29 +348,6 @@ class BenefitCard(Orderable):
         return f"{self.counter}{self.suffix} — {self.label}"
 
 
-# ──────────────────────────────────────────────
-# TESTIMONIALS
-# ──────────────────────────────────────────────
-
-class Testimonial(Orderable):
-    page = ParentalKey("HomePage", on_delete=models.CASCADE, related_name="testimonials")
-    photo = models.ForeignKey(
-        "wagtailimages.Image", null=True,
-        on_delete=models.SET_NULL, related_name="testimonial_photo",
-    )
-    name = models.CharField(max_length=100)
-    role = models.CharField(max_length=100, blank=True, default="Happy Client")
-    quote = models.TextField()
-
-    panels = [
-        FieldPanel("photo"),
-        FieldPanel("name"),
-        FieldPanel("role"),
-        FieldPanel("quote"),
-    ]
-
-    def __str__(self):
-        return self.name
 
 
 # NOTICES / ANNOUNCEMENTS
@@ -949,6 +926,28 @@ class ContactFAQ(Orderable):
         return self.question
 
 
+class ContactCampus(Orderable):
+    page               = ParentalKey("ContactPage", on_delete=models.CASCADE, related_name="contact_campuses")
+    campus_name        = models.CharField(max_length=100, default="Campus")
+    address            = models.TextField(blank=True, default="")
+    phone              = models.CharField(max_length=30, blank=True, default="")
+    email              = models.EmailField(blank=True, default="")
+    map_embed_url      = models.URLField(blank=True, verbose_name="Google Maps Embed URL")
+    map_link_url       = models.URLField(blank=True, verbose_name="Google Maps Link URL")
+    map_directions_url = models.URLField(blank=True, verbose_name="Get Directions URL")
+
+    panels = [
+        FieldPanel("campus_name"),
+        FieldPanel("address"),
+        FieldRowPanel([FieldPanel("phone"), FieldPanel("email")]),
+        FieldPanel("map_embed_url"),
+        FieldRowPanel([FieldPanel("map_link_url"), FieldPanel("map_directions_url")]),
+    ]
+
+    def __str__(self):
+        return self.campus_name
+
+
 class ContactPage(Page):
 
     # ── Navbar ────────────────────────────────
@@ -1102,14 +1101,11 @@ class ContactPage(Page):
             FieldPanel("social_whatsapp_url"),
         ], heading="Social Links"),
 
-        # ── 6. Map Section ────────────────────
+        # ── 6. Campus Locations ───────────────
         MultiFieldPanel([
-            FieldPanel("map_label"),
-            FieldPanel("map_heading"),
-            FieldPanel("map_description"),
-            FieldPanel("map_embed_url"),
-            FieldRowPanel([FieldPanel("map_link_url"), FieldPanel("map_link_label")]),
-        ], heading="Map Section"),
+            InlinePanel("contact_campuses", label="Campus", min_num=2, max_num=2,
+                        help_text="Add exactly 2 campus locations. Each shows its own tab with map and contact info."),
+        ], heading="Campus Locations"),
 
         # ── 7. FAQ Section ────────────────────
         MultiFieldPanel([
@@ -1368,6 +1364,14 @@ class HeroSlide(Orderable):
 
 class HomePage(Page):
 
+    # ── Favicon ───────────────────────────────
+    favicon = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+",
+        verbose_name="Favicon",
+        help_text="Upload a square PNG/ICO (recommended 512×512). Used as browser tab icon across all pages.",
+    )
+
     # ── Navbar ────────────────────────────────
     nav_logo = models.ForeignKey(
         "wagtailimages.Image", null=True,
@@ -1502,10 +1506,6 @@ class HomePage(Page):
     notices_subtitle = models.CharField(max_length=100, blank=True, default="Latest Updates")
     notices_title = models.CharField(max_length=300, blank=True, default="School Notices & Announcements")
 
-    # ── Testimonials ──────────────────────────
-    testimonials_subtitle = models.CharField(max_length=100, blank=True, default="")
-    testimonials_title = models.CharField(max_length=300, blank=True, default="")
-
     # ── Footer ────────────────────────────────
     footer_logo = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
@@ -1546,6 +1546,7 @@ class HomePage(Page):
 
         # ── Section 1: Navbar ─────────────────────────────────────────────
         MultiFieldPanel([
+            FieldPanel("favicon"),
             FieldRowPanel([FieldPanel("nav_logo"), FieldPanel("nav_school_name")]),
             FieldPanel("nav_phone"),
         ], heading="① Navbar"),
@@ -1634,12 +1635,6 @@ class HomePage(Page):
             FieldRowPanel([FieldPanel("admissions_cta_btn_label"), FieldPanel("admissions_cta_btn_url")]),
             FieldRowPanel([FieldPanel("admissions_cta_secondary_label"), FieldPanel("admissions_cta_secondary_url")]),
         ], heading="⑧ Admissions CTA  — also used in footer strip"),
-
-        # ── Section 9: Testimonials ───────────────────────────────────────
-        MultiFieldPanel([
-            FieldRowPanel([FieldPanel("testimonials_subtitle"), FieldPanel("testimonials_title")]),
-            InlinePanel("testimonials", label="Testimonials  (quote, photo, name, role)"),
-        ], heading="⑨ Testimonials"),
 
         # ── Section 9: Notices / Announcements ───────────────────────────
         MultiFieldPanel([

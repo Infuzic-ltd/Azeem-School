@@ -6,9 +6,7 @@
   <title>{{ page.banner_title }} | Azeem School</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <meta charset="utf-8">
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  {% include "home/includes/_favicon.html" %}
   <meta name="theme-color" content="#ffffff">
   <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -123,7 +121,7 @@
     .ab-stars { color:var(--e-global-color-accent); margin-bottom:14px; font-size:13px; }
     .ab-testi-card blockquote { font-size:15px; color:var(--e-global-color-text); line-height:1.8; margin:0 0 22px; font-style:italic; }
     .ab-testi-person { display:flex; align-items:center; gap:14px; }
-    .ab-testi-person img { width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--e-global-color-soft-blue); }
+    .ab-testi-person img { width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid var(--e-global-color-soft-blue); }
     .ab-testi-person .name { display:block; font-size:14px; font-weight:800; color:var(--e-global-color-very-dark-blue); }
     .ab-testi-person .role { font-size:12px; color:var(--e-global-color-text); }
 
@@ -393,7 +391,7 @@
 
 <!-- ═══ TESTIMONIALS ═══ -->
 {% if page.about_testimonials.exists %}
-<section class="ab-testi-con">
+<section class="ab-testi-con" id="alumni1">
   <div class="container">
     <div class="row justify-content-center mb-5">
       <div class="col-lg-6 text-center" data-aos="fade-up">

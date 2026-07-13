@@ -8,21 +8,7 @@
     <meta charset="utf-8">
     {% if page.search_description %}<meta name="description" content="{{ page.search_description }}">{% endif %}
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="57x57"   href="{% static 'images/favicon/apple-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60"   href="{% static 'images/favicon/apple-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72"   href="{% static 'images/favicon/apple-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76"   href="{% static 'images/favicon/apple-icon-76x76.png' %}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicon/apple-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicon/apple-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicon/apple-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicon/apple-icon-152x152.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicon/android-icon-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32"   href="{% static 'images/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="96x96"   href="{% static 'images/favicon/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16"   href="{% static 'images/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'images/favicon/manifest.json' %}">
+    {% include "home/includes/_favicon.html" %}
     <meta name="theme-color" content="#0c2461">
 
     <!-- CSS -->
@@ -144,6 +130,28 @@
     .hero-video-btn:hover { background:rgba(255,255,255,0.22); border-color:#fff; color:#fff; }
     .hero-video-btn i { font-size:20px; }
 
+    /* Tagline highlight + slide-up animation */
+    @keyframes tagline-in {
+      0%  { opacity:0; transform:translateY(22px); letter-spacing:.06em; }
+      60% { opacity:1; transform:translateY(-4px); }
+      100%{ opacity:1; transform:translateY(0);    letter-spacing:normal; }
+    }
+    @keyframes tagline-shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position:  400px 0; }
+    }
+    .hero-tagline-animated {
+      display:inline-block;
+      animation: tagline-in 0.9s cubic-bezier(.22,1,.36,1) both 0.4s;
+      background: linear-gradient(90deg, #fff 30%, var(--e-global-color-accent,#f4b942) 50%, #fff 70%);
+      background-size: 400px 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: tagline-in 0.9s cubic-bezier(.22,1,.36,1) both 0.4s,
+                 tagline-shimmer 3s linear 1.4s 1;
+    }
+
     /* Hero Slideshow — identical sizing to banner3-con */
     .hero-slider { position:relative; min-height:600px; padding:186px 0 226px; overflow:hidden; isolation:isolate; background:#081933; }
     .hero-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 1s ease; z-index:0; }
@@ -235,18 +243,6 @@
     .btn-primary-az:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(26,86,219,0.6); }
     .btn-outline-az { display:inline-flex; align-items:center; gap:10px; background:transparent; color:#fff !important; font-weight:700; font-size:15px; padding:15px 30px; border-radius:50px; text-decoration:none; border:2px solid rgba(255,255,255,0.4); transition:background .22s,border-color .22s; }
     .btn-outline-az:hover { background:rgba(255,255,255,0.1); border-color:#fff; }
-
-    /* Testimonials */
-    .az-testi { padding:100px 0; background:var(--white); }
-    .testi-card { background:var(--white); border:1px solid var(--border); border-radius:20px; padding:36px 32px; position:relative; overflow:hidden; }
-    .testi-card::before { content:"\201C"; position:absolute; top:-12px; right:28px; font-size:120px; color:rgba(26,86,219,0.06); font-family:Georgia,serif; line-height:1; pointer-events:none; }
-    .testi-stars { display:flex; gap:3px; margin-bottom:16px; }
-    .testi-stars i { font-size:14px; color:var(--gold); }
-    .testi-card p { font-size:15px; color:var(--text); line-height:1.8; font-style:italic; margin-bottom:22px; }
-    .testi-person { display:flex; align-items:center; gap:14px; }
-    .testi-person img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
-    .testi-person .tname { font-size:15px; font-weight:800; color:var(--heading); margin:0; }
-    .testi-person .trole { font-size:13px; color:var(--text); margin:0; }
 
     /* Notices */
     .az-notices { padding:100px 0; background:var(--light-bg); }
@@ -370,17 +366,17 @@
 
       <div class="container position-relative" style="z-index:2;">
         <div class="row align-items-center">
-          <div class="col-lg-10 col-12 mx-auto">
-            <div class="banner_content text-center position-relative" id="hsSlideTxt">
+          <div class="col-lg-8 col-12">
+            <div class="banner_content position-relative" id="hsSlideTxt">
               {% if page.hero_logo %}
                 {% image page.hero_logo original as hero_logo_img %}
-                <figure class="banner-logoicon">
+                <figure class="banner-logoicon" style="justify-content:flex-start;">
                   <img src="{{ hero_logo_img.url }}" alt="logo" class="img-fluid">
                 </figure>
               {% endif %}
               <h1 class="text-white" id="hsHeadline">{{ page.hero_slides.first.headline|default:page.hero_headline }}</h1>
-              <h3 class="text-white" id="hsTagline">{{ page.hero_slides.first.tagline|default:page.hero_tagline }}</h3>
-              <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+              <h3 class="text-white hero-tagline-animated" id="hsTagline">{{ page.hero_slides.first.tagline|default:page.hero_tagline }}</h3>
+              <div style="display:flex;gap:16px;justify-content:flex-start;flex-wrap:wrap;margin-top:10px;">
                 {% with s=page.hero_slides.first %}
                 {% if s.btn_url or page.hero_btn_url %}
                 <a href="{{ s.btn_url|default:page.hero_btn_url }}" class="text-decoration-none primary_btn" id="hsBtn1">
@@ -447,18 +443,18 @@
         </figure>
         <div class="container position-relative">
             <div class="row align-items-center">
-                <div class="col-lg-10 col-12 mx-auto">
-                    <div class="banner_content text-center position-relative" data-aos="fade-up">
+                <div class="col-lg-8 col-12">
+                    <div class="banner_content position-relative" data-aos="fade-up">
                         {% if page.hero_logo %}
                             {% image page.hero_logo original as hero_logo_img %}
-                            <figure class="banner-logoicon">
+                            <figure class="banner-logoicon" style="justify-content:flex-start;">
                                 <img src="{{ hero_logo_img.url }}" alt="logo" class="img-fluid">
                             </figure>
                         {% endif %}
                         <h1 class="text-white">{{ page.hero_headline }}</h1>
                         <h3 class="text-white">{% if page.hero_headline_2 %}{{ page.hero_headline_2 }}{% endif %}</h3>
-                        <p class="text-white text-size-18">{{ page.hero_tagline }}</p>
-                        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+                        <p class="text-white text-size-18 hero-tagline-animated">{{ page.hero_tagline }}</p>
+                        <div style="display:flex;gap:16px;justify-content:flex-start;flex-wrap:wrap;margin-top:10px;">
                             <a href="{{ page.hero_btn_url }}" class="text-decoration-none primary_btn">
                                 {{ page.hero_btn_label }}<i class="fa-solid fa-arrow-right"></i>
                             </a>
@@ -819,48 +815,6 @@
                         <i class="fa-solid fa-phone"></i> {{ page.admissions_cta_secondary_label }}
                     </a>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
-<!-- ══ TESTIMONIALS ══ -->
-{% if page.testimonials.count %}
-<section class="az-testi">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-6 text-center">
-                <div class="sec-sub" data-aos="fade-up">{{ page.testimonials_subtitle }}</div>
-                <h2 class="sec-head" data-aos="fade-up" data-aos-delay="60">{{ page.testimonials_title }}</h2>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <div class="col-12">
-                <div class="owl-carousel owl-theme">
-                    {% for t in page.testimonials.all %}
-                    <div class="item">
-                        <div class="testi-card">
-                            <div class="testi-stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <p>"{{ t.quote }}"</p>
-                            <div class="testi-person">
-                                {% if t.photo %}
-                                    {% image t.photo original as t_photo %}
-                                    <img src="{{ t_photo.url }}" alt="{{ t.name }}">
-                                {% endif %}
-                                <div>
-                                    <p class="tname">{{ t.name }}</p>
-                                    <p class="trole">{{ t.role }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>

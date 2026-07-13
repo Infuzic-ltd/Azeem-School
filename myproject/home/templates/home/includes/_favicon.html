@@ -1,0 +1,10 @@
+{% load wagtailimages_tags static %}
+{% if home_page.favicon %}
+  {% image home_page.favicon original as fav_img %}
+  <link rel="icon" type="image/png" href="{{ fav_img.url }}">
+  <link rel="apple-touch-icon" href="{{ fav_img.url }}">
+{% else %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+{% endif %}
