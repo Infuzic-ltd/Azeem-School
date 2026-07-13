@@ -16,23 +16,27 @@
   <link href="{% static 'css/aos.css' %}" rel="stylesheet">
 
   <style>
-    /* ── Contact Info Cards ── */
+    /* ── Campus Info Cards ── */
     .ct-info-con { padding:80px 0; background:var(--e-global-color-very-pale-blue); }
-    .ct-info-card { background:#ffffff; border:1.5px solid #e8f0ff; border-radius:20px; padding:36px 28px; text-align:center; height:100%; transition:all 0.3s; position:relative; overflow:hidden; }
-    .ct-info-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--e-global-color-soft-blue); opacity:0; transition:opacity 0.3s; }
-    .ct-info-card:hover::before { opacity:1; }
-    .ct-info-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 16px 48px rgba(26,86,219,0.12); transform:translateY(-5px); }
-    .ct-icon-wrap { width:68px; height:68px; border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
-    .ct-icon-wrap i { font-size:28px; }
-    .ct-icon-purple { background:#f3e5f5; } .ct-icon-purple i { color:#60a5fa; }
-    .ct-icon-blue   { background:#e3f2fd; } .ct-icon-blue   i { color:#42a5f5; }
-    .ct-icon-green  { background:#eff6ff; } .ct-icon-green  i { color:#3b82f6; }
-    .ct-icon-orange { background:#fff3e0; } .ct-icon-orange i { color:#ff7043; }
-    .ct-info-card h4 { font-size:17px; font-weight:800; color:var(--e-global-color-very-dark-blue); margin-bottom:10px; }
-    .ct-info-card p, .ct-info-card a { font-size:14px; color:var(--e-global-color-text); line-height:1.7; margin-bottom:4px; text-decoration:none; display:block; }
-    .ct-info-card a:hover { color:var(--e-global-color-soft-blue); }
-    .ct-map-chip { display:inline-flex; align-items:center; gap:6px; margin-top:10px; background:var(--e-global-color-soft-blue); color:#fff; font-size:12px; font-weight:700; padding:5px 16px; border-radius:50px; text-decoration:none; transition:background 0.2s; }
-    .ct-map-chip:hover { background:var(--e-global-color-very-dark-blue); color:#fff; text-decoration:none; }
+    .ct-campus-card { background:#ffffff; border:1.5px solid #e8f0ff; border-radius:24px; padding:40px 36px; height:100%; transition:all 0.3s; position:relative; overflow:hidden; }
+    .ct-campus-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--e-global-color-soft-blue); opacity:0; transition:opacity 0.3s; }
+    .ct-campus-card:hover::before { opacity:1; }
+    .ct-campus-card:hover { border-color:var(--e-global-color-soft-blue); box-shadow:0 20px 60px rgba(26,86,219,0.12); transform:translateY(-5px); }
+    .ct-campus-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(26,86,219,0.08); border:1px solid rgba(26,86,219,0.18); color:var(--e-global-color-soft-blue); font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:5px 16px; border-radius:50px; margin-bottom:20px; }
+    .ct-campus-name { font-size:22px; font-weight:800; color:var(--e-global-color-very-dark-blue); margin-bottom:28px; line-height:1.2; }
+    .ct-detail-row { display:flex; align-items:flex-start; gap:14px; margin-bottom:20px; }
+    .ct-detail-row:last-of-type { margin-bottom:0; }
+    .ct-detail-icon { width:40px; height:40px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+    .ct-detail-icon i { font-size:16px; }
+    .ct-detail-icon.purple { background:#f3e5f5; } .ct-detail-icon.purple i { color:#60a5fa; }
+    .ct-detail-icon.blue   { background:#e3f2fd; } .ct-detail-icon.blue   i { color:#42a5f5; }
+    .ct-detail-icon.green  { background:#eff6ff; } .ct-detail-icon.green  i { color:#3b82f6; }
+    .ct-detail-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--e-global-color-soft-blue); margin-bottom:3px; }
+    .ct-detail-val { font-size:14px; color:var(--e-global-color-text); line-height:1.65; margin:0; }
+    .ct-detail-val a { color:var(--e-global-color-text); text-decoration:none; display:block; }
+    .ct-detail-val a:hover { color:var(--e-global-color-soft-blue); }
+    .ct-map-chip { display:inline-flex; align-items:center; gap:6px; margin-top:24px; background:var(--e-global-color-very-dark-blue); color:var(--e-global-color-accent); font-size:13px; font-weight:700; padding:10px 22px; border-radius:50px; text-decoration:none; transition:all 0.2s; }
+    .ct-map-chip:hover { background:var(--e-global-color-soft-blue); color:#fff; text-decoration:none; transform:translateY(-2px); }
 
     /* ── Opening Hours ── */
     .ct-hours-con { padding:80px 0; background:#ffffff; }
@@ -115,7 +119,7 @@
   </section>
 </div>
 
-<!-- ═══ 3. CONTACT INFO CARDS ═══ -->
+<!-- ═══ 3. CAMPUS CONTACT INFO ═══ -->
 <section class="ct-info-con" id="contact-info">
   <div class="container">
     <div class="row justify-content-center mb-5">
@@ -126,47 +130,50 @@
       </div>
     </div>
     <div class="row g-4">
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
-        <div class="ct-info-card">
-          <div class="ct-icon-wrap ct-icon-purple"><i class="fa-solid fa-location-dot"></i></div>
-          <h4>Our Address</h4>
-          <p>{{ page.location_address }}</p>
-          {% if page.location_map_url %}
-          <a href="{{ page.location_map_url }}" target="_blank" rel="noopener" class="ct-map-chip">
+      {% for campus in page.contact_campuses.all %}
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'0' }}00">
+        <div class="ct-campus-card">
+          <div class="ct-campus-badge"><i class="fa-solid fa-building-columns"></i> Campus {{ forloop.counter }}</div>
+          <h3 class="ct-campus-name">{{ campus.campus_name }}</h3>
+
+          {% if campus.address %}
+          <div class="ct-detail-row">
+            <div class="ct-detail-icon purple"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="ct-detail-label">Address</div>
+              <p class="ct-detail-val">{{ campus.address }}</p>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if campus.phone %}
+          <div class="ct-detail-row">
+            <div class="ct-detail-icon blue"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="ct-detail-label">Phone</div>
+              <p class="ct-detail-val"><a href="tel:{{ campus.phone }}">{{ campus.phone }}</a></p>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if campus.email %}
+          <div class="ct-detail-row">
+            <div class="ct-detail-icon green"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="ct-detail-label">Email</div>
+              <p class="ct-detail-val"><a href="mailto:{{ campus.email }}">{{ campus.email }}</a></p>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if campus.map_link_url %}
+          <a href="{{ campus.map_link_url }}" target="_blank" rel="noopener" class="ct-map-chip">
             <i class="fa-solid fa-map-location-dot"></i> View on Map
           </a>
           {% endif %}
         </div>
       </div>
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="ct-info-card">
-          <div class="ct-icon-wrap ct-icon-blue"><i class="fa-solid fa-phone"></i></div>
-          <h4>Phone Numbers</h4>
-          {% if page.phone_1 %}<a href="tel:{{ page.phone_1 }}">{{ page.phone_1 }}</a>{% endif %}
-          {% if page.phone_2 %}<a href="tel:{{ page.phone_2 }}">{{ page.phone_2 }}</a>{% endif %}
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="ct-info-card">
-          <div class="ct-icon-wrap ct-icon-green"><i class="fa-solid fa-envelope"></i></div>
-          <h4>Email Us</h4>
-          {% if page.email_1 %}<a href="mailto:{{ page.email_1 }}">{{ page.email_1 }}</a>{% endif %}
-          {% if page.email_2 %}<a href="mailto:{{ page.email_2 }}">{{ page.email_2 }}</a>{% endif %}
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="ct-info-card">
-          <div class="ct-icon-wrap ct-icon-orange"><i class="fa-solid fa-clock"></i></div>
-          <h4>School Hours</h4>
-          {% if page.contact_hours.exists %}
-            {% for hour in page.contact_hours.all|slice:":2" %}
-            <p{% if forloop.last %} style="margin-bottom:0"{% endif %}>{{ hour.day }}: {{ hour.time }}</p>
-            {% endfor %}
-          {% else %}
-            <p>Mon – Fri: 7:30 AM – 2:30 PM</p>
-          {% endif %}
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -232,7 +239,7 @@
 {% endif %}
 
 <!-- ═══ 6. MAP SECTION ═══ -->
-{% if page.map_embed_src %}
+{% if page.contact_campuses.exists %}
 <section class="ct-map-con" id="find-us">
   <div class="container position-relative" style="z-index:1;">
     <div class="row justify-content-center">
@@ -242,18 +249,72 @@
         {% if page.map_description %}
         <p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:28px;">{{ page.map_description }}</p>
         {% endif %}
-        {% if page.map_link_url %}
-        <a href="{{ page.map_link_url }}" target="_blank" rel="noopener" class="ct-open-maps-btn">
-          <i class="fa-solid fa-map-location-dot"></i> {{ page.map_link_label|default:"Open in Google Maps" }}
-        </a>
-        {% endif %}
+        <div class="ct-campus-tabs" data-aos="fade-up" data-aos-delay="50">
+          {% for campus in page.contact_campuses.all %}
+          <button class="ct-campus-tab{% if forloop.first %} active{% endif %}" data-campus="{{ forloop.counter0 }}" type="button">
+            <i class="fa-solid fa-building-columns"></i> {{ campus.campus_name }}
+          </button>
+          {% endfor %}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="100">
-    <iframe src="{{ page.map_embed_src }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+
+    {% for campus in page.contact_campuses.all %}
+    <div class="ct-campus-panel{% if forloop.first %} active{% endif %}" data-campus="{{ forloop.counter0 }}">
+      <div class="row justify-content-center" style="margin-top:24px;">
+        <div class="col-lg-8 text-center">
+          {% if campus.address %}
+          <p style="font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:18px;">
+            <i class="fa-solid fa-map-pin" style="margin-right:6px;color:var(--e-global-color-accent);"></i>{{ campus.address }}
+          </p>
+          {% endif %}
+          <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+            {% if campus.map_link_url %}
+            <a href="{{ campus.map_link_url }}" target="_blank" rel="noopener" class="ct-open-maps-btn">
+              <i class="fa-solid fa-map-location-dot"></i> Open in Google Maps
+            </a>
+            {% endif %}
+            {% if campus.map_directions_url %}
+            <a href="{{ campus.map_directions_url }}" target="_blank" rel="noopener" class="ct-directions-btn">
+              <i class="fa-solid fa-route"></i> Get Directions
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if campus.map_embed_url %}
+      <div class="ct-map-iframe-wrap" data-aos="fade-up" data-aos-delay="100">
+        <iframe src="{{ campus.map_embed_url }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
   </div>
 </section>
+
+<style>
+  .ct-campus-tabs { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:24px; }
+  .ct-campus-tab { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.18); color:rgba(255,255,255,0.75); padding:11px 28px; border-radius:50px; font-size:14px; font-weight:700; cursor:pointer; transition:all .22s; }
+  .ct-campus-tab:hover { background:rgba(26,86,219,0.2); border-color:var(--e-global-color-accent); color:#fff; }
+  .ct-campus-tab.active { background:var(--e-global-color-accent); border-color:var(--e-global-color-accent); color:#fff; }
+  .ct-campus-panel { display:none; }
+  .ct-campus-panel.active { display:block; }
+</style>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('#find-us .ct-campus-tab');
+  var panels = document.querySelectorAll('#find-us .ct-campus-panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var idx = this.dataset.campus;
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelector('#find-us .ct-campus-panel[data-campus="'+idx+'"]').classList.add('active');
+    });
+  });
+})();
+</script>
 {% endif %}
 
 <!-- ═══ 7. FAQ SECTION ═══ -->
@@ -291,7 +352,18 @@
 
 <!-- PRE LOADER -->
 <div class="loader-mask">
-  <div class="loader"><div></div><div></div></div>
+  <div class="ldr-orb ldr-orb1"></div>
+  <div class="ldr-orb ldr-orb2"></div>
+  <div class="loader">
+    <div class="ldr-word">
+      <span>A</span><span>Z</span><span>E</span><span>E</span><span>M</span>
+    </div>
+    <div class="ldr-rule"></div>
+    <p class="ldr-sub">Schooling System</p>
+    <div class="ldr-progress"><span></span></div>
+  </div>
+</div>
+</div>
 </div>
 
 <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
