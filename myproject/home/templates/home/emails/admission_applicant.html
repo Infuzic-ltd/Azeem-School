@@ -62,6 +62,14 @@
                 <td style="padding:12px 18px;font-size:13px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">{{ first_name }} {{ last_name }}</td>
               </tr>
               <tr>
+                <td style="padding:12px 18px;font-size:13px;color:#888;border-bottom:1px solid #f0f0f0;">Gender</td>
+                <td style="padding:12px 18px;font-size:13px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">{{ gender|default:"—" }}</td>
+              </tr>
+              <tr style="background:#f8f9fc;">
+                <td style="padding:12px 18px;font-size:13px;color:#888;border-bottom:1px solid #f0f0f0;">Parent / Guardian</td>
+                <td style="padding:12px 18px;font-size:13px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">{{ guardian_name|default:"—" }}</td>
+              </tr>
+              <tr>
                 <td style="padding:12px 18px;font-size:13px;color:#888;border-bottom:1px solid #f0f0f0;">Email</td>
                 <td style="padding:12px 18px;font-size:13px;font-weight:600;color:#0c2461;border-bottom:1px solid #f0f0f0;">{{ email }}</td>
               </tr>

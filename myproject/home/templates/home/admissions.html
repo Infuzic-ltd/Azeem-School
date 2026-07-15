@@ -362,6 +362,26 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Gender <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <select name="gender" class="form_style {% if errors.gender %}is-invalid{% endif %}" required>
+                                        <option value="" disabled {% if not form_data.gender %}selected{% endif %}>Select gender</option>
+                                        <option value="Male"   {% if form_data.gender == "Male"   %}selected{% endif %}>Male</option>
+                                        <option value="Female" {% if form_data.gender == "Female" %}selected{% endif %}>Female</option>
+                                    </select>
+                                    {% if errors.gender %}<div class="invalid-feedback">{{ errors.gender }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Parent / Guardian Name</label>
+                                    <input type="text" name="guardian_name"
+                                        class="form_style"
+                                        placeholder="e.g. Muhammad Ali"
+                                        value="{{ form_data.guardian_name|default:'' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label>Email Address <span style="color:var(--e-global-color-pure-red)">*</span></label>
                                     <input type="email" name="email"
                                         class="form_style {% if errors.email %}is-invalid{% endif %}"

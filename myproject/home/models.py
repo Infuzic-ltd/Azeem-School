@@ -3374,20 +3374,25 @@ class CareersPage(Page):
 
 @register_snippet
 class AdmissionApplication(models.Model):
-    first_name   = models.CharField(max_length=100, verbose_name="First Name")
-    last_name    = models.CharField(max_length=100, verbose_name="Last Name")
-    email        = models.EmailField(verbose_name="Email")
-    phone        = models.CharField(max_length=30, verbose_name="Phone")
-    dob          = models.CharField(max_length=30, blank=True, verbose_name="Date of Birth")
-    campus       = models.CharField(max_length=200, verbose_name="Campus")
-    board        = models.CharField(max_length=200, verbose_name="Board")
-    class_level  = models.CharField(max_length=100, verbose_name="Class")
-    message      = models.TextField(blank=True, verbose_name="Message / Goals")
-    submitted_at = models.DateTimeField(auto_now_add=True, verbose_name="Submitted At")
-    is_read      = models.BooleanField(default=False, verbose_name="Marked as Read")
+    GENDER_CHOICES = [("Male", "Male"), ("Female", "Female")]
+
+    first_name      = models.CharField(max_length=100, verbose_name="First Name")
+    last_name       = models.CharField(max_length=100, verbose_name="Last Name")
+    gender          = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES, verbose_name="Gender")
+    guardian_name   = models.CharField(max_length=150, blank=True, verbose_name="Parent / Guardian Name")
+    email           = models.EmailField(verbose_name="Email")
+    phone           = models.CharField(max_length=30, verbose_name="Phone")
+    dob             = models.CharField(max_length=30, blank=True, verbose_name="Date of Birth")
+    campus          = models.CharField(max_length=200, verbose_name="Campus")
+    board           = models.CharField(max_length=200, verbose_name="Board")
+    class_level     = models.CharField(max_length=100, verbose_name="Class")
+    message         = models.TextField(blank=True, verbose_name="Message / Goals")
+    submitted_at    = models.DateTimeField(auto_now_add=True, verbose_name="Submitted At")
+    is_read         = models.BooleanField(default=False, verbose_name="Marked as Read")
 
     panels = [
         FieldRowPanel([FieldPanel("first_name"), FieldPanel("last_name")]),
+        FieldRowPanel([FieldPanel("gender"), FieldPanel("guardian_name")]),
         FieldRowPanel([FieldPanel("email"), FieldPanel("phone")]),
         FieldRowPanel([FieldPanel("dob"), FieldPanel("campus")]),
         FieldRowPanel([FieldPanel("board"), FieldPanel("class_level")]),

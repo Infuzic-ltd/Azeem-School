@@ -109,15 +109,17 @@ def admissions_view(request):
 
     if request.method == "POST":
         data = {
-            "first_name":  request.POST.get("first_name",  "").strip(),
-            "last_name":   request.POST.get("last_name",   "").strip(),
-            "email":       request.POST.get("email",       "").strip(),
-            "phone":       request.POST.get("phone",       "").strip(),
-            "dob":         request.POST.get("dob",         "").strip(),
-            "campus":      request.POST.get("campus",      "").strip(),
-            "board":       request.POST.get("board",       "").strip(),
-            "class_level": request.POST.get("class_level", "").strip(),
-            "message":     request.POST.get("message",     "").strip(),
+            "first_name":    request.POST.get("first_name",    "").strip(),
+            "last_name":     request.POST.get("last_name",     "").strip(),
+            "gender":        request.POST.get("gender",        "").strip(),
+            "guardian_name": request.POST.get("guardian_name", "").strip(),
+            "email":         request.POST.get("email",         "").strip(),
+            "phone":         request.POST.get("phone",         "").strip(),
+            "dob":           request.POST.get("dob",           "").strip(),
+            "campus":        request.POST.get("campus",        "").strip(),
+            "board":         request.POST.get("board",         "").strip(),
+            "class_level":   request.POST.get("class_level",   "").strip(),
+            "message":       request.POST.get("message",       "").strip(),
         }
         context["form_data"] = data
 
@@ -127,6 +129,8 @@ def admissions_view(request):
             errors["first_name"] = "First name is required."
         if not data["last_name"]:
             errors["last_name"] = "Last name is required."
+        if not data["gender"]:
+            errors["gender"] = "Please select a gender."
         if not data["email"]:
             errors["email"] = "Email address is required."
         elif "@" not in data["email"]:
@@ -150,6 +154,8 @@ def admissions_view(request):
                 application = AdmissionApplication.objects.create(
                     first_name=data["first_name"],
                     last_name=data["last_name"],
+                    gender=data["gender"],
+                    guardian_name=data["guardian_name"],
                     email=data["email"],
                     phone=data["phone"],
                     dob=data["dob"],
