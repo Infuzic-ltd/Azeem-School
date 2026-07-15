@@ -385,7 +385,7 @@
                 {% endif %}
                 {% endwith %}
                 {% if page.about_video_url %}
-                <a href="{{ page.about_video_url }}" class="hero-video-btn js-video-trigger" data-video-url="{{ page.about_video_url }}">
+                <a href="{{ page.about_video_url }}" target="_blank" rel="noopener noreferrer" class="hero-video-btn">
                   <i class="fa-solid fa-circle-play"></i> Watch Our Story
                 </a>
                 {% endif %}
@@ -459,7 +459,7 @@
                                 {{ page.hero_btn_label }}<i class="fa-solid fa-arrow-right"></i>
                             </a>
                             {% if page.about_video_url %}
-                            <a href="{{ page.about_video_url }}" class="hero-video-btn js-video-trigger" data-video-url="{{ page.about_video_url }}">
+                            <a href="{{ page.about_video_url }}" target="_blank" rel="noopener noreferrer" class="hero-video-btn">
                                 <i class="fa-solid fa-circle-play"></i> Watch Our Story
                             </a>
                             {% endif %}
@@ -612,7 +612,7 @@
                         <div class="img-main">
                             <img src="{{ about_img_main.url }}" alt="{{ page.about_title }}">
                             {% if page.about_video_url %}
-                            <a href="{{ page.about_video_url }}" class="play-btn js-video-trigger" data-video-url="{{ page.about_video_url }}" title="Watch School Video">
+                            <a href="{{ page.about_video_url }}" target="_blank" rel="noopener noreferrer" class="play-btn" title="Watch School Video">
                                 <i class="fa-solid fa-play"></i>
                             </a>
                             {% endif %}
@@ -1017,105 +1017,6 @@ $(document).ready(function() {
 })();
 </script>
 {% endif %}
-
-<!-- ══ VIDEO MODAL (in-page YouTube playback) ══ -->
-<style>
-  #videoModalOverlay {
-    position: fixed; inset: 0; z-index: 99999;
-    background: rgba(10, 10, 30, 0.85);
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px;
-    opacity: 0; visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  #videoModalOverlay.is-visible { opacity: 1; visibility: visible; }
-  #videoModalBox {
-    position: relative;
-    width: 100%; max-width: 960px;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
-    transform: translateY(28px) scale(0.96);
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  #videoModalOverlay.is-visible #videoModalBox { transform: translateY(0) scale(1); }
-  #videoModalBox iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  #videoModalClose {
-    position: absolute; top: -44px; right: 0;
-    width: 36px; height: 36px;
-    background: rgba(255,255,255,0.92);
-    border: none; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 10;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    transition: background 0.2s, transform 0.2s;
-  }
-  #videoModalClose:hover { background: #fff; transform: scale(1.1); }
-  #videoModalClose svg { width: 14px; height: 14px; stroke: #1a1a2e; stroke-width: 2.5; }
-</style>
-<div id="videoModalOverlay" role="dialog" aria-modal="true" aria-label="Video player">
-  <div id="videoModalBox">
-    <button id="videoModalClose" aria-label="Close video">
-      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="1" y1="1" x2="13" y2="13"/>
-        <line x1="13" y1="1" x2="1" y2="13"/>
-      </svg>
-    </button>
-    <div id="videoModalFrame"></div>
-  </div>
-</div>
-<script>
-(function () {
-  var overlay = document.getElementById('videoModalOverlay');
-  var closeBtn = document.getElementById('videoModalClose');
-  var frameHolder = document.getElementById('videoModalFrame');
-
-  function toEmbedUrl(url) {
-    var id = null;
-    var m = url.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
-    if (m) id = m[1];
-    if (!id) return null;
-    return 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
-  }
-
-  function openModal(url) {
-    var embedUrl = toEmbedUrl(url);
-    if (!embedUrl) { window.open(url, '_blank', 'noopener'); return; }
-    var iframe = document.createElement('iframe');
-    iframe.src = embedUrl;
-    iframe.title = 'Video player';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen = true;
-    frameHolder.innerHTML = '';
-    frameHolder.appendChild(iframe);
-    overlay.classList.add('is-visible');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    overlay.classList.remove('is-visible');
-    frameHolder.innerHTML = '';
-    document.body.style.overflow = '';
-  }
-
-  document.querySelectorAll('.js-video-trigger').forEach(function (trigger) {
-    trigger.addEventListener('click', function (e) {
-      e.preventDefault();
-      openModal(trigger.dataset.videoUrl || trigger.getAttribute('href'));
-    });
-  });
-
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeModal();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeModal();
-  });
-})();
-</script>
 
 </body>
 </html>
