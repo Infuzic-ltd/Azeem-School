@@ -147,33 +147,11 @@ def admissions_view(request):
         if errors:
             context["errors"] = errors
         else:
-            import sys
-
-            # ── 1. Save to database (must succeed) ────────────────────────────
             try:
-                application = AdmissionApplication.objects.create(
-                    first_name=data["first_name"],
-                    last_name=data["last_name"],
-                    gender=data["gender"],
-                    guardian_name=data["guardian_name"],
-                    email=data["email"],
-                    phone=data["phone"],
-                    dob=data["dob"],
-                    campus=data["campus"],
-                    board=data["board"],
-                    class_level=data["class_level"],
-                    message=data["message"],
-                )
-            except Exception as exc:
-                print(f"[admissions_view] DB error: {exc}", file=sys.stderr)
-                context["error"] = "Your application could not be submitted right now. Please try again or contact us directly."
-                return render(request, "home/admissions.html", context)
-
-            # ── 2. Emails (failure is logged but never shown to user) ─────────
-            try:
-                import traceback
+                import sys, traceback
+                from datetime import datetime
                 from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "azeemadmissions@gmail.com")
-                submitted_at = application.submitted_at.strftime("%d %b %Y, %I:%M %p")
+                submitted_at = datetime.now().strftime("%d %b %Y, %I:%M %p")
                 email_ctx = {**data, "submitted_at": submitted_at}
 
                 owner_email = (page.form_contact_email if page else None) or \

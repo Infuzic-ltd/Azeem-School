@@ -3374,12 +3374,8 @@ class CareersPage(Page):
 
 @register_snippet
 class AdmissionApplication(models.Model):
-    GENDER_CHOICES = [("Male", "Male"), ("Female", "Female")]
-
     first_name      = models.CharField(max_length=100, verbose_name="First Name")
     last_name       = models.CharField(max_length=100, verbose_name="Last Name")
-    gender          = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES, verbose_name="Gender")
-    guardian_name   = models.CharField(max_length=150, blank=True, verbose_name="Parent / Guardian Name")
     email           = models.EmailField(verbose_name="Email")
     phone           = models.CharField(max_length=30, verbose_name="Phone")
     dob             = models.CharField(max_length=30, blank=True, verbose_name="Date of Birth")
@@ -3392,7 +3388,6 @@ class AdmissionApplication(models.Model):
 
     panels = [
         FieldRowPanel([FieldPanel("first_name"), FieldPanel("last_name")]),
-        FieldRowPanel([FieldPanel("gender"), FieldPanel("guardian_name")]),
         FieldRowPanel([FieldPanel("email"), FieldPanel("phone")]),
         FieldRowPanel([FieldPanel("dob"), FieldPanel("campus")]),
         FieldRowPanel([FieldPanel("board"), FieldPanel("class_level")]),
