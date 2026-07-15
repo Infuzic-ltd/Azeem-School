@@ -5,6 +5,18 @@ import modelcluster.fields
 from django.db import migrations, models
 
 
+def create_contact_campus_if_needed(apps, schema_editor):
+    from django.db import connection
+    if 'home_contactcampus' not in connection.introspection.table_names():
+        schema_editor.create_model(apps.get_model('home', 'ContactCampus'))
+
+
+def delete_contact_campus_if_exists(apps, schema_editor):
+    from django.db import connection
+    if 'home_contactcampus' in connection.introspection.table_names():
+        schema_editor.delete_model(apps.get_model('home', 'ContactCampus'))
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -12,23 +24,33 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='ContactCampus',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('campus_name', models.CharField(default='Campus', max_length=100)),
-                ('address', models.TextField(blank=True, default='')),
-                ('phone', models.CharField(blank=True, default='', max_length=30)),
-                ('email', models.EmailField(blank=True, default='', max_length=254)),
-                ('map_embed_url', models.URLField(blank=True, verbose_name='Google Maps Embed URL')),
-                ('map_link_url', models.URLField(blank=True, verbose_name='Google Maps Link URL')),
-                ('map_directions_url', models.URLField(blank=True, verbose_name='Get Directions URL')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='contact_campuses', to='home.contactpage')),
+        migrations.SeparateDatabaseAndState(
+            state_operations=[
+                migrations.CreateModel(
+                    name='ContactCampus',
+                    fields=[
+                        ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                        ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+                        ('campus_name', models.CharField(default='Campus', max_length=100)),
+                        ('address', models.TextField(blank=True, default='')),
+                        ('phone', models.CharField(blank=True, default='', max_length=30)),
+                        ('email', models.EmailField(blank=True, default='', max_length=254)),
+                        ('map_embed_url', models.URLField(blank=True, verbose_name='Google Maps Embed URL')),
+                        ('map_link_url', models.URLField(blank=True, verbose_name='Google Maps Link URL')),
+                        ('map_directions_url', models.URLField(blank=True, verbose_name='Get Directions URL')),
+                        ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='contact_campuses', to='home.contactpage')),
+                    ],
+                    options={
+                        'ordering': ['sort_order'],
+                        'abstract': False,
+                    },
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            database_operations=[
+                migrations.RunPython(
+                    create_contact_campus_if_needed,
+                    delete_contact_campus_if_exists,
+                ),
+            ],
         ),
     ]
