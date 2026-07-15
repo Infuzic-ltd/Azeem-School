@@ -154,8 +154,6 @@ def admissions_view(request):
                 application = AdmissionApplication.objects.create(
                     first_name=data["first_name"],
                     last_name=data["last_name"],
-                    gender=data["gender"],
-                    guardian_name=data["guardian_name"],
                     email=data["email"],
                     phone=data["phone"],
                     dob=data["dob"],
