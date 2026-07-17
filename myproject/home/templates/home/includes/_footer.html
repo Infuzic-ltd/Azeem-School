@@ -13,9 +13,9 @@
                             {% image home_page.footer_logo original as footer_logo_img %}
                             <a href="/"><figure class="footer-logo mb-0"><img class="img-fluid" src="{{ footer_logo_img.url }}" alt="logo"></figure></a>
                         {% endif %}
-                        <div style="text-align:center;flex:1;">
-                            <h4 style="margin-bottom:4px;">{{ home_page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
-                            <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;">Limited seats available. Secure your child's place today.</p>
+                        <div style="text-align:left;flex:1;">
+                            <h4 style="margin-bottom:4px;padding-left:0;">{{ home_page.admissions_cta_subtitle|default:"Admissions Open" }}</h4>
+                            <p style="color:rgba(255,255,255,0.7);font-size:14px;margin:0;text-align:left;">Limited seats available. Secure your child's place today.</p>
                         </div>
                         <a href="{% with u=home_page.admissions_cta_btn_url|default:'/admissions/' %}{% if u|slice:':1' == '/' %}{{ u }}{% else %}/{{ u }}{% endif %}{% endwith %}" class="text-decoration-none footer-apply-btn">
                             {{ home_page.admissions_cta_btn_label|default:"Apply Now" }} <i class="fa-solid fa-arrow-right"></i>
