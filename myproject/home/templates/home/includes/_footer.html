@@ -98,22 +98,17 @@
             </div>
         </div>
         <div class="copyright">
-            <p class="mb-0">{{ home_page.footer_copyright_text }}</p>
-            <p class="powered-by-infuzic mb-0">Powered by <span class="infuzic-glow">INFUZIC</span></p>
+            <p class="mb-0">{{ home_page.footer_copyright_text }} <span class="powered-by-infuzic">&middot; Powered by <span class="infuzic-glow">INFUZIC</span></span></p>
         </div>
     </div>
 </section>
 {% endif %}
 
 <style>
-.footer-con .copyright p.powered-by-infuzic {
-    font-size: 12px;
-    line-height: 12px;
-    font-weight: 400;
-    text-align: center;
+.footer-con .copyright p { background-color: transparent; }
+.footer-con .copyright .powered-by-infuzic {
+    font-size: 11px;
     color: var(--e-global-color-grayish-blue);
-    background-color: var(--e-global-color-very-dark-blue);
-    padding: 0 0 16px;
 }
 .infuzic-glow {
     font-weight: 800;
