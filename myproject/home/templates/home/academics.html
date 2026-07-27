@@ -321,7 +321,7 @@
             </div>
             <div class="col-lg-6 col-md-12 mt-4 mt-lg-0" data-aos="fade-left">
                 {% if page.grade_ladder_bg_image %}{% image page.grade_ladder_bg_image original as gl_bg %}{% endif %}
-                <div class="grade-ladder-box"{% if page.grade_ladder_bg_image %} style="background-image:linear-gradient(rgba(12,36,97,0.82),rgba(12,36,97,0.82)), url('{{ gl_bg.url }}');"{% endif %}>
+                <div class="grade-ladder-box"{% if page.grade_ladder_bg_image %} style="background-image:linear-gradient(rgba(12,36,97,0.55),rgba(12,36,97,0.55)), url('{{ gl_bg.url }}');"{% endif %}>
                     <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:13px;">{{ page.grade_ladder_subtitle }}</h6>
                     <h3 style="color:#ffffff;font-weight:800;font-size:26px;margin-bottom:28px;">{{ page.grade_ladder_heading }}</h3>
                     {% for item in page.grade_ladder_items.all %}
