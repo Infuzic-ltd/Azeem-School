@@ -261,12 +261,12 @@
       <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
         <div class="ab-video-wrapper">
           {% if page.video_youtube_id %}
-          <a class="ab-yt-link js-video-trigger" href="https://www.youtube.com/watch?v={{ page.video_youtube_id }}" data-video-url="https://www.youtube.com/watch?v={{ page.video_youtube_id }}">
+          <a class="ab-yt-link js-video-trigger" href="{{ page.video_youtube_id }}" data-video-url="{{ page.video_youtube_id }}">
             {% if page.video_thumbnail %}
               {% image page.video_thumbnail original as vthumb %}
               <img src="{{ vthumb.url }}" alt="{{ page.video_heading }}">
-            {% else %}
-              <img src="https://img.youtube.com/vi/{{ page.video_youtube_id }}/maxresdefault.jpg" alt="{{ page.video_heading }}">
+            {% elif page.video_youtube_thumb %}
+              <img src="{{ page.video_youtube_thumb }}" alt="{{ page.video_heading }}">
             {% endif %}
             <div class="ab-play-overlay">
               <div class="ab-play-circle"><i class="fa-solid fa-play"></i></div>

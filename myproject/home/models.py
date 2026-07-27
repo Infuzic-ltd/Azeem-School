@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 from wagtail.models import Page, Orderable
 from wagtail.admin.panels import (
@@ -1180,16 +1182,26 @@ class AboutPage(Page):
     video_label       = models.CharField(max_length=100, default="Watch & Learn", blank=True)
     video_heading     = models.CharField(max_length=300, default="See Our Campus in Action", blank=True)
     video_description = models.TextField(default="", blank=True)
-    video_youtube_id  = models.CharField(
-        max_length=30, blank=True,
-        verbose_name="YouTube Video ID",
-        help_text="Paste just the video ID from the URL — e.g. for https://youtu.be/dQw4w9WgXcQ paste dQw4w9WgXcQ",
+    video_youtube_id = models.URLField(
+        blank=True,
+        verbose_name="Video URL",
+        help_text="Paste the full YouTube video URL — e.g. https://youtu.be/dQw4w9WgXcQ",
     )
     video_thumbnail = models.ForeignKey(
         "wagtailimages.Image", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="about_video_thumbnail",
-        verbose_name="Video Thumbnail (shown if no YouTube ID set)",
+        verbose_name="Video Thumbnail (shown if no video set)",
     )
+
+    @property
+    def video_youtube_thumb(self):
+        if not self.video_youtube_id:
+            return None
+        match = re.search(
+            r"(?:youtube(?:-nocookie)?\.com/(?:watch\?v=|embed/|shorts/)|youtu\.be/)([\w-]{11})",
+            self.video_youtube_id,
+        )
+        return f"https://img.youtube.com/vi/{match.group(1)}/maxresdefault.jpg" if match else None
 
     # ── Mission & Vision Section ──────────────
     mv_label          = models.CharField(max_length=100, default="Our Purpose", blank=True, verbose_name="Section Label")
