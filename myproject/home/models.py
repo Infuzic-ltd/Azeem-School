@@ -2762,6 +2762,12 @@ class FacilitiesPage(Page):
     sports_heading     = models.CharField(max_length=300, blank=True, default="Sports & Athletics Facilities")
     sports_description = models.TextField(
         default="We believe every student deserves a healthy body alongside a sharp mind. Our sports infrastructure reflects that commitment.")
+    sports_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="facilities_sports_bg",
+        verbose_name="Sports & Athletics Background Image",
+        help_text="Optional. Shown behind the section instead of the default blue background.",
+    )
 
     # ── Library Section ───────────────────────
     library_subtitle      = models.CharField(max_length=100, blank=True, default="Knowledge Hub")
@@ -2848,6 +2854,7 @@ class FacilitiesPage(Page):
             FieldPanel("sports_subtitle"),
             FieldPanel("sports_heading"),
             FieldPanel("sports_description"),
+            FieldPanel("sports_bg_image"),
             InlinePanel("facility_sports", label="Sports Facility Cards"),
         ], heading="Sports & Athletics"),
 

@@ -83,6 +83,7 @@
         /* ── Sports ── */
         .sports-con {
             padding: 100px 0; background: var(--e-global-color-very-dark-blue);
+            background-size: cover; background-position: center;
             position: relative; overflow: hidden;
         }
         .sports-con::before {
@@ -93,6 +94,7 @@
             content: ""; position: absolute; width: 350px; height: 350px; border-radius: 50%;
             background: rgba(26,86,219,0.08); bottom: -100px; left: -100px;
         }
+        .sports-con .container { position: relative; z-index: 1; }
         .sport-card {
             background: rgba(255,255,255,0.05); border: 1px solid rgba(26,86,219,0.12);
             border-radius: 20px; padding: 32px 24px; position: relative; z-index: 1;
@@ -316,7 +318,8 @@
 </section>
 
 <!-- ═══ SPORTS & ATHLETICS ═══ -->
-<section class="sports-con" id="sports">
+{% if page.sports_bg_image %}{% image page.sports_bg_image original as sports_bg %}{% endif %}
+<section class="sports-con" id="sports"{% if page.sports_bg_image %} style="background-image:linear-gradient(rgba(12,36,97,0.55),rgba(12,36,97,0.55)), url('{{ sports_bg.url }}');"{% endif %}>
     <div class="container">
         <div class="row">
             <div class="col-12 text-center mb-5" data-aos="fade-up">
