@@ -1198,6 +1198,12 @@ class AboutPage(Page):
     mission_description = models.TextField(default="", blank=True)
     vision_heading    = models.CharField(max_length=200, default="Our Vision", blank=True)
     vision_description = models.TextField(default="", blank=True)
+    mv_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="about_mv_bg_image",
+        verbose_name="Mission & Vision Background Image",
+        help_text="Optional. Shown behind the section instead of the default blue background.",
+    )
 
     # ── Core Values Section ───────────────────
     values_label = models.CharField(max_length=100, default="What We Stand For", blank=True, verbose_name="Values Section Label")
@@ -1292,6 +1298,7 @@ class AboutPage(Page):
         MultiFieldPanel([
             FieldPanel("mv_label"),
             FieldPanel("mv_title"),
+            FieldPanel("mv_bg_image"),
             FieldPanel("mission_heading"),
             FieldPanel("mission_description"),
             InlinePanel("mission_points", label="Mission Bullet Points"),
@@ -2054,12 +2061,40 @@ class AcademicsPage(Page):
         default="Our curriculum aligns with Pakistan's leading examination boards, ensuring every student is prepared for national and international standards.")
     grade_ladder_subtitle = models.CharField(max_length=100, blank=True, default="Grade Structure")
     grade_ladder_heading  = models.CharField(max_length=200, blank=True, default="From First Steps to Board Exams")
+    grade_ladder_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="academics_grade_ladder_bg",
+        verbose_name="Grade Ladder Background Image",
+        help_text="Optional. Shown behind the grade ladder card instead of the default blue background.",
+    )
 
     # ── Subjects Section ──────────────────────
     subjects_subtitle    = models.CharField(max_length=100, blank=True, default="Subjects")
     subjects_heading     = models.CharField(max_length=300, blank=True, default="What Your Child Will Learn")
     subjects_description = models.TextField(
         default="Select a level to explore the subjects taught at each stage of your child's academic journey.")
+    subjects_bg_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="academics_subjects_bg",
+        verbose_name="Subjects Section Background Image",
+        help_text="Optional. Shown behind the subjects section instead of the default white background.",
+    )
+
+    @property
+    def subject_levels_with_items(self):
+        levels = [
+            ("early_years", "Early Years", "early"),
+            ("primary", "Primary (1–5)", "primary"),
+            ("middle", "Middle (6–8)", "middle"),
+            ("secondary", "Secondary (9–10)", "secondary"),
+        ]
+        all_subjects = list(self.academic_subjects.all())
+        result = []
+        for key, label, slug in levels:
+            items = [s for s in all_subjects if s.level == key]
+            if items:
+                result.append({"key": key, "label": label, "slug": slug, "items": items})
+        return result
 
     # ── Calendar Section ──────────────────────
     calendar_subtitle    = models.CharField(max_length=100, blank=True, default="Academic Year 2024–25")
@@ -2138,6 +2173,7 @@ class AcademicsPage(Page):
             FieldPanel("curriculum_description"),
             InlinePanel("academic_boards", label="Board Affiliation Cards"),
             FieldRowPanel([FieldPanel("grade_ladder_subtitle"), FieldPanel("grade_ladder_heading")]),
+            FieldPanel("grade_ladder_bg_image"),
             InlinePanel("grade_ladder_items", label="Grade Ladder Items"),
         ], heading="Curriculum & Board Section"),
 
@@ -2145,6 +2181,7 @@ class AcademicsPage(Page):
             FieldPanel("subjects_subtitle"),
             FieldPanel("subjects_heading"),
             FieldPanel("subjects_description"),
+            FieldPanel("subjects_bg_image"),
             InlinePanel("academic_subjects", label="Subjects (grouped by level via the Level field)"),
         ], heading="Subjects Section"),
 

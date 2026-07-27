@@ -75,9 +75,14 @@
         }
         .grade-ladder-row .gl-title { color: #fff; font-weight: 700; font-size: 14px; }
         .grade-ladder-row .gl-sub   { color: rgba(255,255,255,0.55); font-size: 12px; }
+        .grade-ladder-box {
+            background: var(--e-global-color-very-dark-blue);
+            background-size: cover; background-position: center;
+            border-radius: 24px; padding: 40px; height: 100%;
+        }
 
         /* ── Subjects ── */
-        .subjects-con { padding: 100px 0; background: #ffffff; }
+        .subjects-con { padding: 100px 0; background: #ffffff; background-size: cover; background-position: center; }
         .subjects-con .nav-tabs { border: none; margin-bottom: 40px; gap: 8px; flex-wrap: wrap; }
         .subjects-con .nav-tabs .nav-link {
             border: 2px solid rgba(26,86,219,0.2); border-radius: 50px;
@@ -315,7 +320,8 @@
                 {% endfor %}
             </div>
             <div class="col-lg-6 col-md-12 mt-4 mt-lg-0" data-aos="fade-left">
-                <div style="background:var(--e-global-color-very-dark-blue);border-radius:24px;padding:40px;height:100%;">
+                {% if page.grade_ladder_bg_image %}{% image page.grade_ladder_bg_image original as gl_bg %}{% endif %}
+                <div class="grade-ladder-box"{% if page.grade_ladder_bg_image %} style="background-image:linear-gradient(rgba(12,36,97,0.82),rgba(12,36,97,0.82)), url('{{ gl_bg.url }}');"{% endif %}>
                     <h6 style="color:var(--e-global-color-accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;font-size:13px;">{{ page.grade_ladder_subtitle }}</h6>
                     <h3 style="color:#ffffff;font-weight:800;font-size:26px;margin-bottom:28px;">{{ page.grade_ladder_heading }}</h3>
                     {% for item in page.grade_ladder_items.all %}
@@ -336,7 +342,8 @@
 </section>
 
 <!-- ═══ SUBJECTS BY GRADE ═══ -->
-<section class="subjects-con" id="subjects">
+{% if page.subjects_bg_image %}{% image page.subjects_bg_image original as subj_bg %}{% endif %}
+<section class="subjects-con" id="subjects"{% if page.subjects_bg_image %} style="background-image:linear-gradient(rgba(255,255,255,0.92),rgba(255,255,255,0.92)), url('{{ subj_bg.url }}');"{% endif %}>
     <div class="container">
         <div class="row">
             <div class="col-12 text-center mb-5" data-aos="fade-up">
@@ -345,79 +352,37 @@
                 <p style="color:var(--e-global-color-text);max-width:540px;margin:14px auto 0;font-size:15px;line-height:1.8;">{{ page.subjects_description }}</p>
             </div>
         </div>
+        {% with levels=page.subject_levels_with_items %}
+        {% if levels %}
         <div class="row" data-aos="fade-up" data-aos-delay="50">
             <div class="col-12">
                 <ul class="nav nav-tabs" id="subjectTabs" role="tablist">
+                    {% for lvl in levels %}
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="early-tab" data-toggle="tab" href="#early" role="tab" aria-selected="true">Early Years</a>
+                        <a class="nav-link{% if forloop.first %} active{% endif %}" id="{{ lvl.slug }}-tab" data-toggle="tab" href="#{{ lvl.slug }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ lvl.label }}</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="primary-tab" data-toggle="tab" href="#primary" role="tab" aria-selected="false">Primary (1–5)</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="middle-tab" data-toggle="tab" href="#middle" role="tab" aria-selected="false">Middle (6–8)</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="secondary-tab" data-toggle="tab" href="#secondary" role="tab" aria-selected="false">Secondary (9–10)</a>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="tab-content" id="subjectTabsContent">
-
-                    <div class="tab-pane fade show active" id="early" role="tabpanel">
+                    {% for lvl in levels %}
+                    <div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="{{ lvl.slug }}" role="tabpanel">
                         <div class="row mt-2">
-                            {% for s in page.academic_subjects.all %}{% if s.level == "early_years" %}
+                            {% for s in lvl.items %}
                             <div class="col-lg-2 col-md-3 col-6">
                                 <div class="subject-card">
                                     <div class="subj-icon {{ s.icon_color }}"><i class="{{ s.icon_choice }}"></i></div>
                                     <h5>{{ s.name }}</h5>
                                 </div>
                             </div>
-                            {% endif %}{% endfor %}
+                            {% endfor %}
                         </div>
                     </div>
-
-                    <div class="tab-pane fade" id="primary" role="tabpanel">
-                        <div class="row mt-2">
-                            {% for s in page.academic_subjects.all %}{% if s.level == "primary" %}
-                            <div class="col-lg-2 col-md-3 col-6">
-                                <div class="subject-card">
-                                    <div class="subj-icon {{ s.icon_color }}"><i class="{{ s.icon_choice }}"></i></div>
-                                    <h5>{{ s.name }}</h5>
-                                </div>
-                            </div>
-                            {% endif %}{% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="middle" role="tabpanel">
-                        <div class="row mt-2">
-                            {% for s in page.academic_subjects.all %}{% if s.level == "middle" %}
-                            <div class="col-lg-2 col-md-3 col-6">
-                                <div class="subject-card">
-                                    <div class="subj-icon {{ s.icon_color }}"><i class="{{ s.icon_choice }}"></i></div>
-                                    <h5>{{ s.name }}</h5>
-                                </div>
-                            </div>
-                            {% endif %}{% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="secondary" role="tabpanel">
-                        <div class="row mt-2">
-                            {% for s in page.academic_subjects.all %}{% if s.level == "secondary" %}
-                            <div class="col-lg-2 col-md-3 col-6">
-                                <div class="subject-card">
-                                    <div class="subj-icon {{ s.icon_color }}"><i class="{{ s.icon_choice }}"></i></div>
-                                    <h5>{{ s.name }}</h5>
-                                </div>
-                            </div>
-                            {% endif %}{% endfor %}
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </div>
+        {% endif %}
+        {% endwith %}
     </div>
 </section>
 
