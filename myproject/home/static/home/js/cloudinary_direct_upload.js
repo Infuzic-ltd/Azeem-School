@@ -2,33 +2,57 @@
     var SIGN_URL = '/admin-api/cloudinary-sign-upload/';
     var MAX_BYTES = 9.5 * 1024 * 1024; // keep in sync with CLOUDINARY_DIRECT_UPLOAD_MAX_BYTES
 
+    // Inject once: make the in-progress state impossible to miss (a quietly
+    // disabled submit button reads as "the modal froze" otherwise).
+    var style = document.createElement('style');
+    style.textContent =
+        '.cloudinary-direct-status { display: inline-block; margin-top: 6px; font-weight: 600; font-size: 13px; }' +
+        '.cloudinary-direct-status--busy { color: #1a56db; }' +
+        '.cloudinary-direct-status--error { color: #c0392b; }' +
+        '.cloudinary-direct-status--ok { color: #1a7f37; }' +
+        'button[data-cloudinary-busy]:disabled { opacity: 0.6; cursor: wait; }';
+    document.head.appendChild(style);
+
     function statusFor(input) {
         return document.querySelector('.cloudinary-direct-status[data-status-for="' + input.dataset.target + '"]');
     }
 
-    function setStatus(input, message, isError) {
+    function setStatus(input, message, kind) {
         var status = statusFor(input);
         if (!status) return;
         status.textContent = message || '';
-        status.style.color = isError ? '#c0392b' : '#666';
+        status.className = 'cloudinary-direct-status' + (kind ? ' cloudinary-direct-status--' + kind : '');
     }
 
     function toggleSubmit(form, disabled) {
         if (!form) return;
         form.querySelectorAll('button[type="submit"], input[type="submit"]').forEach(function (btn) {
             btn.disabled = disabled;
+            btn.toggleAttribute('data-cloudinary-busy', disabled);
+            if (btn.tagName === 'BUTTON') {
+                var label = btn.querySelector('em') || btn;
+                if (disabled) {
+                    if (btn.dataset.cloudinaryOrigLabel === undefined) {
+                        btn.dataset.cloudinaryOrigLabel = label.textContent;
+                    }
+                    label.textContent = 'Waiting for image upload…';
+                } else if (btn.dataset.cloudinaryOrigLabel !== undefined) {
+                    label.textContent = btn.dataset.cloudinaryOrigLabel;
+                    delete btn.dataset.cloudinaryOrigLabel;
+                }
+            }
         });
     }
 
     function handleFile(input, file) {
         if (!file) return;
         if (!file.type.startsWith('image/')) {
-            setStatus(input, 'Please choose an image file.', true);
+            setStatus(input, 'Please choose an image file.', 'error');
             input.value = '';
             return;
         }
         if (file.size > MAX_BYTES) {
-            setStatus(input, 'That file is ' + (file.size / 1024 / 1024).toFixed(1) + 'MB — please choose one under ' + (MAX_BYTES / 1024 / 1024).toFixed(1) + 'MB.', true);
+            setStatus(input, 'That file is ' + (file.size / 1024 / 1024).toFixed(1) + 'MB — please choose one under ' + (MAX_BYTES / 1024 / 1024).toFixed(1) + 'MB.', 'error');
             input.value = '';
             return;
         }
@@ -36,7 +60,7 @@
         var form = input.closest('form');
         var hidden = document.getElementById(input.dataset.target);
         toggleSubmit(form, true);
-        setStatus(input, 'Uploading…', false);
+        setStatus(input, 'Uploading image, please wait…', 'busy');
 
         fetch(SIGN_URL, { credentials: 'same-origin' })
             .then(function (r) {
@@ -68,10 +92,10 @@
                     hidden.dispatchEvent(new Event('input', { bubbles: true }));
                     hidden.dispatchEvent(new Event('change', { bubbles: true }));
                 }
-                setStatus(input, 'Uploaded (' + (file.size / 1024 / 1024).toFixed(1) + 'MB)', false);
+                setStatus(input, 'Image uploaded — you can click Upload now.', 'ok');
             })
             .catch(function (err) {
-                setStatus(input, err.message || 'Upload failed — please try again.', true);
+                setStatus(input, err.message || 'Upload failed — please try again.', 'error');
             })
             .finally(function () {
                 toggleSubmit(form, false);
