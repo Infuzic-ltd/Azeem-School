@@ -93,6 +93,12 @@ CLOUDINARY_STORAGE = {
 }
 
 WAGTAILDOCS_DOCUMENT_MODEL = 'home.CustomDocument'
+
+# Wagtail images are uploaded directly from the browser to Cloudinary (bypassing
+# Vercel's non-configurable 4.5MB request-body limit) — see home/wagtail_forms.py.
+WAGTAILIMAGES_IMAGE_FORM_BASE = "home.wagtail_forms.DirectUploadImageForm"
+CLOUDINARY_DIRECT_UPLOAD_FOLDER = "media/original_images"
+CLOUDINARY_DIRECT_UPLOAD_MAX_BYTES = int(9.5 * 1024 * 1024)  # headroom under Cloudinary Free's 10MB cap
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 

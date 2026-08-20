@@ -37,6 +37,7 @@
 
     function attach(input) {
         if (input._imgCompress) return;
+        if (input.dataset.cloudinaryDirect) return; // handled by cloudinary_direct_upload.js instead
         input._imgCompress = true;
         input.addEventListener('change', function () {
             var file = this.files[0];
