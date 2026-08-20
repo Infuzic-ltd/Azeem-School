@@ -6,8 +6,3 @@ from wagtail import hooks
 @hooks.register("insert_global_admin_js")
 def admin_image_compress_js():
     return format_html('<script src="{}"></script>', static("home/js/image_compress.js"))
-
-
-@hooks.register("insert_global_admin_js")
-def admin_cloudinary_direct_upload_js():
-    return format_html('<script src="{}"></script>', static("home/js/cloudinary_direct_upload.js"))

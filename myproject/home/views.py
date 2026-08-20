@@ -1,12 +1,9 @@
-import time
-
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, Http404, JsonResponse
+from django.http import HttpResponseRedirect, Http404
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils import timezone
-from django.contrib.admin.views.decorators import staff_member_required
 from wagtail.documents import get_document_model
 import cloudinary
 import cloudinary.utils
@@ -428,32 +425,3 @@ def document_download(request, doc_id):
         attachment=True,
     )
     return HttpResponseRedirect(signed_url)
-
-
-@staff_member_required
-def cloudinary_sign_upload(request):
-    """Signs a direct browser-to-Cloudinary upload for the Wagtail image admin.
-
-    Uploading straight to Cloudinary lets editors attach images larger than
-    Vercel's 4.5MB request-body limit (see home/wagtail_forms.py).
-    """
-    params = {
-        "timestamp": int(time.time()),
-        "folder": settings.CLOUDINARY_DIRECT_UPLOAD_FOLDER,
-        "use_filename": True,
-        "unique_filename": True,
-    }
-    cloudinary.config(
-        cloud_name=settings.CLOUDINARY_STORAGE["CLOUD_NAME"],
-        api_key=settings.CLOUDINARY_STORAGE["API_KEY"],
-        api_secret=settings.CLOUDINARY_STORAGE["API_SECRET"],
-        secure=True,
-    )
-    signature = cloudinary.utils.api_sign_request(params, settings.CLOUDINARY_STORAGE["API_SECRET"])
-    return JsonResponse({
-        **params,
-        "signature": signature,
-        "api_key": settings.CLOUDINARY_STORAGE["API_KEY"],
-        "cloud_name": settings.CLOUDINARY_STORAGE["CLOUD_NAME"],
-        "max_bytes": settings.CLOUDINARY_DIRECT_UPLOAD_MAX_BYTES,
-    })

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
-from home.views import home_view, about_view, about_view2, contact_view, contact_view2, admissions_view, admissions_view2, academics_view, academics_view2, facilities_view, document_download, facilities_view2, news_view, news_view2, homepage_preview2, careers_view, cloudinary_sign_upload
+from home.views import home_view, about_view, about_view2, contact_view, contact_view2, admissions_view, admissions_view2, academics_view, academics_view2, facilities_view, document_download, facilities_view2, news_view, news_view2, homepage_preview2, careers_view
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -11,7 +11,6 @@ from search import views as search_views
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
-    path("admin-api/cloudinary-sign-upload/", cloudinary_sign_upload, name="cloudinary_sign_upload"),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
