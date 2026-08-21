@@ -1,6 +1,6 @@
 (function () {
-    var MAX_BYTES = 3.5 * 1024 * 1024; // 3.5 MB — safe headroom under Vercel's 4.5 MB cap
-    var MAX_DIM   = 2400;               // max pixel dimension after resize
+    var MAX_BYTES = 4.2 * 1024 * 1024; // 4.2 MB — safe headroom under Vercel's 4.5 MB cap
+    var MAX_DIM   = 3200;               // max pixel dimension after resize
 
     function compress(file, done) {
         var reader = new FileReader();

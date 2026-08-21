@@ -272,14 +272,110 @@
 
         /* ══ GALLERY ══ */
         .gallery-con { padding: 100px 0; background: var(--e-global-color-very-pale-blue); }
-        .gallery-filter-wrap { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 44px; }
-        .gal-filter-btn {
-            padding: 10px 24px; border-radius: 50px; font-size: 13px; font-weight: 700;
-            border: 2px solid rgba(26,86,219,0.2); background: #ffffff; color: var(--e-global-color-text);
-            cursor: pointer; transition: all 0.25s;
+        .gallery-filter-scroll { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 38px; }
+        .gallery-filter-wrap {
+            display: flex; flex-wrap: nowrap; gap: 24px; flex: 1; min-width: 0;
+            overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x proximity;
+            padding: 4px 4px 6px; scrollbar-width: none;
         }
-        .gal-filter-btn:hover { border-color: var(--e-global-color-soft-blue); color: var(--e-global-color-soft-blue); }
-        .gal-filter-btn.active { background: var(--e-global-color-very-dark-blue); color: #ffffff; border-color: var(--e-global-color-very-dark-blue); }
+        .gallery-filter-wrap::-webkit-scrollbar { display: none; }
+        .gallery-filter-scroll::before, .gallery-filter-scroll::after {
+            content: ""; position: absolute; top: 0; bottom: 0; width: 48px; z-index: 2; pointer-events: none;
+        }
+        .gallery-filter-scroll::before { left: 56px; background: linear-gradient(to right, var(--e-global-color-very-pale-blue), transparent); }
+        .gallery-filter-scroll::after { right: 56px; background: linear-gradient(to left, var(--e-global-color-very-pale-blue), transparent); }
+        .gal-filter-scroll-btn {
+            flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: none; z-index: 3;
+            background: #ffffff; color: var(--e-global-color-very-dark-blue);
+            box-shadow: 0 8px 20px rgba(12,36,97,0.16); font-size: 14px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+        }
+        .gal-filter-scroll-btn:hover { background: var(--e-global-color-very-dark-blue); color: #fff; transform: scale(1.1); }
+        .gal-filter-btn {
+            position: relative; width: 210px; height: 230px; border-radius: 20px; overflow: hidden;
+            border: 3px solid transparent; background: none; padding: 0; cursor: pointer; flex-shrink: 0;
+            box-shadow: 0 10px 26px rgba(12,36,97,0.14); scroll-snap-align: start;
+            transition: transform 0.4s cubic-bezier(.22,1,.36,1), box-shadow 0.4s, border-color 0.3s;
+        }
+        .gal-filter-btn:hover { transform: translateY(-8px); box-shadow: 0 22px 44px rgba(12,36,97,0.24); }
+        .gal-filter-btn:hover .gal-filter-icon,
+        .gal-filter-btn:hover .gal-filter-icon img { transform: scale(1.08); }
+        .gal-filter-btn.active {
+            border-color: var(--e-global-color-soft-blue);
+            animation: gal-pop 0.4s ease;
+        }
+        .gal-filter-icon {
+            position: absolute; inset: 0; z-index: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(160deg, var(--e-global-color-very-dark-blue), var(--e-global-color-soft-blue));
+            color: rgba(255,255,255,0.85); font-size: 46px;
+            transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+        }
+        .gal-filter-icon img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(.22,1,.36,1); }
+        .gal-filter-btn::before {
+            content: ""; position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(to top, rgba(8,20,60,0.88) 0%, rgba(8,20,60,0.2) 48%, transparent 72%);
+        }
+        .gal-filter-label {
+            position: absolute; left: 12px; right: 12px; bottom: 18px; z-index: 2;
+            font-size: 16px; font-weight: 800; color: #fff; text-align: center; letter-spacing: 0.2px;
+        }
+        .gal-filter-check {
+            position: absolute; top: 12px; right: 12px; z-index: 2;
+            width: 26px; height: 26px; border-radius: 50%; background: var(--e-global-color-soft-blue);
+            color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: scale(0.5); transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+        }
+        .gal-filter-btn.active .gal-filter-check { opacity: 1; transform: scale(1); }
+        @media (max-width: 991px) {
+            .gallery-filter-wrap { gap: 16px; }
+            .gal-filter-btn { width: 150px; height: 170px; border-radius: 16px; }
+            .gal-filter-icon { font-size: 32px; }
+            .gal-filter-label { font-size: 14px; bottom: 14px; }
+            .gal-filter-scroll-btn { display: none; }
+            .gallery-filter-scroll::before, .gallery-filter-scroll::after { width: 32px; }
+            .gallery-filter-scroll::before { left: 0; }
+            .gallery-filter-scroll::after { right: 0; }
+        }
+        @media (max-width: 575px) {
+            .gal-filter-btn { width: 130px; height: 150px; }
+        }
+        @keyframes gal-pop {
+            0%   { transform: scale(0.9); }
+            55%  { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .gallery-grid-wrap {
+            position: relative; background: #ffffff; border-radius: 26px;
+            padding: 40px 28px 28px; box-shadow: 0 14px 38px rgba(12,36,97,0.09);
+        }
+        .gal-connector {
+            position: absolute; top: -12px; left: 50%; width: 24px; height: 24px;
+            background: #ffffff; border-radius: 5px; transform: translateX(-50%) rotate(45deg);
+            box-shadow: -2px -2px 6px rgba(12,36,97,0.05);
+            transition: left 0.45s cubic-bezier(.22,1,.36,1);
+        }
+        .gallery-grid-header {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 26px; padding-bottom: 22px;
+            border-bottom: 1px solid rgba(26,86,219,0.1);
+        }
+        .ggh-icon {
+            width: 42px; height: 42px; border-radius: 12px; overflow: hidden; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(160deg, var(--e-global-color-very-dark-blue), var(--e-global-color-soft-blue));
+            color: #fff; font-size: 16px; transition: background 0.3s;
+        }
+        .ggh-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .gallery-grid-header h4 { margin: 0; font-size: 18px; font-weight: 800; color: var(--e-global-color-very-dark-blue); }
+        .ggh-count {
+            margin-left: auto; font-size: 12px; font-weight: 700; color: var(--e-global-color-soft-blue);
+            background: var(--e-global-color-very-pale-blue); padding: 7px 16px; border-radius: 50px; white-space: nowrap;
+        }
+        @media (max-width: 575px) {
+            .gallery-grid-wrap { padding: 32px 16px 20px; }
+            .gallery-grid-header h4 { font-size: 15px; }
+        }
         .gallery-grid { columns: 4; column-gap: 16px; }
         @media (max-width: 1199px) { .gallery-grid { columns: 3; } }
         @media (max-width: 767px)  { .gallery-grid { columns: 2; } }
@@ -287,13 +383,14 @@
         .gal-item {
             break-inside: avoid; margin-bottom: 16px; border-radius: 16px; overflow: hidden;
             position: relative; cursor: pointer;
-            box-shadow: 0 4px 16px rgba(12,36,97,0.08); transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 16px rgba(12,36,97,0.08); transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
         }
+        .gal-item.gal-item-hidden { opacity: 0; transform: scale(0.9); }
         .gal-item:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(12,36,97,0.18); }
         .gal-item img { width: 100%; display: block; transition: transform 0.4s ease; }
         .gal-item:hover img { transform: scale(1.05); }
         .gal-overlay {
-            position: absolute; inset: 0;f
+            position: absolute; inset: 0;
             background: linear-gradient(to top, rgba(12,36,97,0.88) 0%, rgba(12,36,97,0.2) 55%, transparent 100%);
             opacity: 0; transition: opacity 0.3s; border-radius: 16px;
             display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
@@ -548,30 +645,59 @@
         </div>
         <div class="row mt-4 mb-2">
             <div class="col-12" data-aos="fade-up">
-                <div class="gallery-filter-wrap">
-                    <button class="gal-filter-btn active" data-gal-filter="all">All Photos</button>
-                    <button class="gal-filter-btn" data-gal-filter="events">Events</button>
-                    <button class="gal-filter-btn" data-gal-filter="sports">Sports</button>
-                    <button class="gal-filter-btn" data-gal-filter="arts">Arts</button>
-                    <button class="gal-filter-btn" data-gal-filter="campus">Campus</button>
-                    <button class="gal-filter-btn" data-gal-filter="academics">Academics</button>
+                <div class="gallery-filter-scroll">
+                    <button type="button" class="gal-filter-scroll-btn gal-filter-scroll-prev" id="galFilterPrev" aria-label="Scroll categories left">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <div class="gallery-filter-wrap" id="galFilterWrap">
+                        <button class="gal-filter-btn active" data-gal-filter="all">
+                            <span class="gal-filter-icon gal-filter-icon--all"><i class="fa-solid fa-images"></i></span>
+                            <span class="gal-filter-label">All Photos</span>
+                            <span class="gal-filter-check"><i class="fa-solid fa-check"></i></span>
+                        </button>
+                        {% for cat in page.gallery_categories_with_images %}
+                        <button class="gal-filter-btn" data-gal-filter="{{ cat.key }}">
+                            <span class="gal-filter-icon">
+                                {% if cat.image %}
+                                {% image cat.image fill-520x520 as cat_img %}
+                                <img src="{{ cat_img.url }}" alt="{{ cat.label }}">
+                                {% else %}
+                                <i class="fa-solid fa-tag"></i>
+                                {% endif %}
+                            </span>
+                            <span class="gal-filter-label">{{ cat.label }}</span>
+                            <span class="gal-filter-check"><i class="fa-solid fa-check"></i></span>
+                        </button>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="gal-filter-scroll-btn gal-filter-scroll-next" id="galFilterNext" aria-label="Scroll categories right">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="gallery-grid" id="galleryGrid" data-aos="fade-up">
-            {% for photo in page.news_gallery_photos.all %}
-            {% if photo.image %}
-            {% image photo.image original as gal_img %}
-            <div class="gal-item" data-gal-cat="{{ photo.category }}">
-                <img src="{{ gal_img.url }}" alt="{{ photo.alt_text|default:photo.title }}">
-                <div class="gal-overlay">
-                    <div class="gal-overlay-cat">{{ photo.get_category_display }}</div>
-                    <div class="gal-overlay-title">{{ photo.title }}</div>
-                </div>
-                <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+        <div class="gallery-grid-wrap" data-aos="fade-up">
+            <span class="gal-connector" id="galConnector"></span>
+            <div class="gallery-grid-header">
+                <span class="ggh-icon" id="galHeaderIcon"><i class="fa-solid fa-images"></i></span>
+                <h4 id="galHeaderLabel">All Photos</h4>
+                <span class="ggh-count" id="galHeaderCount">0 photos</span>
             </div>
-            {% endif %}
-            {% endfor %}
+            <div class="gallery-grid" id="galleryGrid">
+                {% for photo in page.news_gallery_photos.all %}
+                {% if photo.image %}
+                {% image photo.image original as gal_img %}
+                <div class="gal-item" data-gal-cat="{{ photo.category }}">
+                    <img src="{{ gal_img.url }}" alt="{{ photo.alt_text|default:photo.title }}">
+                    <div class="gal-overlay">
+                        <div class="gal-overlay-cat">{{ photo.get_category_display }}</div>
+                        <div class="gal-overlay-title">{{ photo.title }}</div>
+                    </div>
+                    <div class="gal-zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>
@@ -669,17 +795,66 @@
         });
     });
 
+    /* ── Gallery category row scroll arrows ── */
+    var galFilterWrap = document.getElementById('galFilterWrap');
+    var galFilterPrev = document.getElementById('galFilterPrev');
+    var galFilterNext = document.getElementById('galFilterNext');
+    if (galFilterWrap && galFilterPrev && galFilterNext) {
+        galFilterPrev.addEventListener('click', function() { galFilterWrap.scrollBy({ left: -260, behavior: 'smooth' }); });
+        galFilterNext.addEventListener('click', function() { galFilterWrap.scrollBy({ left: 260, behavior: 'smooth' }); });
+    }
+
     /* ── Gallery filter ── */
+    function updateGalHeader(btn, visibleCount) {
+        var label = document.getElementById('galHeaderLabel');
+        var icon = document.getElementById('galHeaderIcon');
+        var count = document.getElementById('galHeaderCount');
+        var connector = document.getElementById('galConnector');
+        var wrap = document.querySelector('.gallery-grid-wrap');
+        if (label) label.textContent = btn.querySelector('.gal-filter-label').textContent;
+        if (icon) icon.innerHTML = btn.querySelector('.gal-filter-icon').innerHTML;
+        if (count) count.textContent = visibleCount + (visibleCount === 1 ? ' photo' : ' photos');
+        if (connector && wrap) {
+            var btnRect = btn.getBoundingClientRect();
+            var wrapRect = wrap.getBoundingClientRect();
+            var left = btnRect.left + btnRect.width / 2 - wrapRect.left;
+            left = Math.max(30, Math.min(left, wrapRect.width - 30));
+            connector.style.left = left + 'px';
+        }
+    }
+
     document.querySelectorAll('.gal-filter-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.gal-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.remove('active');
+            void this.offsetWidth; // restart the pop animation even on repeat clicks
             this.classList.add('active');
+
             var filter = this.dataset.galFilter;
+            var visibleCount = 0;
             document.querySelectorAll('.gal-item').forEach(function(item) {
-                item.style.display = (filter === 'all' || item.dataset.galCat === filter) ? 'block' : 'none';
+                var show = (filter === 'all' || item.dataset.galCat === filter);
+                if (show) {
+                    visibleCount++;
+                    item.style.display = 'block';
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() { item.classList.remove('gal-item-hidden'); });
+                    });
+                } else {
+                    item.classList.add('gal-item-hidden');
+                    setTimeout(function() {
+                        if (item.classList.contains('gal-item-hidden')) item.style.display = 'none';
+                    }, 300);
+                }
             });
+            updateGalHeader(this, visibleCount);
         });
     });
+
+    var initialGalBtn = document.querySelector('.gal-filter-btn.active');
+    if (initialGalBtn) {
+        updateGalHeader(initialGalBtn, document.querySelectorAll('.gal-item').length);
+    }
 </script>
 </body>
 </html>

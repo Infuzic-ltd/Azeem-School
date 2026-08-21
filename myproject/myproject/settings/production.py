@@ -60,9 +60,9 @@ if _cloud_name and _api_key and _api_secret:
         "API_SECRET": _api_secret,
     }
 
-# ── Upload limits (Vercel hard cap is 4.5 MB per request) ────────────────────
-DATA_UPLOAD_MAX_MEMORY_SIZE = 4 * 1024 * 1024   # 4 MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = 4 * 1024 * 1024   # 4 MB
+# ── Upload limits (Vercel hard cap is 4.5 MB per request, non-configurable) ──
+DATA_UPLOAD_MAX_MEMORY_SIZE = int(4.3 * 1024 * 1024)   # 4.3 MB — headroom for the rest of the multipart body
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(4.3 * 1024 * 1024)
 
 # ── Wagtail ───────────────────────────────────────────────────────────────────
 WAGTAILADMIN_BASE_URL = os.environ.get(

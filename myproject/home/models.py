@@ -3000,6 +3000,8 @@ GALLERY_CATEGORY_CHOICES = [
     ("arts",      "Arts"),
     ("campus",    "Campus"),
     ("academics", "Academics"),
+    ("activities", "Activities"),
+    ("celebrations", "Celebrations"),
 ]
 
 
@@ -3152,6 +3154,25 @@ class NewsGalleryPhoto(Orderable):
         return self.title
 
 
+class NewsGalleryCategoryImage(Orderable):
+    page     = ParentalKey("NewsPage", on_delete=models.CASCADE, related_name="news_gallery_category_images")
+    category = models.CharField(max_length=20, choices=GALLERY_CATEGORY_CHOICES, default="events",
+                                help_text="Which filter pill this cover image belongs to")
+    image    = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="news_gallery_category_image",
+        help_text="Small cover image shown on this category's filter button (square works best)",
+    )
+
+    panels = [
+        FieldPanel("category"),
+        FieldPanel("image"),
+    ]
+
+    def __str__(self):
+        return self.get_category_display()
+
+
 # ══════════════════════════════════════════════════════════════════
 # NEWS & GALLERY PAGE
 # ══════════════════════════════════════════════════════════════════
@@ -3211,6 +3232,16 @@ class NewsPage(Page):
     def featured_article(self):
         return self.news_articles.filter(is_featured=True).first()
 
+    @property
+    def gallery_categories_with_images(self):
+        images_by_category = {
+            c.category: c.image for c in self.news_gallery_category_images.all() if c.image
+        }
+        return [
+            {"key": key, "label": label, "image": images_by_category.get(key)}
+            for key, label in GALLERY_CATEGORY_CHOICES
+        ]
+
     # ──────────────────────────────────────────
     # ADMIN PANELS
     # ──────────────────────────────────────────
@@ -3248,6 +3279,7 @@ class NewsPage(Page):
             FieldPanel("gallery_eyebrow"),
             FieldPanel("gallery_heading"),
             FieldPanel("gallery_description"),
+            InlinePanel("news_gallery_category_images", label="Category Cover Images (one per filter pill)"),
             InlinePanel("news_gallery_photos", label="Gallery Photos"),
         ], heading="Gallery"),
 

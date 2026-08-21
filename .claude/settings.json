@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat -tlnp)",
+      "Bash(timeout 8 curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/news/)",
+      "Bash(timeout 8 curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/admin/login/)",
+      "Bash(time timeout 60 curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/news/)",
+      "Bash(time timeout 15 curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/news/)",
+      "Bash(python manage.py shell -c ' *)",
+      "Bash(python3 \"/tmp/claude-1000/-home-marketiq-Downloads-azeem-second-Azeem-School/7a1ec86b-2018-462f-9c77-5d8930baa55b/scratchpad/screenshot_gallery.py\")",
+      "Bash(time timeout 90 curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8000/news/)",
+      "Bash(python3 \"/tmp/claude-1000/-home-marketiq-Downloads-azeem-second-Azeem-School/7a1ec86b-2018-462f-9c77-5d8930baa55b/scratchpad/screenshot_carousel.py\")"
+    ]
+  }
+}
