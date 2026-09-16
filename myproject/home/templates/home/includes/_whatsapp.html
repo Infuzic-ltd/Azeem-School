@@ -2,10 +2,22 @@
   .reg-float { position:fixed; bottom:130px; right:20px; z-index:2000; display:inline-flex; align-items:center; gap:8px; background:#1a56db; color:#ffffff; padding:11px 20px; border-radius:50px; font-weight:800; font-size:13px; font-family:'Urbanist',sans-serif; text-decoration:none; box-shadow:0 6px 24px rgba(26,86,219,0.35); transition:transform .22s,box-shadow .22s; white-space:nowrap; }
   .reg-float i { font-size:15px; }
   .reg-float:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 32px rgba(26,86,219,0.50); color:#ffffff; }
+
+  .playstore-float { position:fixed; bottom:210px; right:20px; z-index:2000; display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#0c2461,#1a56db); color:#ffffff; padding:11px 20px; border-radius:50px; font-weight:800; font-size:13px; font-family:'Urbanist',sans-serif; text-decoration:none; box-shadow:0 6px 24px rgba(26,86,219,0.35); transition:transform .22s,box-shadow .22s; white-space:nowrap; }
+  .playstore-float i { font-size:16px; animation:ps-bounce 2.4s ease-in-out infinite; }
+  .playstore-float:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 32px rgba(26,86,219,0.50); color:#ffffff; }
+  .playstore-float::after { content:""; position:absolute; inset:-6px; border-radius:50px; pointer-events:none; border:2px solid rgba(26,86,219,0.5); animation:ps-ring 2.2s ease-out infinite; }
+  @keyframes ps-ring { 0%{transform:scale(1);opacity:.9;} 70%{transform:scale(1.08);opacity:0;} 100%{transform:scale(1.08);opacity:0;} }
+  @keyframes ps-bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-2px);} }
 </style>
 {% if home_page and home_page.nav_btn_label and home_page.nav_btn_url %}
 <a href="{% if home_page.nav_btn_url|slice:':1' != '/' and home_page.nav_btn_url|slice:':4' != 'http' %}/{% endif %}{{ home_page.nav_btn_url }}" class="reg-float">
   <i class="fa-solid fa-graduation-cap"></i> {{ home_page.nav_btn_label }}
+</a>
+{% endif %}
+{% if home_page and home_page.play_store_url %}
+<a href="{{ home_page.play_store_url }}" target="_blank" rel="noopener noreferrer" class="playstore-float">
+  <i class="fa-brands fa-google-play"></i> Get the App
 </a>
 {% endif %}
 {% if home_page and home_page.nav_phone %}
