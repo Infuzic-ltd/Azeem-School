@@ -1405,6 +1405,11 @@ class HomePage(Page):
     nav_phone = models.CharField(max_length=30, blank=True, default="", verbose_name="Phone Number")
     nav_btn_label = models.CharField(max_length=50, blank=True, default="", verbose_name="Button Label")
     nav_btn_url = models.CharField(max_length=255, blank=True, default="", verbose_name="Button URL")
+    play_store_url = models.URLField(
+        max_length=500, blank=True, default="",
+        verbose_name="Google Play Store URL",
+        help_text="Link to the app's Google Play Store listing. Leave blank to hide the \"Get the App\" badge from the navbar.",
+    )
 
     # ── Hero ──────────────────────────────────
     hero_bg_image = models.ForeignKey(
@@ -1568,6 +1573,7 @@ class HomePage(Page):
             FieldPanel("favicon"),
             FieldRowPanel([FieldPanel("nav_logo"), FieldPanel("nav_school_name")]),
             FieldPanel("nav_phone"),
+            FieldPanel("play_store_url"),
         ], heading="① Navbar"),
 
         # ── Section 2: Hero / Banner ──────────────────────────────────────
