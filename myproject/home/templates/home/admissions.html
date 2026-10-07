@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ page.banner_title }} | Educiza</title>
+    <title>{{ page.banner_title }} | Azeem School</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta charset="utf-8">
     {% include "home/includes/_favicon.html" %}
@@ -323,7 +323,7 @@
             <!-- Form card -->
             <div class="col-lg-9 col-md-12" data-aos="fade-up">
                 <div class="form-card">
-                    <h6>Application Form</h6>
+                    <h6>Student Admission Form</h6>
                     <h2>Tell Us About Yourself</h2>
                     <p class="form-intro">All fields marked <span style="color:var(--e-global-color-pure-red)">*</span> are required. We will never spam you.</p>
 
@@ -344,7 +344,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>First Name <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <label>Student First Name <span style="color:var(--e-global-color-pure-red)">*</span></label>
                                     <input type="text" name="first_name"
                                         class="form_style {% if errors.first_name %}is-invalid{% endif %}"
                                         placeholder="e.g. Azeem" value="{{ form_data.first_name|default:'' }}" required>
@@ -353,7 +353,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Last Name <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <label>Student Last Name <span style="color:var(--e-global-color-pure-red)">*</span></label>
                                     <input type="text" name="last_name"
                                         class="form_style {% if errors.last_name %}is-invalid{% endif %}"
                                         placeholder="e.g. Khan" value="{{ form_data.last_name|default:'' }}" required>
@@ -362,7 +362,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Gender <span style="color:var(--e-global-color-pure-red)">*</span></label>
+                                    <label>Student Gender <span style="color:var(--e-global-color-pure-red)">*</span></label>
                                     <select name="gender" class="form_style {% if errors.gender %}is-invalid{% endif %}" required>
                                         <option value="" disabled {% if not form_data.gender %}selected{% endif %}>Select gender</option>
                                         <option value="Male"   {% if form_data.gender == "Male"   %}selected{% endif %}>Male</option>
@@ -400,7 +400,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Date of Birth</label>
+                                    <label>Student Date of Birth</label>
                                     <input type="date" name="dob" class="form_style"
                                         value="{{ form_data.dob|default:'' }}">
                                 </div>
@@ -438,7 +438,6 @@
                                     <label>Class <span style="color:var(--e-global-color-pure-red)">*</span></label>
                                     <select name="class_level" class="form_style {% if errors.class_level %}is-invalid{% endif %}" required>
                                         <option value="" disabled {% if not form_data.class_level %}selected{% endif %}>Select a class</option>
-                                        <option value="Pre-Montessori" {% if form_data.class_level == "Pre-Montessori" %}selected{% endif %}>Pre-Montessori</option>
                                         <option value="Montessori"     {% if form_data.class_level == "Montessori" %}selected{% endif %}>Montessori</option>
                                         <option value="KG1"            {% if form_data.class_level == "KG1" %}selected{% endif %}>KG1</option>
                                         <option value="KG2"            {% if form_data.class_level == "KG2" %}selected{% endif %}>KG2</option>
@@ -458,9 +457,9 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Tell Us About Your Goals / Message</label>
+                                    <label>Message to Azeem School</label>
                                     <textarea name="message" class="form_style"
-                                        placeholder="Why do you want to join? Any specific goals or questions?">{{ form_data.message|default:'' }}</textarea>
+                                        placeholder="Anything you'd like to share with us?">{{ form_data.message|default:'' }}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -488,7 +487,7 @@
             <i class="fa-solid fa-circle-check"></i>
         </div>
         <div class="admissions-toast-body">
-            <strong>Application Submitted!</strong>
+            <strong>Admission Submitted!</strong>
             <p>{{ page.form_success_message }}</p>
         </div>
         <button class="admissions-toast-close" onclick="closeAdmissionsToast()" aria-label="Close">
