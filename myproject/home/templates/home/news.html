@@ -516,7 +516,7 @@
                     <p>{{ featured.excerpt }}</p>
                     {% if featured.is_apply_now %}
                     <a href="/admissions/" class="apply-now-link" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-soft-blue);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:14px;text-decoration:none;transition:all 0.3s;width:fit-content;">
-                        Apply Now <i class="fa-solid fa-pen"></i>
+                        Register Now <i class="fa-solid fa-pen"></i>
                     </a>
                     {% else %}
                     <button type="button" class="news-link" style="display:inline-flex;align-items:center;gap:10px;background:var(--e-global-color-very-dark-blue);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:14px;border:none;cursor:pointer;transition:all 0.3s;"
@@ -552,7 +552,7 @@
                         <h5>{{ article.title }}</h5>
                         <p>{{ article.excerpt }}</p>
                         {% if article.is_apply_now %}
-                        <a href="/admissions/" class="apply-now-link">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="/admissions/" class="apply-now-link">Register Now <i class="fa-solid fa-arrow-right"></i></a>
                         {% else %}
                         <button type="button" class="news-link" data-toggle="modal" data-target="#article-modal-{{ article.pk }}">
                             Read More <i class="fa-solid fa-arrow-right"></i>
@@ -756,7 +756,7 @@
                 <div class="modal-footer-actions">
                     {% if article.is_apply_now %}
                     <a href="/admissions/" class="modal-apply-btn">
-                        Apply Now <i class="fa-solid fa-pen"></i>
+                        Register Now <i class="fa-solid fa-pen"></i>
                     </a>
                     {% endif %}
                     <button type="button" class="modal-close-btn" data-dismiss="modal">
